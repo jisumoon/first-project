@@ -11,16 +11,16 @@
 // 2-1. 가상클래스 = filledA & filledB
 
 const femaleBtn = document.querySelector("#femalebtn");
-const maleBtn = document.getElementById("#malebtn");
+const maleBtn = document.querySelector("#malebtn");
 
 femaleBtn.addEventListener("click", (event) => {
-  event.preventDefault();
-  femaleBtn.querySelector("i").classList.toggle("filledA");
-  maleBtn.querySelector("i").classList.remove("filledB");
+    event.preventDefault();
+    femaleBtn.querySelector("i").classList.toggle("filledA");
+    maleBtn.querySelector("i").classList.remove("filledB");
 });
 
 maleBtn.addEventListener("click", (event) => {
-  event.preventDefault();
-  maleBtn.querySelector("i").classList.toggle("filledB");
-  femaleBtn.querySelector("i").classList.remove("filledA");
+    event.preventDefault();
+    maleBtn.querySelector("i").classList.toggle("filledB");
+    femaleBtn.querySelector("i").classList.remove("filledA");
 });
