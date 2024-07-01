@@ -1,0 +1,95 @@
+/* reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+  text-decoration: none;
+  color: inherit;
+}
+
+#app_container {
+  width: 100%;
+}
+
+/*font*/
+@font-face {
+  font-family: "Nanum HanaSonGeurSsi";
+  src: url("./font/Nanum\ HanaSonGeurSsi.ttf") format("ttf");
+}
+
+/* navigation_heading */
+
+.navigation {
+  margin: 16px;
+  justify-content: space-around;
+  display: flex;
+}
+
+/* right gnb*/
+
+.right_gnb {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.logo img {
+  height: 40px;
+  width: 50px;
+  justify-content: center;
+  align-items: center;
+}
+
+.topNav {
+  display: flex;
+  gap: 60px;
+  font-family: Nanum HanaSonGeurSsi;
+}
+
+.topNav > li {
+  position: relative;
+}
+
+.topNav > li > a {
+  color: #000;
+  font-size: 22px;
+  text-align: center;
+}
+
+.topNav .active {
+  color: black;
+}
+
+.topNav > li > .lnb {
+  border: 1px solid #f00;
+  width: 180px;
+  height: 200px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 100%);
+  text-align: center;
+  background: #fff;
+
+  opacity: 0;
+  overflow: hidden;
+}
+
+.topNav > li > .lnb a {
+  display: inline-block;
+  color: #dedede;
+  margin: 20px 0;
+  &:hover {
+    color: black;
+  }
+}
