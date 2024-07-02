@@ -125,3 +125,35 @@ a {
         transform: translateX(-100%);
     }
 }
+
+/* main_title */
+
+.main_slide {
+    align-items: center;
+    margin-top: 30px;
+}
+
+.main_title {
+    text-align: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 24px;
+    color: palevioletred;
+}
+
+/* icecream_card */
+
+.icecream_card ul {
+    border: 1px solid #f00;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    position: absolute;
+    bottom: 0;
+    transform: translateY(100px);
+}
+
+.icecream_card ul li {
+    border: 1px solid #f00;
+}
