@@ -1,0 +1,127 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* container */
+
+/*top_navigation */
+
+#top_navigation {
+  width: 1098px;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/*left_gnb */
+
+.left_gnb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: palevioletred;
+  font-weight: bold;
+}
+
+/*right_gnb*/
+
+.gnb {
+  display: flex;
+  gap: 60px;
+  padding-right: 30px;
+  color: #bdbdbd;
+  font-weight: bold;
+}
+
+.gnb .active {
+  color: palevioletred;
+  font-weight: bold;
+}
+
+.gnb > li {
+  position: relative;
+}
+
+.gnb > li > a {
+  padding-top: 300px;
+  justify-content: center;
+}
+
+.gnb > li .lnb {
+  width: 160px;
+  height: 100px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 100%);
+  background-color: white;
+  border-radius: 10px;
+  text-align: center;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.gnb > li .lnb a {
+  display: inline-block;
+  color: #bdbdbd;
+  margin: 20px 0;
+  &:hover {
+    cursor: [pointer];
+  }
+}
+
+/* flow_container */
+
+.flow_container {
+  margin-top: 10px;
+  overflow-x: hidden;
+}
+
+.flow_text {
+  background-color: pink;
+  border: 2px solid pink;
+  padding: 10px 0;
+  font-weight: bold;
+  display: flex;
+  color: white;
+  white-space: nowrap;
+  &:hover {
+    .flow_wrap {
+      animation-play-state: paused;
+    }
+  }
+
+  .flow_wrap {
+    animation: textLoop 40s linear infinite;
+    span {
+      display: inline-block;
+      font-size: 14px;
+      padding-right: 10px;
+    }
+  }
+}
+
+@keyframes textLoop {
+  0% {
+    transform: translateX(0);
+    padding-right: 10px;
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
