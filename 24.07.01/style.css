@@ -1,193 +1,181 @@
-<<<<<<< HEAD
-/* reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@import url(./reset.css);
+
+/*header */
+
+header {
+    width: 100%;
+    background: #222;
+
+    .inner_header {
+        width: 1180px;
+        height: 60px;
+        margin: 0 auto;
+
+        .text_inner {
+            position: relative;
+            height: 100%;
+            display: flex;
+            #logo {
+                position: absolute;
+                bottom: 2px;
+                padding-left: 30px;
+                font: normal 30px/1 "playball";
+                color: white;
+            }
+
+            #Gnb {
+                position: absolute;
+                display: flex;
+                bottom: 0;
+                right: 0;
+                padding-right: 30px;
+                gap: 60px;
+                font: normal 18px/1 "Sedan";
+                color: white;
+            }
+        }
+    }
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
+/*moon_box*/
+
+.moon_box {
+    width: 100%;
+    height: calc(100vh - 60px);
+    margin: 0 auto;
+    background-color: #222;
+    position: relative;
+    padding: 200px;
+
+    .moon_inner {
+        width: 100%;
+        height: 100%;
+
+        .moon {
+            margin: 0 auto;
+            background: #d2b62e;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #d2b62e;
+            position: relative;
+            &::before {
+                content: "";
+                background-color: #222;
+                position: absolute;
+                display: block;
+                height: 100%;
+                width: 100%;
+                border-radius: 50%;
+                z-index: 1;
+                animation: 20s ani linear infinite alternate;
+            }
+        }
+        .moon_text {
+            width: 100%;
+            ul {
+                text-align: center;
+                padding-top: 40px;
+                font: normal 32px/1.5 "DM Serif Display";
+                color: #fff;
+                letter-spacing: 10px;
+            }
+        }
+    }
 }
 
-ul,
-ol,
-li {
-  list-style: none;
-  text-decoration: none;
-  color: inherit;
+/*card_box*/
+
+.inner_card {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+
+    .items {
+        border: 1px solid #f00;
+        width: 100%;
+        height: calc(100vh - 60px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 70px;
+
+        .item {
+            width: 200px;
+            height: 350px;
+            position: relative;
+            perspective-origin: center;
+            transform-style: preserve-3d;
+            transition: all 0.5s;
+            :hover {
+                cursor: pointer;
+                transform: rotateY(180deg);
+            }
+
+            .front {
+                width: 100%;
+                height: 100%;
+                border-radius: 20px;
+                transition: all 1s;
+                z-index: 2;
+                position: absolute;
+                align-items: center;
+                justify-content: center;
+                backface-visibility: hidden;
+                background-color: #efefef;
+                box-shadow: -13px 18px 32px -3px rgba(52, 52, 52, 0.65);
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                i {
+                    font-size: 70px;
+                    color: #ffd602;
+                    text-shadow: 0px 0px #fff, -1px -1px #a1a1a1f1;
+                }
+            }
+            .back {
+                width: 100%;
+                height: 100%;
+                border-radius: 20px;
+                z-index: 1;
+                background-color: #efefef;
+                box-shadow: -13px 16px 24px -2px rgba(172, 172, 172, 0.65);
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font: bold 24px/1.5 "DM Serif Display";
+                letter-spacing: 10px;
+            }
+        }
+    }
 }
 
-#app_container {
-  width: 100%;
+@keyframes ani {
+    100% {
+        transform: translatex(120px) scale(0.9);
+        box-shadow: none;
+    }
+    50% {
+        transform: translate(0px, 0px) scale(1.02);
+        box-shadow: 0 0 10px #000 0 0 80px 2px #000;
+    }
+    0% {
+        transform: translatex(-120px) scale(0.8);
+        box-shadow: none;
+    }
 }
 
-/*font*/
-@font-face {
-  font-family: "Nanum HanaSonGeurSsi";
-  src: url("./font/Nanum\ HanaSonGeurSsi.ttf") format("ttf");
+@media screen and (max-width: 1180px) and (min-width: 360px) {
+    header {
+        .inner_header {
+            width: 100%;
+        }
+    }
+    section {
+        .moon_inner {
+            width: 100%;
+        }
+    }
 }
-
-/* navigation_heading */
-
-.navigation {
-  margin: 16px;
-  justify-content: space-around;
-  display: flex;
-}
-
-/* right gnb*/
-
-.right_gnb {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-}
-.logo img {
-  height: 40px;
-  width: 50px;
-  justify-content: center;
-  align-items: center;
-}
-
-.topNav {
-  display: flex;
-  gap: 60px;
-  font-family: Nanum HanaSonGeurSsi;
-}
-
-.topNav > li {
-  position: relative;
-}
-
-.topNav > li > a {
-  color: #000;
-  font-size: 22px;
-  text-align: center;
-}
-
-.topNav .active {
-  color: black;
-}
-
-.topNav > li > .lnb {
-  border: 1px solid #f00;
-  width: 180px;
-  height: 200px;
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 100%);
-  text-align: center;
-  background: #fff;
-
-  opacity: 0;
-  overflow: hidden;
-}
-
-.topNav > li > .lnb a {
-  display: inline-block;
-  color: #dedede;
-  margin: 20px 0;
-  &:hover {
-    color: black;
-  }
-}
-=======
-/* reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-ul,
-ol,
-li {
-  list-style: none;
-  text-decoration: none;
-  color: inherit;
-}
-
-#app_container {
-  width: 100%;
-}
-
-/*font*/
-@font-face {
-  font-family: "Nanum HanaSonGeurSsi";
-  src: url("./font/Nanum\ HanaSonGeurSsi.ttf") format("ttf");
-}
-
-/* navigation_heading */
-
-.navigation {
-  margin: 16px;
-  justify-content: space-around;
-  display: flex;
-}
-
-/* right gnb*/
-
-.right_gnb {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-}
-.logo img {
-  height: 40px;
-  width: 50px;
-  justify-content: center;
-  align-items: center;
-}
-
-.topNav {
-  display: flex;
-  gap: 60px;
-  font-family: Nanum HanaSonGeurSsi;
-}
-
-.topNav > li {
-  position: relative;
-}
-
-.topNav > li > a {
-  color: #000;
-  font-size: 22px;
-  text-align: center;
-}
-
-.topNav .active {
-  color: black;
-}
-
-.topNav > li > .lnb {
-  border: 1px solid #f00;
-  width: 180px;
-  height: 200px;
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 100%);
-  text-align: center;
-  background: #fff;
-
-  opacity: 0;
-  overflow: hidden;
-}
-
-.topNav > li > .lnb a {
-  display: inline-block;
-  color: #dedede;
-  margin: 20px 0;
-  &:hover {
-    color: black;
-  }
-}
->>>>>>> e3c423eed93d881c9086fe9415167b0914584ecb
