@@ -1,3 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Margarine&family=Nanum+Gothic&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -14,18 +19,22 @@ a {
   color: inherit;
 }
 
-/* container */
+:root {
+  --main-width: 1190px;
+}
 
-/*top_navigation */
+#container {
+  width: 100%;
+  position: relative;
+}
 
 #top_navigation {
-  width: 1098px;
-  height: 70px;
+  width: var(--main-width);
+  height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
-  text-align: center;
 }
 
 /*left_gnb */
@@ -35,7 +44,10 @@ a {
   justify-content: center;
   align-items: center;
   color: palevioletred;
-  font-weight: bold;
+  font-size: 24px;
+  a {
+    font-family: "Margarine";
+  }
 }
 
 /*right_gnb*/
@@ -46,6 +58,7 @@ a {
   padding-right: 30px;
   color: #bdbdbd;
   font-weight: bold;
+  font-family: "Nanum Gothic";
 }
 
 .gnb .active {
@@ -55,11 +68,7 @@ a {
 
 .gnb > li {
   position: relative;
-}
-
-.gnb > li > a {
-  padding-top: 300px;
-  justify-content: center;
+  margin: 10px 0;
 }
 
 .gnb > li .lnb {
@@ -79,8 +88,10 @@ a {
 .gnb > li .lnb a {
   display: inline-block;
   color: #bdbdbd;
-  margin: 20px 0;
+  margin: 10px 0;
+  transform: all 1s;
   &:hover {
+    color: #000;
     cursor: [pointer];
   }
 }
@@ -88,22 +99,18 @@ a {
 /* flow_container */
 
 .flow_container {
-  margin-top: 10px;
   overflow-x: hidden;
 }
 
 .flow_text {
   background-color: pink;
-  border: 2px solid pink;
-  padding: 10px 0;
+  padding: 6px 0;
   font-weight: bold;
   display: flex;
   color: white;
   white-space: nowrap;
   &:hover {
-    .flow_wrap {
-      animation-play-state: paused;
-    }
+    cursor: pointer;
   }
 
   .flow_wrap {
@@ -123,5 +130,92 @@ a {
   }
   100% {
     transform: translateX(-100%);
+  }
+}
+
+/*main*/
+.main {
+  width: var(--main-width);
+  margin: 20px auto;
+}
+
+.main_title {
+  padding: 20px;
+  text-align: center;
+  color: #d87093;
+  font-family: "Nanum Gothic";
+  font-weight: bold;
+  font-size: 26px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.main_text {
+  font-family: "Nanum Gothic";
+  font-size: 20px;
+  color: #bdbdbd;
+  text-align: center;
+}
+
+.slide_card {
+  width: var(--main-width);
+  height: 400px;
+  margin: 0 auto;
+  position: relative;
+
+  ul {
+    height: 400px;
+    position: absolute;
+    right: 0;
+    top: -320px;
+
+    margin: 0 auto;
+  }
+  img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/* background_img */
+
+#background_img {
+  width: var(--main-width);
+  height: 400px;
+  margin: 0 auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  position: relative;
+  border-radius: 10%;
+
+  #top_contents {
+    width: var(--main-width);
+    height: 400px;
+    margin: 40px auto;
+    position: relative;
+
+    .top_contents_title {
+      color: #fff;
+      font-family: "Do Hyeon", sans-serif;
+      font-size: 28px;
+      font-weight: 100;
+      text-align: center;
+      padding: 20px 30px 20px 30px;
+    }
+
+    .top_contents_desc {
+      width: var(--main-width);
+      bottom: 0px;
+      padding: 10px;
+      text-align: center;
+      position: absolute;
+      font-family: "Do Hyeon", sans-serif;
+      font-weight: 100;
+      color: #fff;
+      font-size: 26px;
+      line-height: 1.5;
+    }
   }
 }
