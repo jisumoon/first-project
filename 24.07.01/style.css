@@ -19,7 +19,7 @@ header {
                 position: absolute;
                 bottom: 2px;
                 padding-left: 30px;
-                font: normal 30px/1 "playball";
+                font: normal 30px/1 "Playball";
                 color: white;
             }
 
@@ -30,7 +30,7 @@ header {
                 right: 0;
                 padding-right: 30px;
                 gap: 60px;
-                font: normal 18px/1 "Sedan";
+                font: normal 18px/1 "DM Serif Display";
                 color: white;
             }
         }
@@ -92,7 +92,6 @@ header {
     align-items: center;
 
     .items {
-        border: 1px solid #f00;
         width: 100%;
         height: calc(100vh - 60px);
         display: flex;
@@ -123,7 +122,7 @@ header {
                 justify-content: center;
                 backface-visibility: hidden;
                 background-color: #efefef;
-                box-shadow: -13px 18px 32px -3px rgba(52, 52, 52, 0.65);
+                box-shadow: -13px 18px 32px -3px rgba (172, 172, 172, 0.65);
                 overflow: hidden;
                 display: flex;
                 align-items: center;
@@ -146,11 +145,13 @@ header {
                 align-items: center;
                 justify-content: center;
                 font: bold 24px/1.5 "DM Serif Display";
-                letter-spacing: 10px;
+                letter-spacing: 5px;
             }
         }
     }
 }
+
+/*story_type*/
 
 @keyframes ani {
     100% {
