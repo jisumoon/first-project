@@ -8,24 +8,24 @@
 
 const gnbLi = document.querySelectorAll(".gnb >li");
 gnbLi.forEach((li) => {
-  li.addEventListener("mouseover", () => {
-    const lnb = li.querySelector(".lnb");
-    const aTag = li.querySelector("a");
-    if (lnb) {
-      lnb.style.maxHeight = lnb.scrollHeight + "px";
-      lnb.style.opacity = "1";
-      aTag.classList.add("active");
-    }
-  });
-  li.addEventListener("mouseout", () => {
-    const lnb = li.querySelector(".lnb");
-    const aTag = li.querySelector("a");
-    if (lnb) {
-      lnb.style.maxHeight = "0";
-      lnb.style.opacity = "0";
-      aTag.classList.remove("active");
-    }
-  });
+    li.addEventListener("mouseover", () => {
+        const lnb = li.querySelector(".lnb");
+        const aTag = li.querySelector("a");
+        if (lnb) {
+            lnb.style.maxHeight = lnb.scrollHeight + "px";
+            lnb.style.opacity = "1";
+            aTag.classList.add("active");
+        }
+    });
+    li.addEventListener("mouseout", () => {
+        const lnb = li.querySelector(".lnb");
+        const aTag = li.querySelector("a");
+        if (lnb) {
+            lnb.style.maxHeight = "0";
+            lnb.style.opacity = "0";
+            aTag.classList.remove("active");
+        }
+    });
 });
 
 //1. slide_card의 각 요소에 마우스를 오버하면, 각 card들이 왼쪽으로 이동한다.
@@ -43,13 +43,13 @@ gnbLi.forEach((li) => {
 const items = document.querySelectorAll(".slide_card li");
 
 items.forEach((item) => {
-  item.addEventListener("mouseover", () => {
-    item.style.transform = "translateX(-4px)";
-    item.style.transition = "all 0.1s";
-  });
-  item.addEventListener("mouseout", () => {
-    item.style.transform = "translateX(0)";
-  });
+    item.addEventListener("mouseover", () => {
+        item.style.transform = "translateX(-4px)";
+        item.style.transition = "all 0.1s";
+    });
+    item.addEventListener("mouseout", () => {
+        item.style.transform = "translateX(0)";
+    });
 });
 
 // 이미지 변화
@@ -63,21 +63,21 @@ const contentTit = topContents.querySelector(".top_contents_title");
 const contentDesc = topContents.querySelector(".top_contents_desc");
 
 fetch("./data.json")
-  .then((response) => response.json())
-  .then((jsonData) => {
-    const [firstData, ...otherData] = jsonData.data;
-    bgImg.style.backgroundImage = `url(./img/${bgImgs[0]})`;
-    contentTit.innerText = firstData.title;
-    contentDesc.innerText = firstData.description;
+    .then((response) => response.json())
+    .then((jsonData) => {
+        const [firstData, ...otherData] = jsonData.data;
+        bgImg.style.backgroundImage = `url(./img/${bgImgs[0]})`;
+        contentTit.innerText = firstData.title;
+        contentDesc.innerText = firstData.description;
 
-    items.forEach((item, index) => {
-      item.addEventListener("click", (e) => {
-        e.preventDefault();
-        console.log("click");
-        const { title, description } = jsonData.data[index];
-        bgImg.style.backgroundImage = `url(./img/${bgImgs[index]})`;
-        contentTit.innerText = title;
-        contentDesc.innerText = description;
-      });
+        items.forEach((item, index) => {
+            item.addEventListener("click", (e) => {
+                e.preventDefault();
+                console.log("click");
+                const { title, description } = jsonData.data[index];
+                bgImg.style.backgroundImage = `url(./img/${bgImgs[index]})`;
+                contentTit.innerText = title;
+                contentDesc.innerText = description;
+            });
+        });
     });
-  });
