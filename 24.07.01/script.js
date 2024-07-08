@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // 스크롤 완료 후 0.5초 후에 스크롤 중 여부 변수를 false로 설정하여 다시 스크롤 가능하게 함
             setTimeout(function () {
                 isScrolling = false;
-            }, 1000); // 1초(
+            }, 1000); // 1초(1000ms) 설정
         }
     });
 });

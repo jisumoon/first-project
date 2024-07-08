@@ -156,20 +156,35 @@ header {
 /*story_cards*/
 
 .story_cards {
-    height: calc(100vh - 60px);
+    height: 100vh;
     display: flex;
+    align-items: center;
+    justify-content: center;
     overflow: hidden;
-    padding: 20px;
-    white-space: nowrap;
-    scroll-snap-type: x mandatory;
+    position: relative;
     .card {
         display: flex;
         overflow: hidden;
-        scroll-behavior: smooth;
         .slide {
-            scroll-snap-align: start;
-            position: relative;
             min-width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+
+            .slide:nth-child(1) {
+                background: #ffddc1;
+            }
+            .slide:nth-child(2) {
+                background: #ffabab;
+            }
+            .slide:nth-child(3) {
+                background: #ffc3a0;
+            }
 
             .story_inner {
                 padding: 20px;
