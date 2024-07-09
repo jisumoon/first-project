@@ -3,236 +3,255 @@
 /*header */
 
 header {
-    width: 100%;
-    background: #222;
+  width: 100%;
+  background: #222;
 
-    .inner_header {
-        width: 1180px;
-        height: 60px;
-        margin: 0 auto;
+  .inner_header {
+    width: 1180px;
+    height: 60px;
+    margin: 0 auto;
 
-        .text_inner {
-            position: relative;
-            height: 100%;
-            display: flex;
-            #logo {
-                position: absolute;
-                bottom: 2px;
-                padding-left: 30px;
-                font: normal 30px/1 "Playball";
-                color: white;
-            }
+    .text_inner {
+      position: relative;
+      height: 100%;
+      display: flex;
+      #logo {
+        position: absolute;
+        bottom: 2px;
+        padding-left: 30px;
+        font: normal 30px/1 "Playball";
+        color: white;
+      }
 
-            #Gnb {
-                position: absolute;
-                display: flex;
-                bottom: 0;
-                right: 0;
-                padding-right: 30px;
-                gap: 60px;
-                font: normal 18px/1 "DM Serif Display";
-                color: white;
-            }
-        }
+      #Gnb {
+        position: absolute;
+        display: flex;
+        bottom: 0;
+        right: 0;
+        padding-right: 30px;
+        gap: 60px;
+        font: normal 18px/1 "DM Serif Display";
+        color: white;
+      }
     }
+  }
 }
 
 /*moon_box*/
 
 .moon_box {
+  width: 100%;
+  height: calc(100vh - 60px);
+  margin: 0 auto;
+  background-color: #222;
+  position: relative;
+  padding: 200px;
+
+  .moon_inner {
     width: 100%;
-    height: calc(100vh - 60px);
-    margin: 0 auto;
-    background-color: #222;
-    position: relative;
-    padding: 200px;
+    height: 100%;
 
-    .moon_inner {
-        width: 100%;
+    .moon {
+      margin: 0 auto;
+      background: #d2b62e;
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #d2b62e;
+      position: relative;
+      &::before {
+        content: "";
+        background-color: #222;
+        position: absolute;
+        display: block;
         height: 100%;
-
-        .moon {
-            margin: 0 auto;
-            background: #d2b62e;
-            width: 250px;
-            height: 250px;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #d2b62e;
-            position: relative;
-            &::before {
-                content: "";
-                background-color: #222;
-                position: absolute;
-                display: block;
-                height: 100%;
-                width: 100%;
-                border-radius: 50%;
-                z-index: 1;
-                animation: ani 30s linear infinite alternate;
-            }
-        }
-        .moon_text {
-            width: 100%;
-            ul {
-                text-align: center;
-                padding-top: 60px;
-                font: normal 32px/1.5 "DM Serif Display";
-                color: #fff;
-                letter-spacing: 10px;
-            }
-        }
+        width: 100%;
+        border-radius: 50%;
+        z-index: 1;
+        animation: ani 30s linear infinite alternate;
+      }
     }
+    .moon_text {
+      width: 100%;
+      ul {
+        text-align: center;
+        padding-top: 60px;
+        font: normal 32px/1.5 "DM Serif Display";
+        color: #fff;
+        letter-spacing: 10px;
+      }
+    }
+  }
 }
 
 /*card_box*/
 
 .inner_card {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+
+  .items {
     width: 100%;
+    height: calc(100vh - 60px);
+    display: flex;
     justify-content: center;
     align-items: center;
+    gap: 100px;
+    -webkit-perspective: 2000;
+    perspective: 2000;
 
-    .items {
-        width: 100%;
-        height: calc(100vh - 60px);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 100px;
-        perspective: 2000;
-
-        .item {
-            width: 200px;
-            height: 350px;
-            position: relative;
-            perspective-origin: center;
-            transform-style: preserve-3d;
-            transition: all 0.7s;
-            &:hover {
-                cursor: pointer;
-                transform: rotateY(180deg);
-            }
-
-            .front {
-                width: 100%;
-                height: 100%;
-                border-radius: 20px;
-                transition: all 1s;
-                z-index: 2;
-                position: absolute;
-                align-items: center;
-                justify-content: center;
-                backface-visibility: hidden;
-                background-color: #efefef;
-                box-shadow: -13px 18px 32px -3px rgba (172, 172, 172, 0.65);
-                overflow: hidden;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                i {
-                    font-size: 70px;
-                    color: #ffd602;
-                    text-shadow: 0px 0px #fff, -1px -1px #a1a1a1f1;
-                }
-            }
-            .back {
-                width: 100%;
-                height: 100%;
-                border-radius: 20px;
-                z-index: 1;
-                background-color: #efefef;
-                box-shadow: -13px 16px 24px -2px rgba(172, 172, 172, 0.65);
-                overflow: hidden;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transform: rotateY(180deg);
-                font: bold 24px/1.5 "DM Serif Display";
-                letter-spacing: 5px;
-            }
-        }
+    .card_title {
+      font: normal 32px/1.5 "DM Serif Display";
+      letter-spacing: 1.5px;
     }
+
+    .item {
+      width: 200px;
+      height: 350px;
+      position: relative;
+      perspective-origin: center;
+      transform-style: preserve-3d;
+      transition: all 0.7s;
+      &:hover {
+        cursor: pointer;
+        transform: rotateY(180deg);
+      }
+
+      .front {
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+        transition: all 1s;
+        z-index: 2;
+        position: absolute;
+        align-items: center;
+        justify-content: center;
+        backface-visibility: hidden;
+        background-color: #efefef;
+        box-shadow: -13px 18px 32px -3px rgba (172, 172, 172, 0.65);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        i {
+          font-size: 70px;
+          color: #ffd602;
+          text-shadow: 0px 0px #fff, -1px -1px #a1a1a1f1;
+        }
+      }
+      .back {
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+        z-index: 1;
+        background-color: #efefef;
+        box-shadow: -13px 16px 24px -2px rgba(172, 172, 172, 0.65);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: rotateY(180deg);
+        color: rgba(61, 61, 61, 0.7);
+        font: bold 24px/1.5 "DM Serif Display";
+        letter-spacing: 5px;
+      }
+    }
+  }
 }
 
 /*story_cards*/
 
 .story_cards {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-    .card {
+  width: 1180px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  .card {
+    width: 1180px;
+    margin: 0 auto;
+
+    .slide {
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+
+      .wrap {
+        display: inline-block;
+        width: 1180px;
+        right: 50px;
+        padding: 0 20px 20px 0;
+        justify-content: center;
+        text-align: right;
+      }
+
+      .title {
+        padding: 50px;
+        font: 200 38px/1.5 "DM Serif Display";
+      }
+      .text {
+        padding-right: 50px;
+        margin-bottom: 20px;
+        font: 100 20px/1 "DM Serif Display";
+      }
+      ul {
+        width: 100%;
         display: flex;
-        overflow: hidden;
-        .slide {
-            min-width: 100vw;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2em;
-            background: #f4f4f4;
-            border: 1px solid #ddd;
-            box-sizing: border-box;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
 
-            .slide:nth-child(1) {
-                background: #ffddc1;
-            }
-            .slide:nth-child(2) {
-                background: #ffabab;
-            }
-            .slide:nth-child(3) {
-                background: #ffc3a0;
-            }
-
-            .story_inner {
-                padding: 20px;
-                border-radius: 10px;
-                width: 100%;
-                .title {
-                    font: 200 38px/1.5 "DM Serif Display";
-                    margin-bottom: 10px;
-                    padding-bottom: 30px;
-                }
-                .text {
-                    font: 100 20px/1 "DM Serif Display";
-                    margin-bottom: 40px;
-                }
-
-                ul {
-                    padding-top: 10px;
-                    width: 190vh;
-                    display: flex;
-                    gap: 50px;
-                    li {
-                        width: 400px;
-                        height: 200px;
-                        border: 1px solid #f00;
-                        border-radius: 20%;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                    }
-                }
-            }
+        li {
+          width: 340px;
+          height: 300px;
+          border: 1px solid #f00;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
+      }
     }
+  }
+}
+
+/*contat*/
+
+footer {
+  width: 100%;
+  height: calc(600px - 60px);
+  margin: 0 auto;
+  border: 1px solid #f00;
+  background: #222;
+
+  .contact {
+    width: 1180px;
+    height: 100%;
+    border: 1px solid #f00;
+    margin: 0 auto;
+    span {
+      border: 1px solid #f00;
+      font: 200 38px/1.5 "DM Serif Display";
+    }
+  }
 }
 
 @keyframes ani {
-    100% {
-        transform: translatex(100%) scale(0.8);
-        box-shadow: none;
-    }
-    50% {
-        transform: translate(0px, 0px) scale(1.02);
-        box-shadow: 0 0 10px #000 0 0 80px 2px #000;
-    }
-    0% {
-        transform: translatex(-100%) scale(0.8);
-        box-shadow: none;
-    }
+  100% {
+    transform: translatex(100%) scale(0.8);
+    box-shadow: none;
+  }
+  50% {
+    transform: translate(0px, 0px) scale(1.02);
+    box-shadow: 0 0 10px #000 0 0 80px 2px #000;
+  }
+  0% {
+    transform: translatex(-100%) scale(0.8);
+    box-shadow: none;
+  }
 }
 
 @media screen and (max-width: 1180px) and (min-width: 360px) {
