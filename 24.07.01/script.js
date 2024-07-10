@@ -37,3 +37,8 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+//네비게이션 바는 화면 크기가 768px 이하일 때 토글 버튼을 표시하고, 메뉴를 숨겼다가 토글 버튼 클릭 시 표시한다.
+document.querySelector(".menu-toggle").addEventListener("click", () => {
+    document.querySelector("#Gnb").classList.toggle("active");
+});
