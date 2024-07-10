@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,114 +8,288 @@
         <!--fontasowem-->
         <script src="https://kit.fontawesome.com/6336e5c545.js" crossorigin="anonymous"></script>
 
-        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css" />
 
         <!-- css & js-->
         <link rel="stylesheet" href="./style.css" />
         <script defer="module" src="./script.js"></script>
-       
-</head>
+    </head>
     <body>
-            <header>
-              <div class="inner_header">
+        <header>
+            <div class="inner_header">
                 <div class="text_inner">
-                  <div id="logo">
-                      <a href="#none"><i class="fa-solid fa-moon"></i></span>
-                      <span>jisu</span></a>
-                  </div>
-                  <nav id="Gnb">
-                      <ul>
-                          <a href="#none">Keywords 
-                          </a>
-                      </ul>
-                      <ul>
-                          <a href="#none">About me</a>
-                      </ul>
-                      <ul>
-                          <a href="#none">Contact</a>
-                      </ul>
-                      </ul>
-                  </nav>
-                </span>
-              </div>
-            </header>
-            <main class="moon_box">
-              <div class="moon_inner">
-                <div class="moon">
-                </div>
+                    <div id="logo">
+                        <a href="#none">
+                            <i class="fa-solid fa-moon"></i>
+                            <span>Jisu</span>
+                        </a>
+                    </div>
+                    <nav id="Gnb">
+                        <ul>
+                            <li><a href="#none">Key words</a></li>
+                            <li><a href="#none">About me</a></li>
+                            <li><a href="#none">Contact</a></li>
+                            <li>
+                                <a href="#none"><i class="fa-solid fa-search"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+            </div>
+        </header>   
+        <main class="moon_box">
+            <div class="moon_inner">
+                <div class="moon"></div>
                 <div class="moon_text">
-                  <ul> Growing Moon</ul>
+                    <span>
+                        Talk To Moon
+                    </span>
+                    <p>Discover the mysteries of the moon and beyond</p>
                 </div>
-              </div>
-            </main>
-            <section class="inner_card">
-              
-              <div class="items">
-                <div class="card_title">My Kewords</div>
-                <div class="item">
-                  <div class="front">
-                    <i class="fa-sharp fa-solid fa-moon"></i> 
-                  </div>
-                  <div class="back">
-                    <p>Passion</p>
-                  </div>
-              </div>
-                <div class="item">
-                  <div class="front">
-                    <i class="xi-half-moon"></i>
-                  </div>
-                  <div class="back">
-                    <p>Joy</p>
-                  </div>
-              </div>
-                <div class="item">
-                  <div class="front">
-                    <i class="fa-solid fa-circle"></i>
-                  </div>
-                  <div class="back">
-                    <p>Try</p>
-                  </div>
-              </div>
-              </div>
-            </section>
-            <section class="story_cards">
-              <div class="card">
-                  <article class="slide" >
-                      <div class="wrap">
+            </div>
+        </main>
+        <section class="cards">
+            <div class="card_warp">
+                <div class="card_warp_inner">
+                    <div class="keywords_text">
+                        <span>
+                            Keywords
+                        </span>
+                        <p>The story of the card that the moon tells us</p>
+                    </div>
+                    <div class="card" data-card="1"><i class="xi-full-moon"></i></div>
+                    <div class="card" data-card="2"><i class="xi-half-moon"></i></div>
+                    <div class="card" data-card="3"><i class="xi-crescent"></i></div>
+                    <div class="card" data-card="4"><i class="xi-moon"></i></div>
+                    <div class="card" data-card="5"><i class="xi-night"></i></div>
+                    <div class="card" data-card="6"><i class="xi-star"></i></div>
+                    <div class="card" data-card="7"><i class="xi-star-o"></i></div>
+                    <div class="card" data-card="8"><i class="fa-solid fa-cloud-moon"></i></div>
+                    <div class="card" data-card="9"><i class="fa-solid fa-earth-europe"></i></div>
+                    <div class="card" data-card="10"><i class="fa-solid fa-star-and-crescent"></i></div>
+                </div>
+            </div>
+            <div id="modal_box">
+                <div class="modal_content" data-modal="1">
+                    <span class="close"><i class="fa-solid fa-circle-xmark"></i></span>
+                    <div class="modal_inner">
+                        <div class="modal_card"></div>
+                        <p class="modal_word">Passion</p>
+                        <p class="modal_sentence">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+                        <button>View more</button>
+                    </div>
+                </div>
+                <div class="modal_content" data-modal="2">
+                    <span class="close"><i class="fa-solid fa-circle-xmark"></i></span>
+                    <div class="modal_inner">
+                        <div class="modal_card"></div>
+                        <p class="modal_word">Joy</p>
+                        <p class="modal_sentence">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+                        <button>View more</button>
+                    </div>
+                </div>
+                <div class="modal_content" data-modal="3">
+                    <span class="close"><i class="fa-solid fa-circle-xmark"></i></span>
+                    <div class="modal_inner">
+                        <div class="modal_card"></div>
+                        <p class="modal_word">Try</p>
+                        <p class="modal_sentence">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+                        <button>View more</button>
+                    </div>
+                </div>
+                <div class="modal_content" data-modal="4">
+                    <span class="close"><i class="fa-solid fa-circle-xmark"></i></span>
+                    <div class="modal_inner">
+                        <div class="modal_card"></div>
+                        <p class="modal_word">Love</p>
+                        <p class="modal_sentence">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+                        <button>View more</button>
+                    </div>
+                </div>
+                <div class="modal_content" data-modal="5">
+                    <span class="close"><i class="fa-solid fa-circle-xmark"></i></span>
+                    <div class="modal_inner">
+                        <div class="modal_card"></div>
+                        <p class="modal_word">Wisdom</p>
+                        <p class="modal_sentence">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+                        <button>View more</button>
+                    </div>
+                </div>
+                <div class="modal_content" data-modal="6">
+                    <span class="close"><i class="fa-solid fa-circle-xmark"></i></span>
+                    <div class="modal_inner">
+                        <div class="modal_card"></div>
+                        <p class="modal_word">Abudance</p>
+                        <p class="modal_sentence">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+                        <button>View more</button>
+                    </div>
+                </div>
+                <div class="modal_content" data-modal="7">
+                    <span class="close"><i class="fa-solid fa-circle-xmark"></i></span>
+                    <div class="modal_inner">
+                        <div class="modal_card"></div>
+                        <p class="modal_word">Glittering</p>
+                        <p class="modal_sentence">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+                        <button>View more</button>
+                    </div>
+                </div>
+                <div class="modal_content" data-modal="8">
+                    <span class="close"><i class="fa-solid fa-circle-xmark"></i></span>
+                    <div class="modal_inner">
+                        <div class="modal_card"></div>
+                        <p class="modal_word">Vigorous</p>
+                        <p class="modal_sentence">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+                        <button>View more</button>
+                    </div>
+                </div>
+                <div class="modal_content" data-modal="9">
+                    <span class="close"><i class="fa-solid fa-circle-xmark"></i></span>
+                    <div class="modal_inner">
+                        <div class="modal_card"></div>
+                        <p class="modal_word">Travle</p>
+                        <p class="modal_sentence">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+                        <button>View more</button>
+                    </div>
+                </div>
+                <div class="modal_content" data-modal="10">
+                    <span class="close"><i class="fa-solid fa-circle-xmark"></i></span>
+                    <div class="modal_inner">
+                        <div class="modal_card"></div>
+                        <p class="modal_word">Lambent</p>
+                        <p class="modal_sentence">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+                        <button>View more</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="story_cards">
+            <div class="story_card">           
+                    <div class="story_inner">
                         <span class="title">Passion</span>
-                        <p class="text">Lorem ipsum dolor sit amet consectetur.</p>
+                        <div class="text">Lorem ipsum dolor sit amet consectetur.</div>
                         <ul>
                             <li>1</li>
                             <li>2</li>
-                            <li>3</li>                            
+                            <li>3</li>
                         </ul>
-                      </div>
-                  </article>
-                  <article class="slide">
-                    <div class="wrap">
-                      <span class="title">Joy</span>
-                      <p class="text">Lorem ipsum dolor sit amet consectetur.</p>
-                      <ul>
-                          <li>1</li>
-                          <li>2</li>
-                          <li>3</li>
-                      </ul>
                     </div>
-                  </article>
-                  <article class="slide" >
-                    <div class="wrap">
-                        <span class="title">Try</span>
-                          <p class="text">Lorem ipsum dolor sit amet consectetur.</p>
-                          <ul>
-                              <li>1</li>
-                              <li>2</li>
-                              <li>3</li>
-                          </ul>
-                        </div>
-                  </article>
-              </div>
-          </section>
-       
-       
-</body>
+                    <!-- <div class="story_inner">
+                        <span class="title">Passion</span>
+                        <div class="text">Lorem ipsum dolor sit amet consectetur.</div>
+                        <ul>
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                        </ul>
+                    </div>
+                    <div class="story_inner">
+                        <span class="title">Passion</span>
+                        <div class="text">Lorem ipsum dolor sit amet consectetur.</div>
+                        <ul>
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                        </ul>
+                    </div>
+                    <div class="story_inner">
+                        <span class="title">Passion</span>
+                        <div class="text">Lorem ipsum dolor sit amet consectetur.</div>
+                        <ul>
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                        </ul>
+                    </div>
+                    <div class="story_inner">
+                        <span class="title">Passion</span>
+                        <div class="text">Lorem ipsum dolor sit amet consectetur.</div>
+                        <ul>
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                        </ul>
+                    </div>
+                    <div class="story_inner">
+                        <span class="title">Passion</span>
+                        <div class="text">Lorem ipsum dolor sit amet consectetur.</div>
+                        <ul>
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                        </ul>
+                    </div>
+                    <div class="story_inner">
+                        <span class="title">Passion</span>
+                        <div class="text">Lorem ipsum dolor sit amet consectetur.</div>
+                        <ul>
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                        </ul>
+                    </div>
+                    <div class="story_inner">
+                        <span class="title">Passion</span>
+                        <div class="text">Lorem ipsum dolor sit amet consectetur.</div>
+                        <ul>
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                        </ul>
+                    </div>
+                    <div class="story_inner">
+                        <span class="title">Passion</span>
+                        <div class="text">Lorem ipsum dolor sit amet consectetur.</div>
+                        <ul>
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                        </ul>
+                    </div>
+                    <div class="story_inner">
+                        <span class="title">Passion</span>
+                        <div class="text">Lorem ipsum dolor sit amet consectetur.</div>
+                        <ul>
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                        </ul>
+                    </div>
+                    <div class="story_inner">
+                        <span class="title">Passion</span>
+                        <div class="text">Lorem ipsum dolor sit amet consectetur.</div>
+                        <ul>
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                        </ul>
+                    </div>
+                    <div class="story_inner">
+                        <span class="title">Passion</span>
+                        <div class="text">Lorem ipsum dolor sit amet consectetur.</div>
+                        <ul>
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                        </ul>
+                    </div>
+                    <div class="story_inner">
+                        <span class="title">Passion</span>
+                        <div class="text">Lorem ipsum dolor sit amet consectetur.</div>
+                        <ul>
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                        </ul>
+                    </div>
+                    <div class="story_inner">
+                        <span class="title">Passion</span>
+                        <div class="text">Lorem ipsum dolor sit amet consectetur.</div>
+                        <ul>
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                        </ul>
+                    </div> -->
+            </div>
+        </section>
+    </body>
 </html>
