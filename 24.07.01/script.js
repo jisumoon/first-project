@@ -1,6 +1,4 @@
-//1. card를 눌렀을 때, 모달창이 나온다
-//2. 모달창의 닫기 버튼을 누루면 모달창이 꺼진다.
-//3. 각 카드별로 다른 모달창이 나온다.
+//카드 모달창//
 
 document.addEventListener("DOMContentLoaded", function () {
     const cards = document.querySelectorAll(".card");
@@ -38,7 +36,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-//네비게이션 바는 화면 크기가 768px 이하일 때 토글 버튼을 표시하고, 메뉴를 숨겼다가 토글 버튼 클릭 시 표시한다.
-document.querySelector(".menu-toggle").addEventListener("click", () => {
-    document.querySelector("#Gnb").classList.toggle("active");
+//검색창 //
+
+document.addEventListener("DOMContentLoaded", function () {
+    const moonSearch = document.querySelector(".moon_search");
+    const searchBox = document.querySelector(".search_box");
+
+    moonSearch.addEventListener("click", function (event) {
+        event.preventDefault();
+        searchBox.style.display = searchBox.style.display === "block" ? "none" : "block";
+    });
 });
