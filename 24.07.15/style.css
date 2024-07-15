@@ -1,0 +1,158 @@
+@import url(reset.css);
+
+/* header */
+
+header {
+  width: 1180px;
+  height: 70px;
+  margin: 0 auto;
+
+  .banner {
+    margin-top: 10px;
+
+    .lnb {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      li {
+        font-size: 14px;
+        font-weight: 300;
+      }
+    }
+  }
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    letter-spacing: 1.1px;
+    #logo {
+      justify-content: center;
+      align-items: center;
+      img {
+        width: 20px;
+        height: 20px;
+        transform: translateY(10%);
+      }
+      span {
+        font-size: 22px;
+        font-weight: 700;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+    #gnb {
+      display: flex;
+      font-weight: 600;
+      font-size: 16px;
+      gap: 10px;
+    }
+  }
+}
+
+/* main */
+
+main {
+  .tab-inner {
+    height: calc(100vh - 80px);
+    position: relative;
+    input[type="radio"] {
+      display: none;
+      &#tab1:checked ~ .tabs .items {
+        left: 0;
+      }
+      &#tab2:checked ~ .tabs .items {
+        left: -100%;
+      }
+      &#tab3:checked ~ .tabs .items {
+        left: -200%;
+      }
+      &#tab1:checked ~ .tabs .items div:nth-child(1) h1 {
+        transform: translateY(200px);
+        opacity: 1;
+      }
+      &#tab2:checked ~ .tabs .items div:nth-child(2) h1 {
+        transform: translateY(200px);
+        opacity: 1;
+      }
+      &#tab3:checked ~ .tabs .items div:nth-child(3) h1 {
+        transform: translateY(200px);
+        opacity: 1;
+      }
+      &#tab1:checked ~ .btn label[for="tab1"] {
+        color: #fff;
+      }
+      &#tab2:checked ~ .btn label[for="tab2"] {
+        color: #fff;
+      }
+      &#tab3:checked ~ .btn label[for="tab3"] {
+        color: #fff;
+      }
+    }
+    .tabs {
+      overflow: hidden;
+      position: relative;
+      height: calc(100vh - 80px);
+      .items {
+        display: flex;
+        width: 300%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: all 0.5s;
+        div {
+          width: 33.33%;
+          height: calc(100vh - 70px);
+          position: relative;
+          &:nth-child(1) {
+            background: url("./img/temple.jpg") center/cover no-repeat;
+          }
+          &:nth-child(2) {
+            background: url("./img/market.jpg") center/cover no-repeat;
+          }
+          &:nth-child(3) {
+            background: url("./img/tower.jpg") center/cover no-repeat;
+          }
+          &:nth-child(1)::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+          }
+          &:nth-child(2)::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+          }
+          &:nth-child(3)::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+.btn {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.3);
+  label {
+    color: #fff;
+    margin: 0 15px;
+    cursor: pointer;
+  }
+}
