@@ -8,15 +8,23 @@
       src="https://kit.fontawesome.com/6336e5c545.js"
       crossorigin="anonymous"
     ></script>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--fontawaseom-->
+    <script
+      src="https://kit.fontawesome.com/6336e5c545.js"
+      crossorigin="anonymous"
+    ></script>
 
     <link
       rel="stylesheet"
       href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"
     />
 
-    <!-- css & js-->
     <link rel="stylesheet" href="./style.css" />
-    <script defer type="module" src="./script.js"></script>
+    <script defer src="./script.js"></script>
 
     <title>Talk To Moon</title>
   </head>
@@ -30,22 +38,26 @@
               <span>Jisu</span>
             </a>
           </div>
-          <div class="menu_toggle"><i class="fa-solid fa-bars"></i></div>
+          <div class="menu_toggle">
+            <i class="fa-solid fa-bars"></i>
+        </div>
           <nav id="Gnb">
             <ul>
               <li><a href="#none">Key words</a></li>
               <li><a href="#none">About me</a></li>
               <li><a href="#none">Contact</a></li>
               <li class="search_icon">
-                <a href="#none"><i class="fa-solid fa-search"></i></a>
+                <a href="none"class="moon_search">
+                    <i class="fa-solid fa-search"></i>
+                </a>
               </li>
             </ul>
           </nav>
           <div class="search_box">
-            <input type="text" placeholder="Talk To Moon..." />
+            <input type="text" placeholder="Talk to Moon...">
+            <div class="moon_search_button"></div>
           </div>
         </div>
-      </div>
     </header>
     <main class="moon_box">
       <div class="moon_inner">
@@ -62,7 +74,7 @@
           <img src="./img/witich.png" alt="witich" />
         </div>
         <div class="star">
-          <img src="./img/star1.png" alt="start" />
+          <img src="./img/star.png" alt="star" />
         </div>
         <div class="card_container">
           <div class="card_warp">
@@ -78,14 +90,12 @@
               <div class="card" data-card="5"><i class="xi-night"></i></div>
               <div class="card" data-card="6"><i class="xi-star"></i></div>
               <div class="card" data-card="7"><i class="xi-star-o"></i></div>
-              <div class="card" data-card="8">
-                <i class="fa-solid fa-cloud-moon"></i>
-              </div>
+              <div class="card" data-card="8"><i class="xi-soundcloud"></i></div>
               <div class="card" data-card="9">
-                <i class="fa-solid fa-earth-europe"></i>
+                <i class="xi-tornado"></i>
               </div>
               <div class="card" data-card="10">
-                <i class="fa-solid fa-star-and-crescent"></i>
+                <i class="xi-tint"></i>
               </div>
             </div>
           </div>
@@ -95,10 +105,12 @@
         <div class="modal_content" data-modal="1">
           <span class="close"><i class="fa-solid fa-circle-xmark"></i></span>
           <div class="modal_inner">
-            <div class="modal_card"></div>
+            <div class="modal_card">
+              <img src="./img/passion.png" alt="passion" />
+            </div>
             <p class="modal_word">Passion</p>
             <p class="modal_sentence">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+              "당신이 열정을 느끼는 것을 찾아서 그 일에 크게 관심을 가지세요."
             </p>
             <button>View more</button>
           </div>
@@ -106,10 +118,11 @@
         <div class="modal_content" data-modal="2">
           <span class="close"><i class="fa-solid fa-circle-xmark"></i></span>
           <div class="modal_inner">
-            <div class="modal_card"></div>
+            <div class="modal_card">
+              <img src="./img/joy.jpg" alt="joy" /></div>
             <p class="modal_word">Joy</p>
             <p class="modal_sentence">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+              "기쁨은 감사의 가장 단순한 형태입니다."
             </p>
             <button>View more</button>
           </div>
@@ -117,10 +130,10 @@
         <div class="modal_content" data-modal="3">
           <span class="close"><i class="fa-solid fa-circle-xmark"></i></span>
           <div class="modal_inner">
-            <div class="modal_card"></div>
+            <div class="modal_card"><img src="./img/try.jpg" alt="try" /></div>
             <p class="modal_word">Try</p>
             <p class="modal_sentence">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+              "당신이 시도하지 않는 슛은 100% 실패합니다."
             </p>
             <button>View more</button>
           </div>
@@ -128,10 +141,10 @@
         <div class="modal_content" data-modal="4">
           <span class="close"><i class="fa-solid fa-circle-xmark"></i></span>
           <div class="modal_inner">
-            <div class="modal_card"></div>
+            <div class="modal_card"><img src="./img/love.jpg" alt="love" /></div>
             <p class="modal_word">Love</p>
             <p class="modal_sentence">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+              "사랑은 두 몸에 깃든 하나의 영혼으로 이루어져 있습니다."
             </p>
             <button>View more</button>
           </div>
@@ -139,10 +152,10 @@
         <div class="modal_content" data-modal="5">
           <span class="close"><i class="fa-solid fa-circle-xmark"></i></span>
           <div class="modal_inner">
-            <div class="modal_card"></div>
+            <div class="modal_card"><img src="./img/wisdom.jpg" alt="wisdom" /></div>
             <p class="modal_word">Wisdom</p>
             <p class="modal_sentence">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+              "지혜는 학교 교육의 산물이 아니라 평생 동안 얻으려는 노력의 결과입니다."
             </p>
             <button>View more</button>
           </div>
@@ -150,10 +163,12 @@
         <div class="modal_content" data-modal="6">
           <span class="close"><i class="fa-solid fa-circle-xmark"></i></span>
           <div class="modal_inner">
-            <div class="modal_card"></div>
+            <div class="modal_card">
+              <img src="./img/abundance.jpg" alt="abundance" />
+            </div>
             <p class="modal_word">Abundance</p>
             <p class="modal_sentence">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+              "감사는 우리가 가진 것을 충분히 많게 만듭니다."
             </p>
             <button>View more</button>
           </div>
@@ -161,10 +176,10 @@
         <div class="modal_content" data-modal="7">
           <span class="close"><i class="fa-solid fa-circle-xmark"></i></span>
           <div class="modal_inner">
-            <div class="modal_card"></div>
+            <div class="modal_card"><img src="./img/glittering.jpg" alt="glittering" /></div>
             <p class="modal_word">Glittering</p>
             <p class="modal_sentence">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+              "반짝인다고 모두 금은 아니지만, 그것은 분명 아름다울 수 있습니다."
             </p>
             <button>View more</button>
           </div>
@@ -172,10 +187,12 @@
         <div class="modal_content" data-modal="8">
           <span class="close"><i class="fa-solid fa-circle-xmark"></i></span>
           <div class="modal_inner">
-            <div class="modal_card"></div>
+            <div class="modal_card">
+              <img src="./img/vigorous.jpg" alt="vigorous" />
+            </div>
             <p class="modal_word">Vigorous</p>
             <p class="modal_sentence">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+              "활기찬 정신은 건강한 신체에 필요하듯이, 건강한 신체도 활기찬 정신에 필요합니다."
             </p>
             <button>View more</button>
           </div>
@@ -183,10 +200,12 @@
         <div class="modal_content" data-modal="9">
           <span class="close"><i class="fa-solid fa-circle-xmark"></i></span>
           <div class="modal_inner">
-            <div class="modal_card"></div>
+            <div class="modal_card">
+              <img src="./img/travel.jpg" alt="travel" />
+            </div>
             <p class="modal_word">Travel</p>
             <p class="modal_sentence">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+              "세상은 한 권의 책이며, 여행하지 않는 사람들은 그 책의 한 페이지만 읽는 것입니다."
             </p>
             <button>View more</button>
           </div>
@@ -194,43 +213,19 @@
         <div class="modal_content" data-modal="10">
           <span class="close"><i class="fa-solid fa-circle-xmark"></i></span>
           <div class="modal_inner">
-            <div class="modal_card"></div>
+            <div class="modal_card">
+              <img src="./img/lambent.jpg" alt="lambent" />
+            </div>
             <p class="modal_word">Lambent</p>
             <p class="modal_sentence">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+              "여명의 부드럽게 빛나는 빛이 새로운 날의 약속을 속삭입니다."
             </p>
             <button>View more</button>
           </div>
         </div>
       </div>
     </section>
-    <section class="story_box">
-            <div class="story_slides">
-              <div class="story_slide">
-                <div class="inner">
-                  <div class="slide_title">
-                      <span>Passion</span>
-                      <p>Lorem ipsum dolor sit, amet consectetur Debitis vero voluq</p>
-                  </div>
-                  <div class="story_pic">
-                      <ul>
-                          <li>
-                              <img src="your-image-1.jpg" alt="Image 1" />
-                          </li>
-                          <li>
-                              <img src="your-image-2.jpg" alt="Image 2" />
-                          </li>
-                          <li>
-                              <img src="your-image-3.jpg" alt="Image 3" />
-                          </li>
-                      </ul>
-                  </div>
-                </div>
-                </div>
-            </div>
-          </div>
-          </div>
-        </section>
+</section>
     <footer>
       <div class="footer_inner">
         <div class="contact_section">
