@@ -174,10 +174,12 @@ main {
             height: 100%;
           }
           h1 {
+            width: 1180px;
+            margin: 0 auto;
             position: relative;
             opacity: 0;
             text-align: right;
-            padding-right: 200px;
+            padding-right: 60px;
             padding-top: 200px;
             /* transform: translateY(-900); */
             transition: 0.5s;
