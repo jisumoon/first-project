@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <script defer src="script.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="https://localhost:3000" method="post">
+      <div class="inner">
+        <div class="logo">UNICON</div>
+        <div class="wrapper">
+          <div class="title_text">회원가입을 위해 정보를 입력해주세요.</div>
+          <!-- id -->
+          <label for="id">아이디<span>*</span></label>
+          <input
+            type="text"
+            name="id"
+            id="id"
+            class="id"
+            placeholder="아이디를 입력해주세요"
+          />
+          <div id="error_id" class="error"></div>
+
+          <!-- 비밀번호 -->
+          <label for="password1">비밀번호<span>*</span></label>
+          <input
+            type="text"
+            name="password1"
+            id="password1"
+            class="password1"
+            placeholder="비밀번호를 입력해주세요"
+          />
+          <div id="error_password" class="error"></div>
+
+          <label for="password2">비밀번호 확인<span>*</span></label>
+
+          <input
+            type="text"
+            name="password2"
+            id="password2"
+            class="password2"
+            placeholder="비밀번호를 다시 입력해주세요"
+          />
+          <div id="error_password" class="error"></div>
+
+          <!-- 이름 -->
+          <label for="name">이름<span>*</span></label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            class="name"
+            placeholder="이름을 입력해주세요"
+          />
+          <div id="error_name" class="error"></div>
+
+          <!-- 생년월일 -->
+          <label for="birth">생년월일<span>*</span></label>
+          <input
+            type="date"
+            name="date"
+            id="date"
+            class="date"
+            placeholder="생년월일을 입력하세요"
+          />
+          <div id="error_birth" class="error"></div>
+
+          <!-- 체크박스 -->
+          <ul>
+            <li>
+              <label for="checkbox" id="checkbox">
+                <input type="checkbox" name="male" id="male" class="male" />
+                <div>남성</div>
+              </label>
+            </li>
+            <li>
+              <label for="checkbox" id="checkbox">
+                <input
+                  type="checkbox"
+                  name="female"
+                  id="female"
+                  class="female"
+                />
+                <div>여성</div>
+              </label>
+            </li>
+            <li>
+              <label for="checkbox" id="checkbox">
+                <input
+                  type="checkbox"
+                  name="korean"
+                  id="korean"
+                  class="korean"
+                />
+                <div>내국인</div>
+              </label>
+            </li>
+            <li>
+              <label for="checkbox" id="checkbox">
+                <input
+                  type="checkbox"
+                  name="foregin"
+                  id="foregin"
+                  class="foregin"
+                />
+                <div>외국인</div>
+              </label>
+            </li>
+          </ul>
+
+          <div id="error_checkbox" class="error"></div>
+
+          <!-- 통신사 -->
+          <div class="phone">
+            <div class="phone_text">전화번호를 입력해주세요</div>
+            <select name="phone_home" id="phone_home">
+              <option value="SKT">SKT</option>
+              <option value="KT">KT</option>
+              <option value="LG U+">LG U+</option>
+              <option value="알뜰폰 SKT">알뜰폰 SKT</option>
+              <option value="알뜰폰 KT">알뜰폰 KT</option>
+              <option value="알뜰폰 LG U+">알뜰폰 LG U+</option>
+            </select>
+            <div id="error_checkbox" class="error"></div>
+          </div>
+
+          <!-- 휴대전화 -->
+          <div class="phone_wrapper">
+            <input
+              type="text"
+              name="firstNum"
+              id="phone1"
+              class="phoneNum"
+              onkeyup="onchange()"
+              onchange="changePhone1()"
+            />
+            -
+            <input
+              type="text"
+              name="secondNum"
+              id="phone2"
+              class="phoneNum"
+              onkeyup="onchange()"
+              onchange="changePhone2()"
+            />
+            -
+            <input
+              type="text"
+              name="lastNum"
+              id="phone3"
+              class="phoneNum"
+              onkeyup="onchange()"
+              onchange="changePhone3()"
+            />
+          </div>
+          <div class="token_wrapper">
+            <div id="token">000000</div>
+            <button id="token_button" disabled>인증번호 전송</button>
+          </div>
+          <div class="token_wrapper">
+            <div id="token_timer">3:00</div>
+            <button id="token_timer_confirmBtn" disabled>인증 완료</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </body>
+</html>
