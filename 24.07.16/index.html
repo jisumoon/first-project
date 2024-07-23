@@ -71,98 +71,107 @@
           <!-- 체크박스 -->
           <ul>
             <li>
-              <label for="checkbox" id="checkbox">
-                <input type="checkbox" name="male" id="male" class="male" />
-                <div>남성</div>
-              </label>
+              <label for="checkbox1" id="checkbox">
+                <input
+                  type="checkbox"
+                  name="male"
+                  id="checkbox1"
+                  class="male"
+                />
+                <div><sapn>남성</sapn></div></label
+              >
             </li>
             <li>
-              <label for="checkbox" id="checkbox">
+              <label for="checkbox2" id="checkbox">
                 <input
                   type="checkbox"
                   name="female"
-                  id="female"
+                  id="checkbox2"
                   class="female"
                 />
-                <div>여성</div>
-              </label>
+                <div><sapn>여성</sapn></div></label
+              >
             </li>
             <li>
-              <label for="checkbox" id="checkbox">
+              <label for="checkbox3" id="checkbox">
                 <input
                   type="checkbox"
                   name="korean"
-                  id="korean"
+                  id="checkbox3"
                   class="korean"
                 />
-                <div>내국인</div>
-              </label>
+                <div><sapn>내국인</sapn></div></label
+              >
             </li>
             <li>
-              <label for="checkbox" id="checkbox">
+              <label for="checkbox4" id="checkbox">
                 <input
                   type="checkbox"
                   name="foregin"
-                  id="foregin"
+                  id="checkbox4"
                   class="foregin"
                 />
-                <div>외국인</div>
-              </label>
+                <div><sapn>외국인</sapn></div></label
+              >
             </li>
           </ul>
-
           <div id="error_checkbox" class="error"></div>
 
-          <!-- 통신사 -->
-          <div class="phone">
-            <div class="phone_text">전화번호를 입력해주세요</div>
-            <select name="phone_home" id="phone_home">
-              <option value="SKT">SKT</option>
-              <option value="KT">KT</option>
-              <option value="LG U+">LG U+</option>
-              <option value="알뜰폰 SKT">알뜰폰 SKT</option>
-              <option value="알뜰폰 KT">알뜰폰 KT</option>
-              <option value="알뜰폰 LG U+">알뜰폰 LG U+</option>
-            </select>
-            <div id="error_checkbox" class="error"></div>
-          </div>
+          <div class="phone_text">전화번호를 입력해주세요<span>*</span></div>
 
-          <!-- 휴대전화 -->
-          <div class="phone_wrapper">
-            <input
-              type="text"
-              name="firstNum"
-              id="phone1"
-              class="phoneNum"
-              onkeyup="onchange()"
-              onchange="changePhone1()"
-            />
-            -
-            <input
-              type="text"
-              name="secondNum"
-              id="phone2"
-              class="phoneNum"
-              onkeyup="onchange()"
-              onchange="changePhone2()"
-            />
-            -
-            <input
-              type="text"
-              name="lastNum"
-              id="phone3"
-              class="phoneNum"
-              onkeyup="onchange()"
-              onchange="changePhone3()"
-            />
+          <div class="phone_box">
+            <!-- 통신사 -->
+            <div class="phone">
+              <select name="phone_home" id="phone_home">
+                <option value="SKT">SKT</option>
+                <option value="KT">KT</option>
+                <option value="LG U+">LG U+</option>
+                <option value="알뜰폰 SKT">알뜰폰 SKT</option>
+                <option value="알뜰폰 KT">알뜰폰 KT</option>
+                <option value="알뜰폰 LG U+">알뜰폰 LG U+</option>
+              </select>
+              <div id="error_checkbox" class="error"></div>
+            </div>
+            <!-- 휴대전화 -->
+            <div class="phone_wrapper">
+              <input
+                type="text"
+                name="firstNum"
+                id="phone1"
+                class="phoneNum"
+                onkeyup="onchange()"
+                onchange="changePhone1()"
+              />
+
+              <input
+                type="text"
+                name="secondNum"
+                id="phone2"
+                class="phoneNum"
+                onkeyup="onchange()"
+                onchange="changePhone2()"
+              />
+
+              <input
+                type="text"
+                name="lastNum"
+                id="phone3"
+                class="phoneNum"
+                onkeyup="onchange()"
+                onchange="changePhone3()"
+              />
+            </div>
           </div>
-          <div class="token_wrapper">
-            <div id="token">000000</div>
-            <button id="token_button" disabled>인증번호 전송</button>
-          </div>
-          <div class="token_wrapper">
-            <div id="token_timer">3:00</div>
-            <button id="token_timer_confirmBtn" disabled>인증 완료</button>
+          <!-- 인증시간/인증확인 -->
+          <div class="time_wrapper">
+            <div class="token_wrapper">
+              <div id="token">000000</div>
+              <button id="token_button" disabled>인증번호 전송</button>
+            </div>
+            <div class="token_wrapper">
+              <div id="token_timer">3:00</div>
+              <button id="token_timer_confirmBtn" disabled>인증 완료</button>
+            </div>
           </div>
         </div>
       </div>
