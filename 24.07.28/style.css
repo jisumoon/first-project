@@ -23,7 +23,7 @@ header{
     z-index: 1000000;
     .banner{
         background: #0c964a;
-        height: 40px;
+        height: 50px;
         font-size: 14px;     
         transition: all 0.5s;
         .lnb{
@@ -95,3 +95,41 @@ header{
       }
     }
   }
+
+
+/* About */
+.about_content {
+  display: flex;
+  padding: 150px 0;
+  div {
+    padding: 30px;
+    &.desc {
+      text-align: center;
+      flex: 3;
+      h2 {
+        font-size: 30px;
+      }
+      p {
+        font-size: 16px;
+        line-height: 1.7rem;
+        margin: 30px 0 40px;
+      }
+      a {
+  
+        padding: 10px;
+        color: #0c964a;
+        font-weight: bold;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+    &.photo {
+      flex: 2;
+      img {
+        width: 100%;
+        border-radius: 40% 60% 65% 35% / 40% 45% 55% 60%; 
+      }
+    }
+  }
+}
