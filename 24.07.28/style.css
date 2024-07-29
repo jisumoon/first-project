@@ -95,7 +95,7 @@ header {
   }
 }
 
-/* About */
+/* about */
 .my_slide {
   .about_content {
     display: flex;
@@ -138,3 +138,51 @@ header {
     }
   }
 }
+
+/*matching*/
+.matching{
+  height: 100vh;
+  background: url(./img/matching03.jpg) center/cover no-repeat;
+    .matching_inner{
+      display: flex;
+      padding: 200px 40px;
+      justify-content: space-between;
+      align-items: center;
+    .matching_content{   
+      padding: 30px;
+     h2{
+      font-size: 30px;
+      margin-bottom: 20px;
+     }
+     p{
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 40px;
+     }
+     .btn{
+      width: 50%;
+      border-radius: 20px;
+      padding: 10px 10px;
+      font-size: 14px;
+      text-align: center;
+      background: #0c964a;
+      color: #fff;
+      box-shadow: 0 0 4px #ddd;
+      transition: all 0.3s;
+      cursor: pointer;
+      &:hover{
+        i{
+          transform: translateX(20%);
+        }
+      }
+      
+      i{
+        padding-left: 5px;
+     
+      }
+     }
+      }
+  }
+}
+
+/*review*/
