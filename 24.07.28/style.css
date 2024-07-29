@@ -1,44 +1,44 @@
 @import url(./rest.css);
 
 /*font*/
-@import url('https://fonts.googleapis.com/css2?family=Diphylleia&family=Gugi&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Diphylleia&family=Gugi&family=Noto+Sans+KR:wght@100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Diphylleia&family=Gugi&family=Jua&family=Noto+Sans+KR:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Diphylleia&family=Gugi&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Diphylleia&family=Gugi&family=Noto+Sans+KR:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Diphylleia&family=Gugi&family=Jua&family=Noto+Sans+KR:wght@100..900&display=swap");
 
-body{
-    font-family: "Noto Sans KR", sans-serif;;
-    font-size: 15px;
+body {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 15px;
 }
 
-.inner{
-    width: 1300px;
-    margin: 0 auto;
+.inner {
+  width: 1300px;
+  margin: 0 auto;
 }
 
 /*header*/
-header{
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000000;
-    .banner{
-        background: #0c964a;
-        height: 50px;
-        font-size: 14px;     
-        transition: all 0.5s;
-        .lnb{
-            display: flex;
-            align-items: center;
-            height: 100%;
-            justify-content: flex-end;
-            padding-right: 30px;         
-            a{
-                color: #fff;
-                margin-right: 20px;
-            }
-        }
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000000;
+  .banner {
+    background: #0c964a;
+    height: 50px;
+    font-size: 14px;
+    transition: all 0.5s;
+    .lnb {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      justify-content: flex-end;
+      padding-right: 30px;
+      a {
+        color: #fff;
+        margin-right: 20px;
+      }
     }
-    nav{
+  }
+  nav {
     width: 1300px;
     display: flex;
     /* background-color: #fff; */
@@ -46,56 +46,54 @@ header{
     align-items: center;
     margin: 0 auto;
     padding: 15px;
-    .log{
-         font: 460 30px/1.5 "Gugi";
-         color:	#3CB371;
-         text-shadow:1px 1px 0px #FFF;
+    .log {
+      font: 460 30px/1.5 "Gugi";
+      color: #3cb371;
+      text-shadow: 1px 1px 0px #fff;
     }
     .gnb {
-        display: flex;
-        gap: 20px;
-        li {
-           
-          a {
-            color:  #0c964a;
-            transition: all 0.3s;
-            &:hover {
-              color: #fff;
-            }
-          }        
+      display: flex;
+      gap: 20px;
+      li {
+        a {
+          color: #0c964a;
+          transition: all 0.3s;
+          &:hover {
+            color: #fff;
+          }
         }
+      }
     }
-    }
+  }
 }
 
 /*intro*/
 .intro {
-    height: 100vh;
-    background: url("./img/intro01.svg") center/cover no-repeat;
-    display: flex;
-    align-items: center;
-    .heading {
-      text-align: right;
-      padding-right: 60px;    
-      color: #fff;
-      h1 {
-        color: #3CB371;
-        font: 500 70px/1.5 "Gugi";
-        text-shadow:1px 1px 0px #fff;
-        margin-bottom: 20px;
-      }
-      p {
-        font-size: 28px;
-        font-weight: 400px;
-        line-height: 1.3rem;
-     
-        font-family: "Jua", sans-serif;
-        
-        /* padding: 0 150px; */
-      }
+  height: 100vh;
+  background: url("./img/intro01.svg") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  .heading {
+    text-align: right;
+    padding-right: 60px;
+    color: #fff;
+    h1 {
+      color: #3cb371;
+      font: 500 70px/1.5 "Gugi";
+      text-shadow: 1px 1px 0px #fff;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 28px;
+      font-weight: 400px;
+      line-height: 1.3rem;
+
+      font-family: "Jua", sans-serif;
+
+      /* padding: 0 150px; */
     }
   }
-
+}
 
 /* About */
 .about_content {
@@ -115,7 +113,6 @@ header{
         margin: 30px 0 40px;
       }
       a {
-  
         padding: 10px;
         color: #0c964a;
         font-weight: bold;
@@ -128,7 +125,7 @@ header{
       flex: 2;
       img {
         width: 100%;
-        border-radius: 40% 60% 65% 35% / 40% 45% 55% 60%; 
+        border-radius: 40% 60% 65% 35% / 40% 45% 55% 60%;
       }
     }
   }
