@@ -140,49 +140,97 @@ header {
 }
 
 /*matching*/
-.matching{
+.matching {
   height: 100vh;
   background: url(./img/matching03.jpg) center/cover no-repeat;
-    .matching_inner{
-      display: flex;
-      padding: 200px 40px;
-      justify-content: space-between;
-      align-items: center;
-    .matching_content{   
+  .matching_inner {
+    display: flex;
+    padding: 200px 40px;
+    justify-content: space-between;
+    align-items: center;
+    .matching_content {
       padding: 30px;
-     h2{
-      font-size: 30px;
-      margin-bottom: 20px;
-     }
-     p{
-      font-size: 16px;
-      line-height: 1.7;
-      margin-bottom: 40px;
-     }
-     .btn{
-      width: 50%;
-      border-radius: 20px;
-      padding: 10px 10px;
-      font-size: 14px;
-      text-align: center;
-      background: #0c964a;
-      color: #fff;
-      box-shadow: 0 0 4px #ddd;
-      transition: all 0.3s;
-      cursor: pointer;
-      &:hover{
-        i{
-          transform: translateX(20%);
+      h2 {
+        font-size: 30px;
+        margin-bottom: 20px;
+      }
+      p {
+        font-size: 16px;
+        line-height: 1.7;
+        margin-bottom: 40px;
+      }
+      .btn {
+        width: 50%;
+        border-radius: 20px;
+        padding: 10px 10px;
+        font-size: 14px;
+        text-align: center;
+        background: #0c964a;
+        color: #fff;
+        box-shadow: 0 0 4px #ddd;
+        transition: all 0.3s;
+        cursor: pointer;
+        &:hover {
+          i {
+            transform: translateX(20%);
+          }
+        }
+
+        i {
+          padding-left: 5px;
         }
       }
-      
-      i{
-        padding-left: 5px;
-     
-      }
-     }
-      }
+    }
   }
 }
 
 /*review*/
+.reivew {
+  .inner {
+    h1 {
+      padding: 60px;
+    }
+    .review_content {
+      border: 1px solid #f00;
+      border-radius: 10px;
+      width: 420px;
+      height: 320px;
+      padding: 30px;
+      .review_item {
+        border: 1px solid #f00;
+        height: 260px;
+        display: flex;
+        flex-direction: column;
+        .review_upper_item {
+          display: flex;
+          height: 100px;
+          .review_img {
+            flex: 1;
+            border: 1px solid #f00;
+            border-radius: 50%;
+            .img {
+              width: 100%;
+              height: 100%;
+            }
+          }
+          .review_up_des {
+            flex: 3;
+            padding: 10px;
+            border: 1px solid #f00;
+            h3 {
+              font-size: 18px;
+            }
+            h2 {
+              font-size: 14px;
+            }
+          }
+        }
+        .review_down_des {
+          border: 1px solid #f00;
+          height: 220px;
+          padding: 10px;
+        }
+      }
+    }
+  }
+}
