@@ -1,4 +1,4 @@
-//slick slide
+// slick slide
 
 // $(".my_slide").slick({
 //   dots: true,
