@@ -1,4 +1,4 @@
-// slick slide
+//slick slider
 
 // $(".my_slide").slick({
 //   dots: true,
@@ -7,7 +7,8 @@
 //   fade: true,
 //   cssEase: "linear",
 //   autoplay: true,
-//   slidesToShow: 1,
-//   slidesToScroll: 1,
-//   pauseOnHover: true,
 // });
+
+//scroll event
+
+const nav = document.querySelector("nav");
