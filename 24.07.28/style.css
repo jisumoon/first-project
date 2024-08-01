@@ -64,6 +64,15 @@ header {
       }
     }
   }
+
+  .trigger {
+    display: none;
+  }
+  &.active {
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  }
 }
 
 /*intro*/
@@ -81,10 +90,6 @@ header {
       font: 500 70px/1.5 "Gugi";
       text-shadow: 1px 1px 0px #fff;
       margin-bottom: 20px;
-
-      span {
-        animation: title 7s infinite;
-      }
     }
     p {
       font-size: 28px;
@@ -104,6 +109,7 @@ header {
     overflow: hidden;
     position: relative;
     .my_slide {
+      position: relative;
       display: flex;
       .about_content {
         min-width: 100%;
@@ -184,7 +190,6 @@ header {
             transform: translateX(20%);
           }
         }
-
         i {
           padding-left: 5px;
         }
@@ -196,12 +201,10 @@ header {
 /*review*/
 .reivew {
   height: 600px;
-
   .inner {
     margin-top: 120px;
     position: relative;
     background: url(./img/therapy01.jpg) center/cover no-repeat;
-
     h1 {
       text-align: right;
       padding-right: 20px;
@@ -320,7 +323,7 @@ header {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 100px;
   .reservation_up {
     text-align: center;
     margin-bottom: 40px;
@@ -369,11 +372,12 @@ header {
       }
     }
     button {
-      width: 300px;
+      width: 100%;
       height: 30px;
       border: none;
       border-radius: 8px;
       font-weight: bold;
+      transition: all 0.3s;
       &:hover {
         cursor: pointer;
         background-color: #3cb371;
@@ -425,5 +429,204 @@ footer {
   }
   100% {
     transform: translateX(-50%);
+  }
+}
+
+/*미디어쿼리*/
+
+@media screen and (max-width: 770px) {
+  .inner {
+    width: 100%;
+    padding: 15px;
+  }
+
+  /*header*/
+
+  header {
+    nav {
+      width: 100%;
+      padding: 0 20px;
+      .log {
+        padding-top: 10px;
+        font-size: 28px;
+      }
+      .gnb {
+        width: 250px;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+        position: fixed;
+        top: 50px;
+        right: -250px;
+        text-align: right;
+        padding: 80px 10px 0 0;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s;
+        &.active {
+          right: 0;
+          li {
+            padding-top: 50px;
+            padding-right: 30px;
+            gap: 10px;
+            a {
+              font-size: 20px;
+              color: black;
+              &:hover {
+                color: #3cb371;
+              }
+            }
+          }
+        }
+      }
+    }
+    .trigger {
+      display: block;
+      width: 30px;
+      height: 16px;
+      position: absolute;
+      top: 70px;
+      right: 20px;
+      span {
+        width: 100%;
+        height: 1px;
+        background: #0c964a;
+        position: absolute;
+        transform: all 0.3s;
+        &:nth-child(1) {
+          top: 0;
+        }
+        &:nth-child(2) {
+          top: 50%;
+        }
+        &:nth-child(3) {
+          top: 100%;
+        }
+      }
+      &.active span:nth-child(1) {
+        top: 50%;
+        transform: rotate(45deg);
+      }
+      &.active span:nth-child(2) {
+        opacity: 0;
+      }
+      &.active span:nth-child(3) {
+        top: 50%;
+        transform: rotate(-45deg);
+      }
+    }
+  }
+
+  /*intro*/
+  .intro {
+    .heading {
+      padding-right: 20px;
+      width: 100%;
+      h1 {
+        font-size: 60px;
+        line-height: 1;
+      }
+      p {
+        font-size: 26px;
+        line-height: 1.2;
+      }
+    }
+  }
+
+  /*about*/
+  .my_slide {
+    .about_content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-top: 0;
+      div {
+        display: flex;
+        flex-direction: column;
+        &.desc {
+          text-align: center;
+          flex: 2;
+          h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+          }
+          p {
+            font-size: 12px;
+            margin: 30px 0 20px;
+          }
+          a {
+            font-weight: bold;
+          }
+        }
+        &.photo {
+          display: none;
+        }
+      }
+    }
+  }
+  /*matching*/
+  .matching {
+    .matching_inner {
+      width: 100%;
+      .matching_content {
+        width: 100%;
+        .btn {
+          width: 100%;
+          &:hover {
+            border: 1px solid rgba(255, 255, 255, 0.3);
+          }
+        }
+      }
+    }
+  }
+
+  /*review*/
+  .reivew {
+    .inner {
+      .review_content {
+        display: flex;
+        flex-direction: column;
+        width: 300%;
+        .reivew_wrap {
+          align-items: center;
+          justify-content: center;
+          animation: reviewLoop 70s linear infinite;
+          .review_item {
+            .review_down_des {
+              margin: 10px;
+              height: 100%;
+              padding: 0;
+            }
+            &:nth-child(1),
+            &:nth-child(4) {
+              background-color: #cce2cb;
+            }
+            &:nth-child(2),
+            &:nth-child(5) {
+              background-color: #f6eace;
+            }
+            &:nth-child(3),
+            &:nth-child(6) {
+              background-color: #ffd7c3;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /*reservation_content*/
+  .reservation {
+    .reservation_form {
+      button {
+        width: 100%;
+        height: 40px;
+        font-size: 16px;
+        transition: all 0.3s;
+        &:hover {
+          color: #fff;
+        }
+      }
+    }
   }
 }

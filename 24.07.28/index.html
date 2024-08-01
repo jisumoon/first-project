@@ -5,16 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
- <!-- jQuery -->
- <script
- type="text/javascript"
- src="//code.jquery.com/jquery-1.11.0.min.js"
-></script>
-<script
- type="text/javascript"
- src="//code.jquery.com/jquery-migrate-1.2.1.min.js"
-></script>
-
 <!--fontaw-->
 <script src="https://kit.fontawesome.com/6336e5c545.js" crossorigin="anonymous"></script>
 
@@ -22,6 +12,7 @@
     <link rel="stylesheet" href="style.css">
     <script  defer src="./script.js"></script>
 </head>
+
 <body>
     <div class="container">
         <header>
@@ -45,6 +36,11 @@
                     <li><a href="#reservation">상담예약</a></li>
                 </ul>
             </nav>
+            <div class="trigger">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
         </header>
         <main class="intro">
             <div class="inner">
@@ -62,8 +58,8 @@
           </main>
           <section id="about" class="about">
             <div class="inner">
-            <div class="my_slide">
-              <div class="about_content">
+            <ul class="my_slide">   
+              <li class="about_content">
                 <div class="desc">
                   <h2>재활을 만나다!</h2>
                   <p>
@@ -75,8 +71,8 @@
                 <div class="photo">
                   <img src="./img/about03.jpg" alt="about03" />
                 </div>
-              </div>
-              <div class="about_content">
+              </li>
+              <li class="about_content">
                 <div class="photo">
                     <img src="./img/about04.jpg" alt="about04" />
                   </div>
@@ -88,8 +84,8 @@
                     </p>
                       <a href="#none">+ 더보기</a>
                   </div>
-              </div>
-              <div class="about_content">
+                </li>
+              <li class="about_content">
                 <div class="desc">
                   <h2>사람을 만나다!</h2>
                   <p>
@@ -101,8 +97,8 @@
                 <div class="photo">
                   <img src="./img/main03.jpg" alt="about03" />
                 </div>
-              </div>
-            </div>
+              </li>
+            </ul>
             </div>
           </section>
           <section id="matching" class="matching">
