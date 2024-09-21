@@ -22,6 +22,14 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "TmonMonsori";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/TmonMonsori.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 /*reset*/
 
 * {
@@ -45,7 +53,6 @@ body {
 }
 
 header {
-  background: #fff3e6;
   .container {
     height: 70px;
     width: 100%;
@@ -87,20 +94,17 @@ header {
 
 main {
   background: #fff3e6;
-
   .slider {
     position: relative;
     width: 100%;
-    height: calc(100vw - 879px);
     overflow: hidden;
     .slides {
       display: flex;
+      height: calc(100vh - 70px);
       transition: transform 0.5s ease-in-out;
-
       .slide {
         position: relative;
         min-width: 100%;
-
         img {
           width: 100%;
           object-fit: contain;
@@ -140,52 +144,141 @@ main {
 }
 
 .sec1 {
-  background: #fff3e6;
-  font-family: "HakgyoansimNadeuriTTF-B";
   width: 100%;
-  margin-bottom: 100px;
-  .sec-title {
-    font-family: "HSSanTokki20-Regular";
-    font-size: 30px;
-    text-align: right;
-    padding-right: 260px;
-    padding-top: 50px;
-    padding-bottom: 40px;
-    color: #ff6f61;
-  }
   .sec1-container {
     width: 100%;
-    padding: 0 100px;
+    height: calc(100vh - 70px);
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 50px;
-    gap: 40px;
-    article {
+    margin: 0 auto;
+    .sec1-Btn {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      text-align: center;
-      figure {
-        width: 120px;
-        height: 120px;
-        margin-bottom: 30px;
-        img {
-          width: 100%;
-          height: 100%;
+      width: 50%;
+      height: 100%;
+      gap: 40px;
+      padding: 0 20px;
+      .sec1-title {
+        font-family: "TmonMonsori";
+        font-size: 40px;
+        color: #ff6f61;
+      }
+      .ice-set {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        div {
+          width: 120px;
+          height: 120px;
           border-radius: 50%;
-          object-fit: cover;
+          padding: 10px;
+          cursor: pointer;
+          transition: background 0.3s;
+          &:hover {
+            background: #ff8a65;
+          }
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            text-align: center;
+            border-radius: 50%;
+          }
         }
       }
-      .sec1-title {
-        font-family: "양진체";
-        font-size: 18px;
-        padding-bottom: 20px;
+    }
+
+    .main-icecream {
+      position: absolute;
+      width: 300px;
+      transition: all 0.3s;
+
+      img {
+        width: 100%;
+        height: 100%;
       }
-      .sec1-dec {
-        font-size: 16px;
-        line-height: 24px;
+    }
+
+    .sec1-side {
+      padding: 0 20px;
+      flex: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      background: #fff;
+      .sec1-side-contain {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin: 0 auto;
+        width: 60%;
+        gap: 30px;
+        .sec1-side-title {
+          font-family: "HakgyoansimNadeuriTTF-B";
+          font-weight: 700;
+          font-size: 30px;
+          text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8);
+        }
+        .sec1-side-desc {
+          font-family: "HakgyoansimNadeuriTTF-B";
+          font-size: 16px;
+          word-break: keep-all;
+          overflow-wrap: break-word;
+          line-height: 1.7;
+        }
+      }
+      hr {
+        width: 60%;
+        border: 0.5px solid rgba(93, 64, 55, 0.5);
+      }
+      .sec1-side-ing-contain {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .ice-ing {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 30px;
+          .ice-ing-main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 30%;
+            height: 30%;
+            gap: 20px;
+            .ice-ing-1,
+            .ice-ing-2,
+            .ice-ing-3 {
+              width: 100px;
+              height: 100px;
+              border-radius: 50%;
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                border-radius: 50%;
+              }
+            }
+            .ice-ing-desc {
+              font-family: "HakgyoansimNadeuriTTF-B";
+              font-size: 18px;
+              text-align: center;
+            }
+          }
+        }
       }
     }
   }
@@ -193,15 +286,10 @@ main {
 
 .sec2 {
   width: 100%;
-  height: 300px;
+  margin-bottom: 30px;
   .sec2-container {
-    width: 100%;
-    height: 100%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     text-align: center;
+    padding: 60px 0;
     .sec2-title {
       font-family: "HSSanTokki20-Regular";
       font-size: 30px;
@@ -215,17 +303,146 @@ main {
 
 .sec3 {
   width: 100%;
+  background: #fff;
   .sec3-container {
-    width: 100%;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    .sec3-main {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 30px;
+      padding: 30px;
+      margin-left: 200px;
+      .sec3-title {
+        font-family: "HakgyoansimNadeuriTTF-B";
+        font-size: 26px;
+        line-height: 1.4;
+        span {
+          font-family: "HSSanTokki20-Regular";
+          font-size: 28px;
+          color: #ff6f61;
+        }
+      }
+      .sec3-desc {
+        font-family: "HakgyoansimNadeuriTTF-B";
+        font-size: 20px;
+        line-height: 1.4;
+      }
+      .donation-stats {
+        width: 80%;
+        border: 3px solid rgba(255, 111, 97, 0.5);
+        border-radius: 8px;
+        font-family: "HakgyoansimNadeuriTTF-B";
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+        .donation-title {
+          font-size: 22px;
+          color: #ff6f61;
+        }
+        .donation-amount {
+          font-size: 60px;
+        }
+        .donation-date {
+          font-size: 20px;
+          color: rgba(255, 111, 97, 0.5);
+        }
+      }
+      .sec3-btn {
+        width: 120px;
+        height: 40px;
+        border-radius: 20px;
+        border: none;
+        background: #ff8a65;
+        color: #fff;
+        font-family: "HakgyoansimNadeuriTTF-B";
+        font-size: 20px;
+        cursor: pointer;
+        transition: background 0.5s;
+        &:hover {
+          background: #ff6f61;
+        }
+      }
+    }
+    .sec3-side {
+      position: relative;
+      .sec3-side-contain {
+        width: 300px;
+        height: 600px;
+        border-radius: 300px 0 0 300px;
+        border: 2px dashed #ff6f61;
+        border-right: none;
+        position: relative;
+        overflow: hidden;
+      }
+      .sec3-circle {
+        position: absolute;
+        top: 160px;
+        right: 180px;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        padding: 20px;
+        background: #ffb0b0;
+        transition: all 0.5s;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+      }
+      .sec3-mini-circle {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        position: absolute;
+        top: 30px;
+        right: 140px;
+        background: #ff8e8f;
+        transition: all 0.5s;
+      }
+    }
+  }
+}
+
+.sec4 {
+  width: 100%;
+  .sec4-container {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
     padding: 0 20px;
-    .sec3-main {
-      .sec3-title {
-        font-family: "HakgyoansimNadeuriTTF-B";
-        font-size: 28px;
+    padding: 30px;
+    .sec4-title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: "양진체";
+      font-size: 22px;
+      padding: 30px;
+    }
+    .sec4-img {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      gap: 30px;
+      .se4-img-side {
+        width: 300px;
+        height: 300px;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
       }
     }
   }

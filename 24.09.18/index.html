@@ -9,7 +9,7 @@
       crossorigin="anonymous"
     ></script>
     <!--css & js-->
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./style.css" />
     <script defer src="./script.js"></script>
     <title>Document</title>
   </head>
@@ -51,46 +51,57 @@
       </div>
     </main>
     <section class="sec1">
-      <p class="sec-title">스윗스쿱은!</p>
       <div class="sec1-container">
-        <article>
-          <figure>
-            <img src="./img/intro/intro1.png" alt="intro1" />
-          </figure>
-          <p class="sec1-title">신선한 재료로 만든 프리미엄 아이스크림</p>
-          <p class="sec1-dec">
-            천연 재료만을 사용하여 더욱 신선하고 건강한 아이스크림을 제공합니다.
-          </p>
-          <p class="sec1-dec">
-            합성 첨가물과 인공 색소가 없는 자연 그대로의 맛을 선사합니다.
-          </p>
-        </article>
-        <article>
-          <figure>
-            <img src="./img/intro/intro3.png" alt="intro3" />
-          </figure>
-          <p class="sec1-title">다양한 맛과 선택의 폭</p>
-          <p class="sec1-dec">
-            다양한 맛과 독특한 레시피로 모든 입맛을 만족시킵니다.
-          </p>
-          <p class="sec1-dec">
-            비건 아이스크림과 같은 특별한 요구를 충족하는 제품군도 준비되어
-            있습니다.
-          </p>
-        </article>
-        <article>
-          <figure>
-            <img src="./img/intro/intro2.png" alt="intro2" />
-          </figure>
-          <p class="sec1-title">지역 농가와 협력</p>
-          <p class="sec1-dec">
-            현지 농가에서 신선한 우유와 과일을 공수하여 신뢰할 수 있는 품질을
-            보장합니다.
-          </p>
-          <p class="sec1-dec">
-            지역사회와 함께하는 친환경 브랜드로 자리매김하고 있습니다.
-          </p>
-        </article>
+        <!-- <article class="sec1-Btn">
+          <p class="sec1-title">New, ITEM</p>
+          <div class="ice-set">
+            <div class="ice-1">
+              <img src="./img/icecream/icecream1.png" alt="icecream1" />
+            </div>
+            <div class="ice-2">
+              <img src="./img/icecream/icecream2.png" alt="icecream2" />
+            </div>
+            <div class="ice-3">
+              <img src="./img/icecream/icecream3.png" alt="icecream3" />
+            </div>
+          </div>
+        </article> -->
+        <!-- <figure class="main-icecream">
+          <img src="./img/icecream/icecream1.png" alt="icecream1" />
+        </figure> -->
+        <!-- <article class="sec1-side">
+          <div class="sec1-side-contain">
+            <p class="sec3-side-title">바닐라 크림 드림</p>
+            <p class="sec3-side-desc">
+              부드럽고 풍부한 바닐라 아이스크림이 달콤한 맛을 선사합니다. 깔끔한
+              바닐라와 크리미한 조합이 완벽한 조화를 이뤄, 한 번 맛보면 잊을 수
+              없을 거예요. 매일 생각나는 매력적인 맛을 느껴보세요!
+            </p>
+          </div>
+          <hr />
+          <div class="sec-side-ing-contain">
+            <div class="ice-ing">
+              <div class="ice-ing-main">
+                <div class="ice-ing-1">
+                  <img src="./img/ingredient/milk.png" alt="milk" />
+                </div>
+                <span class="ice-ing-desc">우유</span>
+              </div>
+              <div class="ice-ing-main">
+                <div class="ice-ing-2">
+                  <img src="./img/ingredient/coconut.png" alt="coconut" />
+                </div>
+                <span class="ice-ing-desc">우유</span>
+              </div>
+              <div class="ice-ing-main">
+                <div class="ice-ing-3">
+                  <img src="./img/ingredient/cheese.png" alt="cheese" />
+                </div>
+                <span class="ice-ing-desc">우유</span>
+              </div>
+            </div>
+          </div>
+        </article> -->
       </div>
     </section>
     <section class="sec2">
@@ -101,26 +112,50 @@
     <section class="sec3">
       <div class="sec3-container">
         <article class="sec3-main">
-          <p class="sec3-title">NEW ITEM</p>
-          <div class="img1">
-            <img src="" alt="" />
+          <p class="sec3-title"><span>스윗스쿱,</span> 기부를 함께 즐겨봐요!</p>
+          <p class="sec3-desc">
+            아이스크림 한 스쿱이 세상에 따뜻한 나눔을 더합니다.
+            <br />스윗스쿱에서는 SWEET SCOOP인 메시지카드를 통해 아이스크림 한
+            개 당 일정 금액이 기부됩니다.
+          </p>
+          <div class="donation-stats">
+            <p class="donation-title">결식아동에게 기부된 지원금</p>
+            <p id="donation-amount" class="donation-amount">
+              <span>₩</span>
+            </p>
+            <p id="donation-date" class="donation-date"></p>
           </div>
-          <div class="img2">
-            <img src="" alt="" />
-          </div>
-          <div class="img2">
-            <img src="" alt="" />
-          </div>
-          <div class="main-img">
-            <img src="" alt="" />
-          </div>
+          <button class="sec3-btn">자세히 보기</button>
         </article>
         <article class="sec3-side">
-          <p class="sec3-side-title"></p>
-          <div class="sec3-side-img1"><img src="" alt="" /></div>
-          <div class="sec3-side-img2"><img src="" alt="" /></div>
-          <div class="sec3-side-img3"><img src="" alt="" /></div>
+          <div class="sec3-side-contain"></div>
+          <div class="sec3-circle">
+            <img src="./img/intro/intro3.png" alt="intro3" />
+          </div>
+          <div class="sec3-mini-circle"></div>
         </article>
+      </div>
+    </section>
+    <section class="sec4">
+      <div class="sec4-container">
+        <div class="sec4-title">
+          <span class="instagram"><i class="fa-brands fa-instagram"></i></span>
+          <p>Sweet Scoop</p>
+        </div>
+        <div class="sec4-img">
+          <div class="se4-img-side">
+            <img src="./img/background/background1.jpeg" alt="background1" />
+          </div>
+          <div class="se4-img-side">
+            <img src="./img/background/background2.jpeg" alt="background2" />
+          </div>
+          <div class="se4-img-side">
+            <img src="./img/background/background3.jpeg" alt="background3" />
+          </div>
+          <div class="se4-img-side">
+            <img src="./img/background/background5.jpeg" alt="background5" />
+          </div>
+        </div>
       </div>
     </section>
   </body>
