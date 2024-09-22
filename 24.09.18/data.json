@@ -5,6 +5,7 @@
       "title": "바닐라 크림 드림",
       "description": "부드럽고 풍부한 바닐라 아이스크림이 달콤한 맛을 선사합니다. 깔끔한 바닐라와 크리미한 조합이 완벽한 조화를 이루어, 한 번 맛보면 잊을 수 없을 거예요. 매일 생각나는 매력적인 맛을 느껴보세요!",
       "image": "./img/icecream/icecream1.png",
+      "bg": "./img/background/milkbg1.png",
       "ingredients": [
         {
           "name": "부드러운 우유",
@@ -25,6 +26,7 @@
       "title": "상큼 발랄 스트로베리",
       "description": "부드럽고 상큼한 딸기 아이스크림이 입 안 가득 상쾌한 달콤함을 선사합니다. 신선한 딸기와 크리미한 베이스가 완벽한 조화를 이루어, 한 번 맛보면 그 상큼함을 잊을 수 없을 거예요. 매일 생각나는 톡톡 터지는 상큼한 매력을 느껴보세요!",
       "image": "./img/icecream/icecream2.png",
+      "bg": "./img/background/stbg1.png",
       "ingredients": [
         { "name": "신선한 딸기", "image": "./img/ingredient/st1.png" },
         { "name": "달콤한 꿀", "image": "./img/ingredient/honey.png" },
@@ -36,7 +38,7 @@
       "title": "쿠키 크런치",
       "description": "바삭하고 고소한 쿠키가 부드럽고 크리미한 아이스크림과 만나, 달콤하고 진한 맛을 선사하는 특별한 아이스크림입니다. 깊고 고소한 맛이 더해져 한층 더 풍부한 디저트 경험을 만들어 줍니다.",
       "image": "./img/icecream/icecream3.png",
-      "bg": "./img/background/stbg2.png",
+      "bg": "./img/background/cookiebg1.png",
       "ingredients": [
         {
           "name": "고소한 쿠키",

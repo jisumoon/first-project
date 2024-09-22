@@ -1,96 +1,22 @@
-const slides = document.querySelector(".slides");
-const slide = document.querySelectorAll(".slide");
-let currentIndex = 0;
-let slideInterval;
-let isTransitioning = false;
+// 중첩 메뉴
 
-// 슬라이드를 복제
-const firstSlideClone = slide[0].cloneNode(true);
-slides.appendChild(firstSlideClone);
+const navItems = document.querySelectorAll(".nav-item");
 
-// 1. 슬라이드를 자동으로 전환
-function startSlide() {
-  slideInterval = setInterval(() => {
-    moveToNextSlide();
-  }, 1500);
-}
+navItems.forEach((item) => {
+  item.addEventListener("mouseenter", () => {
+    const subMenu = item.querySelector(".sub-menu");
+    subMenu.style.display = "block";
+  });
 
-// 2. 슬라이드를 다음으로 전환
-function moveToNextSlide() {
-  if (isTransitioning) return;
-  isTransitioning = true;
-
-  currentIndex++;
-  updateSlidePosition();
-
-  // 3. 마지막 슬라이드에 도달하면 첫 번째 슬라이드로 빠르게 이동
-  if (currentIndex === slide.length) {
+  item.addEventListener("mouseleave", () => {
     setTimeout(() => {
-      slides.style.transition = "none";
-      currentIndex = 0;
-      updateSlidePosition();
-      setTimeout(() => {
-        slides.style.transition = "transform 0.5s ease-in-out";
-        isTransitioning = false;
-      }, 50);
-    }, 500);
-  } else {
-    setTimeout(() => {
-      isTransitioning = false;
-    }, 500);
-  }
-}
-
-// 4. 슬라이드를 이전으로 전환
-function moveToPrevSlide() {
-  if (isTransitioning) return;
-  isTransitioning = true;
-
-  if (currentIndex === 0) {
-    currentIndex = slide.length;
-    slides.style.transition = "none";
-    updateSlidePosition();
-    setTimeout(() => {
-      slides.style.transition = "transform 0.5s ease-in-out";
-      currentIndex--;
-      updateSlidePosition();
-      isTransitioning = false;
-    }, 50);
-  } else {
-    currentIndex--;
-    updateSlidePosition();
-    setTimeout(() => {
-      isTransitioning = false;
-    }, 500);
-  }
-}
-
-// 5. 슬라이드 위치를 업데이트
-function updateSlidePosition() {
-  slides.style.transform = `translateX(-${currentIndex * 100}%)`;
-}
-
-// 6. 마우스 오버 시 슬라이드 멈추고 커서 변경
-document.querySelector(".slider").addEventListener("mouseover", () => {
-  clearInterval(slideInterval);
-  document.querySelectorAll(".slide").forEach((s) => {
-    s.style.cursor = "pointer";
+      const subMenu = item.querySelector(".sub-menu");
+      subMenu.style.display = "none";
+    }, 100);
   });
 });
 
-// 7. 마우스 오버 해제 시 슬라이드 다시 시작
-document.querySelector(".slider").addEventListener("mouseout", startSlide);
-
-// 8. 화살표 클릭 시 슬라이드 수동 전환 (이전 슬라이드)
-document.querySelector(".prev").addEventListener("click", moveToPrevSlide);
-
-// 9. 화살표 클릭 시 슬라이드 수동 전환 (다음 슬라이드)
-document.querySelector(".next").addEventListener("click", moveToNextSlide);
-
-// 10. 슬라이드 자동 시작
-startSlide();
-
-// json data
+// 데이터 - new item
 const fetchIcecreamData = () => {
   fetch("./data.json")
     .then((response) => response.json())
@@ -109,7 +35,9 @@ const changeIcecream = (id) => {
 
   // html
   container.innerHTML = `
-    <article class="sec1-Btn"  >
+ <article class="sec1-Btn" style="background: url('${
+   selectedIcecream.bg
+ }') center/cover no-repeat;">
           <p class="sec1-title">New, ITEM</p>
           <div class="ice-set">
             <div class="ice-1">
@@ -122,13 +50,13 @@ const changeIcecream = (id) => {
               <img src="./img/icecream/icecream3.png" alt="icecream3"  onclick="changeIcecream(3)"/>
             </div>
           </div>
-        </article>
+    </article>
     <figure class="main-icecream">
       <img class="main-icecream-img" src="${selectedIcecream.image}" alt="${
     selectedIcecream.title
   }" />
     </figure>
-    <article class="sec1-side" >
+    <article class="sec1-side">
       <div class="sec1-side-contain">
         <p class="sec1-side-title">${selectedIcecream.title}</p>
         <p class="sec1-side-desc">${selectedIcecream.description}</p>
@@ -140,8 +68,8 @@ const changeIcecream = (id) => {
             .map(
               (ingredient) => `
             <div class="ice-ing-main">
-                 <div class="ice-ing-1">
-              <img src="${ingredient.image}" alt="${ingredient.name}" />
+              <div class="ice-ing-1">
+                <img src="${ingredient.image}" alt="${ingredient.name}" />
               </div>
               <span class="ice-ing-desc">${ingredient.name}</span>
             </div>
@@ -204,10 +132,10 @@ const images = [
 ];
 
 const backgroundColors = ["#ffb38e", "#FFF3C7", "#FFB0B0"];
-
+let currentIndex = 0;
 const changeImageAndBackground = () => {
-  const imgElement = document.querySelector(".sec3-circle img");
-  const backgroundElement = document.querySelector(".sec3-circle");
+  const imgElement = document.querySelector(".sec4-circle img");
+  const backgroundElement = document.querySelector(".sec4-circle");
   currentIndex = (currentIndex + 1) % images.length;
   imgElement.src = images[currentIndex];
   backgroundElement.style.backgroundColor = backgroundColors[currentIndex];
@@ -227,9 +155,92 @@ const miniBackgroundColors = [
 let currentMiniIndex = 0;
 
 const changeMiniBackground = () => {
-  const miniCircle = document.querySelector(".sec3-mini-circle");
+  const miniCircle = document.querySelector(".sec4-mini-circle");
   miniCircle.style.backgroundColor = miniBackgroundColors[currentMiniIndex];
   currentMiniIndex = (currentMiniIndex + 1) % miniBackgroundColors.length;
 };
 
 setInterval(changeMiniBackground, 2500);
+
+// 배경화면
+
+const background = document.querySelector(".background");
+const colors = [
+  "rgba(255, 183, 197, 0.7)",
+  "rgba(255, 233, 197, 0.7)",
+  "rgba(197, 233, 255, 0.7)",
+];
+
+for (let i = 0; i < 30; i++) {
+  const dot = document.createElement("div");
+  dot.classList.add("dot");
+
+  const size = Math.random() * 30 + 10;
+  dot.style.width = `${size}px`;
+  dot.style.height = `${size}px`;
+  dot.style.top = `${
+    Math.random() * (100 - (size / window.innerHeight) * 100)
+  }vh`;
+  dot.style.left = `${
+    Math.random() * (100 - (size / window.innerWidth) * 100)
+  }vw`;
+
+  const color = colors[Math.floor(Math.random() * colors.length)];
+  dot.style.backgroundColor = color;
+
+  const duration = Math.random() * 3 + 2;
+  const delay = Math.random() * 2;
+  dot.style.animationDuration = `${duration}s`;
+  dot.style.animationDelay = `${delay}s`;
+
+  background.appendChild(dot);
+}
+
+// 데이터 -best item
+
+const fetchIceData = () => {
+  fetch("./ice.json")
+    .then((response) => response.json())
+    .then((data) => {
+      const containers = document.querySelectorAll(".sec3-side-con");
+
+      let counter = 0;
+
+      containers.forEach((container) => {
+        for (let i = 0; i < 3; i++) {
+          if (counter < data.icecreams.length) {
+            const icecream = data.icecreams[counter];
+            const iceDiv = document.createElement("div");
+            iceDiv.classList.add("sec3-side");
+
+            iceDiv.innerHTML = `
+              <div class="sec3-ice">
+                <img src="${icecream.image}" alt="${icecream.flavor}" />
+              </div>
+              <span class="sec3-desc">${icecream.flavor}</span>
+            `;
+
+            container.appendChild(iceDiv);
+            counter++;
+          }
+        }
+      });
+    });
+};
+
+fetchIceData();
+
+// modal 삭제
+const modal1 = document.querySelector(".modal1");
+const closeModal1Btn = document.querySelector(".modal1 .fa-xmark");
+
+closeModal1Btn.addEventListener("click", () => {
+  modal1.style.display = "none";
+});
+
+const modal2 = document.querySelector(".modal2");
+const closeModal2Btn = document.querySelector(".modal2 .fa-xmark");
+
+closeModal2Btn.addEventListener("click", () => {
+  modal2.style.display = "none";
+});

@@ -1,0 +1,28 @@
+{
+  "icecreams": [
+    {
+      "flavor": "그린 미소 스쿱",
+      "image": "./img/icecream/ice1.png"
+    },
+    {
+      "flavor": "망고 탱고",
+      "image": "./img/icecream/ice2.png"
+    },
+    {
+      "flavor": "달콤 쌉쌀 초코",
+      "image": "./img/icecream/ice3.png"
+    },
+    {
+      "flavor": "달콤한 솜사탕",
+      "image": "./img/icecream/ice4.png"
+    },
+    {
+      "flavor": "살살 녹는 사탕",
+      "image": "./img/icecream/ice5.png"
+    },
+    {
+      "flavor": "시원한 애플민트",
+      "image": "./img/icecream/ice6.png"
+    }
+  ]
+}

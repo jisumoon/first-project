@@ -11,22 +11,51 @@
     <!--css & js-->
     <link rel="stylesheet" href="./style.css" />
     <script defer src="./script.js"></script>
-    <title>Document</title>
+    <title>SWEET, SCOOP</title>
   </head>
   <body>
     <header>
       <div class="container">
-        <logo>스윗스쿱</logo>
-        <nav>
-          <span>추천메뉴</span>
-          <span>이달의맛</span>
-          <span>메뉴</span>
-          <span>매장안내</span>
+        <div class="logo">
+          스윗스쿱
+        </div>
+        <nav class="nav">
+          <span class="nav-item">
+            추천메뉴
+            <ul class="sub-menu">
+              <li>아이스크림</li>
+              <li>케이크</li>
+              <li>음료</li>
+            </ul>
+          </span>
+          <span class="nav-item">
+            이달의맛
+            <ul class="sub-menu">
+              <li>초콜릿 민트</li>
+              <li>딸기 치즈케이크</li>
+              <li>바닐라</li>
+            </ul>
+          </span>
+          <span class="nav-item">
+            메뉴
+            <ul class="sub-menu">
+              <li>싱글 스쿱</li>
+              <li>더블 스쿱</li>
+              <li>트리플 스쿱</li>
+            </ul>
+          </span>
+          <span class="nav-item">
+            매장안내
+            <ul class="sub-menu">
+              <li>지점 찾기</li>
+              <li>영업 시간</li>
+            </ul>
+          </span>
         </nav>
         <div class="nav2">
-          <span class="instagram"><i class="fa-brands fa-instagram"></i></span>
-          <span class="facebook"><i class="fa-brands fa-facebook"></i></span>
-          <span class="youtube"><i class="fa-brands fa-youtube"></i></span>
+          <span class="icon instagram"><i class="fa-brands fa-instagram"></i></span>
+          <span class="icon facebook"><i class="fa-brands fa-facebook"></i></span>
+          <span class="icon youtube"><i class="fa-brands fa-youtube"></i></span>
         </div>
       </div>
     </header>
@@ -38,9 +67,6 @@
           </div>
           <div class="slide">
             <img src="./img/slide/slide6.jpg" alt="slide6" />
-          </div>
-          <div class="slide">
-            <img src="./img/slide/slide3.jpg" alt="slide3" />
           </div>
           <div class="slide">
             <img src="./img/slide/slide2.jpg" alt="slide2" />
@@ -111,9 +137,65 @@
     </section>
     <section class="sec3">
       <div class="sec3-container">
+        <div class="background"></div>
         <article class="sec3-main">
-          <p class="sec3-title"><span>스윗스쿱,</span> 기부를 함께 즐겨봐요!</p>
+          <p class="sec3-title">Best, ITEM</p>
           <p class="sec3-desc">
+            달콤하고 부드러운 아이스크림 한 스쿱으로 최고의 맛을 경험하세요!
+          </p>
+          <div class="sec3-main-img">
+            <img src="./img/background/baby1.png" alt="baby" />
+          </div>
+        </article>
+        <article class="sec3-side-contain">
+          <div class="sec3-side-con">
+            <!-- <div class="sec3-side">
+              <div class="sec3-ice">
+                <img src="./img/icecream/ice1.png" alt="ice1" />
+              </div>
+              <span class="sec3-desc">그린 미소 스쿱</span>
+            </div>
+            <div class="sec3-side">
+              <div class="sec3-ice">
+                <img src="./img/icecream/ice1.png" alt="ice1" />
+              </div>
+              <span class="sec3-desc">그린 미소 스쿱</span>
+            </div>
+            <div class="sec3-side">
+              <div class="sec3-ice">
+                <img src="./img/icecream/ice1.png" alt="ice1" />
+              </div>
+              <span class="sec3-desc">그린 미소 스쿱</span>
+            </div> -->
+          </div>
+          <div class="sec3-side-con">
+            <!-- <div class="sec3-side">
+              <div class="sec3-ice">
+                <img src="./img/icecream/ice1.png" alt="ice1" />
+              </div>
+              <span class="sec3-desc">그린 미소 스쿱</span>
+            </div>
+            <div class="sec3-side">
+              <div class="sec3-ice">
+                <img src="./img/icecream/ice1.png" alt="ice1" />
+              </div>
+              <span class="sec3-desc">그린 미소 스쿱</span>
+            </div>
+            <div class="sec3-side">
+              <div class="sec3-ice">
+                <img src="./img/icecream/ice1.png" alt="ice1" />
+              </div>
+              <span class="sec3-desc">그린 미소 스쿱</span>
+            </div> -->
+          </div>
+        </article>
+      </div>
+    </section>
+    <section class="sec4">
+      <div class="sec4-container">
+        <article class="sec4-main">
+          <p class="sec4-title"><span>스윗스쿱,</span> 기부를 함께 즐겨봐요!</p>
+          <p class="sec4-desc">
             아이스크림 한 스쿱이 세상에 따뜻한 나눔을 더합니다.
             <br />스윗스쿱에서는 SWEET SCOOP인 메시지카드를 통해 아이스크림 한
             개 당 일정 금액이 기부됩니다.
@@ -125,38 +207,82 @@
             </p>
             <p id="donation-date" class="donation-date"></p>
           </div>
-          <button class="sec3-btn">자세히 보기</button>
+          <button class="sec4-btn">자세히 보기</button>
         </article>
-        <article class="sec3-side">
-          <div class="sec3-side-contain"></div>
-          <div class="sec3-circle">
+        <article class="sec4-side">
+          <div class="sec4-side-contain"></div>
+          <div class="sec4-circle">
             <img src="./img/intro/intro3.png" alt="intro3" />
           </div>
-          <div class="sec3-mini-circle"></div>
+          <div class="sec4-mini-circle"></div>
         </article>
       </div>
     </section>
-    <section class="sec4">
-      <div class="sec4-container">
-        <div class="sec4-title">
+    <section class="sec5">
+      <div class="sec5-container">
+        <div class="sec5-title">
           <span class="instagram"><i class="fa-brands fa-instagram"></i></span>
-          <p>Sweet Scoop</p>
+          <p>SWEET SCOOP</p>
         </div>
-        <div class="sec4-img">
-          <div class="se4-img-side">
+        <div class="sec5-img">
+          <div class="se5-img-side">
             <img src="./img/background/background1.jpeg" alt="background1" />
           </div>
-          <div class="se4-img-side">
+          <div class="se5-img-side">
             <img src="./img/background/background2.jpeg" alt="background2" />
           </div>
-          <div class="se4-img-side">
+          <div class="se5-img-side">
             <img src="./img/background/background3.jpeg" alt="background3" />
           </div>
-          <div class="se4-img-side">
+          <div class="se5-img-side">
             <img src="./img/background/background5.jpeg" alt="background5" />
           </div>
         </div>
       </div>
     </section>
+    <footer class="footer">
+      <div class="footer-contain">
+        <div class="footer-logo">
+          <p>SWEET SCOOP,</p>
+          <p>
+            달콤하고 부드러운 아이스크림으로 여러분의 일상에 행복을 더해주는
+            특별한 아이스크림 가게입니다
+          </p>
+        </div>
+        <div class="footer-hours">
+          <h3>Business Hours</h3>
+          <p>Mon - Fri: 10 AM - 9 PM</p>
+          <p>Sat - Sun: 11 AM - 10 PM</p>
+        </div>
+        <div class="footer-copyright">
+          <p>&copy; 2024 Sweet Scoop. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+    <div class="modal1">
+      <div class="modal1-main">
+        <i class="fa-solid fa-xmark"></i>
+       <div class="modal1-text">
+          <p class="modal1-title">스윗스쿱 <br />리뉴얼 이벤트</p>
+          <p class="modal1-desc">
+            싱글아이스크림 <br />
+            700원 할인
+          </p>
+       </얖>
+      </div>
+    </div>
+    </div>
+    <div class="modal2">
+      <div class="modal2-main">
+        <i class="fa-solid fa-xmark"></i>
+       <div class="modal2-text">
+          <p class="modal2-title">스윗스쿱 <br />가맹점 모집</p>
+          <p class="modal2-desc">
+            스윗스쿱과 함께할 <br>가족을 모집합니다.
+          </p>
+        </div>
+      </div>
+    </div>
+    </div>
   </body>
 </html>
