@@ -127,9 +127,9 @@ header {
     .mobile {
       display: none;
     }
-    .mobile-nav {
-      display: none;
-    }
+  }
+  .mobile-nav {
+    display: none;
   }
 }
 
@@ -897,13 +897,7 @@ main {
           color: #fff;
           padding-bottom: 20px;
           border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-          .Msub-menu {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-          }
           li {
-            display: block;
             margin-top: 15px;
             font-size: 22px;
             padding-left: 20px;
