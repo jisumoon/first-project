@@ -54,14 +54,14 @@ body {
 
 header {
   width: 100%;
-
+  padding: 20px 0;
   .container {
+    width: 100%;
     background: rgba(250, 128, 114);
     position: fixed;
     top: 0;
     z-index: 100000;
     height: 70px;
-    width: 100%;
     margin: 0 auto;
     display: flex;
     justify-content: space-around;
@@ -124,17 +124,23 @@ header {
         }
       }
     }
+    .mobile {
+      display: none;
+    }
+    .mobile-nav {
+      display: none;
+    }
   }
 }
 
 main {
-  background: #fff3e6;
   .slider {
     position: relative;
     width: 100%;
     overflow: hidden;
     .slides {
       display: flex;
+      width: 100%;
       height: calc(100vh - 2px);
       transition: transform 0.5s ease-in-out;
       .slide {
@@ -143,14 +149,6 @@ main {
         img {
           width: 100%;
           object-fit: cover;
-        }
-
-        &:nth-child(3) img {
-          transform: translateY(-80px);
-        }
-
-        &:nth-child(4) img {
-          transform: translateY(-90px);
         }
       }
     }
@@ -708,6 +706,382 @@ main {
   }
 }
 
+/*미디어쿼리*/
+
+@media (max-width: 1384px) {
+  body {
+    width: 100%;
+  }
+
+  main {
+    margin-top: 30px;
+    width: 100%;
+    height: 300px;
+    .slider {
+      width: 100%;
+      .slides {
+        width: 100%;
+        height: 100%;
+        .slide {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .prev,
+      .next {
+        display: none;
+      }
+    }
+  }
+
+  .sec1 {
+    width: 100%;
+    .sec1-container {
+      height: calc(100vh - 100px);
+    }
+  }
+
+  .sec2 {
+    width: 100%;
+  }
+
+  .sec3 {
+    .sec3-container {
+      flex-direction: column;
+      gap: 20px;
+      .sec3-main {
+        text-align: center;
+        padding-top: 30px;
+        .sec3-title {
+          font-size: 28px;
+        }
+        .sec3-desc {
+          font-size: 18px;
+        }
+      }
+      .sec3-side-con {
+        gap: 40px;
+        .sec3-side {
+          .sec3-ice {
+            width: 120px;
+            height: 120px;
+          }
+          .sec3-desc {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+
+  .sec4 {
+    width: 100%;
+    padding: 0 60px;
+    padding-right: 0;
+    .sec4-container {
+      width: 100%;
+      .sec4-main {
+        margin-left: 0;
+        .donation-stats {
+          .donation-amount {
+            font-size: 40px;
+          }
+        }
+      }
+
+      .sec4-side {
+        .sec4-circle {
+          top: 200px;
+          left: -100px;
+        }
+      }
+    }
+  }
+
+  .sec5 {
+    width: 100%;
+    padding: 0 60px;
+    .sec5-container {
+      .sec5-img {
+        width: 100%;
+      }
+    }
+  }
+
+  footer {
+    width: 100%;
+  }
+  .modal1 {
+    .modal1-main {
+      top: 24%;
+      left: 10%;
+    }
+  }
+
+  .modal2 {
+    .modal2-main {
+      top: 24%;
+      left: 30%;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    width: 100%;
+  }
+
+  header {
+    width: 100%;
+
+    .container {
+      width: 100%;
+
+      display: flex;
+      justify-content: space-between;
+      padding: 0 50px;
+
+      .logo {
+        text-align: center;
+      }
+
+      nav,
+      .nav2 {
+        display: none;
+      }
+
+      .mobile {
+        display: block;
+        font-size: 26px;
+        color: #fff;
+        cursor: pointer;
+        transition: all 0.3s;
+
+        &:hover {
+          color: #ffcc80;
+          transform: scale(1.2);
+        }
+      }
+    }
+
+    .mobile-nav {
+      display: block;
+      position: relative;
+      animation: slideIn 0.5s forwards;
+
+      .mobile-nav-container {
+        background: rgba(250, 128, 114);
+        width: 250px;
+        height: 900px;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding-left: 30px;
+        top: 0;
+        right: -300px;
+        z-index: 8000;
+        font-family: "HakgyoansimNadeuriTTF-B";
+        font-size: 30px;
+        gap: 50px;
+        transition: right 0.3s ease;
+
+        &.active {
+          right: 0;
+        }
+
+        .Mnav-item {
+          width: 100%;
+          text-align: left;
+          color: #fff;
+          padding-bottom: 20px;
+          border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+          .Msub-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+          }
+          li {
+            display: block;
+            margin-top: 15px;
+            font-size: 22px;
+            padding-left: 20px;
+            &:hover {
+              color: #ffcc80;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  main {
+    .slider {
+      .slides {
+        height: calc(80vh - 2px);
+      }
+
+      .prev,
+      .next {
+        bottom: 46%;
+      }
+    }
+  }
+
+  .sec1 {
+    width: 100%;
+    height: 1400px;
+    .sec1-container {
+      width: 100%;
+      height: 100%;
+      flex-direction: column;
+      align-items: center;
+
+      .sec1-Btn {
+        position: relative;
+
+        width: 100%;
+        height: 40%;
+        display: flex;
+
+        gap: 10px;
+        .sec1-title {
+          position: absolute;
+          top: 80px;
+          font-size: 30px;
+        }
+        .ice-set {
+          flex-direction: row;
+          gap: 10px;
+          position: absolute;
+          top: 160px;
+          div {
+            width: 110px;
+            height: 110px;
+          }
+        }
+      }
+      .main-icecream {
+        width: 300px;
+        top: 600px;
+        z-index: 1000;
+      }
+      .sec1-side {
+        padding-top: 100px;
+        width: 100%;
+        height: 50%;
+        padding-bottom: 0;
+      }
+    }
+  }
+
+  .sec2 {
+    width: 100%;
+    .sec2-container {
+      width: 100%;
+    }
+  }
+
+  .sec3 {
+    margin-bottom: 60px;
+    .sec3-container {
+      flex-direction: column;
+      gap: 20px;
+      padding: 0 10px;
+      .sec3-main {
+        padding-top: 40px;
+        .sec3-title {
+          font-size: 28px;
+        }
+        .sec3-desc {
+          font-size: 18px;
+        }
+      }
+      .sec3-side-contain {
+        gap: 20px;
+        padding-top: 40px;
+        .sec3-side-con {
+          gap: 40px;
+          .sec3-side {
+            .sec3-ice {
+              width: 70px;
+              height: 70px;
+            }
+            .sec3-desc {
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .sec4 {
+    width: 100%;
+    padding: 0;
+    margin-bottom: 120px;
+    .sec4-container {
+      width: 100%;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0 20px;
+      .sec4-main {
+        padding: 0;
+        .sec4-title {
+          font-size: 22px;
+        }
+
+        .sec4-desc {
+          font-size: 18px;
+        }
+
+        .donation-stats {
+          width: 100%;
+          padding: 20px;
+
+          .donation-amount {
+            font-size: 40px;
+          }
+        }
+
+        .sec4-btn {
+          width: 100px;
+          height: 35px;
+          font-size: 18px;
+        }
+      }
+
+      .sec4-side {
+        display: none;
+      }
+    }
+  }
+
+  .sec5 {
+    width: 100%;
+    .sec5-container {
+      width: 100%;
+      padding: 0;
+      .sec5-title {
+        font-size: 26px;
+        padding: 0;
+      }
+      .sec5-img {
+        .se5-img-side {
+          width: 100px;
+          height: 100px;
+          gap: 10px;
+        }
+      }
+    }
+  }
+  .footer {
+    width: 100%;
+    padding: 10px 30px;
+  }
+}
 /*ani*/
 
 @keyframes fadeText {
@@ -761,5 +1135,14 @@ main {
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    right: -300px;
+  }
+  to {
+    right: 0;
   }
 }

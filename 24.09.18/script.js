@@ -1,7 +1,5 @@
 // 중첩 메뉴
-
 const navItems = document.querySelectorAll(".nav-item");
-
 navItems.forEach((item) => {
   item.addEventListener("mouseenter", () => {
     const subMenu = item.querySelector(".sub-menu");
@@ -14,6 +12,91 @@ navItems.forEach((item) => {
       subMenu.style.display = "none";
     }, 100);
   });
+});
+
+// 메인 슬라이드
+
+const slider = document.querySelector(".slider");
+const slides = document.querySelector(".slides");
+const slide = document.querySelectorAll(".slide");
+const prevBtn = document.querySelector(".prev");
+const nextBtn = document.querySelector(".next");
+
+// 첫 번째와 마지막 슬라이드 복제
+const firstSlide = slide[0].cloneNode(true);
+const lastSlide = slide[slide.length - 1].cloneNode(true);
+
+// 슬라이드 복제본을 맨 앞과 맨 뒤에 추가
+slides.appendChild(firstSlide);
+slides.insertBefore(lastSlide, slides.firstChild);
+
+let currentIdx = 1;
+const slideCount = slide.length;
+const slideWidth = slide[0].clientWidth;
+slides.style.transform = `translateX(-${slideWidth}px)`;
+
+// 슬라이드 이동 함수
+function moveSlide(index) {
+  slides.style.transition = "transform 0.5s ease-in-out";
+  slides.style.transform = `translateX(-${slideWidth * index}px)`;
+  currentIdx = index;
+}
+
+// 슬라이드 위치를 즉시 재조정하는 함수
+function resetSlidePosition(index) {
+  slides.style.transition = "none";
+  slides.style.transform = `translateX(-${slideWidth * index}px)`;
+  currentIdx = index;
+  setTimeout(() => {
+    slides.style.transition = "transform 0.5s ease-in-out";
+  }, 50);
+}
+
+// 자동 슬라이드 기능
+let autoSlide = setInterval(() => {
+  moveSlide(currentIdx + 1);
+  if (currentIdx >= slideCount + 1) {
+    setTimeout(() => {
+      resetSlidePosition(1);
+    }, 500);
+  }
+}, 10000);
+
+// 버튼 클릭 이벤트
+nextBtn.addEventListener("click", () => {
+  clearInterval(autoSlide);
+  moveSlide(currentIdx + 1);
+  if (currentIdx >= slideCount + 1) {
+    setTimeout(() => {
+      resetSlidePosition(1);
+    }, 500);
+  }
+  autoSlide = setInterval(() => {
+    moveSlide(currentIdx + 1);
+    if (currentIdx >= slideCount + 1) {
+      setTimeout(() => {
+        resetSlidePosition(1);
+      }, 500);
+    }
+  }, 10000);
+});
+
+prevBtn.addEventListener("click", () => {
+  clearInterval(autoSlide);
+  moveSlide(currentIdx - 1);
+  if (currentIdx <= 0) {
+    setTimeout(() => {
+      resetSlidePosition(slideCount);
+    }, 500);
+  }
+  autoSlide = setInterval(() => {
+    moveSlide(currentIdx + 1);
+    if (currentIdx >= slideCount + 1) {
+      setTimeout(() => {
+        resetSlidePosition(1);
+      }, 500);
+    }
+  }, 10000);
 });
 
 // 데이터 - new item
@@ -178,11 +261,18 @@ for (let i = 0; i < 30; i++) {
   const size = Math.random() * 30 + 10;
   dot.style.width = `${size}px`;
   dot.style.height = `${size}px`;
+
+  const topMargin = 30;
+  const leftMargin = 30;
+
   dot.style.top = `${
-    Math.random() * (100 - (size / window.innerHeight) * 100)
+    Math.random() * (100 - (size / window.innerHeight) * 100) * 0.9 +
+    (topMargin / window.innerHeight) * 100
   }vh`;
+
   dot.style.left = `${
-    Math.random() * (100 - (size / window.innerWidth) * 100)
+    Math.random() * (100 - (size / window.innerWidth) * 100) * 0.9 +
+    (leftMargin / window.innerWidth) * 100
   }vw`;
 
   const color = colors[Math.floor(Math.random() * colors.length)];
@@ -244,3 +334,11 @@ const closeModal2Btn = document.querySelector(".modal2 .fa-xmark");
 closeModal2Btn.addEventListener("click", () => {
   modal2.style.display = "none";
 });
+
+const toggleMobileMenu = () => {
+  const mobileNav = document.querySelector(".mobile-nav .mobile-nav-container");
+  mobileNav.classList.toggle("active");
+};
+
+const mobileMenuButton = document.querySelector(".mobile");
+mobileMenuButton.addEventListener("click", toggleMobileMenu);
