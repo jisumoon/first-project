@@ -1,0 +1,133 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  background: url(./img/background.jpeg) center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: 70px 60px;
+  gap: 200px;
+  background: rgba(0, 0, 0, 0.7);
+}
+.container .left {
+  flex: 1;
+  position: relative;
+  font-family: "Noto Sans", sans-serif;
+  color: #fff;
+}
+.container .left .left-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 30px;
+}
+.container .left .left-main .left-main-title {
+  font-size: 30px;
+  font-weight: 800;
+}
+.container .left .left-main .left-main-intro {
+  font-size: 18px;
+  line-height: 2;
+}
+.container .left .left-main .left-main-btn {
+  width: 243px;
+  height: 58px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background-image: linear-gradient(to top, #2b5876 0%, #330867 100%);
+  font-size: 22px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color all 0.3s;
+}
+.container .left .left-main .left-main-btn:hover {
+  color: #000000;
+}
+.container .left .left-ice {
+  position: absolute;
+  top: -70%;
+  left: -10%;
+  width: 500px;
+  height: 167px;
+}
+.container .left .left-ice img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.container .right {
+  flex: 1;
+  position: relative;
+  font-family: "Noto Sans", sans-serif;
+  color: #fff;
+}
+.container .right .right-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 30px;
+}
+.container .right .right-main .right-main-title {
+  font-size: 30px;
+  font-weight: 800;
+}
+.container .right .right-main .right-main-intro {
+  font-size: 18px;
+}
+.container .right .right-main .right-main-btn {
+  width: 243px;
+  height: 58px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background-image: linear-gradient(to top, #2b5876 0%, #330867 100%);
+  font-size: 22px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color all 0.3s;
+}
+.container .right .right-main .right-main-btn:hover {
+  color: #000000;
+}
+.container .right .right-ice {
+  position: absolute;
+  top: -70%;
+  left: -10%;
+  width: 500px;
+  height: 167px;
+}
+.container .right .right-ice img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

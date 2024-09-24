@@ -1,0 +1,135 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  background: url(./img/background.jpeg) center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: 70px 60px;
+  gap: 200px;
+  background: rgba($color: #000000, $alpha: 0.7);
+  .left {
+    flex: 1;
+    position: relative;
+    font-family: "Noto Sans", sans-serif;
+    color: #fff;
+
+    .left-main {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 30px;
+      .left-main-title {
+        font-size: 30px;
+        font-weight: 800;
+      }
+      .left-main-intro {
+        font-size: 18px;
+        line-height: 2;
+      }
+      .left-main-btn {
+        width: 243px;
+        height: 58px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+        background-image: linear-gradient(to top, #2b5876 0%, #330867 100%);
+        font-size: 22px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: color all 0.3s;
+        &:hover {
+          color: #000000;
+        }
+      }
+    }
+    .left-ice {
+      position: absolute;
+      top: -70%;
+      left: -10%;
+      width: 500px;
+      height: 167px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+  .right {
+    flex: 1;
+    position: relative;
+    font-family: "Noto Sans", sans-serif;
+    color: #fff;
+
+    .right-main {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 30px;
+      .right-main-title {
+        font-size: 30px;
+        font-weight: 800;
+      }
+      .right-main-intro {
+        font-size: 18px;
+      }
+      .right-main-btn {
+        width: 243px;
+        height: 58px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+        background-image: linear-gradient(to top, #2b5876 0%, #330867 100%);
+        font-size: 22px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: color all 0.3s;
+        &:hover {
+          color: #000000;
+        }
+      }
+    }
+    .right-ice {
+      position: absolute;
+      top: -70%;
+      left: -10%;
+      width: 500px;
+      height: 167px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+}
