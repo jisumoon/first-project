@@ -10,19 +10,19 @@
     ></script>
     <!-- scss & script -->
     <link rel="stylesheet" href="style.css" />
-    <script src="./script.js"></script>
+    <script defer src="./script.js"></script>
     <title>Document</title>
   </head>
   <body>
     <div class="container">
       <div class="left">
         <div class="left-main">
-          <p class="left-main-title">Don`t Have an account?</p>
+          <p class="left-main-title">Don't Have an account?</p>
           <p class="left-main-intro">
             If you don't have an account, sign up now<br />
             to enjoy various benefits and services!
           </p>
-          <span class="left-main-btn">Sing up</span>
+          <span class="left-main-btn">Sign up</span>
         </div>
       </div>
       <div class="right">
@@ -51,19 +51,14 @@
           <div class="simple-icon"><i class="fa-brands fa-facebook-f"></i></div>
         </div>
         <form
-          class="rifgt-side-form"
+          class="right-side-form"
           action="http://127.0.0.1:14184/"
-          method="get"
+          method="post"
         >
           <div class="email-box">
             <div class="box">
               <label for="email">Email</label>
-              <input
-                type="text"
-                name="emaill"
-                id="email"
-                placeholder="User Email"
-              />
+              <input type="text" name="email" id="email" placeholder="Email" />
             </div>
             <p class="email-error">Please enter a valid email format.</p>
           </div>
@@ -74,17 +69,19 @@
                 type="password"
                 name="password"
                 id="password"
-                placeholder="Password Email"
+                placeholder="Password"
               />
             </div>
             <p class="password-error">Please check your password again.</p>
           </div>
-          <div class="rember-box">
-            <label for="checkbox">Remember Me</label>
-            <input type="checkbox" name="me" id="me" />
+          <div class="remember-box">
+            <div class="remember-box-inner">
+              <input type="checkbox" name="me" id="me" />
+              <label for="me">Remember Me</label>
+            </div>
             <p class="forgot">Forgot Password</p>
           </div>
-          <span class="login-btn">Login</span>
+          <input type="submit" class="login-btn" value="Login" />
         </form>
       </div>
     </div>

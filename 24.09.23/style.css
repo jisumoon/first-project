@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*font*/
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap");
@@ -76,10 +77,11 @@ body {
   font-size: 20px;
   font-weight: 600;
   cursor: pointer;
-  transition: color all 0.3s;
+  opacity: 1;
+  transition: opacity all 0.3s;
 }
 .left .left-main .left-main-btn:hover {
-  color: #000000;
+  opacity: 0.8;
 }
 
 .right {
@@ -121,7 +123,7 @@ body {
   color: #000000;
 }
 .right .right-main.active {
-  opacity: 0;
+  opacity: 1;
 }
 
 .right-side {
@@ -129,7 +131,6 @@ body {
   width: 532px;
   height: 556px;
   background: #fff;
-  position: absolute;
   right: 16%;
 }
 .right-side .right-contain {
@@ -138,8 +139,8 @@ body {
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  padding: 70px 20px;
-  gap: 20px;
+  padding: 60px 20px;
+  gap: 10px;
 }
 .right-side .right-contain .right-side-title {
   font-size: 40px;
@@ -149,6 +150,7 @@ body {
   -webkit-background-clip: text;
 }
 .right-side .right-contain .right-side-intro {
+  margin-top: 10px;
   font-size: 16px;
   font-weight: 400;
   line-height: 1.4;
@@ -160,6 +162,7 @@ body {
   justify-content: center;
   align-items: center;
   gap: 20px;
+  margin-top: 10px;
 }
 .right-side .right-contain .right-side-simple .simple-icon {
   width: 50px;
@@ -185,19 +188,138 @@ body {
 .right-side .right-contain .right-side-simple .simple-icon:hover i {
   transform: rotateY(-180deg);
 }
-.right-side .right-contain .rifgt-side-form {
+.right-side .right-contain .right-side-form {
+  width: 60%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin: 0 auto;
-  gap: 10px;
-  border: 1px solid #f00;
+  margin-top: 20px;
+  font-size: 14px;
+  gap: 5px;
 }
-.right-side .right-contain .rifgt-side-form .box {
+.right-side .right-contain .right-side-form .email-box,
+.right-side .right-contain .right-side-form .password-box {
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 10px;
+}
+.right-side .right-contain .right-side-form .email-box .email-error,
+.right-side .right-contain .right-side-form .email-box .password-error,
+.right-side .right-contain .right-side-form .password-box .email-error,
+.right-side .right-contain .right-side-form .password-box .password-error {
+  padding: 2px;
+  font-size: 12px;
+  color: tomato;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.right-side .right-contain .right-side-form .email-box .email-error.active,
+.right-side .right-contain .right-side-form .email-box .password-error.active,
+.right-side .right-contain .right-side-form .password-box .email-error.active,
+.right-side .right-contain .right-side-form .password-box .password-error.active {
+  opacity: 1;
+}
+.right-side .right-contain .right-side-form .email-box .box,
+.right-side .right-contain .right-side-form .password-box .box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+.right-side .right-contain .right-side-form .email-box .box input,
+.right-side .right-contain .right-side-form .password-box .box input {
+  width: 100%;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  transition: opacity 0.5s;
+}
+.right-side .right-contain .right-side-form .email-box .box input::placeholder,
+.right-side .right-contain .right-side-form .password-box .box input::placeholder {
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  opacity: 0.6;
+}
+.right-side .right-contain .right-side-form .email-box .box input:focus,
+.right-side .right-contain .right-side-form .password-box .box input:focus {
+  outline: none;
+}
+.right-side .right-contain .right-side-form .email-box .box input:focus::placeholder,
+.right-side .right-contain .right-side-form .password-box .box input:focus::placeholder {
+  opacity: 0;
+}
+.right-side .right-contain .right-side-form .remember-box {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+.right-side .right-contain .right-side-form .remember-box .remember-box-inner {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.right-side .right-contain .right-side-form .remember-box .remember-box-inner input[type=checkbox] {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border: 1px solid #a67eca;
+  border-radius: 50%;
+  background-color: transparent;
+  cursor: pointer;
+  position: relative;
+}
+.right-side .right-contain .right-side-form .remember-box .remember-box-inner input[type=checkbox]::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 6px;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.right-side .right-contain .right-side-form .remember-box .remember-box-inner input[type=checkbox]:checked {
+  background-color: #a67eca;
+}
+.right-side .right-contain .right-side-form .remember-box .remember-box-inner input[type=checkbox]:checked::after {
+  content: "✔";
+  opacity: 1;
+  color: #fff;
+}
+.right-side .right-contain .right-side-form .remember-box .remember-box-inner label {
+  font-size: 13px;
+  color: #333;
+  cursor: pointer;
+}
+.right-side .right-contain .right-side-form .remember-box .forgot {
+  color: #696969;
+  cursor: pointer;
+}
+.right-side .right-contain .right-side-form .login-btn {
+  width: 100%;
+  height: 50px;
+  border: none;
+  border-radius: 8px;
+  background: #8989ba;
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.right-side .right-contain .right-side-form .login-btn:hover {
+  background: #4e4376;
+}
+.right-side.active {
+  animation: leftMove 2s ease-in-out forwards;
 }
 
 /*ani*/
@@ -213,5 +335,13 @@ body {
   100% {
     transform: rotateY(-180deg);
     background-color: #4e4376;
+  }
+}
+@keyframes leftMove {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(-100%);
   }
 }
