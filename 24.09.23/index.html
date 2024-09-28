@@ -3,15 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- fontawesome -->
+
+    <!-- Firebase App (CDN 방식 SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <!-- Firebase Authentication (CDN 방식) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <!--fontawesome-->
     <script
       src="https://kit.fontawesome.com/6336e5c545.js"
       crossorigin="anonymous"
     ></script>
-    <!-- scss & script -->
+    <!-- js & css -->
     <link rel="stylesheet" href="style.css" />
     <script defer src="./script.js"></script>
-    <title>Document</title>
+    <script defer src="./firebase.js"></script>
+    <title>Login&Signin</title>
   </head>
   <body>
     <div class="container">
@@ -38,51 +44,197 @@
     </div>
     <div class="right-side">
       <div class="right-contain">
-        <p class="right-side-title">LOG IN</p>
-        <p class="right-side-intro">
-          Log in easily using your preferred<br />
-          social media or email account.
-        </p>
-        <div class="right-side-simple">
-          <div class="simple-icon"><i class="fa-brands fa-github"></i></div>
-          <div class="simple-icon">
-            <i class="fa-brands fa-google"></i>
+        <div class="right-side-login">
+          <p class="right-side-title">LOG IN</p>
+          <p class="right-side-intro">
+            Log in easily using your preferred<br />
+            social media or email account.
+          </p>
+          <div class="right-side-simple">
+            <div class="simple-icon git">
+              <i class="fa-brands fa-github"></i>
+            </div>
+            <div class="simple-icon google">
+              <i class="fa-brands fa-google"></i>
+            </div>
+            <div class="simple-icon">
+              <i class="fa-brands fa-facebook-f"></i>
+            </div>
           </div>
-          <div class="simple-icon"><i class="fa-brands fa-facebook-f"></i></div>
+          <form
+            class="right-side-form"
+            action="http://127.0.0.1:14184/"
+            method="post"
+          >
+            <div class="email-box">
+              <div class="box">
+                <label for="email">Email</label>
+                <input
+                  type="text"
+                  name="email"
+                  id="email"
+                  placeholder="Email"
+                />
+              </div>
+              <p class="email-error">Please enter a valid email format.</p>
+            </div>
+            <div class="password-box">
+              <div class="box">
+                <label for="password">Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="Password"
+                />
+              </div>
+              <p class="password-error">Please check your password again.</p>
+            </div>
+            <div class="remember-box">
+              <div class="remember-box-inner">
+                <input type="checkbox" name="me" id="me" />
+                <label for="me">Remember Me</label>
+              </div>
+              <p class="forgot">Forgot Password</p>
+            </div>
+            <input type="submit" class="login-btn" value="Login" />
+          </form>
         </div>
-        <form
-          class="right-side-form"
-          action="http://127.0.0.1:14184/"
-          method="post"
-        >
-          <div class="email-box">
-            <div class="box">
-              <label for="email">Email</label>
-              <input type="text" name="email" id="email" placeholder="Email" />
+
+        <!--signup__name&email-->
+        <!-- <div class="right-side-signUP">
+          <p class="right-side-title-signUP">SIGN UP</p>
+          <p class="right-side-intro-signUP">
+            Sign up easily using your preferred<br />
+            social media or email account.
+          </p>
+          <div class="right-side-simple-sginUp">
+            <div class="simple-icon"><i class="fa-brands fa-github"></i></div>
+            <div class="simple-icon">
+              <i class="fa-brands fa-google"></i>
             </div>
-            <p class="email-error">Please enter a valid email format.</p>
-          </div>
-          <div class="password-box">
-            <div class="box">
-              <label for="password">Password</label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Password"
-              />
+            <div class="simple-icon">
+              <i class="fa-brands fa-facebook-f"></i>
             </div>
-            <p class="password-error">Please check your password again.</p>
           </div>
-          <div class="remember-box">
-            <div class="remember-box-inner">
-              <input type="checkbox" name="me" id="me" />
-              <label for="me">Remember Me</label>
+          <form
+            class="right-side-form-signUp"
+            action="http://127.0.0.1:14184/"
+            method="post"
+          >
+            <div class="userName-box">
+              <div class="box">
+                <label for="signUp-userName">Name</label>
+                <input
+                  type="text"
+                  name="signUp-userName"
+                  id="signUp-userName"
+                  placeholder="Name"
+                />
+              </div>
+              <p class="userName-error">
+                Please enter the username in English.
+              </p>
             </div>
-            <p class="forgot">Forgot Password</p>
+            <div class="userEmail-box">
+              <div class="box">
+                <label for="signUp-userEmail">Email</label>
+                <input
+                  type="text"
+                  name="signUp-userEmail"
+                  id="signUp-userEmail"
+                  placeholder="Email"
+                />
+              </div>
+              <p class="userName-error">Please enter a valid email format.</p>
+            </div>
+            <input type="submit" id="next" class="login-btn" value="Next" />
+          </form>
+        </div> -->
+
+        <!--signup__password-->
+        <!-- <div class="right-side-signUP_pW">
+          <p class="right-side-title-signUP">SIGN UP</p>
+          <p class="right-side-intro-signUP_pW">
+            Sign up now and experience a variety of <br />personalized services!
+          </p>
+          <form
+            class="right-side-form-signUp_pW"
+            action="http://127.0.0.1:14184/"
+            method="post"
+          >
+            <div class="userPw-box">
+              <div class="box">
+                <label for="signUp-userPw">Password</label>
+                <input
+                  type="password"
+                  name="signUp-userPw"
+                  id="signUp-userPw"
+                  placeholder="Password"
+                />
+              </div>
+              <p class="userPw-error">
+                Password must be 8+ characters with numbers, uppercase,
+                lowercase, and special characters
+              </p>
+            </div>
+            <div class="userCPw-box">
+              <div class="box">
+                <label for="signUp-userCPw">Confirm Password </label>
+                <input
+                  type="password"
+                  name="signUp-userCPw"
+                  id="signUp-userCPw"
+                  placeholder="Password"
+                />
+              </div>
+              <p class="userName-error">Please enter a valid email format.</p>
+            </div>
+            <div class="user-phone-box">
+              <div class="box">
+                <label for="signUp-userPhoneNum">Phone Number</label>
+                <div class="signUp-userphn">
+                  <input
+                    type="text"
+                    name="signUp-userPhoneNum"
+                    id="signUp-userPhoneNum"
+                    placeholder="Phone Number"
+                  />
+                  <input type="submit" id="code" value="Code" />
+                </div>
+                <p class="userphone-error">
+                  Please enter a valid phone number.
+                </p>
+                <label for="UserCode">User Code</label>
+                <input
+                  type="text"
+                  name="UserCode"
+                  id="UserCode"
+                  placeholder="User Code"
+                />
+              </div>
+            </div>
+            <input
+              type="submit"
+              id="next-singup"
+              class="next-singup"
+              value="Sign up"
+            />
+          </form>
+        </div> -->
+
+        <!--signup ok-->
+        <!-- <div class="success-container">
+          <div class="success-box">
+            <h1>Registration Successful!</h1>
+            <p>Congratulations!</p>
+            <p>Your registration was completed successfully.</p>
+            <p>Log in now to start using our services.</p>
+            <div class="btn-group">
+              <a href="login.html" class="btn">Log In</a>
+            </div>
           </div>
-          <input type="submit" class="login-btn" value="Login" />
-        </form>
+        </div> -->
       </div>
     </div>
   </body>
