@@ -20,12 +20,11 @@ const auth = firebase.auth();
 const googleLogin = () => {
   auth
     .signInWithPopup(googleProvider)
-    .then((result) => {
-      const user = result.user;
-      console.log("Google 로그인 성공:", user);
+    .then(() => {
+      alert("You have successfully logged in.");
     })
-    .catch((error) => {
-      console.error("Google 로그인 오류:", error);
+    .catch(() => {
+      alert("There was an error during login. Please try again.");
     });
 };
 
@@ -37,12 +36,11 @@ const githubLogin = () => {
   firebase
     .auth()
     .signInWithPopup(githubProvider)
-    .then((result) => {
-      const user = result.user;
-      console.log("GitHub 로그인 성공:", user);
+    .then(() => {
+      alert("You have successfully logged in.");
     })
-    .catch((error) => {
-      console.error("GitHub 로그인 오류:", error);
+    .catch(() => {
+      alert("There was an error during login. Please try again.");
     });
 };
 
