@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <!-- Firebase App (CDN 방식 SDK) -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <!-- Firebase Authentication (CDN 방식) -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+
     <!--fontawesome-->
     <script
       src="https://kit.fontawesome.com/6336e5c545.js"
@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="style.css" />
     <script defer src="./script.js"></script>
     <script defer src="./firebase.js"></script>
-    <title>Login&Signin</title>
+    <title>Login&Signup</title>
   </head>
   <body>
     <div class="container">
@@ -63,7 +63,7 @@
           </div>
           <form
             class="right-side-form"
-            action="http://127.0.0.1:14184/"
+            action="http://127.0.0.1:12259/"
             method="post"
           >
             <div class="email-box">
@@ -91,10 +91,6 @@
               <p class="password-error">Please check your password again.</p>
             </div>
             <div class="remember-box">
-              <div class="remember-box-inner">
-                <input type="checkbox" name="me" id="me" />
-                <label for="me">Remember Me</label>
-              </div>
               <p class="forgot">Forgot Password</p>
             </div>
             <input type="submit" class="login-btn" value="Login" />
@@ -119,8 +115,8 @@
           </div>
           <form
             class="right-side-form-signUp"
-            action="http://127.0.0.1:14184/"
-            method="post"
+            action="http://127.0.0.1/"
+            method="post
           >
             <div class="userName-box">
               <div class="box">
@@ -188,7 +184,7 @@
                   placeholder="Password"
                 />
               </div>
-              <p class="userName-error">Please enter a valid email format.</p>
+              <p class=".userCPw-error ">Passwords do not match. Please check again.</p>
             </div>
             <div class="user-phone-box">
               <div class="box">

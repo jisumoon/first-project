@@ -22,6 +22,24 @@ const googleLogin = () => {
     .signInWithPopup(googleProvider)
     .then(() => {
       alert("You have successfully logged in.");
+
+      document.querySelector(".right-main").classList.remove("hide");
+      document.querySelector(".right-side").classList.remove("active");
+    })
+    .catch(() => {
+      alert("There was an error during login. Please try again.");
+    });
+};
+
+// Github
+const githubLogin = () => {
+  auth
+    .signInWithPopup(githubProvider)
+    .then(() => {
+      alert("You have successfully logged in.");
+
+      document.querySelector(".right-main").classList.remove("hide");
+      document.querySelector(".right-side").classList.remove("active");
     })
     .catch(() => {
       alert("There was an error during login. Please try again.");
@@ -29,20 +47,12 @@ const googleLogin = () => {
 };
 
 const googleBtn = document.querySelector(".google");
-googleBtn.addEventListener("click", googleLogin);
-
-//git
-const githubLogin = () => {
-  firebase
-    .auth()
-    .signInWithPopup(githubProvider)
-    .then(() => {
-      alert("You have successfully logged in.");
-    })
-    .catch(() => {
-      alert("There was an error during login. Please try again.");
-    });
-};
-
 const gitBtn = document.querySelector(".git");
-gitBtn.addEventListener("click", githubLogin);
+
+if (googleBtn) {
+  googleBtn.addEventListener("click", googleLogin);
+}
+
+if (gitBtn) {
+  gitBtn.addEventListener("click", githubLogin);
+}
