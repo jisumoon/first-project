@@ -1,0 +1,226 @@
+[
+  {
+    "id": 1,
+    "name": "카모메 식당",
+    "price": 15000,
+    "category": "여행",
+    "img": "/img/book1.jpg"
+  },
+  {
+    "id": 2,
+    "name": "체스로 아빠를 이기는 방법",
+    "price": 18000,
+    "category": "자기계발",
+    "img": "/img/book2.jpg"
+  },
+  {
+    "id": 3,
+    "name": "인공지능이 다 해주는 브루 영상 편집",
+    "price": 20000,
+    "category": "IT/컴퓨터",
+    "img": "/img/book3.jpg"
+  },
+  {
+    "id": 4,
+    "name": "솔스케이프",
+    "price": 22000,
+    "category": "건축",
+    "img": "/img/book4.jpg"
+  },
+  {
+    "id": 5,
+    "name": "공부의 대화법",
+    "price": 17000,
+    "category": "자기계발",
+    "img": "/img/book5.jpg"
+  },
+  {
+    "id": 6,
+    "name": "고전 읽기 방법",
+    "price": 14000,
+    "category": "문학",
+    "img": "/img/book6.jpg"
+  },
+  {
+    "id": 7,
+    "name": "빛이 이끄는 곳으로",
+    "price": 16000,
+    "category": "자기계발",
+    "img": "/img/book7.jpg"
+  },
+  {
+    "id": 8,
+    "name": "나의 이갸기를 먹어줄게",
+    "price": 20000,
+    "category": "예술",
+    "img": "/img/book8.jpg"
+  },
+  {
+    "id": 9,
+    "name": "맨홀에 빠진 앨리스",
+    "price": 19000,
+    "category": "철학",
+    "img": "/img/book9.jpg"
+  },
+  {
+    "id": 10,
+    "name": "그리다가, 동물",
+    "price": 25000,
+    "category": "예술",
+    "img": "/img/book10.jpg"
+  },
+  {
+    "id": 11,
+    "name": "가장 다정한 전염",
+    "price": 15000,
+    "category": "가족/건강",
+    "img": "/img/book11.jpg"
+  },
+  {
+    "id": 12,
+    "name": "배우라는 세계",
+    "price": 13000,
+    "category": "예술",
+    "img": "/img/book12.jpg"
+  },
+  {
+    "id": 13,
+    "name": "생각의 연금술",
+    "price": 24000,
+    "category": "철학",
+    "img": "/img/book13.jpg"
+  },
+  {
+    "id": 14,
+    "name": "예술 도둑",
+    "price": 21000,
+    "category": "예술",
+    "img": "/img/book14.jpg"
+  },
+  {
+    "id": 15,
+    "name": "두 개의 인도",
+    "price": 18000,
+    "category": "역사",
+    "img": "/img/book15.jpg"
+  },
+  {
+    "id": 16,
+    "name": "정이네 일반찬 101",
+    "price": 16000,
+    "category": "요리",
+    "img": "/img/book16.jpg"
+  },
+  {
+    "id": 17,
+    "name": "맥주이야기만합니다.",
+    "price": 17000,
+    "category": "자기계발",
+    "img": "/img/book18.jpg"
+  },
+  {
+    "id": 18,
+    "name": "들개처럼 연출하다",
+    "price": 15000,
+    "category": "예술",
+    "img": "/img/book19.jpg"
+  },
+  {
+    "id": 19,
+    "name": "돈의 심리학",
+    "price": 14000,
+    "category": "경제",
+    "img": "/img/book22.jpg"
+  },
+  {
+    "id": 20,
+    "name": "돈의 속성",
+    "price": 23000,
+    "category": "경제",
+    "img": "/img/book24.jpg"
+  },
+  {
+    "id": 21,
+    "name": "45kg 감량이 가져다준 인생 최고의 유익",
+    "price": 13000,
+    "category": "자기계발",
+    "img": "/img/book25.jpg"
+  },
+  {
+    "id": 22,
+    "name": "우리는 모두 원래든에 가본 적이 있다",
+    "price": 23000,
+    "category": "로맨스",
+    "img": "/img/book29.jpg"
+  },
+  {
+    "id": 23,
+    "name": "10배 크게 시작하라",
+    "price": 22000,
+    "category": "비즈니스",
+    "img": "/img/book33.jpg"
+  },
+  {
+    "id": 24,
+    "name": "은하계 환승터미널 구멍가게",
+    "price": 25000,
+    "category": "소설",
+    "img": "/img/book35.jpg"
+  },
+  {
+    "id": 25,
+    "name": "부자수업",
+    "price": 17000,
+    "category": "경제",
+    "img": "/img/book39.jpg"
+  },
+  {
+    "id": 26,
+    "name": "당신이 누군가를 죽였다",
+    "price": 16000,
+    "category": "추리",
+    "img": "/img/book42.jpg"
+  },
+  {
+    "id": 27,
+    "name": "벌거벗은 세계사",
+    "price": 24000,
+    "category": "역사",
+    "img": "/img/book46.jpg"
+  },
+  {
+    "id": 28,
+    "name": "지방아파트 투자지도",
+    "price": 19000,
+    "category": "경제",
+    "img": "/img/book54.jpg"
+  },
+  {
+    "id": 29,
+    "name": "흔한남매",
+    "price": 14000,
+    "category": "아동",
+    "img": "/img/book58.jpg"
+  },
+  {
+    "id": 30,
+    "name": "고전 문학의 세계",
+    "price": 22000,
+    "category": "문학",
+    "img": "/images/book30.jpg"
+  },
+  {
+    "id": 31,
+    "name": "A4 한 장을 쓰는 힘",
+    "price": 13000,
+    "category": "에세이",
+    "img": "/img/book61.jpg"
+  },
+  {
+    "id": 32,
+    "name": "인간 관계론",
+    "price": 20000,
+    "category": "자기계발",
+    "img": "/img/book64.jpg"
+  }
+]
