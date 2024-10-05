@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/6336e5c545.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="./script.js"></script>
+    <title>마음의 서재</title>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-contain">
+        <ul class="nav-item-left">
+          <li>신간도서</li>
+          <li>이벤트</li>
+        </ul>
+        <span class="title">마음의 서재</span>
+        <ul class="nav-item-right">
+          <li>로그인</li>
+          <li>장바구니</li>
+          <li>주문/배송</li>
+        </ul>
+      </div>
+    </nav>
+    <main>
+      <div class="main-container">
+        <ul class="main-slides">
+          <li class="slide">
+            <img id="mainImage" src="./img/main/slide1.png" alt="" />
+          </li>
+        </ul>
+      </div>
+    </main>
+    <section class="section1">
+      <div class="search-box">
+        <input
+          type="text"
+          name="search"
+          id="search"
+          placeholder="검색어를 입력해주세요"
+        />
+        <button type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+      <div class="book-box">
+        <!-- <div class="book">
+          <div class="book-img">
+            <img src="./img/main/img1.jpg" alt="" />
+          </div>
+          <div class="book-info">
+            <p>여행의 민낯</p>
+            <p>김현주</p>
+            <div class="star-score">
+              <i class="fa-solid fa-star"></i>
+              <p>4.2</p>
+            </div>
+            <p>
+              낭만적인 여행의 환상을 벗어나, 여행지에서 마주하는 현실을 생생하게
+              그려낸 책입니다. 여행의 진정한 의미와 본질을 되돌아보게 하는 깊이
+              있는 통찰을 담고 있습니다.
+            </p>
+            <span>담기</span>
+          </div>
+        </div>
+        <div class="book">
+          <div class="book-img">
+            <img src="./img/main/img1.jpg" alt="" />
+          </div>
+          <div class="book-info">
+            <p>여행의 민낯</p>
+            <p>김현주</p>
+            <div class="star-score">
+              <i class="fa-solid fa-star"></i>
+              <p>4.2</p>
+            </div>
+            <p>
+              낭만적인 여행의 환상을 벗어나, 여행지에서 마주하는 현실을 생생하게
+              그려낸 책입니다. 여행의 진정한 의미와 본질을 되돌아보게 하는 깊이
+              있는 통찰을 담고 있습니다.
+            </p>
+            <span>담기</span>
+          </div>
+        </div>
+        <div class="book">
+          <div class="book-img">
+            <img src="./img/main/img1.jpg" alt="" />
+          </div>
+          <div class="book-info">
+            <p>여행의 민낯</p>
+            <p>김현주</p>
+            <div class="star-score">
+              <i class="fa-solid fa-star"></i>
+              <p>4.2</p>
+            </div>
+            <p>
+              낭만적인 여행의 환상을 벗어나, 여행지에서 마주하는 현실을 생생하게
+              그려낸 책입니다. 여행의 진정한 의미와 본질을 되돌아보게 하는 깊이
+              있는 통찰을 담고 있습니다.
+            </p>
+            <span>담기</span>
+          </div>
+        </div> -->
+      </div>
+    </section>
+    <section class="section2">
+      <div class="section2-container">
+        <div class="sec2">
+          <p class="sec2-title">추천도서</p>
+          <span class="sec2-btn">더보기</span>
+        </div>
+        <div class="sec-slide-container">
+          <div class="sec-slide-container">
+            <div class="sec2-slider"></div>
+          </div>
+          <div class="btnGroup">
+            <div class="left"><i class="fa-solid fa-arrow-left"></i></div>
+            <div class="right"><i class="fa-solid fa-arrow-right"></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section3">
+      <section class="sec3-container">
+        <p class="sec3-title">도서목록</p>
+        <div class="choicebtn">
+          <p class="sort-date">최신등록순</p>
+          <span>|</span>
+          <p class="sort-price">높은가격순</p>
+          <span>|</span>
+          <p class="sort-sales">판매량순</p>
+        </div>
+        <div class="booklists">
+          <div class="booklist">
+            <!-- <div class="book-item">
+              <div class="book-image">
+                <img src="./img/book/book1.jpg" alt="" />
+              </div>
+              <div class="book-details">
+                <p class="book-title">김미영</p>
+                <p class="book-author">김미영</p>
+                <p class="book-price">₩344444</p>
+              </div>
+            </div>
+            <div class="book-item">
+              <div class="book-image">
+                <img src="./img/book/book1.jpg" alt="" />
+              </div>
+              <div class="book-details">
+                <p class="book-title">김미영</p>
+                <p class="book-author">김미영</p>
+                <p class="book-price">₩344444</p>
+              </div>
+            </div>
+            <div class="book-item">
+              <div class="book-image">
+                <img src="./img/book/book1.jpg" alt="" />
+              </div>
+              <div class="book-details">
+                <p class="book-title">김미영</p>
+                <p class="book-author">김미영</p>
+                <p class="book-price">₩344444</p>
+              </div>
+            </div>
+            <div class="book-item">
+              <div class="book-image">
+                <img src="./img/book/book1.jpg" alt="" />
+              </div>
+              <div class="book-details">
+                <p class="book-title">김미영</p>
+                <p class="book-author">김미영</p>
+                <p class="book-price">₩344444</p>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </section>
+    </section>
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-logo">
+          <h2>마음의 서재</h2>
+          <p>마음의 양식을 채우는 서재, 당신의 독서 동반자</p>
+        </div>
+        <div class="footer-menu">
+          <h3>메뉴</h3>
+          <ul>
+            <li><a href="#about">소개</a></li>
+            <li><a href="#books">도서목록</a></li>
+            <li><a href="#community">커뮤니티</a></li>
+            <li><a href="#contact">문의하기</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-support">
+          <h3>고객 지원</h3>
+          <ul>
+            <li><a href="#faq">자주 묻는 질문</a></li>
+            <li><a href="#terms">이용 약관</a></li>
+            <li><a href="#privacy">개인정보 처리 방침</a></li>
+            <li><a href="#support">고객 지원 센터</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 마음의 서재. All Rights Reserved.</p>
+        <p>
+          문의: <a href="mailto:info@booklibrary.com">info@booklibrary.com</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

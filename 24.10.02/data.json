@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "backgroundimg": "./img/main/slide1.png",
+    "title": "여행의 민낯",
+    "author": "김현주",
+    "score": "4.3",
+    "desc": "낭만적인 여행의 환상을 벗어나, 여행지에서 마주하는 현실을 생생하게 그려낸 책입니다. 여행의 진정한 의미와 본질을 되돌아보게 하는 깊이 있는 통찰을 담고 있습니다.",
+    "bookimg": "./img/main/img1.jpg"
+  },
+  {
+    "id": 2,
+    "backgroundimg": "./img/main/slide2.jpg",
+    "title": "기업업무와 리스크 매니지먼트",
+    "author": "김철수",
+    "score": "4.5",
+    "desc": "취업 준비생과 신입사원을 위한 필독서입니다. 기업 업무와 리스크 관리에 대해 설명합니다.",
+    "bookimg": "./img/main/img2.png"
+  },
+  {
+    "id": 3,
+    "backgroundimg": "./img/main/slide3.jpg",
+    "title": "다시 오는 기회, 미국 주식이 답이다",
+    "author": "이정훈",
+    "score": "4.7",
+    "desc": "미국 주식 투자를 위한 필독서입니다. 다시 오는 기회를 잡기 위한 주식 전략을 설명합니다.",
+    "bookimg": "./img/main/img3.jpg"
+  }
+]

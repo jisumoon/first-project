@@ -4,223 +4,279 @@
     "name": "카모메 식당",
     "price": 15000,
     "category": "여행",
-    "img": "/img/book1.jpg"
+    "img": "/img/book/book1.jpg",
+    "date": "2023-01-05",
+    "sales": 3200,
+    "author": "오기와라 히로미"
   },
   {
     "id": 2,
     "name": "체스로 아빠를 이기는 방법",
     "price": 18000,
     "category": "자기계발",
-    "img": "/img/book2.jpg"
+    "img": "/img/book/book2.jpg",
+    "date": "2023-02-15",
+    "sales": 4500,
+    "author": "폴 체리"
   },
   {
     "id": 3,
     "name": "인공지능이 다 해주는 브루 영상 편집",
     "price": 20000,
     "category": "IT/컴퓨터",
-    "img": "/img/book3.jpg"
+    "img": "/img/book/book3.jpg",
+    "date": "2023-03-01",
+    "sales": 5400,
+    "author": "김현수"
   },
   {
     "id": 4,
     "name": "솔스케이프",
     "price": 22000,
     "category": "건축",
-    "img": "/img/book4.jpg"
+    "img": "/img/book/book4.jpg",
+    "date": "2023-03-10",
+    "sales": 1800,
+    "author": "류재웅"
   },
   {
     "id": 5,
     "name": "공부의 대화법",
     "price": 17000,
     "category": "자기계발",
-    "img": "/img/book5.jpg"
+    "img": "/img/book/book5.jpg",
+    "date": "2023-04-01",
+    "sales": 3700,
+    "author": "신영준"
   },
   {
     "id": 6,
     "name": "고전 읽기 방법",
     "price": 14000,
     "category": "문학",
-    "img": "/img/book6.jpg"
+    "img": "/img/book/book6.jpg",
+    "date": "2023-04-15",
+    "sales": 2100,
+    "author": "장석주"
   },
   {
     "id": 7,
     "name": "빛이 이끄는 곳으로",
     "price": 16000,
     "category": "자기계발",
-    "img": "/img/book7.jpg"
+    "img": "/img/book/book7.jpg",
+    "date": "2023-05-10",
+    "sales": 2700,
+    "author": "신혜진"
   },
   {
     "id": 8,
-    "name": "나의 이갸기를 먹어줄게",
+    "name": "나의 이야기를 들어줄게",
     "price": 20000,
     "category": "예술",
-    "img": "/img/book8.jpg"
+    "img": "/img/book/book8.jpg",
+    "date": "2023-05-25",
+    "sales": 3500,
+    "author": "박미라"
   },
   {
     "id": 9,
     "name": "맨홀에 빠진 앨리스",
     "price": 19000,
     "category": "철학",
-    "img": "/img/book9.jpg"
+    "img": "/img/book/book9.jpg",
+    "date": "2023-06-05",
+    "sales": 1200,
+    "author": "한강"
   },
   {
     "id": 10,
     "name": "그리다가, 동물",
     "price": 25000,
     "category": "예술",
-    "img": "/img/book10.jpg"
+    "img": "/img/book/book10.jpg",
+    "date": "2023-06-10",
+    "sales": 4900,
+    "author": "이현정"
   },
   {
     "id": 11,
     "name": "가장 다정한 전염",
     "price": 15000,
     "category": "가족/건강",
-    "img": "/img/book11.jpg"
+    "img": "/img/book/book11.jpg",
+    "date": "2023-06-25",
+    "sales": 2200,
+    "author": "장하나"
   },
   {
     "id": 12,
     "name": "배우라는 세계",
     "price": 13000,
     "category": "예술",
-    "img": "/img/book12.jpg"
+    "img": "/img/book/book12.jpg",
+    "date": "2023-07-01",
+    "sales": 1400,
+    "author": "김나연"
   },
   {
     "id": 13,
     "name": "생각의 연금술",
     "price": 24000,
     "category": "철학",
-    "img": "/img/book13.jpg"
+    "img": "/img/book/book13.jpg",
+    "date": "2023-07-10",
+    "sales": 3100,
+    "author": "스티븐 존슨"
   },
   {
     "id": 14,
     "name": "예술 도둑",
     "price": 21000,
     "category": "예술",
-    "img": "/img/book14.jpg"
+    "img": "/img/book/book14.jpg",
+    "date": "2023-07-15",
+    "sales": 2800,
+    "author": "제임스 카힐"
   },
   {
     "id": 15,
     "name": "두 개의 인도",
     "price": 18000,
     "category": "역사",
-    "img": "/img/book15.jpg"
+    "img": "/img/book/book15.jpg",
+    "date": "2023-07-20",
+    "sales": 4000,
+    "author": "서정민"
   },
   {
     "id": 16,
     "name": "정이네 일반찬 101",
     "price": 16000,
     "category": "요리",
-    "img": "/img/book16.jpg"
+    "img": "/img/book/book16.jpg",
+    "date": "2023-08-01",
+    "sales": 1900,
+    "author": "정미경"
   },
   {
     "id": 17,
     "name": "맥주이야기만합니다.",
     "price": 17000,
     "category": "자기계발",
-    "img": "/img/book18.jpg"
+    "img": "/img/book/book18.jpg",
+    "date": "2023-08-10",
+    "sales": 2500,
+    "author": "김기태"
   },
   {
     "id": 18,
     "name": "들개처럼 연출하다",
     "price": 15000,
     "category": "예술",
-    "img": "/img/book19.jpg"
+    "img": "/img/book/book19.jpg",
+    "date": "2023-08-20",
+    "sales": 2700,
+    "author": "조상혁"
   },
   {
     "id": 19,
     "name": "돈의 심리학",
     "price": 14000,
     "category": "경제",
-    "img": "/img/book22.jpg"
+    "img": "/img/book/book22.jpg",
+    "date": "2023-09-01",
+    "sales": 3200,
+    "author": "모건 하우절"
   },
   {
     "id": 20,
     "name": "돈의 속성",
     "price": 23000,
     "category": "경제",
-    "img": "/img/book24.jpg"
+    "img": "/img/book/book24.jpg",
+    "date": "2023-09-10",
+    "sales": 4200,
+    "author": "김승호"
   },
   {
     "id": 21,
     "name": "45kg 감량이 가져다준 인생 최고의 유익",
     "price": 13000,
     "category": "자기계발",
-    "img": "/img/book25.jpg"
+    "img": "/img/book/book25.jpg",
+    "date": "2023-09-15",
+    "sales": 1100,
+    "author": "이은정"
   },
   {
     "id": 22,
-    "name": "우리는 모두 원래든에 가본 적이 있다",
-    "price": 23000,
-    "category": "로맨스",
-    "img": "/img/book29.jpg"
+    "name": "흔한남매",
+    "price": 14000,
+    "category": "아동",
+    "img": "/img/book/book58.jpg",
+    "date": "2023-10-30",
+    "sales": 5100,
+    "author": "흔한남매"
   },
   {
     "id": 23,
     "name": "10배 크게 시작하라",
     "price": 22000,
     "category": "비즈니스",
-    "img": "/img/book33.jpg"
+    "img": "/img/book/book33.jpg",
+    "date": "2023-09-25",
+    "sales": 3400,
+    "author": "그랜트 카돈"
   },
   {
     "id": 24,
     "name": "은하계 환승터미널 구멍가게",
     "price": 25000,
     "category": "소설",
-    "img": "/img/book35.jpg"
+    "img": "/img/book/book35.jpg",
+    "date": "2023-10-01",
+    "sales": 4000,
+    "author": "박서연"
   },
   {
     "id": 25,
     "name": "부자수업",
     "price": 17000,
     "category": "경제",
-    "img": "/img/book39.jpg"
+    "img": "/img/book/book39.jpg",
+    "date": "2023-10-10",
+    "sales": 4600,
+    "author": "켄 혼다"
   },
   {
     "id": 26,
     "name": "당신이 누군가를 죽였다",
     "price": 16000,
     "category": "추리",
-    "img": "/img/book42.jpg"
+    "img": "/img/book/book42.jpg",
+    "date": "2023-10-15",
+    "sales": 2900,
+    "author": "정호진"
   },
   {
     "id": 27,
     "name": "벌거벗은 세계사",
     "price": 24000,
     "category": "역사",
-    "img": "/img/book46.jpg"
+    "img": "/img/book/book46.jpg",
+    "date": "2023-10-20",
+    "sales": 3500,
+    "author": "이창호"
   },
   {
     "id": 28,
     "name": "지방아파트 투자지도",
     "price": 19000,
     "category": "경제",
-    "img": "/img/book54.jpg"
-  },
-  {
-    "id": 29,
-    "name": "흔한남매",
-    "price": 14000,
-    "category": "아동",
-    "img": "/img/book58.jpg"
-  },
-  {
-    "id": 30,
-    "name": "고전 문학의 세계",
-    "price": 22000,
-    "category": "문학",
-    "img": "/images/book30.jpg"
-  },
-  {
-    "id": 31,
-    "name": "A4 한 장을 쓰는 힘",
-    "price": 13000,
-    "category": "에세이",
-    "img": "/img/book61.jpg"
-  },
-  {
-    "id": 32,
-    "name": "인간 관계론",
-    "price": 20000,
-    "category": "자기계발",
-    "img": "/img/book64.jpg"
+    "img": "/img/book/book54.jpg",
+    "date": "2023-10-25",
+    "sales": 2400,
+    "author": "박상혁"
   }
 ]
