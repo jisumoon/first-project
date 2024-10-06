@@ -1,7 +1,8 @@
 let books = [];
+let booksItem = [];
 let currentSlide = 0;
-let autoSlideInterval;
 let totalSlides = 0;
+let autoSlideInterval;
 
 // JSON 파일 가져오기
 fetch("data.json")
@@ -14,7 +15,7 @@ fetch("data.json")
     console.error("Error fetching the JSON data:", error);
   });
 
-// main book item 보여주기
+// 메인 책 목록 보여주기
 const renderBooks = (books) => {
   const bookBox = document.querySelector(".book-box");
 
@@ -38,13 +39,13 @@ const renderBooks = (books) => {
         </div>
       </div>
     `;
-
     bookBox.innerHTML += bookHTML;
   });
 
   // 각 book-item에 클릭 이벤트 추가
   const bookItems = document.querySelectorAll(".book");
   bookItems.forEach((item) => {
+    item.removeEventListener("click", changeImage); // 중복 제거
     item.addEventListener("click", (event) => {
       const bookId = event.currentTarget.getAttribute("data-id");
       changeImage(bookId); // 클릭 시 이미지 변경 함수 호출
@@ -62,16 +63,13 @@ const changeImage = (bookId) => {
   }
 };
 
-// json -book 연결
-let booksItem = [];
-
 // JSON 데이터 가져오기
 fetch("book.json")
   .then((response) => response.json())
   .then((data) => {
     booksItem = data;
     renderBooksItem(booksItem);
-    renderBooksList(booksItem); // 변수명 수정
+    renderBooksList(booksItem);
 
     document.querySelector(".sort-date").addEventListener("click", () => {
       sortByDate();
@@ -92,7 +90,7 @@ fetch("book.json")
 // 슬라이드 book 렌더링
 const renderBooksItem = (booksItem) => {
   const slider = document.querySelector(".sec2-slider");
-  slider.innerHTML = "";
+  slider.innerHTML = ""; // 슬라이드 초기화
 
   for (let i = 0; i < booksItem.length; i += 4) {
     const bookGroup = booksItem.slice(i, i + 4);
@@ -118,19 +116,41 @@ const renderBooksItem = (booksItem) => {
   }
 
   totalSlides = Math.ceil(booksItem.length / 4); // 총 슬라이드 수 계산
+  updateSliderPosition(); // 초기 슬라이드 위치 설정
 };
+
+// 슬라이드 업데이트
+const updateSliderPosition = () => {
+  const slider = document.querySelector(".sec2-slider");
+  const slideWidth = document.querySelector(".sec-slide-container").clientWidth;
+  slider.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+};
+
+// 좌우 슬라이드 버튼
+document.querySelector(".left").addEventListener("click", () => {
+  if (currentSlide > 0) {
+    currentSlide--;
+    updateSliderPosition();
+  }
+});
+
+document.querySelector(".right").addEventListener("click", () => {
+  if (currentSlide < totalSlides - 1) {
+    currentSlide++;
+    updateSliderPosition();
+  }
+});
 
 // 구매 book 리스트 렌더링
 const renderBooksList = (booksItem) => {
-  const bookListBox = document.querySelector(".booklists"); // 전체 리스트 박스
+  const bookListBox = document.querySelector(".booklists");
   bookListBox.innerHTML = "";
 
   for (let i = 0; i < booksItem.length; i += 4) {
     const bookGroup = booksItem.slice(i, i + 4); // 4개의 book을 가져옴
-    let bookListHTML = `<div class="booklist">`; // 하나의 줄 생성
+    let bookListHTML = `<div class="booklist">`;
 
     bookGroup.forEach((book) => {
-      // 4개의 book-item 생성
       bookListHTML += `
         <div class="book-item">
           <div class="book-image">
@@ -148,8 +168,8 @@ const renderBooksList = (booksItem) => {
       `;
     });
 
-    bookListHTML += `</div>`; // 하나의 줄 종료
-    bookListBox.innerHTML += bookListHTML; // 리스트에 추가
+    bookListHTML += `</div>`;
+    bookListBox.innerHTML += bookListHTML;
   }
 };
 

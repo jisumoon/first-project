@@ -14,7 +14,7 @@ nav {
     ul {
       display: flex;
       justify-content: space-around;
-      gap: 12px;
+      gap: 30px;
       font-size: 14px;
       li {
         cursor: pointer;
@@ -181,13 +181,16 @@ main {
 
   .section2-container {
     width: $container-width;
-    margin: 200px auto 0;
+    margin: 0 auto;
+    margin-top: 200px;
+    padding-bottom: 40px;
+    position: relative;
 
     .sec2 {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 40px 80px;
+      padding: 40px 160px;
 
       .sec2-title {
         font-size: 22px;
@@ -215,37 +218,39 @@ main {
     .sec-slide-container {
       overflow: hidden;
       position: relative;
+
       .sec2-slider {
-        width: calc(100% * totalSlides);
         display: flex;
         align-items: center;
-        justify-content: center;
-        margin: 0 auto;
         transition: transform 0.5s ease-in-out;
       }
 
       .sec2-slide {
-        border: 1px solid #f00;
-        width: 100%;
         display: flex;
-        justify-content: space-evenly;
+        justify-content: center;
         align-items: center;
-        gap: 100px;
+        gap: 80px;
+        min-width: 100%;
+        box-sizing: border-box;
+        transition: transform 0.5s ease-in-out;
       }
 
       .book {
-        width: 23%;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         font-family: $pretendard-font-family;
+        transition: transform 0.5s ease-in-out;
+
         .bookimg {
-          width: 160px;
-          height: 240px;
+          width: 140px;
+          height: 200px;
           overflow: hidden;
+
           img {
             width: 100%;
+            height: 100%;
             object-fit: cover;
           }
         }
@@ -257,16 +262,56 @@ main {
           align-items: center;
           padding-top: 10px;
           gap: 5px;
+
           .book-title {
             display: -webkit-box;
             -webkit-line-clamp: 1;
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
+            white-space: nowrap;
+            text-align: center;
           }
+
           .author-name {
             font-size: 14px;
+            text-align: center;
           }
+
+          .book-price {
+            font-weight: bold;
+            color: #333;
+          }
+        }
+      }
+    }
+
+    .btnGroup {
+      position: absolute;
+      top: 50%;
+      left: 5%;
+      right: 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transform: translateY(-50%);
+
+      .left,
+      .right {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 10px;
+        cursor: pointer;
+        color: white;
+        transition: background 0.3s ease;
+
+        &:hover {
+          background: rgba(0, 0, 0, 0.7);
         }
       }
     }
@@ -366,7 +411,7 @@ main {
 .footer {
   margin-top: 60px;
   background-color: #f8f9fa;
-  padding: 40px 0;
+  padding: 40px 20px;
   color: #333;
   font-family: "Pretendard", sans-serif;
 
@@ -468,7 +513,6 @@ main {
       justify-content: center;
       align-items: center;
       padding-left: 60px;
-
       .book {
         .book-img {
           display: none;
@@ -486,8 +530,72 @@ main {
 
   .section2 {
     width: 100%;
-    .sec-slide-container {
+    margin-top: 150px;
+    .section2-container {
       width: 100%;
+      padding-bottom: 30px;
+
+      .sec2 {
+        width: 100%;
+        margin: 0 auto;
+        padding: 20px 100px;
+
+        .sec2-title {
+          font-size: 20px;
+        }
+
+        .sec2-btn {
+          width: 90px;
+          height: 35px;
+          font-size: 14px;
+        }
+      }
+      .section2-container {
+        margin-top: 150px;
+        padding-bottom: 30px;
+        padding: 0 100px;
+      }
+
+      .sec2 {
+        padding: 30px 120px;
+
+        .sec2-title {
+          font-size: 20px;
+        }
+
+        .sec2-btn {
+          width: 90px;
+          height: 35px;
+          font-size: 14px;
+        }
+      }
+
+      .sec-slide-container {
+        width: 100%;
+        margin: 0 auto;
+
+        .sec2-slide {
+          gap: 40px;
+        }
+
+        .book {
+          .bookimg {
+            width: 100px;
+            height: 140px;
+          }
+
+          .bookinfo {
+            .book-title {
+              font-size: 12px;
+            }
+
+            .author-name,
+            .book-price {
+              font-size: 13px;
+            }
+          }
+        }
+      }
     }
   }
 
@@ -524,6 +632,7 @@ main {
       }
     }
   }
+
   .footer {
     width: 100%;
     .footer-container {
@@ -612,38 +721,6 @@ main {
     }
   }
 
-  .section2 {
-    width: 100%;
-    .sec-slide-container {
-      width: 100%;
-    }
-
-    .sec2-slide {
-      gap: 50px;
-
-      .book {
-        width: 30%;
-        .bookimg {
-          width: 120px;
-          height: 180px;
-        }
-
-        .bookinfo {
-          padding-top: 5px;
-          .book-title {
-            font-size: 12px;
-          }
-          .author-name {
-            font-size: 10px;
-          }
-          .book-price {
-            font-size: 12px;
-          }
-        }
-      }
-    }
-  }
-
   .section3 {
     margin-top: 50px;
     width: 100%;
@@ -707,6 +784,62 @@ main {
     }
   }
 
+  .section2 {
+    width: 100%;
+    margin-top: 100px;
+    .section2-container {
+      width: 100%;
+      padding-bottom: 20px;
+      .sec2 {
+        width: 100%;
+        margin: 0 auto;
+        padding: 20px 20px;
+
+        .sec2-title {
+          font-size: 16px;
+        }
+
+        .sec2-btn {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 70px;
+          height: 30px;
+          font-size: 12px;
+        }
+      }
+      .sec-slide-container {
+        width: 100%;
+        margin: 0 auto;
+
+        .sec2-slide {
+          gap: 10px;
+        }
+
+        .book {
+          .bookimg {
+            width: 60px;
+            height: 100px;
+          }
+
+          .bookinfo {
+            .book-title {
+              font-size: 10px;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+
+            .author-name,
+            .book-price {
+              font-size: 11px;
+            }
+          }
+        }
+      }
+    }
+  }
+
   .footer {
     width: 100%;
     .footer-container {
@@ -724,7 +857,7 @@ main {
         }
 
         p {
-          font-size: 12px;
+          font-size: 10px;
         }
       }
 
