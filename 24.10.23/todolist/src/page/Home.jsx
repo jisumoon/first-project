@@ -21,12 +21,24 @@ const Main = styled.div`
   padding: 0 20px;
   background: #eff1f1;
   border-radius: 20px;
+  @media (max-width: 768px) {
+    width: 100%;
+
+    border-radius: 0;
+  }
 `;
 
 const PostContainer = styled.div`
   display: flex;
   justify-content: center;
   gap: 30px;
+  @media (max-width: 768px) {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  @media (max-width: 390px) {
+  }
 `;
 
 const PlannedContaniner = styled.div`

@@ -5,6 +5,9 @@ import GreenHouse from "../assets/GreenHouse.svg";
 const Container = styled.div`
   display: flex;
   margin: 0 auto;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const Title = styled.h1`
