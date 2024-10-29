@@ -43,6 +43,10 @@ const GlobalStyle = createGlobalStyle`
     height: 100vh;
     background: #3AC569;
     font-family: 'Pretendard-Regular';
+    @media (max-width: 768px) {
+    width: 100%;
+    background: #eff1f1;
+  }
   }
 
 
