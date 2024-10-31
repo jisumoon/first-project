@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { createSearchParams, useNavigate } from "react-router-dom";
-import { Button, ProgressBar } from "react-bootstrap";
+import { ProgressBar } from "react-bootstrap";
 import styled from "styled-components";
 import { QuestionData } from "../assets/questiondata";
 

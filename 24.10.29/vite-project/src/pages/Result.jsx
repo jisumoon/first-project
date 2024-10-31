@@ -116,12 +116,12 @@ const Result = () => {
                 </Desc>
                 <Desc>{ResultData.description}</Desc>
                 <Desc>
-                  {`${ResultData.goodFriend.names.join(", ")}은 ${
+                  {`${ResultData.goodFriend.names.join(", ")}처럼 ${
                     ResultData.goodFriend.info
                   }`}
                 </Desc>
                 <Desc>
-                  {`${ResultData.badFriend.names.join(", ")}은 ${
+                  {`${ResultData.badFriend.names.join(", ")}처럼 ${
                     ResultData.badFriend.info
                   }`}
                 </Desc>
