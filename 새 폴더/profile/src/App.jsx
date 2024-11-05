@@ -36,7 +36,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <RouterProvider router={router} />
+      {loading ? <LoadingScreen /> : <RouterProvider router={router} />}
     </ThemeProvider>
   );
 };

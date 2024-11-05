@@ -35,17 +35,22 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
   }
+
   ul, li {
     list-style: none;
   }
+
   a {
     text-decoration: none;
     color: inherit;
   }
+  
   body {
+    width: 100%;
+    height: 100vh;
+    background: url("/img/homebg.png") center/cover no-repeat;
     font-family: ${(props) => props.theme.fonts.primary};
-   color : #333;
-    background: #f9f9f9;
+    color : #333;
   }
 `;
 

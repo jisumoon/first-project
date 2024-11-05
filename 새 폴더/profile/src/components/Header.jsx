@@ -41,7 +41,7 @@ const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 30px 80px;
+  padding: 30px 150px;
 `;
 
 const List = styled.ul`
@@ -50,7 +50,7 @@ const List = styled.ul`
   align-items: center;
   gap: 40px;
   font-size: 22px;
-  color: #666;
+  color: #fff;
 `;
 
 const ListName = styled.li`
@@ -63,7 +63,7 @@ const ListName = styled.li`
 `;
 
 const Logo = styled.h2`
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 800;
   color: ${(props) => props.theme.colors.primary};
   cursor: pointer;
