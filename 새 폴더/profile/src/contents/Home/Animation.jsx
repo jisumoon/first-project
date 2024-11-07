@@ -2,7 +2,7 @@ export const lineVariants = {
   hidden: { width: 0 },
   visible: {
     width: "100%",
-    transition: { duration: 1 },
+    transition: { duration: 4 },
   },
 };
 

@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import RippleEffect from "./RippleEffect";
 import {
   Section,
@@ -25,14 +26,15 @@ import {
 
 const SectionTop = ({ createRipple, ripples }) => (
   <Section
+    as={motion.section}
     className="top"
-    $initial="hidden"
-    $animate="visible"
-    $variants={containerVariants}
+    initial="hidden"
+    animate="visible"
+    variants={containerVariants}
     onMouseMove={createRipple}
   >
     <RippleEffect ripples={ripples} />
-    <Article className="left" $variants={fadeInVariants}>
+    <Article className="left" as={motion.article} variants={fadeInVariants}>
       <UpperInfo>
         <TtitleNumber>0626k</TtitleNumber>
         <TitleSpan>X</TitleSpan>
@@ -51,13 +53,13 @@ const SectionTop = ({ createRipple, ripples }) => (
         </Btn>
       </BottomBtn>
     </Article>
-    <Article className="middle" $variants={fadeInVariants}>
+    <Article className="middle" variants={fadeInVariants}>
       <ImgContainer>
         <Img src="/img/profile.png" alt="Profile" />
       </ImgContainer>
     </Article>
     <Article className="right">
-      <Right $variants={fadeInWithDelayVariants}>
+      <Right variants={fadeInWithDelayVariants}>
         <RightTitle>FRONTEND</RightTitle>
         <RightInfo>MOON JI SU</RightInfo>
       </Right>
