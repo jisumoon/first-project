@@ -2,14 +2,13 @@
 import React, { useState, useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
-import { theme, GlobalStyles } from "./Theme";
+import { theme, GlobalStyles } from "../src/styles/Theme";
 import Layout from "./Layout";
 import AboutMe from "./pages/AboutMe";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import Portfolio from "./pages/Portfolio";
 import PortfolioDetail from "./pages/PortfolioDetail";
-import LoadingScreen from "./LoadingScreen";
 
 const router = createBrowserRouter([
   {
@@ -36,7 +35,8 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      {loading ? <LoadingScreen /> : <RouterProvider router={router} />}
+      {/* {loading ? <LoadingScreen /> : <RouterProvider router={router} />} */}
+      <RouterProvider router={router} />
     </ThemeProvider>
   );
 };

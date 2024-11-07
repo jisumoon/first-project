@@ -52,6 +52,7 @@ const GlobalStyles = createGlobalStyle`
     font-family: ${(props) => props.theme.fonts.primary};
     color : #333;
   }
+
 `;
 
 export { theme, GlobalStyles };

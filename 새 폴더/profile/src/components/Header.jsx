@@ -1,37 +1,26 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faTree } from "@fortawesome/free-solid-svg-icons";
 import { faBloggerB, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-
-//Ani
-const slideIn = keyframes`
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-`;
-
-const slideOut = keyframes`
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-100%);
-  }
-`;
 
 const Container = styled.header`
   width: 100%;
 `;
 
 const ToggleButton = styled.div`
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: #cfd69b;
+  font-size: 20px;
+  color: #fff;
   cursor: pointer;
-  transition: color all 0.3s;
   &:hover {
     color: ${(props) => props.theme.colors.primary};
   }
@@ -63,10 +52,8 @@ const ListName = styled.li`
 `;
 
 const Logo = styled.h2`
-  font-size: 20px;
-  font-weight: 800;
-  color: ${(props) => props.theme.colors.primary};
-  cursor: pointer;
+  font-size: 22px;
+  color: #fff;
 `;
 
 const SlideList = styled.ul`
@@ -87,7 +74,7 @@ const Header = () => {
     setMenuVisible(!menuVisible);
   };
   return (
-    <Container isHome={isHome}>
+    <Container $isHome={isHome}>
       {!isHome && (
         <ToggleButton onClick={toggleMenu} isHome={isHome}>
           <FontAwesomeIcon icon={faBars} size="lg" />
@@ -107,7 +94,9 @@ const Header = () => {
               <FontAwesomeIcon icon={faEnvelope} />
             </ListName>
           </List>
-          <Logo>숲속의 지수</Logo>
+          <Logo>
+            <FontAwesomeIcon icon={faTree} />
+          </Logo>
         </Nav>
       )}
 
