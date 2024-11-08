@@ -73,3 +73,22 @@
 // };
 
 // export default MainPage;
+
+import React from "react";
+import Home from "./Home";
+import AboutMe from "./AboutMe";
+import Portfolio from "./Portfolio";
+import Contact from "./Contact";
+
+const Mainpage = () => {
+  return (
+    <>
+      <Home />
+      <AboutMe />
+      <Portfolio />
+      <Contact />
+    </>
+  );
+};
+
+export default Mainpage;

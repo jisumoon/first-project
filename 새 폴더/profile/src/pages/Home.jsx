@@ -3,6 +3,7 @@ import AnimatedSvg from "../contents/Home/AnimateSvg";
 import SectionTop from "../contents/Home/SectionTop";
 import SectionBottom from "../contents/Home/SectionBottom";
 import { Container, Main } from "../contents/Home/HomeStyled";
+import Header from "../components/Header";
 
 const Home = () => {
   const [ripples, setRipples] = useState([]);
@@ -25,6 +26,7 @@ const Home = () => {
 
   return (
     <Container>
+      <Header />
       <Main>
         <AnimatedSvg />
         <SectionTop createRipple={createRipple} ripples={ripples} />

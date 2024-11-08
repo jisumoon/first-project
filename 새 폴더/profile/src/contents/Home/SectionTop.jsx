@@ -46,7 +46,7 @@ const SectionTop = ({ createRipple, ripples }) => (
           <span>PORTFOLIO</span>
         </Btn>
         <Btn>
-          <span>NOTION</span>
+          <span>INTERVIEW</span>
         </Btn>
         <Btn>
           <span>RESUME</span>
