@@ -11,13 +11,27 @@ const useScrollAnimation = () => {
     }
   };
 
+  const throttle = (func, limit) => {
+    let inThrottle;
+    return function () {
+      if (!inThrottle) {
+        func.apply(this, arguments);
+        inThrottle = true;
+        setTimeout(() => (inThrottle = false), limit);
+      }
+    };
+  };
+
   useEffect(() => {
     if (!scrollRef.current) return;
-    window.addEventListener("scroll", yScrollEvent);
+
+    const throttledScrollEvent = throttle(yScrollEvent, 200);
+    window.addEventListener("scroll", throttledScrollEvent);
+
     return () => {
-      window.removeEventListener("scroll", yScrollEvent);
+      window.removeEventListener("scroll", throttledScrollEvent);
     };
-  }, [scrollEl]);
+  }, []);
 
   return { scrollRef, scrollEl };
 };

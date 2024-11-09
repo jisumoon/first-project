@@ -5,6 +5,9 @@ const theme = {
   colors: {
     primary: "#1d533e",
     secondary: "#2c5f2d",
+    highlight: "rgba(44, 95, 45,0.9)",
+    info: "#333",
+    background: "#F2F1EB",
   },
   fonts: {
     primary: "Pretendard-Regular, serif",
@@ -48,7 +51,6 @@ const GlobalStyles = createGlobalStyle`
   body {
     width: 100%;
     height: 100vh;
-    background: url("/img/homebg.png") center/cover no-repeat;
     font-family: ${(props) => props.theme.fonts.primary};
     color : #333;
   }

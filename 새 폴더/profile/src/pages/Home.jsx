@@ -2,8 +2,17 @@ import React, { useState, useRef } from "react";
 import AnimatedSvg from "../contents/Home/AnimateSvg";
 import SectionTop from "../contents/Home/SectionTop";
 import SectionBottom from "../contents/Home/SectionBottom";
-import { Container, Main } from "../contents/Home/HomeStyled";
+import { Main } from "../contents/Home/HomeStyled";
 import Header from "../components/Header";
+import styled from "styled-components";
+
+const Container = styled.div`
+  background: url(${(props) => props.url}) center/cover no-repeat;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+`;
 
 const Home = () => {
   const [ripples, setRipples] = useState([]);
@@ -25,7 +34,7 @@ const Home = () => {
   };
 
   return (
-    <Container>
+    <Container url="/img/homebg.png">
       <Header />
       <Main>
         <AnimatedSvg />
