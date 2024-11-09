@@ -201,6 +201,7 @@ export const Right = styled(motion.div)`
 export const RightTitle = styled.p`
   margin-top: 100px;
   font-size: 80px;
+
   color: transparent;
   -webkit-text-stroke: 1px rgba(255, 255, 255, 0.6);
 `;
@@ -237,5 +238,5 @@ export const AnimatedSvg = styled(motion.svg)`
   width: 100%;
   position: absolute;
   top: 46%;
-  z-index: -10000;
+  z-index: -1;
 `;

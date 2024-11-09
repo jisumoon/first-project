@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from "react";
 
 const useScrollAnimation = () => {
   const scrollRef = useRef(null);
-  const [scrollEl, setScrollEl] = useState(false);
 
+  // 특정 위치에 따른 상태 변화
+  const [scrollEl, setScrollEl] = useState(false);
   const yScrollEvent = () => {
     const scroll = scrollRef.current?.getBoundingClientRect();
     if (scroll) {
@@ -11,6 +12,7 @@ const useScrollAnimation = () => {
     }
   };
 
+  // 연속적인 이벤트 막기
   const throttle = (func, limit) => {
     let inThrottle;
     return function () {
@@ -27,7 +29,6 @@ const useScrollAnimation = () => {
 
     const throttledScrollEvent = throttle(yScrollEvent, 200);
     window.addEventListener("scroll", throttledScrollEvent);
-
     return () => {
       window.removeEventListener("scroll", throttledScrollEvent);
     };

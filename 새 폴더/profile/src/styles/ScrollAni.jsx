@@ -10,7 +10,7 @@ const ScrollAni = forwardRef(({ className, $isVisible, children }, ref) => (
 export default styled(ScrollAni).withConfig({
   shouldForwardProp: (prop) => prop !== "$isVisible",
 })`
-  transition: opacity 0.5s ease;
+  transition: opacity 1s ease;
 
   &.scroll-animation {
     animation: ${(props) =>

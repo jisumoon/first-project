@@ -7,11 +7,12 @@ import Header from "../components/Header";
 import styled from "styled-components";
 
 const Container = styled.div`
-  background: url(${(props) => props.url}) center/cover no-repeat;
+  background: url(${(props) => props.$url}) center/cover no-repeat;
   width: 100%;
   height: 100vh;
   position: relative;
   overflow: hidden;
+  z-index: -4;
 `;
 
 const Home = () => {
@@ -34,7 +35,7 @@ const Home = () => {
   };
 
   return (
-    <Container url="/img/homebg.png">
+    <Container $url="/img/homebg.png">
       <Header />
       <Main>
         <AnimatedSvg />

@@ -13,7 +13,7 @@ const AnimateSvg = () => (
     animate="visible"
     variants={lineVariants}
   >
-    <rect width="2000" height="10" fill="rgba(255, 255, 255, 0.4)" />
+    <rect width="2000" height="10" fill="rgba(255, 255, 255, 0.2)" />
   </AnimatedSvg>
 );
 

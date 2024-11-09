@@ -11,11 +11,11 @@ const Wrapper = styled.div`
 `;
 
 const SectionContainer = styled.div`
-  position: ${(props) => (props.isFixed ? "sticky" : "relative")};
+  position: ${(props) => (props.$isFixed ? "sticky" : "relative")};
   top: 0;
   left: 0;
   width: 100%;
-  z-index: ${(props) => (props.isAbove ? 10 : 0)};
+  z-index: ${(props) => (props.$isAbove ? 10 : 0)};
   transition: z-index 0.3s ease;
 `;
 
@@ -29,7 +29,7 @@ const Mainpage = () => {
       if (homeRef.current && aboutMeRef.current) {
         const homeBottom = homeRef.current.getBoundingClientRect().bottom;
 
-        // Home 섹션의 하단이 스크롤을 지나가면 AboutMe가 fixed로 전환되고 z-index를 올림
+        // Home 섹션의 하단이 스크롤을 지나가면 AboutMe가 sticky로 전환되고 z-index를 올림
         setIsAboutMeAbove(homeBottom <= 0);
       }
     };
@@ -40,17 +40,16 @@ const Mainpage = () => {
 
   return (
     <Wrapper>
-      <SectionContainer ref={homeRef} isFixed={!isAboutMeAbove}>
+      <SectionContainer ref={homeRef} $isFixed={!isAboutMeAbove}>
         <Home />
       </SectionContainer>
       <SectionContainer
         ref={aboutMeRef}
-        isFixed={isAboutMeAbove}
-        isAbove={isAboutMeAbove}
+        $isFixed={isAboutMeAbove}
+        $isAbove={isAboutMeAbove}
       >
         <AboutMe />
       </SectionContainer>
-
       <SectionContainer>
         <Portfolio />
       </SectionContainer>
