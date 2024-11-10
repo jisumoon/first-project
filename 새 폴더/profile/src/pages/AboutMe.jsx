@@ -1,17 +1,38 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import skillsData from "../data/skill.json";
-import questionsData from "../data/interview.json";
-import careerData from "../data/education.json";
+import styled, { keyframes } from "styled-components";
+import skillsData from "../../public/data/skill.json";
+import questionsData from "../../public/data/interview.json";
+import careerData from "../../public/data/education.json";
 import ScrollAni from "../styles/ScrollAni";
 import useScrollAnimation from "../Hook/useScrollAnimation";
 
-const Contain = styled.div`
-  width: 100%;
-  background: #fff;
+//Ani
+const infiniteAnimation1 = keyframes`
+  0% {
+    transform: translateX(0%);
+  }
+  50% {
+    transform: translateX(-100%);
+  }
+  50.1% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
 `;
 
-const AboutMeSection = styled.section`
+const infiniteAnimation2 = keyframes`
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-200%);
+  }
+`;
+
+const Contain = styled.div`
+  width: 100%;
   background: #fff;
 `;
 
@@ -47,7 +68,6 @@ const Section = styled.section`
     justify-content: space-between;
     margin-top: 100px;
     padding-right: 0;
-    padding-left: 140px;
   }
 `;
 
@@ -158,7 +178,7 @@ const CareerTitleSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 60px;
+  gap: 30px;
 `;
 
 const CareerTitle = styled.h2`
@@ -168,11 +188,28 @@ const CareerTitle = styled.h2`
   line-height: 1.4;
 `;
 
+const CareerContainer = styled.div`
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  margin-left: 100px;
+`;
+
 const CareerSection = styled.div`
   display: flex;
-  overflow: hidden;
-  width: 100%;
-  position: relative;
+  justify-content: space-evenly;
+
+  &.slideOriginal {
+    animation: ${infiniteAnimation1} 100s linear infinite;
+  }
+
+  &.slideClone {
+    animation: ${infiniteAnimation2} 100s linear infinite;
+  }
+
+  &.stop {
+    animation-play-state: paused;
+  }
 `;
 
 const CareerBox = styled.div`
@@ -186,6 +223,22 @@ const CareerBox = styled.div`
   background: ${(props) => props.theme.colors.background};
   border-radius: 8px;
   border-bottom: 5px solid ${(props) => props.theme.colors.primary};
+  cursor: pointer;
+  &:hover {
+    transform: scale(0.98);
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+  }
 `;
 
 const Education = styled.div`
@@ -209,20 +262,20 @@ const CareerInfoSvg = styled.div`
 
 const CareerInfoDate = styled.h3`
   margin-bottom: 20px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
-  color: ${(props) => props.theme.colors.info};
+  color: #666666;
 `;
 
 const CareerInfoTitle = styled.h5`
   margin-bottom: 20px;
-  font-size: 18px;
+  font-size: 16px;
 `;
 
 const AboutMe = () => {
   const { scrollRef, scrollEl } = useScrollAnimation();
+  const [animate, setAnimate] = useState(true); // 애니메이션 제어
 
-  // 하이라이트 표시 함수
   const renderAnswerWithHighlights = (answer, highlights) => {
     const parts = answer.split(new RegExp(`(${highlights.join("|")})`, "g"));
     return parts.map((part, index) =>
@@ -234,9 +287,12 @@ const AboutMe = () => {
     );
   };
 
+  const onStop = () => setAnimate(false);
+  const onRun = () => setAnimate(true);
+
   return (
     <Contain id="aboutMeSection">
-      <Title>About Me,</Title>
+      <Title>About Me</Title>
       <ScrollAni
         ref={(el) => {
           scrollRef.current = el;
@@ -293,31 +349,59 @@ const AboutMe = () => {
 
         <Section className="bottom">
           <CareerTitleSection>
-            <CareerTitle>Professional Background and Education</CareerTitle>
+            <CareerTitle>Career & Education</CareerTitle>
           </CareerTitleSection>
-          <CareerSection>
-            {careerData.map((item) => (
-              <CareerBox key={item.id}>
-                <CareerInfoSvg>
-                  <img src={item.svg} alt={item.title} />
-                </CareerInfoSvg>
+          <CareerContainer onMouseEnter={onStop} onMouseLeave={onRun}>
+            <CareerSection
+              className={"slideOriginal" + (animate ? "" : " stop")}
+            >
+              {careerData.map((item) => (
+                <CareerBox key={item.id}>
+                  <CareerInfoSvg>
+                    <img src={item.svg} alt={item.title} />
+                  </CareerInfoSvg>
+                  {item.date && <CareerInfoDate>{item.date}</CareerInfoDate>}
+                  {item.title && (
+                    <CareerInfoTitle>{item.title}</CareerInfoTitle>
+                  )}
+                  {item.entries && (
+                    <Education>
+                      {item.entries.map((edu, index) => (
+                        <div key={index}>
+                          <CareerInfoDate>{edu.date}</CareerInfoDate>
+                          <CareerInfoTitle>{edu.title}</CareerInfoTitle>
+                        </div>
+                      ))}
+                    </Education>
+                  )}
+                </CareerBox>
+              ))}
+            </CareerSection>
 
-                {item.date && <CareerInfoDate>{item.date}</CareerInfoDate>}
-                {item.title && <CareerInfoTitle>{item.title}</CareerInfoTitle>}
-
-                {item.entries && (
-                  <Education>
-                    {item.entries.map((edu, index) => (
-                      <div key={index}>
-                        <CareerInfoDate>{edu.date}</CareerInfoDate>
-                        <CareerInfoTitle>{edu.title}</CareerInfoTitle>
-                      </div>
-                    ))}
-                  </Education>
-                )}
-              </CareerBox>
-            ))}
-          </CareerSection>
+            <CareerSection className={"slideClone" + (animate ? "" : " stop")}>
+              {careerData.map((item) => (
+                <CareerBox key={item.id}>
+                  <CareerInfoSvg>
+                    <img src={item.svg} alt={item.title} />
+                  </CareerInfoSvg>
+                  {item.date && <CareerInfoDate>{item.date}</CareerInfoDate>}
+                  {item.title && (
+                    <CareerInfoTitle>{item.title}</CareerInfoTitle>
+                  )}
+                  {item.entries && (
+                    <Education>
+                      {item.entries.map((edu, index) => (
+                        <div key={index}>
+                          <CareerInfoDate>{edu.date}</CareerInfoDate>
+                          <CareerInfoTitle>{edu.title}</CareerInfoTitle>
+                        </div>
+                      ))}
+                    </Education>
+                  )}
+                </CareerBox>
+              ))}
+            </CareerSection>
+          </CareerContainer>
         </Section>
       </ScrollAni>
     </Contain>

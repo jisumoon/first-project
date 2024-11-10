@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
-import { theme, GlobalStyles } from "./styles/Theme"; // 경로 확인
-import PortfolioDetail from "./pages/PortfolioDetail";
+import { theme, GlobalStyles } from "./styles/Theme";
+import PortfolioDetail from "../src/components/PortfolioDetail";
 import Mainpage from "./Mainpage";
 import LoadingScreen from "./LoadingScreen";
 
@@ -12,11 +12,10 @@ const router = createBrowserRouter([
     element: <Mainpage />,
   },
   {
-    path: "/PortfolioDetail",
+    path: "/PortfolioDetail/:title",
     element: <PortfolioDetail />,
   },
 ]);
-
 const App = () => {
   const [loading, setLoading] = useState(true);
 
