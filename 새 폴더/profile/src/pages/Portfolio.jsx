@@ -8,27 +8,64 @@ import {
   faInternetExplorer,
 } from "@fortawesome/free-brands-svg-icons";
 import PortfolioBox from "../contents/Portfolio/PortfolioBox";
-import { faBook } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBook,
+  faCircleXmark,
+  faLink,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Contain = styled.div`
   width: 100%;
-  background: #fff;
+  background: ${(props) => props.theme.colors.primary};
+  @media (max-width: 1280px) {
+    width: 100%;
+  }
+
+  @media (max-width: 820px) {
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const Section = styled.section`
   display: flex;
   width: 100%;
   padding-left: 40px;
+  @media (max-width: 1280px) {
+    flex-direction: column;
+  }
+
+  @media (max-width: 820px) {
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    flex-direction: column;
+    padding-left: 0;
+  }
 `;
 
 const Article = styled.article`
-  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin-top: 150px;
   padding: 0 50px;
   gap: 40px;
+  @media (max-width: 1280px) {
+    width: 100%;
+    padding: 0 80px;
+  }
+  @media (max-width: 820px) {
+  }
+  @media (max-width: 768px) {
+    margin-top: 60px;
+    padding: 0 30px;
+  }
 `;
 
 const ArticleTop = styled.div`
@@ -38,19 +75,42 @@ const ArticleTop = styled.div`
   align-items: center;
   margin-bottom: 40px;
   padding-right: 40px;
+  @media (max-width: 1280px) {
+    padding-right: 0;
+    width: 100%;
+    gap: 10px;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding-right: 0;
+  }
 `;
 
 const ArticleBottom = styled.div`
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   gap: 100px;
+  @media (max-width: 1280px) {
+    justify-content: space-between;
+    width: 100%;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+    align-items: center;
+  }
 `;
 
 const SectionTitle = styled.h1`
   margin-top: 120px;
   font-size: 64px;
   font-weight: 900;
-  color: ${(props) => props.theme.colors.primary};
+  color: #fff;
+
+  @media (max-width: 768px) {
+    padding-left: 30px;
+  }
 `;
 
 const BtnGroup = styled.div`
@@ -58,6 +118,13 @@ const BtnGroup = styled.div`
   justify-content: center;
   align-items: center;
   gap: 30px;
+  @media (max-width: 1280px) {
+    width: 100%;
+    justify-content: start;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const Btn = styled.button`
@@ -85,6 +152,14 @@ const SearchBar = styled.input`
   border-radius: 10px;
   background: ${(props) => props.theme.colors.background};
   font-size: 16px;
+
+  @media (max-width: 820px) {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const ModalOverlay = styled(motion.div)`
@@ -150,9 +225,11 @@ const ModalTitleInfo = styled.h3`
 const ModalArticle = styled.article`
   background: #fff;
   color: #333;
+  border-radius: 8px;
   &.right {
     width: 400px;
-    padding: 20px 10px;
+    padding: 30px 20px;
+    background: ${(props) => props.theme.colors.background};
   }
 `;
 
@@ -164,10 +241,9 @@ const Modalimg = styled.div`
 const ModalInfo = styled.div``;
 
 const ModalArticleTitle = styled.h1`
+  padding-bottom: 10px;
   font-size: 16px;
-
-  padding: 10px 0;
-  background: #ddd;
+  font-weight: bold;
 `;
 
 const ModalArticleInfoUl = styled.ul`
@@ -176,12 +252,13 @@ const ModalArticleInfoUl = styled.ul`
   font-size: 12px;
   font-weight: bold;
   color: ${(props) => props.theme.colors.secondary};
+
   &.bottom {
     flex-direction: column;
+    margin-bottom: 20px;
     color: #333;
     font-size: 14px;
     font-weight: 100;
-    background: #fff;
   }
 `;
 
@@ -193,7 +270,12 @@ const ModlaArticleInfoLi = styled.li`
   }
 `;
 
-const BtnUl = styled.ul``;
+const BtnUl = styled.ul`
+  position: absolute;
+  top: 30%;
+  right: 16%;
+  border: 1px solid #f00;
+`;
 
 const Btnli = styled.li``;
 
@@ -266,7 +348,7 @@ const Portfolio = () => {
           </ArticleBottom>
         </Article>
       </Section>
-      <ModalOverlay
+      {/* <ModalOverlay
         onClick={closeModal}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -277,7 +359,7 @@ const Portfolio = () => {
             <ModalTitle>마음의 서재</ModalTitle>
             <ModalTitleInfo>
               자바스크립트를 활용해 슬라이드 및 판매량, 최신 등록, 가격 순으로
-              정렬 가능한 필터 기능을 구현한 서적 탐색 웹 페이지입니다.{" "}
+              정렬 가능한 필터 기능을 구현한 서적 탐색 웹 페이지입니다.
             </ModalTitleInfo>
             <ModalInfo>
               <ModalArticleInfoUl>
@@ -302,17 +384,12 @@ const Portfolio = () => {
                 <ModalArticleTitle>🔍주요기능 및 특징</ModalArticleTitle>
                 <ModalArticleInfoUl className="bottom">
                   <ModlaArticleInfoLi>
-                    기획 및 디자인: Figma로 UI/UX를 설계하고, WBS를 통해 일정
-                    관리 및 팀 협업으로 전체 흐름을 확정했습니다.
+                    Figma로 UI/UX를 설계하고, WBS를 통해 일정 관리 및 팀
+                    협업으로 전체 흐름을 확정했습니다.
                   </ModlaArticleInfoLi>
                   <ModlaArticleInfoLi>
-                    개발: React와 Firebase로 로그인, 인증, 게시글 관리 및
-                    지속적인 데이터 저장 기능을 구현하여 사용자 경험을
-                    개선했습니다.
-                  </ModlaArticleInfoLi>
-                  <ModlaArticleInfoLi>
-                    오류 수정 및 최적화: 기능 테스트와 코드 최적화를 통해 오류를
-                    수정하고, 기능 완성도를 높였습니다.
+                    React와 Firebase로 로그인, 인증, 게시글 관리 및 지속적인
+                    데이터 저장 기능을 구현하여 사용자 경험을 개선했습니다.
                   </ModlaArticleInfoLi>
                 </ModalArticleInfoUl>
               </ModalInfo>
@@ -346,25 +423,22 @@ const Portfolio = () => {
               </ModalInfo>
             </ModalArticle>
           </ModalSection>
-          {/* <BtnUl>
-             <Btnli>
-              <FontAwesomeIcon icon={faCirclexmark} />
+          <BtnUl>
+            <Btnli>
+              <FontAwesomeIcon icon={faCircleXmark} />
             </Btnli>
             <Btnli>
-              <FontAwesomeIcon icon={falink} />
-              배포링크
+              <FontAwesomeIcon icon={faLink} />
             </Btnli>
             <Btnli>
               <FontAwesomeIcon icon={faGithub} />
-              GitHub
             </Btnli>
             <Btnli>
               <FontAwesomeIcon icon={faBook} />
-              Notion
             </Btnli>
-          </BtnUl> */}
+          </BtnUl>
         </ModalBox>
-      </ModalOverlay>
+      </ModalOverlay> */}
     </Contain>
   );
 };

@@ -193,6 +193,7 @@ export const Img = styled.img`
 `;
 
 export const Right = styled(motion.div)`
+  border: 1px solid #f00;
   position: absolute;
   top: 20%;
   left: 60%;
@@ -201,7 +202,6 @@ export const Right = styled(motion.div)`
 export const RightTitle = styled.p`
   margin-top: 100px;
   font-size: 80px;
-
   color: transparent;
   -webkit-text-stroke: 1px rgba(255, 255, 255, 0.6);
 `;

@@ -8,6 +8,9 @@ import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 
 const Container = styled.header`
   width: 100%;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const ToggleButton = styled.div`
@@ -31,6 +34,11 @@ const Nav = styled.nav`
   justify-content: space-between;
   align-items: center;
   padding: 30px 150px;
+  @media (max-width: 768px) {
+    justify-content: center;
+    padding: 30px;
+    gap: 40px;
+  }
 `;
 
 const List = styled.ul`

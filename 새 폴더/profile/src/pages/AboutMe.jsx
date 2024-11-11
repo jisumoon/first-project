@@ -34,6 +34,16 @@ const infiniteAnimation2 = keyframes`
 const Contain = styled.div`
   width: 100%;
   background: #fff;
+  padding-bottom: 100px;
+  @media (max-width: 1280px) {
+    width: 100%;
+  }
+  @media (max-width: 820px) {
+    width: 100%;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const Title = styled.h1`
@@ -43,6 +53,16 @@ const Title = styled.h1`
   font-size: 64px;
   font-weight: 900;
   color: ${(props) => props.theme.colors.primary};
+  @media (max-width: 1280px) {
+    margin-top: 100px;
+    width: 100%;
+  }
+  @media (max-width: 820px) {
+    width: 100%;
+  }
+  @media (max-width: 768px) {
+    font-size: 60px;
+  }
 `;
 
 const Section = styled.section`
@@ -56,11 +76,36 @@ const Section = styled.section`
     flex-direction: row;
     margin-top: 100px;
     gap: 20px;
+    @media (max-width: 1280px) {
+      width: 100%;
+    }
+    @media (max-width: 820px) {
+      width: 100%;
+      display: flex;
+      padding: 0;
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+      padding: 0 30px;
+      margin-top: 60px;
+    }
   }
 
   &.middle {
     margin-top: 60px;
     padding: 0 300px;
+    @media (max-width: 1280px) {
+      width: 100%;
+      padding: 0 80px;
+    }
+    @media (max-width: 820px) {
+      padding: 0 30px;
+      width: 100%;
+    }
+    @media (max-width: 768px) {
+      padding: 0 30px;
+    }
   }
 
   &.bottom {
@@ -68,6 +113,19 @@ const Section = styled.section`
     justify-content: space-between;
     margin-top: 100px;
     padding-right: 0;
+    @media (max-width: 1280px) {
+      width: 100%;
+      padding: 0 80px;
+      padding-right: 0;
+    }
+    @media (max-width: 820px) {
+      padding: 0 30px;
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      padding-left: 30px;
+    }
   }
 `;
 
@@ -77,6 +135,19 @@ const Article = styled.article`
   align-items: center;
   margin: 0 auto;
   gap: 80px;
+  @media (max-width: 1280px) {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+  }
+  @media (max-width: 820px) {
+    width: 100%;
+  }
+  @media (max-width: 768px) {
+    flex-direction: column;
+    width: 100%;
+    gap: 40px;
+  }
 `;
 
 const Img = styled.img`
@@ -86,7 +157,16 @@ const Img = styled.img`
   border: 1px solid #f00;
 `;
 
-const InfoSection = styled.div``;
+const InfoSection = styled.div`
+  @media (max-width: 820px) {
+    text-align: left;
+  }
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+`;
 
 const InfoTitle = styled.h2`
   font-size: 26px;
@@ -109,18 +189,41 @@ const Info = styled.h3`
   font-weight: 400;
   line-height: 1.4;
   color: ${(props) => props.theme.colors.info};
+  @media (max-width: 768px) {
+    text-align: left;
+    font-size: 17px;
+  }
 `;
 
 const SkillSection = styled.div`
   display: flex;
   align-items: center;
   gap: 40px;
+  @media (max-width: 1280px) {
+    padding: 0 20px;
+    justify-content: space-between;
+  }
+  @media (max-width: 820px) {
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+    margin-top: 20px;
+  }
 `;
 
 const SkillSectionTitle = styled.h2`
   padding-top: 40px;
   font-size: 26px;
   font-weight: bold;
+  @media (max-width: 768px) {
+    padding-top: 20px;
+  }
 `;
 
 const Skill = styled.div`
@@ -131,6 +234,8 @@ const SkillTitle = styled.h3`
   margin-bottom: 20px;
   font-size: 20px;
   color: ${(props) => props.theme.colors.info};
+  @media (max-width: 768px) {
+  }
 `;
 
 const SkillImg = styled.img`
@@ -193,6 +298,11 @@ const CareerContainer = styled.div`
   position: relative;
   overflow: hidden;
   margin-left: 100px;
+
+  @media (max-width: 1280px) {
+    width: 100%;
+    margin-left: 20px;
+  }
 `;
 
 const CareerSection = styled.div`

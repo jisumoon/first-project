@@ -89,7 +89,7 @@
     "title_kr": "프로젝트 이름 6",
     "title_en": "Project Name 6",
     "description": "사용자 경험을 극대화하기 위해 설계된 웹 애플리케이션입니다.",
-    "skill": ["React Native", "Expo", "Firebase"],
+    "skill": ["#React Native", "Expo", "Firebase"],
     "features": "푸시 알림, 위치 기반 서비스, 사용자 프로필",
     "contribution": "React Native로 모바일 애플리케이션 UI 구현",
     "problem_solving": "네트워크 성능 문제 해결을 위해 데이터 최적화",
