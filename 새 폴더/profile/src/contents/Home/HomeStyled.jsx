@@ -193,7 +193,6 @@ export const Img = styled.img`
 `;
 
 export const Right = styled(motion.div)`
-  border: 1px solid #f00;
   position: absolute;
   top: 20%;
   left: 60%;

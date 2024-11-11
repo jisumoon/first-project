@@ -3,15 +3,14 @@ import { useNavigate, useMatch } from "react-router-dom";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faGithub,
-  faInternetExplorer,
-} from "@fortawesome/free-brands-svg-icons";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import PortfolioBox from "../contents/Portfolio/PortfolioBox";
 import {
+  faAngleDown,
+  faAngleUp,
   faBook,
-  faCircleXmark,
   faLink,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 
 const Contain = styled.div`
@@ -109,6 +108,7 @@ const SectionTitle = styled.h1`
   color: #fff;
 
   @media (max-width: 768px) {
+    margin-top: 80px;
     padding-left: 30px;
   }
 `;
@@ -162,13 +162,15 @@ const SearchBar = styled.input`
   }
 `;
 
+//modal
 const ModalOverlay = styled(motion.div)`
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: ${(props) => props.theme.colors.primary};
+  background: rgba(34, 49, 34, 0.64);
+  backdrop-filter: blur(3px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -178,8 +180,13 @@ const ModalOverlay = styled(motion.div)`
 const ModalBox = styled(motion.div)`
   width: 80vw;
   height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   border-radius: 8px;
-  color: #fff;
+  padding: 10px 20px;
+  background: ${(props) => props.theme.colors.background};
 `;
 
 const ModalSection = styled.section`
@@ -189,19 +196,13 @@ const ModalSection = styled.section`
   &.top {
     align-items: center;
     gap: 10px;
-    margin-bottom: 30px;
+    padding-bottom: 20px;
   }
 
   &.bottom {
     flex-direction: row;
-    justify-content: center;
     gap: 40px;
   }
-`;
-
-const MoadlTopTitle = styled.h3`
-  font-size: 18px;
-  color: ${(props) => props.theme.colors.secondary};
 `;
 
 const ModalTitle = styled.h2`
@@ -226,22 +227,37 @@ const ModalArticle = styled.article`
   background: #fff;
   color: #333;
   border-radius: 8px;
+
   &.right {
-    width: 400px;
-    padding: 30px 20px;
+    border: 1px solid #f00;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
     background: ${(props) => props.theme.colors.background};
+    flex: 1;
+  }
+  &.left {
+    flex: 1;
   }
 `;
 
-const Modalimg = styled.div`
-  width: 400px;
-  height: 500px;
+const Modalimg = styled.div``;
+
+const ModalInfo = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
 `;
 
-const ModalInfo = styled.div``;
-
-const ModalArticleTitle = styled.h1`
-  padding-bottom: 10px;
+const ModalArticleTitle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 14px 10px;
+  border-radius: 8px;
   font-size: 16px;
   font-weight: bold;
 `;
@@ -251,7 +267,6 @@ const ModalArticleInfoUl = styled.ul`
   gap: 10px;
   font-size: 12px;
   font-weight: bold;
-  color: ${(props) => props.theme.colors.secondary};
 
   &.bottom {
     flex-direction: column;
@@ -259,6 +274,11 @@ const ModalArticleInfoUl = styled.ul`
     color: #333;
     font-size: 14px;
     font-weight: 100;
+    overflow: hidden;
+    max-height: ${({ isOpen }) => (isOpen ? "100px" : "0")};
+    transition: max-height 0.3s ease;
+    padding: ${({ isOpen }) => (isOpen ? "0 10px" : "0")};
+    line-height: 1.4;
   }
 `;
 
@@ -266,18 +286,57 @@ const ModlaArticleInfoLi = styled.li`
   &.btn {
     padding: 4px 10px;
     border-radius: 4px;
-    background: ${(props) => props.theme.colors.background};
+    color: ${(props) => props.theme.colors.secondary};
   }
 `;
 
 const BtnUl = styled.ul`
   position: absolute;
-  top: 30%;
-  right: 16%;
-  border: 1px solid #f00;
+  top: 10%;
+  right: 6%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;
 
-const Btnli = styled.li``;
+const Btnli = styled.li`
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 50%;
+  background: ${(props) => props.theme.colors.background};
+  cursor: pointer;
+  transform: background 0.3s color 0.3s box-shadow 0.3s;
+  &:hover {
+    background: ${(props) => props.theme.colors.secondary};
+    color: #fff;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  }
+  &:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-10px);
+    transform: translateX(-90px);
+  }
+`;
+
+const Tooltip = styled.span`
+  position: absolute;
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(-10px);
+  transform: translateX(-90px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+`;
 
 const Portfolio = () => {
   const [projects, setProjects] = useState([]);
@@ -286,6 +345,7 @@ const Portfolio = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate(); // 경로이동
   const movieMatch = useMatch(`/PortfolioDetail/:itemId`);
+  const [isOpen, setIsOpen] = useState(true);
 
   const openModal = (item) => {
     setModalData(item);
@@ -328,6 +388,8 @@ const Portfolio = () => {
     fetchData();
   }, []);
 
+  const toggleOpen = () => setIsOpen(!isOpen);
+
   return (
     <Contain>
       <Section>
@@ -348,14 +410,31 @@ const Portfolio = () => {
           </ArticleBottom>
         </Article>
       </Section>
-      {/* <ModalOverlay
+      <ModalOverlay
         onClick={closeModal}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
+        <BtnUl>
+          <Btnli>
+            <FontAwesomeIcon icon={faXmark} />
+            <Tooltip className="tooltip">이전 화면으로 이동하기</Tooltip>
+          </Btnli>
+          <Btnli>
+            <FontAwesomeIcon icon={faLink} />
+            <Tooltip className="tooltip">배포사이트로 이동하기</Tooltip>
+          </Btnli>
+          <Btnli>
+            <FontAwesomeIcon icon={faGithub} />
+            <Tooltip className="tooltip">관련 깃허브로 이동하기</Tooltip>
+          </Btnli>
+          <Btnli>
+            <FontAwesomeIcon icon={faBook} />
+            <Tooltip className="tooltip">관련 노션으로 이동하기</Tooltip>
+          </Btnli>
+        </BtnUl>
         <ModalBox>
           <ModalSection className="top">
-            <MoadlTopTitle>Portfolio,</MoadlTopTitle>
             <ModalTitle>마음의 서재</ModalTitle>
             <ModalTitleInfo>
               자바스크립트를 활용해 슬라이드 및 판매량, 최신 등록, 가격 순으로
@@ -379,10 +458,17 @@ const Portfolio = () => {
             <ModalArticle className="left">
               <Modalimg></Modalimg>
             </ModalArticle>
-            <ModalArticle className="right">
+            <ModalArticle className="right" onClick={toggleOpen}>
               <ModalInfo>
-                <ModalArticleTitle>🔍주요기능 및 특징</ModalArticleTitle>
-                <ModalArticleInfoUl className="bottom">
+                <ModalArticleTitle>
+                  🔍주요기능 및 특징{" "}
+                  {isOpen ? (
+                    <FontAwesomeIcon icon={faAngleUp} />
+                  ) : (
+                    <FontAwesomeIcon icon={faAngleDown} />
+                  )}
+                </ModalArticleTitle>
+                <ModalArticleInfoUl className="bottom" isOpen={isOpen}>
                   <ModlaArticleInfoLi>
                     Figma로 UI/UX를 설계하고, WBS를 통해 일정 관리 및 팀
                     협업으로 전체 흐름을 확정했습니다.
@@ -394,8 +480,15 @@ const Portfolio = () => {
                 </ModalArticleInfoUl>
               </ModalInfo>
               <ModalInfo>
-                <ModalArticleTitle>👏개발 성과 및 결과</ModalArticleTitle>
-                <ModalArticleInfoUl className="bottom">
+                <ModalArticleTitle>
+                  👏개발 성과 및 결과{" "}
+                  {isOpen ? (
+                    <FontAwesomeIcon icon={faAngleUp} />
+                  ) : (
+                    <FontAwesomeIcon icon={faAngleDown} />
+                  )}
+                </ModalArticleTitle>
+                <ModalArticleInfoUl className="bottom" isOpen={isOpen}>
                   <ModlaArticleInfoLi>
                     Figma 디자인을 React와 styled-components로 구현하여 반응형
                     UI/UX를 완성했습니다. Firebase를 이용한 실시간 검색과 데이터
@@ -406,10 +499,15 @@ const Portfolio = () => {
               </ModalInfo>
               <ModalInfo>
                 <ModalArticleTitle>
-                  🚨코드오류 분석 및 해결 과정
+                  🚨코드오류 분석 및 해결 과정{" "}
+                  {isOpen ? (
+                    <FontAwesomeIcon icon={faAngleUp} />
+                  ) : (
+                    <FontAwesomeIcon icon={faAngleDown} />
+                  )}
                 </ModalArticleTitle>
 
-                <ModalArticleInfoUl className="bottom">
+                <ModalArticleInfoUl className="bottom" isOpen={isOpen}>
                   <ModlaArticleInfoLi>
                     문제: FollowerButton 클릭 시 상위 요소(FollowerContain)의
                     클릭 이벤트가 실행되어 의도치 않게 프로필 페이지로 이동함.
@@ -423,22 +521,8 @@ const Portfolio = () => {
               </ModalInfo>
             </ModalArticle>
           </ModalSection>
-          <BtnUl>
-            <Btnli>
-              <FontAwesomeIcon icon={faCircleXmark} />
-            </Btnli>
-            <Btnli>
-              <FontAwesomeIcon icon={faLink} />
-            </Btnli>
-            <Btnli>
-              <FontAwesomeIcon icon={faGithub} />
-            </Btnli>
-            <Btnli>
-              <FontAwesomeIcon icon={faBook} />
-            </Btnli>
-          </BtnUl>
         </ModalBox>
-      </ModalOverlay> */}
+      </ModalOverlay>
     </Contain>
   );
 };

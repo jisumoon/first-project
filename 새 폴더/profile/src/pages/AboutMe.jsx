@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
+import { motion } from "framer-motion";
 import skillsData from "../../public/data/skill.json";
 import questionsData from "../../public/data/interview.json";
 import careerData from "../../public/data/education.json";
 import ScrollAni from "../styles/ScrollAni";
 import useScrollAnimation from "../Hook/useScrollAnimation";
+import Flower from "../../public/img/Flower.svg";
+import FlowerShape from "../../public/img/FlowerShape.svg";
 
 //Ani
 const infiniteAnimation1 = keyframes`
@@ -30,6 +33,13 @@ const infiniteAnimation2 = keyframes`
     transform: translateX(-200%);
   }
 `;
+
+const shake = keyframes`
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(2deg); }
+  50% { transform: rotate(-2deg); }
+  75% { transform: rotate(2deg); }
+  100% { transform: rotate(0deg); }`;
 
 const Contain = styled.div`
   width: 100%;
@@ -120,11 +130,16 @@ const Section = styled.section`
     }
     @media (max-width: 820px) {
       padding: 0 30px;
+      padding-right: 0;
       width: 100%;
     }
 
     @media (max-width: 768px) {
       padding-left: 30px;
+      padding-right: 0;
+    }
+    @media (max-width: 390px) {
+      padding: 0;
     }
   }
 `;
@@ -303,11 +318,20 @@ const CareerContainer = styled.div`
     width: 100%;
     margin-left: 20px;
   }
+
+  @media (max-width: 390px) {
+    padding-left: 0;
+  }
 `;
 
 const CareerSection = styled.div`
   display: flex;
   justify-content: space-evenly;
+
+  @media (max-width: 390px) {
+    border: 1px solid #f00;
+    justify-content: center;
+  }
 
   &.slideOriginal {
     animation: ${infiniteAnimation1} 100s linear infinite;
@@ -335,19 +359,8 @@ const CareerBox = styled.div`
   border-bottom: 5px solid ${(props) => props.theme.colors.primary};
   cursor: pointer;
   &:hover {
-    transform: scale(0.98);
-    &::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: 8px;
-      background-color: rgba(0, 0, 0, 0.2);
-    }
+    animation: ${shake} 0.7s ease-in-out;
+    animation-iteration-count: 1;
   }
 `;
 
@@ -386,6 +399,7 @@ const AboutMe = () => {
   const { scrollRef, scrollEl } = useScrollAnimation();
   const [animate, setAnimate] = useState(true); // 애니메이션 제어
 
+  //하이라이트
   const renderAnswerWithHighlights = (answer, highlights) => {
     const parts = answer.split(new RegExp(`(${highlights.join("|")})`, "g"));
     return parts.map((part, index) =>
