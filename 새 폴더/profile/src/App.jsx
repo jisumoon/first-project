@@ -13,7 +13,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/PortfolioDetail/:title",
-    element: <PortfolioDetail />,
+    element: <PortfolioDetail />, //모달창 주소 뒤에 제목 넣기
   },
 ]);
 const App = () => {

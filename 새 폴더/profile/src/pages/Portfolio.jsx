@@ -7,7 +7,10 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import PortfolioBox from "../contents/Portfolio/PortfolioBox";
 import {
   faAngleDown,
+  faAngleLeft,
+  faAngleRight,
   faAngleUp,
+  faArrowLeft,
   faBook,
   faLink,
   faXmark,
@@ -202,6 +205,9 @@ const ModalSection = styled.section`
   &.bottom {
     flex-direction: row;
     gap: 40px;
+    @media (max-width: 1280px) {
+      flex-direction: column;
+    }
   }
 `;
 
@@ -227,9 +233,9 @@ const ModalArticle = styled.article`
   background: #fff;
   color: #333;
   border-radius: 8px;
+  min-height: 450px;
 
   &.right {
-    border: 1px solid #f00;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -241,7 +247,52 @@ const ModalArticle = styled.article`
   }
 `;
 
-const Modalimg = styled.div``;
+const HoverButtons = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 14px;
+  color: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  top: 48%;
+  left: 0;
+  font-size: 30px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+`;
+
+const Modalimg = styled(motion.div)`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  &:hover ${HoverButtons} {
+    opacity: 1;
+  }
+`;
+
+const ImgContant = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
+const Pager = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  bottom: 12%;
+  left: 26%;
+`;
+
+const Dot = styled.div`
+  width: ${(props) => (props.active ? "30px" : "10px")};
+  height: 10px;
+  background-color: ${(props) => (props.active ? "#2f4f4f" : "#ddd")};
+  border-radius: ${(props) => (props.active ? "15px" : "50%")};
+  transition: all 0.3s ease;
+  cursor: pointer;
+`;
 
 const ModalInfo = styled.div`
   width: 100%;
@@ -260,6 +311,7 @@ const ModalArticleTitle = styled.div`
   border-radius: 8px;
   font-size: 16px;
   font-weight: bold;
+  cursor: pointer;
 `;
 
 const ModalArticleInfoUl = styled.ul`
@@ -346,6 +398,8 @@ const Portfolio = () => {
   const navigate = useNavigate(); // 경로이동
   const movieMatch = useMatch(`/PortfolioDetail/:itemId`);
   const [isOpen, setIsOpen] = useState(true);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const slides = [1, 2, 3, 4, 5];
 
   const openModal = (item) => {
     setModalData(item);
@@ -388,7 +442,19 @@ const Portfolio = () => {
     fetchData();
   }, []);
 
+  //toggle
   const toggleOpen = () => setIsOpen(!isOpen);
+
+  //slide
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % slides.length);
+  };
+
+  const handlePrevious = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? slides.length - 1 : prevIndex - 1
+    );
+  };
 
   return (
     <Contain>
@@ -456,12 +522,32 @@ const Portfolio = () => {
           </ModalSection>
           <ModalSection className="bottom">
             <ModalArticle className="left">
-              <Modalimg></Modalimg>
+              <Modalimg>
+                <ImgContant>{slides[currentIndex]}</ImgContant>
+                <HoverButtons>
+                  <FontAwesomeIcon
+                    icon={faAngleLeft}
+                    style={{ cursor: "pointer" }}
+                    onClick={handlePrevious}
+                  />
+                  <FontAwesomeIcon
+                    icon={faAngleRight}
+                    style={{ cursor: "pointer" }}
+                    onClick={handleNext}
+                  />
+                </HoverButtons>
+              </Modalimg>
+
+              <Pager>
+                {slides.map((_, index) => (
+                  <Dot key={index} active={index === currentIndex} />
+                ))}
+              </Pager>
             </ModalArticle>
             <ModalArticle className="right" onClick={toggleOpen}>
               <ModalInfo>
                 <ModalArticleTitle>
-                  🔍주요기능 및 특징{" "}
+                  🔍주요기능 및 특징
                   {isOpen ? (
                     <FontAwesomeIcon icon={faAngleUp} />
                   ) : (
@@ -481,7 +567,7 @@ const Portfolio = () => {
               </ModalInfo>
               <ModalInfo>
                 <ModalArticleTitle>
-                  👏개발 성과 및 결과{" "}
+                  👏개발 성과 및 결과
                   {isOpen ? (
                     <FontAwesomeIcon icon={faAngleUp} />
                   ) : (
@@ -499,7 +585,7 @@ const Portfolio = () => {
               </ModalInfo>
               <ModalInfo>
                 <ModalArticleTitle>
-                  🚨코드오류 분석 및 해결 과정{" "}
+                  🚨코드오류 분석 및 해결 과정
                   {isOpen ? (
                     <FontAwesomeIcon icon={faAngleUp} />
                   ) : (
