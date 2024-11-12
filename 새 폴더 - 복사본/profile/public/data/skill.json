@@ -1,0 +1,36 @@
+{
+  "skills": [
+    {
+      "category": "Frontend",
+      "items": [
+        { "name": "HTML", "svg": "/skill/HTML.svg" },
+        { "name": "CSS", "svg": "/skill/CSS.svg" },
+        { "name": "JavaScript", "svg": "/skill/JavaScript.svg" },
+        { "name": "TypeScript", "svg": "/skill/TypeScript.svg" },
+        { "name": "React", "svg": "/skill/React.svg" },
+        { "name": "Redux", "svg": "/skill/Redux.svg" },
+        { "name": "Sass", "svg": "/skill/Sass.svg" }
+      ]
+    },
+    {
+      "category": "Backend",
+      "items": [
+        { "name": "Node.js", "svg": "/skill/NodeJS.svg" },
+        { "name": "GraphQL", "svg": "/skill/GraphQL-Light.svg" },
+        { "name": "Firebase", "svg": "/skill/Firebase-Light.svg" },
+        { "name": "Netlify", "svg": "/skill/Netlify-Light.svg" }
+      ]
+    },
+    {
+      "category": "Design",
+      "items": [{ "name": "Figma", "svg": "/skill/Figma.svg" }]
+    },
+    {
+      "category": "Cooperate",
+      "items": [
+        { "name": "GitHub", "svg": "/skill/Github-Light.svg" },
+        { "name": "Discord", "svg": "/skill/Discord.svg" }
+      ]
+    }
+  ]
+}

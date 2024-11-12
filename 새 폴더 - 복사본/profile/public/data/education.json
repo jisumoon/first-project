@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "type": "Career",
+    "svg": "/img/Hospital.svg",
+    "date": "2020.02 - 2024.02",
+    "title": "보바스기념병원 작업치료사"
+  },
+  {
+    "id": 2,
+    "type": "Career",
+    "svg": "/img/Computer.svg",
+    "date": "2024.06 - 2024.12",
+    "title": "강남이젠아카데미 수료"
+  },
+  {
+    "id": 3,
+    "type": "Education",
+    "svg": "/img/Graduation Book.svg",
+    "date": "2022.03 - 2024.02",
+    "title": "강원대학교 일반대학원 작업치료학과"
+  },
+  {
+    "id": 4,
+    "type": "Career",
+    "svg": "/img/Graduation Book.svg",
+    "date": "2016.03 - 2020.02",
+    "title": "전주대학교 작업치료학과"
+  }
+]
