@@ -4,16 +4,17 @@ import skillsData from "../../../public/data/skill.json";
 
 const Container = styled.div`
   padding: 60px;
+  margin-top: 80px;
 `;
 
 const SkillSectionTItle = styled.h1`
-  font-size: 32px;
+  padding-left: 4px;
+  font-size: 18px;
   font-weight: bold;
-  letter-spacing: 1.4px;
 `;
 
 const SkillWrapper = styled.section`
-  padding-top: 40px;
+  margin-top: 40px;
   display: flex;
   align-items: center;
   gap: 40px;
@@ -27,15 +28,22 @@ const CardSection = styled.div`
 `;
 
 const SkillTitle = styled.h3`
-  padding-left: 4px;
-  font-size: 18px;
-  margin-bottom: 20px;
-  font-weight: 400;
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 1.2;
+  color: rgba(51, 51, 51, 0.9);
+`;
+
+const Line = styled.hr`
+  margin-top: 20px;
+  width: 80px;
+  border: 2px solid ${(props) => props.theme.colors.primary};
 `;
 
 const SkillItem = styled.div`
   display: flex;
   gap: 12px;
+  margin-top: 40px;
 `;
 
 const SkillImg = styled.img`
@@ -43,22 +51,33 @@ const SkillImg = styled.img`
   height: 40px;
 `;
 
-const SkillSection = () => (
+const SkillInfo = styled.div`
+  margin-top: 18px;
+`;
+
+const SkilltypeSection = () => (
   <Container>
     <SkillSectionTItle>Forest of Skills</SkillSectionTItle>
     <SkillWrapper>
       {skillsData.skills.map((category) => (
         <CardSection key={category.category}>
           <SkillTitle>{category.category}</SkillTitle>
+          <Line />
           <SkillItem>
             {category.items.map((item) => (
               <SkillImg key={item.name} src={item.svg} alt={item.name} />
             ))}
           </SkillItem>
+          <SkillInfo>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi
+            expedita in ad sed sequi fugit repellendus iusto necessitatibus
+            soluta voluptatibus, ullam vitae saepe est commodi enim corporis ut
+            blanditiis! Velit!
+          </SkillInfo>
         </CardSection>
       ))}
     </SkillWrapper>
   </Container>
 );
 
-export default SkillSection;
+export default SkilltypeSection;

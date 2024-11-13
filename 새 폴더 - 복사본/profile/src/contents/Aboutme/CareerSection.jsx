@@ -1,12 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import careerData from "../../../public/data/education.json";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClover } from "@fortawesome/free-solid-svg-icons";
 
 const CareerWrapper = styled.section`
   position: relative;
   width: 100%;
   height: 50vh;
-  margin-top: 60px;
+  margin-top: 100px;
   padding: 0 80px;
 `;
 
@@ -18,6 +20,7 @@ const CareerSectionText = styled.h1`
 `;
 
 const CareerContainer = styled.div`
+  margin-top: 40px;
   padding-top: 20px;
   display: flex;
   flex-direction: column;
@@ -61,35 +64,34 @@ const CareerSectionWrapper = styled.div``;
 const TimelineImg = styled.svg`
   position: absolute;
   right: 0;
-  bottom: 7%;
+  bottom: -11%;
+  z-index: -1;
 `;
 
 const CareerImg = styled.img`
-  width: 220px;
-  height: 120px;
+  width: 240px;
+  height: 140px;
   border-radius: 8px;
   margin-bottom: 20px;
   border: 1px solid #f00;
 `;
 
 const CareerCricle = styled.div`
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #333;
+  font-size: 20px;
+  color: ${(props) => props.theme.colors.primary};
 `;
 
 const CareerSection = () => {
   return (
     <CareerWrapper>
       <TimelineImg
-        width="1500"
+        width="1600"
         height="5"
         viewBox="0 0 1016 5"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <rect width="1500" height="2" fill="rgba(51, 51, 51, 0.6)" />
+        <rect width="1600" height="1" fill="#6F4E37" />
       </TimelineImg>
 
       <CareerSectionWrapper>
@@ -103,7 +105,9 @@ const CareerSection = () => {
             {careerData.map((item) => (
               <CareerBox key={item.id}>
                 <CareerImg></CareerImg>
-                <CareerCricle></CareerCricle>
+                <CareerCricle>
+                  <FontAwesomeIcon icon={faClover} />
+                </CareerCricle>
                 <CareerInfoDate>{item.date}</CareerInfoDate>
                 <CareerInfoTitle>{item.title}</CareerInfoTitle>
               </CareerBox>
