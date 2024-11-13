@@ -88,7 +88,6 @@ export const Article = styled(motion.article)`
   &.middle {
     flex: 1;
     border-radius: 50% 50% 0 0;
-    background: rgba(107, 154, 110, 1);
   }
   &.right {
     flex: 1;
@@ -189,7 +188,7 @@ export const ImgContainer = styled(motion.div)`
 `;
 
 export const Img = styled.img`
-  width: 320px;
+  width: 330px;
 `;
 
 export const Right = styled(motion.div)`

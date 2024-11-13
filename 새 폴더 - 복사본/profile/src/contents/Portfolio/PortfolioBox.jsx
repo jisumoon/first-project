@@ -1,9 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faClover, faPlay } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import styled from "styled-components";
 
 const PortfolioBoxWrapper = styled.div`
+  border-radius: 8px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -18,6 +19,7 @@ const PortfolioBoxWrapper = styled.div`
 const PortfolioImg = styled.img`
   height: 200px;
   margin-bottom: 10px;
+  border-radius: 8px 8px 0 0;
 `;
 
 const PortfolioInfoSection = styled.div`
@@ -68,7 +70,7 @@ const PortfolioBtn = styled.button`
   cursor: pointer;
   border: none;
   background: #fff;
-  font-size: 16px;
+  font-size: 20px;
   color: ${(props) => props.theme.colors.secondary};
   transition: background 0.3s ease, transform 0.3s ease;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
@@ -84,7 +86,7 @@ const PortfolioBox = ({ item, onClick }) => (
   <PortfolioBoxWrapper>
     <PortfolioImg src="/img/tree1.jpg" alt="Tree image" />
     <PortfolioBtn onClick={() => onClick(item)}>
-      <FontAwesomeIcon icon={faPlay} />
+      <FontAwesomeIcon icon={faClover} />
     </PortfolioBtn>
     <PortfolioInfoSection>
       <PortFolioTitle>{item.title_kr}</PortFolioTitle>

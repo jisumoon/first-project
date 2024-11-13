@@ -8,8 +8,7 @@ const Container = styled.div`
 `;
 
 const SkillSectionTItle = styled.h1`
-  padding-left: 4px;
-  font-size: 18px;
+  font-size: 46px;
   font-weight: bold;
 `;
 
@@ -17,7 +16,7 @@ const SkillWrapper = styled.section`
   margin-top: 40px;
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 30px;
   align-items: center;
 `;
 
@@ -28,21 +27,21 @@ const CardSection = styled.div`
 `;
 
 const SkillTitle = styled.h3`
-  font-size: 36px;
+  font-size: 24px;
   font-weight: bold;
   line-height: 1.2;
   color: rgba(51, 51, 51, 0.9);
 `;
 
 const Line = styled.hr`
-  margin-top: 20px;
-  width: 80px;
-  border: 2px solid ${(props) => props.theme.colors.primary};
+  margin-top: 13px;
+  width: 90px;
+  border: 1.5px solid ${(props) => props.theme.colors.primary};
 `;
 
 const SkillItem = styled.div`
   display: flex;
-  gap: 12px;
+  gap: 6px;
   margin-top: 40px;
 `;
 
@@ -53,6 +52,7 @@ const SkillImg = styled.img`
 
 const SkillInfo = styled.div`
   margin-top: 18px;
+  font-size: 16px;
 `;
 
 const SkilltypeSection = () => (
@@ -71,8 +71,6 @@ const SkilltypeSection = () => (
           <SkillInfo>
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi
             expedita in ad sed sequi fugit repellendus iusto necessitatibus
-            soluta voluptatibus, ullam vitae saepe est commodi enim corporis ut
-            blanditiis! Velit!
           </SkillInfo>
         </CardSection>
       ))}

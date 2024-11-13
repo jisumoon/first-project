@@ -1,8 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import careerData from "../../../public/data/education.json";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClover } from "@fortawesome/free-solid-svg-icons";
 
 const CareerWrapper = styled.section`
   position: relative;
@@ -20,7 +18,6 @@ const CareerSectionText = styled.h1`
 `;
 
 const CareerContainer = styled.div`
-  margin-top: 40px;
   padding-top: 20px;
   display: flex;
   flex-direction: column;
@@ -30,86 +27,76 @@ const CareerContainer = styled.div`
 const CareerSectionContainer = styled.div`
   display: flex;
   justify-content: right;
-  gap: 40px;
-  padding-top: 9px;
-  margin-top: 20px;
+  gap: 70px;
+  margin-top: 40px;
 `;
 
 const CareerBox = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  margin: 10px;
-  padding: 10px;
+  width: 260px;
   gap: 10px;
+  margin-top: 40px;
+  color: ${(props) =>
+    props.$isHovered ? "#333" : " rgba(102, 102, 102, 0.6)"};
+  transition: color 0.3s ease;
 `;
 
 const CareerInfoTitle = styled.h5`
-  margin-bottom: 8px;
-  color: #3e4e42;
   font-size: 16px;
   font-weight: bold;
 `;
 
 const CareerInfoDate = styled.h3`
   padding-top: 10px;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: bold;
   margin-bottom: 5px;
 `;
 
 const CareerSectionWrapper = styled.div``;
 
-const TimelineImg = styled.svg`
-  position: absolute;
-  right: 0;
-  bottom: -11%;
-  z-index: -1;
-`;
-
 const CareerImg = styled.img`
-  width: 240px;
-  height: 140px;
-  border-radius: 8px;
-  margin-bottom: 20px;
+  width: 260px;
+  height: 260px;
+  border-radius: 4px;
   border: 1px solid #f00;
+  height: ${(props) => (props.$isHovered ? "300px" : "260px")};
+  transition: height 0.3 ease;
+  cursor: pointer;
 `;
 
-const CareerCricle = styled.div`
-  font-size: 20px;
-  color: ${(props) => props.theme.colors.primary};
+const CareerInfo = styled.p`
+  display: ${(props) => (props.$isHovered ? "block" : "none")};
+  transition: transform 0.3s ease;
 `;
 
 const CareerSection = () => {
+  const [hoveredItemId, setHoveredItemId] = useState(null);
+
   return (
     <CareerWrapper>
-      <TimelineImg
-        width="1600"
-        height="5"
-        viewBox="0 0 1016 5"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect width="1600" height="1" fill="#6F4E37" />
-      </TimelineImg>
-
       <CareerSectionWrapper>
         <CareerSectionText>
           Forest of Growth:
           <br /> Career & Education
         </CareerSectionText>
-
         <CareerContainer>
           <CareerSectionContainer>
             {careerData.map((item) => (
-              <CareerBox key={item.id}>
-                <CareerImg></CareerImg>
-                <CareerCricle>
-                  <FontAwesomeIcon icon={faClover} />
-                </CareerCricle>
+              <CareerBox
+                key={item.id}
+                $isHovered={hoveredItemId === item.id}
+                onMouseEnter={() => setHoveredItemId(item.id)}
+                onMouseLeave={() => setHoveredItemId(null)}
+              >
                 <CareerInfoDate>{item.date}</CareerInfoDate>
                 <CareerInfoTitle>{item.title}</CareerInfoTitle>
+                <CareerInfo $isHovered={hoveredItemId === item.id}>
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                  Culpa, sit eaque minima dolore iste inventore est magnam
+                </CareerInfo>
+                <CareerImg $isHovered={hoveredItemId === item.id}></CareerImg>
               </CareerBox>
             ))}
           </CareerSectionContainer>

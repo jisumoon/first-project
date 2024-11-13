@@ -87,14 +87,18 @@ const BtnGroup = styled.div`
 `;
 
 const TopSection = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
+  padding: 0 40px;
 `;
 
 const BottomSection = styled.div`
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 60px;
   margin-top: 40px;
 `;
 

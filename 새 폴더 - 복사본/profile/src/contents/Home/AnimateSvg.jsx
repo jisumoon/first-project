@@ -25,8 +25,8 @@ import { lineVariants } from "./Animation";
 
 const AnimateSvg = ({
   width = "2000",
-  height = "40",
-  color = "rgba(255, 255, 255, 0.2)",
+  height = "2",
+  color = "rgba(255, 255, 255, 1)",
 }) => (
   <AnimatedSvg
     width={width}

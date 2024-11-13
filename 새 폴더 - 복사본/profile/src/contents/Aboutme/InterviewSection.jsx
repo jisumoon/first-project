@@ -5,7 +5,7 @@ import questionsData from "../../../public/data/interview.json";
 const Container = styled.div`
   width: 100%;
   padding: 0 40px;
-  margin-top: 300px;
+  margin-top: 380px;
 `;
 
 const InterviewSectionTitle = styled.h1`
@@ -18,8 +18,8 @@ const InterviewSectionTitle = styled.h1`
 const InterviewWrapper = styled.section`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 40px;
-  padding-top: 120px;
+  gap: 30px;
+  padding-top: 100px;
   padding-left: 40px;
   padding-right: 28px;
 `;
