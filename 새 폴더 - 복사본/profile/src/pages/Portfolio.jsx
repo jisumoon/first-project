@@ -1,226 +1,103 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useMatch } from "react-router-dom";
+import { useMatch } from "react-router-dom";
 import styled from "styled-components";
-import { motion } from "framer-motion";
-
+import { useQuery } from "react-query";
+import { useDispatch, useSelector } from "react-redux";
+import { openModal, closeModal } from "../store/modalReducer";
 import Modal from "../contents/Portfolio/Modal";
-import PortfolioBox from "../contents/Portfolio/PortfolioBox";
+import PortfolioSection from "../contents/Portfolio/Portfoliosection";
+import InterviewSection from "../contents/Portfolio/InterviewSection";
 
 const Contain = styled.div`
-  background: ${(props) => props.theme.colors.primary};
-  @media (max-width: 1280px) {
-    width: 100%;
-  }
-
-  @media (max-width: 820px) {
-    width: 100%;
-  }
-
-  @media (max-width: 768px) {
-    width: 100%;
-  }
+  background: ${(props) => props.theme.colors.mainbackgtound};
 `;
 
-const Section = styled.section`
-  display: flex;
-  padding-left: 40px;
-  padding-top: 100px;
-  gap: 40px;
-  @media (max-width: 1280px) {
-    flex-direction: column;
-  }
-
-  @media (max-width: 820px) {
-    width: 100%;
-  }
-
-  @media (max-width: 768px) {
-    width: 100%;
-    flex-direction: column;
-    padding-left: 0;
-  }
-`;
-
-const Article = styled.article`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 50px;
-  margin-top: 20px;
-  gap: 40px;
-  @media (max-width: 1280px) {
-    width: 100%;
-    padding: 0 80px;
-  }
-  @media (max-width: 820px) {
-  }
-  @media (max-width: 768px) {
-    margin-top: 60px;
-    padding: 0 30px;
-  }
-`;
-
-const SectionTitle = styled.h1`
-  font-size: 64px;
-  font-weight: 900;
-  color: #fff;
-
-  @media (max-width: 768px) {
-    margin-top: 80px;
-    padding-left: 30px;
-  }
-`;
-
-const BtnGroup = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-  @media (max-width: 1280px) {
-    width: 100%;
-    justify-content: start;
-  }
-  @media (max-width: 768px) {
-    width: 100%;
-  }
-`;
-
-const TopSection = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 40px;
-`;
-
-const BottomSection = styled.div`
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 60px;
-  margin-top: 40px;
-`;
-
-const Btn = styled.button`
-  width: 100px;
-  padding: 10px 0;
-  border: none;
-  border-radius: 10px;
-  background: ${(props) => props.theme.colors.background};
-  font-size: 16px;
-  color: ${(props) => props.theme.colors.secondary};
-  font-weight: bold;
-  cursor: pointer;
-  transition: color 0.6s, background 0.6s;
-  &:hover {
-    color: #fff;
-    background: ${(props) => props.theme.colors.highlight};
-  }
-`;
-
-const SearchBar = styled.input`
-  width: 300px;
-  padding: 10px 0;
-  padding-left: 20px;
-  border: none;
-  border-radius: 10px;
-  background: ${(props) => props.theme.colors.background};
-  font-size: 16px;
-
-  @media (max-width: 820px) {
-    display: none;
-  }
-
-  @media (max-width: 768px) {
-    display: none;
-  }
-`;
+const Section = styled.section``;
 
 const Portfolio = () => {
-  const [projects, setProjects] = useState([]);
-  const [filteredProjects, setFilteredProjects] = useState([]);
-  const [modalData, setModalData] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const slides = [1, 2, 3, 4, 5];
+  const dispatch = useDispatch();
+  const isModalOpen = useSelector((state) => state.modal.isModalOpen);
   const projectMatch = useMatch(`/PortfolioDetail/:itemId`);
+  const [modalData, setModalData] = useState(null);
+  const [filter, setFilter] = useState("ALL");
+  const [searchQuery, setSearchQuery] = useState("");
 
-  // URL 매칭 시 모달 자동 열기
-  useEffect(() => {
-    if (projectMatch) {
-      const itemId = projectMatch.params.itemId;
-      const matchedItem = projects.find((project) => project.id === itemId);
-      if (matchedItem) {
-        openModal(matchedItem, false);
-      }
-    }
-  }, [projectMatch, projects]);
-
-  const openModal = (item, updateUrl = true) => {
-    setModalData(item);
-    setIsModalOpen(true);
-    if (updateUrl) {
-      window.history.pushState(null, "", `/PortfolioDetail/${item.id}`);
-    }
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setModalData(null);
-    window.history.pushState(null, "", "/");
-  };
-
-  const filterProjects = (category) => {
-    setFilteredProjects(
-      category === "ALL"
-        ? projects
-        : projects.filter((project) => project.category === category)
+  // React Query를 사용하여 포트폴리오 데이터 가져오기
+  const {
+    data: projects = [],
+    isLoading,
+    error,
+  } = useQuery(["portfolioData"], async () => {
+    const response = await fetch(
+      "https://jisumoon.github.io/PortfolioServer/db.json"
     );
-  };
+    if (!response.ok) {
+      throw new Error("데이터를 가져오는 데 실패했습니다.");
+    }
+    const result = await response.json();
+    return result.projects;
+  });
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("/data/portfolio.json");
-        const data = await response.json();
-        setProjects(data);
-        setFilteredProjects(data);
-      } catch (error) {
-        console.error("파일을 가져오는 중 오류 발생:", error);
+    if (projectMatch && projects.length > 0) {
+      const itemId = projectMatch.params.itemId;
+      const matchedItem = projects.find(
+        (project) => project.id.toString() === itemId
+      );
+      if (matchedItem) {
+        dispatch(openModal());
+        setModalData(matchedItem);
       }
-    };
-    fetchData();
-  }, []);
+    }
+  }, [projectMatch, projects, dispatch]);
+
+  // Modal 열기/닫기 핸들러
+  const openModalHandler = (item) => {
+    setModalData(item);
+    dispatch(openModal());
+    window.history.pushState(null, "", `/PortfolioDetail/${item.id}`); // URL 업데이트
+  };
+
+  const closeModalHandler = () => {
+    dispatch(closeModal());
+    setModalData(null);
+    window.history.back();
+  };
+
+  // 필터링된 프로젝트 목록
+  const filteredProjects = projects.filter(
+    (project) =>
+      (filter === "ALL" || project.category === filter) &&
+      (project.title_kr.toLowerCase().includes(searchQuery) ||
+        project.description.toLowerCase().includes(searchQuery))
+  );
+
+  const handleFilterChange = (category) => {
+    setFilter(category);
+  };
+
+  const handleSearch = (e) => {
+    const query = e.target.value.toLowerCase();
+    setSearchQuery(query);
+  };
 
   return (
     <Contain>
       <Section>
-        <SectionTitle>Portfolio</SectionTitle>
-        <Article>
-          <TopSection>
-            <BtnGroup>
-              <Btn onClick={() => filterProjects("ALL")}>ALL</Btn>
-              <Btn onClick={() => filterProjects("Team")}>Team</Btn>
-              <Btn onClick={() => filterProjects("Single")}>Single</Btn>
-            </BtnGroup>
-            <SearchBar type="text" placeholder="검색어를 입력해주세요" />
-          </TopSection>
-          <BottomSection>
-            {filteredProjects.map((item) => (
-              <PortfolioBox key={item.id} item={item} onClick={openModal} />
-            ))}
-          </BottomSection>
-        </Article>
+        <InterviewSection openModalHandler={openModalHandler} />
+        <PortfolioSection
+          projects={filteredProjects}
+          onOpenModal={openModalHandler}
+          onFilterChange={handleFilterChange}
+          onSearch={handleSearch}
+        />
       </Section>
       {isModalOpen && (
         <Modal
+          slides={filteredProjects.map((project) => project.img)}
           modalData={modalData}
-          closeModal={closeModal}
-          slides={slides}
-          currentIndex={currentIndex}
-          setCurrentIndex={setCurrentIndex}
+          closeModal={closeModalHandler}
+          currentIndex={0}
         />
       )}
     </Contain>

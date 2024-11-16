@@ -5,9 +5,8 @@ import careerData from "../../../public/data/education.json";
 const CareerWrapper = styled.section`
   position: relative;
   width: 100%;
-  height: 50vh;
-  margin-top: 100px;
   padding: 0 80px;
+  margin-top: 200px;
 `;
 
 const CareerSectionText = styled.h1`
@@ -18,7 +17,7 @@ const CareerSectionText = styled.h1`
 `;
 
 const CareerContainer = styled.div`
-  padding-top: 20px;
+  padding-top: 60px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -26,7 +25,6 @@ const CareerContainer = styled.div`
 
 const CareerSectionContainer = styled.div`
   display: flex;
-  justify-content: right;
   gap: 70px;
   margin-top: 40px;
 `;
@@ -36,10 +34,11 @@ const CareerBox = styled.div`
   flex-direction: column;
   width: 260px;
   gap: 10px;
-  margin-top: 40px;
-  color: ${(props) =>
-    props.$isHovered ? "#333" : " rgba(102, 102, 102, 0.6)"};
-  transition: color 0.3s ease;
+  color: ${(props) => (props.$isHovered ? "#333" : "rgba(102, 102, 102, 0.6)")};
+  transform-origin: top;
+  transform: ${(props) => (props.$isHovered ? "scaleY(1.05)" : "scaleY(1)")};
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
 `;
 
 const CareerInfoTitle = styled.h5`
@@ -48,27 +47,27 @@ const CareerInfoTitle = styled.h5`
 `;
 
 const CareerInfoDate = styled.h3`
-  padding-top: 10px;
   font-size: 14px;
   font-weight: bold;
   margin-bottom: 5px;
 `;
 
-const CareerSectionWrapper = styled.div``;
-
 const CareerImg = styled.img`
   width: 260px;
-  height: 260px;
-  border-radius: 4px;
-  border: 1px solid #f00;
   height: ${(props) => (props.$isHovered ? "300px" : "260px")};
-  transition: height 0.3 ease;
-  cursor: pointer;
+  object-fit: cover;
+  transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 `;
 
 const CareerInfo = styled.p`
+  font-size: 14px;
+  line-height: 1.4;
+  color: rgba(102, 102, 102, 1);
   display: ${(props) => (props.$isHovered ? "block" : "none")};
-  transition: transform 0.3s ease;
+  opacity: ${(props) => (props.$isHovered ? "1" : "0")};
+  transition: opacity 0.3s ease 0.2s, transform 0.3s ease 0.2s;
+  pointer-events: none;
+  height: auto;
 `;
 
 const CareerSection = () => {
@@ -76,32 +75,33 @@ const CareerSection = () => {
 
   return (
     <CareerWrapper>
-      <CareerSectionWrapper>
-        <CareerSectionText>
-          Forest of Growth:
-          <br /> Career & Education
-        </CareerSectionText>
-        <CareerContainer>
-          <CareerSectionContainer>
-            {careerData.map((item) => (
-              <CareerBox
-                key={item.id}
+      <CareerSectionText>
+        Forest of Growth:
+        <br /> Career & Education
+      </CareerSectionText>
+      <CareerContainer>
+        <CareerSectionContainer>
+          {careerData.map((item) => (
+            <CareerBox
+              key={item.id}
+              $isHovered={hoveredItemId === item.id}
+              onMouseEnter={() => setHoveredItemId(item.id)}
+              onMouseLeave={() => setHoveredItemId(null)}
+            >
+              <CareerInfoDate>{item.date}</CareerInfoDate>
+              <CareerInfoTitle>{item.title}</CareerInfoTitle>
+              <CareerInfo $isHovered={hoveredItemId === item.id}>
+                {item.info}
+              </CareerInfo>
+              <CareerImg
                 $isHovered={hoveredItemId === item.id}
-                onMouseEnter={() => setHoveredItemId(item.id)}
-                onMouseLeave={() => setHoveredItemId(null)}
-              >
-                <CareerInfoDate>{item.date}</CareerInfoDate>
-                <CareerInfoTitle>{item.title}</CareerInfoTitle>
-                <CareerInfo $isHovered={hoveredItemId === item.id}>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Culpa, sit eaque minima dolore iste inventore est magnam
-                </CareerInfo>
-                <CareerImg $isHovered={hoveredItemId === item.id}></CareerImg>
-              </CareerBox>
-            ))}
-          </CareerSectionContainer>
-        </CareerContainer>
-      </CareerSectionWrapper>
+                src={item.img}
+                alt={item.title}
+              />
+            </CareerBox>
+          ))}
+        </CareerSectionContainer>
+      </CareerContainer>
     </CareerWrapper>
   );
 };

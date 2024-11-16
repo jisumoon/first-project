@@ -4,60 +4,73 @@ import skillsData from "../../../public/data/skill.json";
 
 const Container = styled.div`
   padding: 60px;
-  margin-top: 80px;
+  margin-top: 120px;
 `;
 
-const SkillSectionTItle = styled.h1`
+const SkillSectionTitle = styled.h1`
   font-size: 46px;
   font-weight: bold;
+  line-height: 1.2;
 `;
 
 const SkillWrapper = styled.section`
-  margin-top: 40px;
   display: flex;
-  align-items: center;
-  gap: 30px;
-  align-items: center;
+  gap: 40px;
+  padding-top: 40px;
 `;
 
 const CardSection = styled.div`
-  border-radius: 8px;
+  max-width: 280px;
+  border-radius: 16px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
 `;
 
 const SkillTitle = styled.h3`
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
-  line-height: 1.2;
-  color: rgba(51, 51, 51, 0.9);
+  color: ${(props) => props.theme.colors.textPrimary};
+
+  margin-bottom: 10px;
 `;
 
 const Line = styled.hr`
-  margin-top: 13px;
-  width: 90px;
-  border: 1.5px solid ${(props) => props.theme.colors.primary};
+  width: 60px;
+  height: 3px;
+  background-color: ${(props) => props.theme.colors.primary};
+  border: none;
+  margin: 10px 0 20px;
 `;
 
 const SkillItem = styled.div`
   display: flex;
-  gap: 6px;
-  margin-top: 40px;
+  flex-wrap: wrap;
+  min-height: 100px;
 `;
 
 const SkillImg = styled.img`
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  background-color: ${(props) => props.theme.colors.backgroundSecondary};
+  padding: 8px;
+  transition: transform 0.2s ease;
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 const SkillInfo = styled.div`
-  margin-top: 18px;
-  font-size: 16px;
+  margin-top: 15px;
+  font-size: 14px;
+  color: ${(props) => props.theme.colors.textSecondary};
+  line-height: 1.6;
 `;
 
 const SkilltypeSection = () => (
   <Container>
-    <SkillSectionTItle>Forest of Skills</SkillSectionTItle>
+    <SkillSectionTitle>Forest of Skills</SkillSectionTitle>
     <SkillWrapper>
       {skillsData.skills.map((category) => (
         <CardSection key={category.category}>
@@ -68,10 +81,7 @@ const SkilltypeSection = () => (
               <SkillImg key={item.name} src={item.svg} alt={item.name} />
             ))}
           </SkillItem>
-          <SkillInfo>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi
-            expedita in ad sed sequi fugit repellendus iusto necessitatibus
-          </SkillInfo>
+          <SkillInfo>{category.info}</SkillInfo>
         </CardSection>
       ))}
     </SkillWrapper>

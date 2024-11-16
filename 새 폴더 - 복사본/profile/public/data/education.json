@@ -2,29 +2,37 @@
   {
     "id": 1,
     "type": "Career",
-    "svg": "/img/Hospital.svg",
+    "img": "/img/education/hospital.jpg",
+    "hoverimg": "/img/education/sprout.jpg",
     "date": "2020.02 - 2024.02",
-    "title": "보바스기념병원 작업치료사"
+    "title": "보바스기념병원 작업치료사",
+    "info": "보바스기념병원에서 근무하면서 신경계 및 근골격계 환자들을 위한 작업치료를 수행했습니다. 환자 평가, 치료 계획 수립, 치료 프로그램 운영 등을 담당했으며, 후배 치료사 교육과 학술 연구 활동에도 참여했습니다."
   },
   {
     "id": 2,
     "type": "Career",
-    "svg": "/img/Computer.svg",
+    "img": "/img/education/coding.jpg",
+    "hoverimg": "/img/education/youngplant.jpg",
     "date": "2024.06 - 2024.12",
-    "title": "강남이젠아카데미 수료"
+    "title": "강남이젠아카데미 수료",
+    "info": "프론트엔드 개발을 위한 강남 이젠 아카데미 과정을 수료했습니다. HTML, CSS, JavaScript, React 등 웹 개발에 필요한 기술들을 학습하고, 팀 프로젝트를 통해 웹 애플리케이션을 개발해보는 경험을 쌓았습니다."
   },
   {
     "id": 3,
     "type": "Education",
-    "svg": "/img/Graduation Book.svg",
+    "img": "/img/education/graduation.jpg",
+    "hoverimg": "/img/education/sunraysforest.jpg",
     "date": "2022.03 - 2024.02",
-    "title": "강원대학교 일반대학원 작업치료학과"
+    "title": "강원대학교 일반대학원 작업치료학과",
+    "info": "강원대학교 대학원에서 작업치료학을 전공했습니다. 연구 프로젝트에 참여하고, 논문을 작성하며 임상 작업치료의 효과성을 높이기 위한 다양한 연구를 진행했습니다."
   },
   {
     "id": 4,
     "type": "Career",
-    "svg": "/img/Graduation Book.svg",
+    "img": "/img/education/study.jpg",
+    "hoverimg": "/img/education/lushforest.jpg",
     "date": "2016.03 - 2020.02",
-    "title": "전주대학교 작업치료학과"
+    "title": "전주대학교 작업치료학과",
+    "info": "전주대학교에서 작업치료학을 전공하며 기본적인 작업치료 이론과 기술을 습득했습니다. 다양한 실습을 통해 임상 경험을 쌓았으며, 학교 내외 활동을 통해 작업치료 분야에 대한 전문성을 높였습니다."
   }
 ]

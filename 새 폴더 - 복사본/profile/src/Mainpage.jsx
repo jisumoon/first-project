@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import AboutMe from "./pages/AboutMe";
 import Portfolio from "./pages/Portfolio";
 import Contact from "./pages/Contact";
+import { throttle } from "lodash";
 
 const Wrapper = styled.div`
   position: relative;
@@ -17,7 +18,6 @@ const SectionContainer = styled.div`
   width: 100%;
   z-index: ${(props) => (props.$isAbove ? 10 : 0)};
   transition: z-index 0.3s ease;
-  background: ${(props) => props.theme.colors.mainbackgtound};
 `;
 
 const Mainpage = () => {
@@ -30,7 +30,8 @@ const Mainpage = () => {
   const portfolioRef = useRef(null);
 
   useEffect(() => {
-    const handleScroll = () => {
+    // 스크롤 이벤트 => throttle
+    const handleScroll = throttle(() => {
       if (homeRef.current && aboutMeRef.current && portfolioRef.current) {
         const homeBottom = homeRef.current.getBoundingClientRect().bottom;
         const aboutMeBottom = aboutMeRef.current.getBoundingClientRect().bottom;
@@ -46,7 +47,7 @@ const Mainpage = () => {
         // Portfolio 섹션이 사라지면 Contact가 sticky로 전환
         setIsContactAbove(portfolioBottom <= 0);
       }
-    };
+    }, 200);
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);

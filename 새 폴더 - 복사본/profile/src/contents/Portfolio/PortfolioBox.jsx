@@ -1,32 +1,35 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClover, faPlay } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowRight,
+  faClover,
+  faPlay,
+} from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import styled from "styled-components";
 
 const PortfolioBoxWrapper = styled.div`
-  border-radius: 8px;
-  position: relative;
+  border: 1px solid #f00;
+  border-radius: 4px;
   display: flex;
   flex-direction: column;
   gap: 14px;
   padding-bottom: 20px;
-  margin-bottom: 90px;
   cursor: pointer;
   color: #000;
-  background: ${(props) => props.theme.colors.mainbackgtound};
 `;
 
 const PortfolioImg = styled.img`
+  border: 1px solid #f00;
   height: 200px;
   margin-bottom: 10px;
-  border-radius: 8px 8px 0 0;
+  border-radius: 4px 4px 0 0;
 `;
 
 const PortfolioInfoSection = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding-left: 20px;
+  padding: 0 20px;
 `;
 
 const PortFolioTitle = styled.h3`
@@ -58,36 +61,26 @@ const PortFolioTagInfo = styled.li`
 `;
 
 const PortfolioBtn = styled.button`
-  position: absolute;
-  bottom: 34%;
-  right: 6%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+  border-radius: 4px;
+  padding: 10px 0;
   cursor: pointer;
-  border: none;
   background: #fff;
-  font-size: 20px;
+  border: none;
+  font-size: 14px;
+  font-weight: bold;
   color: ${(props) => props.theme.colors.secondary};
   transition: background 0.3s ease, transform 0.3s ease;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+
   &:hover {
-    background: ${(props) => props.theme.colors.secondary};
+    background: ${(props) => props.theme.colors.highlight};
     color: #fff;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
     transform: translateY(-3px);
   }
 `;
 
 const PortfolioBox = ({ item, onClick }) => (
   <PortfolioBoxWrapper>
-    <PortfolioImg src="/img/tree1.jpg" alt="Tree image" />
-    <PortfolioBtn onClick={() => onClick(item)}>
-      <FontAwesomeIcon icon={faClover} />
-    </PortfolioBtn>
+    <PortfolioImg src={item.img} alt={item.title_kr} />
     <PortfolioInfoSection>
       <PortFolioTitle>{item.title_kr}</PortFolioTitle>
       <PortfolioInfo>{item.description}</PortfolioInfo>
@@ -96,6 +89,10 @@ const PortfolioBox = ({ item, onClick }) => (
           <PortFolioTagInfo key={index}>#{skill}</PortFolioTagInfo>
         ))}
       </PortfolioTag>
+      <PortfolioBtn onClick={() => onClick(item)}>
+        더 보기
+        <FontAwesomeIcon icon={faArrowRight} style={{ marginLeft: "8px" }} />
+      </PortfolioBtn>
     </PortfolioInfoSection>
   </PortfolioBoxWrapper>
 );

@@ -1,17 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import {
-  faAngleDown,
   faAngleLeft,
   faAngleRight,
-  faAngleUp,
-  faBook,
   faLink,
+  faBook,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import Accordion from "./Accordion";
 
 const ModalOverlay = styled(motion.div)`
   position: fixed;
@@ -19,8 +18,8 @@ const ModalOverlay = styled(motion.div)`
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(34, 49, 34, 0.64);
-  backdrop-filter: blur(3px);
+  background: rgba(34, 49, 34, 0.9);
+  backdrop-filter: blur(10px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,18 +27,20 @@ const ModalOverlay = styled(motion.div)`
 `;
 
 const ModalBox = styled(motion.div)`
-  width: 80vw;
-  height: 90vh;
+  width: 60vw;
+  max-height: 900px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 8px;
-  padding: 10px 20px;
+  border-radius: 4px;
+  z-index: 1001;
+  overflow-y: auto;
   background: ${(props) => props.theme.colors.background};
 `;
 
 const ModalSection = styled.section`
+  width: 100%;
   display: flex;
   flex-direction: column;
 
@@ -47,15 +48,20 @@ const ModalSection = styled.section`
     align-items: center;
     gap: 10px;
     padding-bottom: 20px;
+    text-align: center;
   }
 
   &.bottom {
-    flex-direction: row;
-    gap: 40px;
     @media (max-width: 1280px) {
       flex-direction: column;
     }
   }
+`;
+
+const ModalContainer = styled.section`
+  padding: 40px 140px;
+  width: 100%;
+  height: 630px;
 `;
 
 const ModalTitle = styled.h2`
@@ -76,22 +82,16 @@ const ModalTitleInfo = styled.h3`
   text-align: center;
 `;
 
-const ModalArticle = styled.article`
-  background: #fff;
-  color: #333;
-  border-radius: 8px;
-  min-height: 450px;
+const Modalimg = styled(motion.div)`
+  width: 100%;
+  height: 300px;
+  position: relative;
+`;
 
-  &.right {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    background: ${(props) => props.theme.colors.background};
-    flex: 1;
-  }
-  &.left {
-    flex: 1;
-  }
+const ImgContant = styled.div`
+  width: 100%;
+  height: 100%;
+  border: 1px solid #f00;
 `;
 
 const HoverButtons = styled.div`
@@ -99,27 +99,16 @@ const HoverButtons = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0 14px;
-  color: rgba(0, 0, 0, 0.6);
   position: absolute;
-  top: 48%;
-  left: 0;
+  top: 50%;
+  color: rgba(0, 0, 0, 0.6);
   font-size: 30px;
   opacity: 0;
   transition: opacity 0.3s ease;
-`;
 
-const Modalimg = styled(motion.div)`
-  position: relative;
-  width: 100%;
-  height: 100%;
-  &:hover ${HoverButtons} {
+  &:hover {
     opacity: 1;
   }
-`;
-
-const ImgContant = styled.div`
-  width: 100%;
-  height: 100%;
 `;
 
 const Pager = styled.div`
@@ -128,79 +117,33 @@ const Pager = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
-  bottom: 12%;
-  left: 26%;
+  bottom: 3%;
+  left: 40%;
 `;
 
 const Dot = styled.div`
-  width: ${(props) => (props.active ? "30px" : "10px")};
-  height: 10px;
-  background-color: ${(props) => (props.active ? "#2f4f4f" : "#ddd")};
+  width: ${(props) => (props.active ? "20px" : "8px")};
+  height: 8px;
+  background-color: ${(props) =>
+    props.active ? "rgba(47, 79, 79,0.6)" : "#ddd"};
   border-radius: ${(props) => (props.active ? "15px" : "50%")};
   transition: all 0.3s ease;
   cursor: pointer;
 `;
 
-const ModalInfo = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 10px;
-`;
-
-const ModalArticleTitle = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.6);
-  padding: 14px 10px;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-`;
-
-const ModalArticleInfoUl = styled.ul`
-  display: flex;
-  gap: 10px;
-  font-size: 12px;
-  font-weight: bold;
-
-  &.bottom {
-    flex-direction: column;
-    margin-bottom: 20px;
-    color: #333;
-    font-size: 14px;
-    font-weight: 100;
-    overflow: hidden;
-    max-height: ${({ $isOpen }) => ($isOpen ? "100px" : "0")};
-    transition: max-height 0.3s ease;
-    padding: ${({ $isOpen }) => ($isOpen ? "0 10px" : "0")};
-    line-height: 1.4;
-  }
-`;
-
-const ModlaArticleInfoLi = styled.li`
-  &.btn {
-    padding: 4px 10px;
-    border-radius: 4px;
-    color: ${(props) => props.theme.colors.secondary};
-  }
-`;
-
 const BtnUl = styled.ul`
   position: absolute;
   top: 10%;
-  right: 6%;
+  right: 15%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 14px;
 `;
 
 const Btnli = styled.li`
-  width: 36px;
-  height: 36px;
+  position: relative;
+  width: 46px;
+  height: 46px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -208,174 +151,181 @@ const Btnli = styled.li`
   cursor: pointer;
   border-radius: 50%;
   background: ${(props) => props.theme.colors.background};
-  cursor: pointer;
-  transform: background 0.3s color 0.3s box-shadow 0.3s;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  transition: background 0.3s, color 0.3s;
+
   &:hover {
     background: ${(props) => props.theme.colors.secondary};
     color: #fff;
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   }
+
   &:hover .tooltip {
     opacity: 1;
     visibility: visible;
-    transform: translateY(-10px);
-    transform: translateX(-90px);
   }
 `;
-
 const Tooltip = styled.span`
   position: absolute;
   background-color: #333;
   color: #fff;
-  padding: 10px;
+  padding: 8px 10px;
   border-radius: 5px;
   font-size: 12px;
   white-space: nowrap;
   opacity: 0;
-  transform: translateY(-10px);
-  transform: translateX(-90px);
+  visibility: hidden;
+  left: 50%;
+  transform: translateX(-124%);
   transition: opacity 0.4s ease, transform 0.4s ease;
+  z-index: 10;
 `;
 
-const Modal = (slides = [], closeModal, currentIndex) => {
-  const [isOpen, setIsOpen] = useState(true);
+const ModalHashtag = styled.ul`
+  display: flex;
+  gap: 10px;
+`;
+
+const Hashtag = styled.li`
+  font-size: 14px;
+  color: ${(props) => props.theme.colors.primary};
+  font-weight: bold;
+`;
+
+const Modal = ({ slides = [], closeModal, currentIndex, modalData }) => {
+  const [currentSlideIndex, setCurrentIndex] = useState(currentIndex);
+
   const handleNext = () =>
     setCurrentIndex((prev) => (prev + 1) % slides.length);
   const handlePrevious = () =>
     setCurrentIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
-  const toggleOpen = () => setIsOpen(!isOpen);
+  const handleDotClick = (index) => {
+    setCurrentIndex(index);
+  };
+
+  useEffect(() => {
+    if (modalData) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [modalData]);
+
+  if (!modalData) {
+    return <p>🌳데이터를 불러오는 중입니다🌳</p>;
+  }
 
   return (
     <ModalOverlay
       onClick={closeModal}
-      $animate={{ opacity: 1 }}
-      $exit={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
     >
-      <BtnUl>
-        <Btnli>
-          <FontAwesomeIcon icon={faXmark} onClick={closeModal} />
-          <Tooltip className="tooltip">이전 화면으로 이동하기</Tooltip>
-        </Btnli>
-        <Btnli>
-          <FontAwesomeIcon icon={faLink} />
-          <Tooltip className="tooltip">배포사이트로 이동하기</Tooltip>
-        </Btnli>
-        <Btnli>
-          <FontAwesomeIcon icon={faGithub} />
-          <Tooltip className="tooltip">관련 깃허브로 이동하기</Tooltip>
-        </Btnli>
-        <Btnli>
-          <FontAwesomeIcon icon={faBook} />
-          <Tooltip className="tooltip">관련 노션으로 이동하기</Tooltip>
-        </Btnli>
-      </BtnUl>
       <ModalBox onClick={(e) => e.stopPropagation()}>
-        <ModalSection className="top">
-          <ModalTitle>마음의 서재</ModalTitle>
-          <ModalTitleInfo>
-            자바스크립트를 활용해 슬라이드 및 판매량, 최신 등록, 가격 순으로
-            정렬 가능한 필터 기능을 구현한 서적 탐색 웹 페이지입니다.
-          </ModalTitleInfo>
-          <ModalInfo>
-            <ModalArticleInfoUl>
-              <ModlaArticleInfoLi className="btn">#React</ModlaArticleInfoLi>
-              <ModlaArticleInfoLi className="btn">#Firebase</ModlaArticleInfoLi>
-              <ModlaArticleInfoLi className="btn">
-                #Styled-component
-              </ModlaArticleInfoLi>
-              <ModlaArticleInfoLi className="btn">#반응형</ModlaArticleInfoLi>
-              <ModlaArticleInfoLi className="btn">#개인</ModlaArticleInfoLi>
-            </ModalArticleInfoUl>
-          </ModalInfo>
-        </ModalSection>
-        <ModalSection className="bottom">
-          <ModalArticle className="left">
+        <BtnUl>
+          <Btnli onClick={closeModal}>
+            <FontAwesomeIcon icon={faXmark} />
+            <Tooltip className="tooltip">이전 화면으로 이동하기</Tooltip>
+          </Btnli>
+          {modalData.deployment && (
+            <Btnli>
+              <a href={modalData.deployment} target="_blank" rel="noreferrer">
+                <FontAwesomeIcon icon={faLink} />
+                <Tooltip className="tooltip">
+                  관련 배포사이트로 이동하기
+                </Tooltip>
+              </a>
+            </Btnli>
+          )}
+          {modalData.github && (
+            <Btnli>
+              <a href={modalData.github} target="_blank" rel="noreferrer">
+                <FontAwesomeIcon icon={faGithub} />
+                <Tooltip className="tooltip">관련 깃허브로 이동하기</Tooltip>
+              </a>
+            </Btnli>
+          )}
+          {modalData.blog && (
+            <Btnli>
+              <a href={modalData.blog} target="_blank" rel="noreferrer">
+                <FontAwesomeIcon icon={faBook} />
+                <Tooltip className="tooltip">관련 노션으로 이동하기</Tooltip>
+              </a>
+            </Btnli>
+          )}
+        </BtnUl>
+        <ModalContainer>
+          <ModalSection className="top">
+            <ModalTitle>{modalData.title_kr || "제목 없음"}</ModalTitle>
+            <ModalTitleInfo>
+              {modalData.description || "설명 없음"}
+            </ModalTitleInfo>
+            <ModalHashtag>
+              <Hashtag>#{modalData.type}</Hashtag>
+              {Array.isArray(modalData.skill) &&
+                modalData.skill.map((skill, index) => (
+                  <Hashtag key={index}>#{skill}</Hashtag>
+                ))}
+              <Hashtag>#{modalData.category}</Hashtag>
+            </ModalHashtag>
+          </ModalSection>
+          <ModalSection className="bottom">
             <Modalimg>
-              <ImgContant>{slides[currentIndex]}</ImgContant>
-              <HoverButtons>
-                <FontAwesomeIcon
-                  icon={faAngleLeft}
-                  style={{ cursor: "pointer" }}
-                  onClick={handlePrevious}
+              <ImgContant>
+                <img
+                  src={modalData.img || "/default-image.png"}
+                  alt={modalData.title_kr || "이미지 없음"}
+                  style={{ width: "100%" }}
                 />
-                <FontAwesomeIcon
-                  icon={faAngleRight}
-                  style={{ cursor: "pointer" }}
-                  onClick={handleNext}
-                />
-              </HoverButtons>
+                <HoverButtons>
+                  <FontAwesomeIcon
+                    icon={faAngleLeft}
+                    style={{ cursor: "pointer" }}
+                    onClick={handlePrevious}
+                  />
+                  <FontAwesomeIcon
+                    icon={faAngleRight}
+                    style={{ cursor: "pointer" }}
+                    onClick={handleNext}
+                  />
+                </HoverButtons>
+                <Pager>
+                  {Array.isArray(slides) &&
+                    slides.map((_, index) => (
+                      <Dot
+                        key={index}
+                        active={index === currentSlideIndex}
+                        onClick={() => handleDotClick(index)} // 클릭 이벤트 추가
+                      />
+                    ))}
+                </Pager>
+              </ImgContant>
             </Modalimg>
 
-            <Pager>
-              {Array.isArray(slides) &&
-                slides.map((_, index) => (
-                  <Dot key={index} active={index === currentIndex} />
-                ))}
-            </Pager>
-          </ModalArticle>
-          <ModalArticle className="right" onClick={toggleOpen}>
-            <ModalInfo>
-              <ModalArticleTitle>
-                🔍주요기능 및 특징
-                {isOpen ? (
-                  <FontAwesomeIcon icon={faAngleUp} />
-                ) : (
-                  <FontAwesomeIcon icon={faAngleDown} />
-                )}
-              </ModalArticleTitle>
-              <ModalArticleInfoUl className="bottom" $isOpen={isOpen}>
-                <ModlaArticleInfoLi>
-                  Figma로 UI/UX를 설계하고, WBS를 통해 일정 관리 및 팀 협업으로
-                  전체 흐름을 확정했습니다.
-                </ModlaArticleInfoLi>
-                <ModlaArticleInfoLi>
-                  React와 Firebase로 로그인, 인증, 게시글 관리 및 지속적인
-                  데이터 저장 기능을 구현하여 사용자 경험을 개선했습니다.
-                </ModlaArticleInfoLi>
-              </ModalArticleInfoUl>
-            </ModalInfo>
-            <ModalInfo>
-              <ModalArticleTitle>
-                👏개발 성과 및 결과
-                {isOpen ? (
-                  <FontAwesomeIcon icon={faAngleUp} />
-                ) : (
-                  <FontAwesomeIcon icon={faAngleDown} />
-                )}
-              </ModalArticleTitle>
-              <ModalArticleInfoUl className="bottom" $isOpen={isOpen}>
-                <ModlaArticleInfoLi>
-                  Figma 디자인을 React와 styled-components로 구현하여 반응형
-                  UI/UX를 완성했습니다. Firebase를 이용한 실시간 검색과 데이터
-                  연동으로 효율적인 탐색을 제공했으며, 음성 검색 기능을 추가해
-                  모바일 사용자의 편의성을 높였습니다.
-                </ModlaArticleInfoLi>
-              </ModalArticleInfoUl>
-            </ModalInfo>
-            <ModalInfo>
-              <ModalArticleTitle>
-                🚨코드오류 분석 및 해결 과정
-                {isOpen ? (
-                  <FontAwesomeIcon icon={faAngleUp} />
-                ) : (
-                  <FontAwesomeIcon icon={faAngleDown} />
-                )}
-              </ModalArticleTitle>
-
-              <ModalArticleInfoUl className="bottom" $isOpen={isOpen}>
-                <ModlaArticleInfoLi>
-                  문제: FollowerButton 클릭 시 상위 요소(FollowerContain)의 클릭
-                  이벤트가 실행되어 의도치 않게 프로필 페이지로 이동함.
-                </ModlaArticleInfoLi>
-                <ModlaArticleInfoLi>
-                  해결: FollowerButton에 e.stopPropagation()을 추가하여 상위
-                  요소로의 이벤트 전달을 차단, 팔로우 토글 기능만 정상
-                  동작하도록 수정.
-                </ModlaArticleInfoLi>
-              </ModalArticleInfoUl>
-            </ModalInfo>
-          </ModalArticle>
-        </ModalSection>
+            <Accordion
+              id="key_features"
+              title="🔍 주요기능 및 특징"
+              data={modalData.key_features}
+            />
+            <Accordion
+              id="development_outcomes"
+              title="👏 개발 성과 및 결과"
+              data={modalData.development_outcomes}
+            />
+            <Accordion
+              id="code_analysis"
+              title="🚨 코드 오류 발생 및 수정"
+              data={[
+                `코드 오류: ${modalData.code_analysis?.problem || "정보 없음"}`,
+                `코드 수정: ${
+                  modalData.code_analysis?.solution || "정보 없음"
+                }`,
+              ]}
+            />
+          </ModalSection>
+        </ModalContainer>
       </ModalBox>
     </ModalOverlay>
   );

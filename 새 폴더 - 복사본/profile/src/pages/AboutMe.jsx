@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { setCurrentSection } from "../store/sectionReducer";
 import AboutMeSection from "../contents/Aboutme/AboutmeSection";
 import SkilltypeSection from "../contents/Aboutme/SkilltypeSection";
-import InterviewSection from "../contents/Aboutme/InterviewSection";
+import InterviewSection from "../contents/Portfolio/InterviewSection";
 import CareerSection from "../contents/Aboutme/CareerSection";
 
 const Contain = styled.div`
   width: 100%;
-  padding-bottom: 100px;
+  background: ${(props) => props.theme.colors.mainbackgtound};
 `;
 
 const Title = styled.h1`
@@ -19,15 +21,22 @@ const Title = styled.h1`
   color: ${(props) => props.theme.colors.primary};
 `;
 
-const AboutMe = () => (
-  <Contain>
-    <Title>Here's a brief introduction about who I am</Title>
-    <AboutMeSection />
-    <SkilltypeSection />
-    <CareerSection />
-    <InterviewSection />
-    {/* <Banner /> */}
-  </Contain>
-);
+const AboutMe = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // 현재 섹션을 'aboutMe'로 설정
+    dispatch(setCurrentSection("aboutMe"));
+  }, [dispatch]);
+
+  return (
+    <Contain>
+      <Title>Here's a brief introduction about who I am</Title>
+      <AboutMeSection />
+      <SkilltypeSection />
+      <CareerSection />
+    </Contain>
+  );
+};
 
 export default AboutMe;

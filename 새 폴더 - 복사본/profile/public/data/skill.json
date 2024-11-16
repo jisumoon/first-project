@@ -2,20 +2,24 @@
   "skills": [
     {
       "category": "Frontend",
+      "info": "사용자 인터페이스와 경험을 최적화하기 위해 React, Next.js, TypeScript 등 주요 프론트엔드 기술을 활용하여 반응형 웹 애플리케이션과 사용자 친화적인 UI를 설계하고 개발할 수 있습니다.",
       "items": [
-        { "name": "HTML", "svg": "/skill/HTML.svg" },
-        { "name": "CSS", "svg": "/skill/CSS.svg" },
-        { "name": "JavaScript", "svg": "/skill/JavaScript.svg" },
+        { "name": "Next.js", "svg": "/skill/NextJS-Light.svg" },
         { "name": "TypeScript", "svg": "/skill/TypeScript.svg" },
         { "name": "React", "svg": "/skill/React.svg" },
+        { "name": "JavaScript", "svg": "/skill/JavaScript.svg" },
         { "name": "Redux", "svg": "/skill/Redux.svg" },
+        { "name": "HTML", "svg": "/skill/HTML.svg" },
+        { "name": "CSS", "svg": "/skill/CSS.svg" },
         { "name": "Sass", "svg": "/skill/Sass.svg" }
       ]
     },
     {
       "category": "Backend",
+      "info": "Node.js, Apollo, Firebase 등을 사용하여 데이터 관리 및 서버 구축을 담당하며, 효율적이고 확장 가능한 API 설계 및 실시간 데이터 처리를 구현할 수 있습니다.",
       "items": [
         { "name": "Node.js", "svg": "/skill/NodeJS.svg" },
+        { "name": "Apollo", "svg": "/skill/Apollo.svg" },
         { "name": "GraphQL", "svg": "/skill/GraphQL-Light.svg" },
         { "name": "Firebase", "svg": "/skill/Firebase-Light.svg" },
         { "name": "Netlify", "svg": "/skill/Netlify-Light.svg" }
@@ -23,13 +27,17 @@
     },
     {
       "category": "Design",
+      "info": "Figma를 활용해 UI/UX 디자인을 효율적으로 구현하며, 사용자 관점에서 직관적이고 깔끔한 디자인을 제작할 수 있습니다.",
       "items": [{ "name": "Figma", "svg": "/skill/Figma.svg" }]
     },
     {
       "category": "Cooperate",
+      "info": "GitHub, Notion, Slack, Discord 등 협업 도구를 통해 팀원들과 원활한 소통과 프로젝트 관리를 수행하며, 체계적인 버전 관리와 업무 효율화를 이끌어낼 수 있습니다.",
       "items": [
         { "name": "GitHub", "svg": "/skill/Github-Light.svg" },
-        { "name": "Discord", "svg": "/skill/Discord.svg" }
+        { "name": "Discord", "svg": "/skill/Discord.svg" },
+        { "name": "Slack", "svg": "/skill/slack.svg" },
+        { "name": "Notion", "svg": "/skill/notion.svg" }
       ]
     }
   ]
