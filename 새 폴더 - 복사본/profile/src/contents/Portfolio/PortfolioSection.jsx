@@ -10,6 +10,7 @@ const Contain = styled.div`
   background-size: cover;
   position: relative;
   z-index: 0;
+
   &::before {
     content: "";
     position: absolute;
@@ -19,6 +20,18 @@ const Contain = styled.div`
     height: 100%;
     background-color: rgba(29, 83, 62, 0.78);
     z-index: 1;
+  }
+
+  @media (max-width: 1280px) {
+    &::before {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+  @media (max-width: 390px) {
   }
 `;
 
@@ -30,6 +43,26 @@ const Section = styled.section`
   gap: 20px;
   overflow: hidden;
   z-index: 2;
+  @media (max-width: 1280px) {
+    flex-direction: column;
+  }
+
+  @media (max-width: 1240px) {
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    font-size: 32px;
+    padding-left: 20px;
+  }
+
+  @media (max-width: 390px) {
+    font-size: 20px;
+    flex-direction: column;
+    padding-left: 0;
+    border: 1px solid #f00;
+  }
 `;
 
 const Article = styled.article`
@@ -37,9 +70,21 @@ const Article = styled.article`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
   margin-top: 20px;
   padding: 0 10px;
+  @media (max-width: 1280px) {
+  }
+
+  @media (max-width: 1240px) {
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+
+  @media (max-width: 390px) {
+  }
 `;
 
 const SectionTitle = styled.h1`
@@ -53,33 +98,60 @@ const BtnGroup = styled.div`
   justify-content: center;
   align-items: center;
   gap: 30px;
+  @media (max-width: 768px) {
+    gap: 20px;
+  }
 `;
 
 const TopSection = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+
+  @media (max-width: 860px) {
+    width: 100%;
+  }
 `;
 
 const BottomSection = styled.div`
   overflow: hidden;
-  min-width: 1200px;
   margin-top: 40px;
   padding: 40px;
   display: flex;
-
   background: ${(props) => props.theme.colors.mainbackgtound};
   position: relative;
+  pointer-events: auto;
+
+  @media (max-width: 1280px) {
+    padding: 20px;
+    margin-top: 30px;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 10px;
+    height: auto;
+    width: 100%;
+    touch-action: pan-y;
+  }
 `;
 
 const SlideWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 20px;
-  gap: 60px;
+  gap: ${({ isMobile }) => (isMobile ? "20px" : "90px")};
   transition: transform 0.5s ease;
-  transform: translateX(${(props) => props.translate}px); /* 이동 거리 */
+  transform: translateX(${(props) => props.translate}px);
+
+  @media (max-width: 1280px) {
+    gap: 80px;
+  }
+
+  @media (max-width: 768px) {
+    gap: 20px;
+    touch-action: pan-y;
+  }
 `;
 
 const ArrowButton = styled.button`
@@ -106,6 +178,10 @@ const ArrowButton = styled.button`
   &:disabled {
     opacity: 0.3;
     cursor: not-allowed;
+  }
+
+  @media (max-width: 768px) {
+    display: none;
   }
 `;
 
@@ -143,6 +219,9 @@ const SearchBar = styled.input`
   border-radius: 4px;
   background: ${(props) => props.theme.colors.background};
   font-size: 16px;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const NoResultsMessage = styled.div`
@@ -157,6 +236,9 @@ const PortfolioSection = ({ projects, onOpenModal }) => {
   const [filter, setFilter] = useState("ALL");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  const projectWidth = window.innerWidth <= 768 ? 150 : 200; // 반응형
+  const gapWidth = window.innerWidth <= 768 ? 20 : 120;
 
   const handleFilterChange = (category) => {
     setFilter(category);
@@ -177,9 +259,11 @@ const PortfolioSection = ({ projects, onOpenModal }) => {
   );
 
   const projectsPerSlide = 3; // 한 슬라이드에 표시될 프로젝트 개수
-  const projectWidth = 300; // PortfolioBox의 너비
-  const gapWidth = 84; // PortfolioBox 간의 간격
-  const maxIndex = Math.ceil(filteredProjects.length / projectsPerSlide) - 1;
+  const maxIndex = Math.ceil(projects.length / projectsPerSlide) - 1;
+
+  const translate =
+    -currentIndex *
+    (projectsPerSlide * projectWidth + (projectsPerSlide - 1) * gapWidth);
 
   const handleNext = () => {
     if (currentIndex < maxIndex) {
@@ -193,13 +277,38 @@ const PortfolioSection = ({ projects, onOpenModal }) => {
     }
   };
 
-  // 슬라이드 이동 거리 계산
-  const translate =
-    -currentIndex * (projectsPerSlide * (projectWidth + gapWidth));
+  // const handleSwipe = (direction) => {
+  //   if (direction === "left" && currentIndex < maxIndex) {
+  //     setCurrentIndex((prev) => prev + 1);
+  //   } else if (direction === "right" && currentIndex > 0) {
+  //     setCurrentIndex((prev) => prev - 1);
+  //   }
+  // };
+
+  // const handleSwipe = (direction) => {
+  //   console.log(`Swiped: ${direction}`); // 로그 출력
+  //   if (direction === "left" && currentIndex < maxIndex) {
+  //     setCurrentIndex((prev) => prev + 1);
+  //   } else if (direction === "right" && currentIndex > 0) {
+  //     setCurrentIndex((prev) => prev - 1);
+  //   }
+  // };
 
   const swipeHandlers = useSwipeable({
-    onSwipedLeft: () => handleSwipe("left"),
-    onSwipedRight: () => handleSwipe("right"),
+    onSwiped: (eventData) => {
+      console.log("Swiped Event: ", eventData); // 디버깅용
+    },
+    onSwipedLeft: () => {
+      console.log("Swiped Left");
+      handleSwipe("left");
+    },
+    onSwipedRight: () => {
+      console.log("Swiped Right");
+      handleSwipe("right");
+    },
+    preventDefaultTouchmoveEvent: false, // 기본 이벤트 방지 해제
+    trackTouch: true,
+    trackMouse: false,
   });
 
   return (
@@ -220,7 +329,7 @@ const PortfolioSection = ({ projects, onOpenModal }) => {
             />
           </TopSection>
           {filteredProjects.length > 0 ? (
-            <BottomSection>
+            <BottomSection {...swipeHandlers}>
               <LeftArrow onClick={handlePrev} disabled={currentIndex === 0}>
                 ◀
               </LeftArrow>
@@ -248,4 +357,5 @@ const PortfolioSection = ({ projects, onOpenModal }) => {
     </Contain>
   );
 };
+
 export default PortfolioSection;

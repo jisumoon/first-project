@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import RippleEffect from "./RippleEffect";
+import RippleEffect from "../../components/RippleEffect";
 import {
   Section,
   Article,

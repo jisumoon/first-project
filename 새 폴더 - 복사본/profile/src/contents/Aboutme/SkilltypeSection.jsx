@@ -5,24 +5,49 @@ import skillsData from "../../../public/data/skill.json";
 const Container = styled.div`
   padding: 60px;
   margin-top: 120px;
+  @media (max-width: 1280px) {
+    margin-top: 60px;
+  }
+
+  @media (max-width: 1240px) {
+    width: 100%;
+    margin-top: 100px;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const SkillSectionTitle = styled.h1`
   font-size: 46px;
   font-weight: bold;
   line-height: 1.2;
+
+  @media (max-width: 400px) {
+    font-size: 35px;
+  }
 `;
 
 const SkillWrapper = styled.section`
   display: flex;
   gap: 40px;
   padding-top: 40px;
+  @media (max-width: 1280px) {
+  }
+
+  @media (max-width: 1240px) {
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    flex-direction: column;
+  }
 `;
 
 const CardSection = styled.div`
   max-width: 280px;
   border-radius: 16px;
-  padding: 20px;
   display: flex;
   flex-direction: column;
 `;
@@ -31,7 +56,6 @@ const SkillTitle = styled.h3`
   font-size: 20px;
   font-weight: bold;
   color: ${(props) => props.theme.colors.textPrimary};
-
   margin-bottom: 10px;
 `;
 
@@ -53,7 +77,6 @@ const SkillImg = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 8px;
-  background-color: ${(props) => props.theme.colors.backgroundSecondary};
   padding: 8px;
   transition: transform 0.2s ease;
   &:hover {

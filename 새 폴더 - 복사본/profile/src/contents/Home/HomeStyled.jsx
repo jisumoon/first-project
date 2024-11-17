@@ -2,20 +2,6 @@ import styled, { keyframes } from "styled-components";
 import { motion } from "framer-motion";
 
 // Animation
-const rippleAnimation = keyframes`
-  0% {
-    transform: scale(0);
-    opacity: 0.7;
-  }
-  50% {
-    transform: scale(2);
-    opacity: 0.3;
-  }
-  100% {
-    transform: scale(4);
-    opacity: 0;
-  }
-`;
 
 export const Container = styled.div`
   width: 100%;
@@ -49,19 +35,6 @@ export const Section = styled.section`
     background: ${(props) => props.theme.colors.primary};
     color: #cfd69b;
   }
-`;
-
-export const Ripple = styled.span`
-  position: absolute;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.3);
-  pointer-events: none;
-  animation: ${rippleAnimation} 1s ease-out;
-  width: 30px;
-  height: 30px;
-  transform: scale(0);
-  left: ${({ x }) => `${x - 80}px`};
-  top: ${({ y }) => `${y - 10}px`};
 `;
 
 export const BottomContainer = styled.div`

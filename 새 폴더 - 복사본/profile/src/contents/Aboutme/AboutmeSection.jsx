@@ -14,6 +14,27 @@ const AboutMeWrapper = styled(motion.div)`
   margin-top: 140px;
   padding-left: 100px;
   height: 60vh;
+
+  @media (max-width: 1280px) {
+    width: 100%;
+  }
+
+  @media (max-width: 1240px) {
+    width: 100%;
+    padding-left: 40px;
+    margin-top: 100px;
+  }
+
+  @media (max-width: 860px) {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+  }
+  @media (max-width: 400px) {
+    padding-left: 10px;
+  }
 `;
 
 const Img = styled.img`
@@ -21,6 +42,18 @@ const Img = styled.img`
   height: 100%;
   border-radius: 300px 0 0 300px;
   object-fit: cover;
+
+  @media (max-width: 1280px) {
+    flex: 1;
+  }
+
+  @media (max-width: 1240px) {
+    flex: 1;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const InfoSection = styled.div`
@@ -30,6 +63,18 @@ const InfoSection = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
+
+  @media (max-width: 1280px) {
+  }
+
+  @media (max-width: 1240px) {
+    flex: 2;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding-right: 10px;
+  }
 `;
 
 const InfoTitle = styled.h2`
@@ -45,6 +90,16 @@ const InfoTitle = styled.h2`
       color: ${(props) => props.theme.colors.secondary};
     }
   }
+  @media (max-width: 1280px) {
+  }
+
+  @media (max-width: 1240px) {
+    font-size: 20px;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const Info = styled.h3`
@@ -52,6 +107,24 @@ const Info = styled.h3`
   font-weight: 400;
   line-height: 1.4;
   color: ${(props) => props.theme.colors.info};
+  @media (max-width: 1280px) {
+    font-size: 17px;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 1240px) {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+
+  @media (max-width: 400px) {
+    font-size: 14px;
+    line-height: 1.3;
+  }
 `;
 
 const AboutMeSection = () => {

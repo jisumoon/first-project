@@ -8,21 +8,42 @@ import React from "react";
 import styled from "styled-components";
 
 const PortfolioBoxWrapper = styled.div`
-  border: 1px solid #f00;
   border-radius: 4px;
   display: flex;
   flex-direction: column;
   gap: 14px;
   padding-bottom: 20px;
   cursor: pointer;
-  color: #000;
+  border: 1px solid #f00;
+
+  @media (max-width: 1280px) {
+    gap: 12px;
+    padding-bottom: 18px;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    gap: 10px;
+    padding-bottom: 16px;
+  }
 `;
 
 const PortfolioImg = styled.img`
-  border: 1px solid #f00;
   height: 200px;
   margin-bottom: 10px;
   border-radius: 4px 4px 0 0;
+
+  @media (max-width: 1280px) {
+    height: 180px;
+  }
+
+  @media (max-width: 768px) {
+    height: 160px;
+  }
+
+  @media (max-width: 390px) {
+    height: 140px;
+  }
 `;
 
 const PortfolioInfoSection = styled.div`
@@ -30,12 +51,34 @@ const PortfolioInfoSection = styled.div`
   flex-direction: column;
   gap: 10px;
   padding: 0 20px;
+
+  @media (max-width: 768px) {
+    gap: 8px;
+    padding: 0 16px;
+  }
+
+  @media (max-width: 390px) {
+    gap: 6px;
+    padding: 0 12px;
+  }
 `;
 
 const PortFolioTitle = styled.h3`
   font-size: 18px;
   font-weight: bold;
   padding-bottom: 10px;
+
+  @media (max-width: 1280px) {
+    font-size: 16px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
+
+  @media (max-width: 390px) {
+    font-size: 12px;
+  }
 `;
 
 const PortfolioInfo = styled.h4`
@@ -47,17 +90,49 @@ const PortfolioInfo = styled.h4`
   -webkit-box-orient: vertical;
   overflow: hidden;
   line-height: 1.2;
+
+  @media (max-width: 1280px) {
+    font-size: 13px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
+
+  @media (max-width: 390px) {
+    font-size: 11px;
+  }
 `;
 
 const PortfolioTag = styled.ul`
   display: flex;
   gap: 10px;
   margin-top: 10px;
+
+  @media (max-width: 768px) {
+    gap: 8px;
+  }
+
+  @media (max-width: 390px) {
+    gap: 6px;
+  }
 `;
 
 const PortFolioTagInfo = styled.li`
   font-size: 14px;
   border-radius: 10px;
+
+  @media (max-width: 1280px) {
+    font-size: 13px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
+
+  @media (max-width: 390px) {
+    font-size: 11px;
+  }
 `;
 
 const PortfolioBtn = styled.button`
@@ -75,6 +150,21 @@ const PortfolioBtn = styled.button`
     background: ${(props) => props.theme.colors.highlight};
     color: #fff;
     transform: translateY(-3px);
+  }
+
+  @media (max-width: 1280px) {
+    font-size: 13px;
+    padding: 8px 0;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+    padding: 6px 0;
+  }
+
+  @media (max-width: 390px) {
+    font-size: 11px;
+    padding: 4px 0;
   }
 `;
 

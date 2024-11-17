@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { openModal, closeModal } from "../store/modalReducer";
 import Modal from "../contents/Portfolio/Modal";
 import PortfolioSection from "../contents/Portfolio/Portfoliosection";
-import InterviewSection from "../contents/Portfolio/InterviewSection";
+import InterviewSection from "../contents/Portfolio/TeamProject";
 
 const Contain = styled.div`
   background: ${(props) => props.theme.colors.mainbackgtound};
@@ -14,7 +14,7 @@ const Contain = styled.div`
 
 const Section = styled.section``;
 
-const Portfolio = () => {
+const Portfolio = ({ id }) => {
   const dispatch = useDispatch();
   const isModalOpen = useSelector((state) => state.modal.isModalOpen);
   const projectMatch = useMatch(`/PortfolioDetail/:itemId`);
@@ -82,7 +82,7 @@ const Portfolio = () => {
   };
 
   return (
-    <Contain>
+    <Contain id={id}>
       <Section>
         <InterviewSection openModalHandler={openModalHandler} />
         <PortfolioSection

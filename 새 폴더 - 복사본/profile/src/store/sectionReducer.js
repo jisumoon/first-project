@@ -1,9 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// 홈 섹션
 const initialState = {
   currentSection: "home",
 };
 
+//
+
+//활동 섹션
 const sectionSlice = createSlice({
   name: "section",
   initialState,
