@@ -1,11 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesDown } from "@fortawesome/free-solid-svg-icons";
-import { useDispatch } from "react-redux";
-import { setCurrentSection } from "../store/sectionReducer";
-import { useSelector } from "react-redux";
 import useRippleEffect from "../Hook/useRippleEffect";
 import RippleEffect from "../components/RippleEffect";
 
@@ -27,8 +24,6 @@ const Container = styled.div`
   height: 100vh;
   padding: 30px 20px;
   background: ${(props) => props.theme.colors.primary};
-  overflow-x: hidden;
-  touch-action: none;
 
   @media (max-width: 1280px) {
     width: 100%;
@@ -56,8 +51,8 @@ const Container = styled.div`
 
 const ScrollIndicator = styled(motion.div)`
   position: fixed;
-  bottom: 3%;
-  left: 36.2%;
+  bottom: 5%;
+  left: 36%;
   width: 30%;
   display: flex;
   align-items: center;
@@ -67,7 +62,8 @@ const ScrollIndicator = styled(motion.div)`
   font-size: 24px;
   z-index: 1000;
   animation: ${floatingAnimation} 2s ease-in-out infinite;
-  @media (max-width: 1024px) {
+
+  @media (max-width: 768px) {
     display: none;
   }
 `;
@@ -192,7 +188,9 @@ const SidebarRight = styled(motion.div)`
   justify-content: center;
   color: #fff;
 
-  @media (max-width: 390px) {
+  @media (max-width: 400px) {
+    justify-content: center;
+    align-items: center;
   }
 
   ul {
@@ -215,7 +213,7 @@ const SidebarRight = styled(motion.div)`
 
     @media (max-width: 400px) {
       width: 100%;
-      padding: 0 8px;
+      padding: 0 10px;
       gap: 10px;
     }
   }
@@ -282,7 +280,7 @@ const Btn = styled.button`
     width: 140px;
     text-align: center;
     span {
-      font-size: 24px;
+      font-size: 16px;
     }
   }
   @media (max-width: 400px) {
@@ -303,14 +301,26 @@ const AnimatedBox = styled(motion.div)`
 `;
 
 const MainScroll = () => {
-  const [animationComplete, setAnimationComplete] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const currentSection = useSelector((state) => state.section.currentSection);
-  const [currentImage, setCurrentImage] = useState("/img/seed.jpg");
-  const [isMobile, setIsMobile] = useState(false);
-  const dispatch = useDispatch();
+  const [animationComplete, setAnimationComplete] = useState(false); // 추가
   const { ripples, containerRef } = useRippleEffect();
 
+  sessionStorage.getItem("animationComplete") === "true";
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAnimationComplete(true);
+    }, 8000); // 애니메이션 지속 시간
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // 상태 동기화
+  //   dispatch(setInitialLoad(storedInitialLoad));
+  //   dispatch(setAnimationComplete(storedAnimationComplete));
+  // }, [dispatch]);
+
+  //버튼이동
   const goToPortfolio = () => {
     dispatch(setCurrentSection("portfolio"));
   };
@@ -319,41 +329,23 @@ const MainScroll = () => {
     window.open("https://www.notion.so/13336341b0a7800e9a55d63360689f79?pvs=4");
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setAnimationComplete(true); // 500ms 후 애니메이션 활성화
-    }, 500);
-
-    return () => clearTimeout(timer); // 타이머 클린업
-  }, []);
-
-  const updateCurrentImage = (direction) => {
-    if (direction === "left" || direction === "up") {
-      setCurrentImage("/img/profile.png");
-    } else if (direction === "right" || direction === "down") {
-      setCurrentImage("/img/seed.jpg");
-    }
-  };
-
   return (
     <Container id="main-scroll-container" ref={containerRef}>
       <RippleEffect ripples={ripples} />
 
-      {animationComplete && (
-        <ScrollIndicator
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, y: -10 }}
-          exit={{ opacity: 0, y: 10 }}
-          transition={{ duration: 1, ease: "easeInOut", delay: 3 }}
-        >
-          <FontAwesomeIcon icon={faAnglesDown} />
-        </ScrollIndicator>
-      )}
+      <ScrollIndicator
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, y: -10 }}
+        exit={{ opacity: 0, y: 10 }}
+        transition={{ duration: 1, ease: "easeInOut", delay: 2 }}
+      >
+        <FontAwesomeIcon icon={faAnglesDown} />
+      </ScrollIndicator>
 
       <SidebarLeft
         initial={{ opacity: 0 }}
-        animate={animationComplete ? { opacity: 1 } : {}}
-        transition={{ duration: 1.5, delay: 3 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.5, delay: 1 }}
       >
         <h1>Planting My First Code in the Forest of Frontend.</h1>
         <p>
@@ -362,43 +354,26 @@ const MainScroll = () => {
         </p>
       </SidebarLeft>
 
-      {animationComplete && (
-        <Overlay
-          $isHovered={isHovered}
-          initial={{
-            y: 50,
-            opacity: 0,
-          }}
-          animate={{
-            y: 0,
-            opacity: 1,
-          }}
-          transition={{
-            duration: 1.5,
-            delay: 0.5,
-            ease: "easeInOut",
-          }}
-        >
-          <h2>{isHovered ? "Moon Ji Su" : "Frontend."}</h2>
-          <p>
-            {isHovered
-              ? "Exploring My Journey"
-              : "Growth, Like a Forest by Ji Su Moon."}
-          </p>
-        </Overlay>
-      )}
-
-      <MainContent
-        onMouseEnter={() => !isMobile && setIsHovered(true)}
-        onMouseLeave={() => !isMobile && setIsHovered(false)}
+      <Overlay
+        initial={{ y: 50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 1.5, delay: 0.5, ease: "easeInOut" }}
       >
+        <h2>{isHovered ? "Moon Ji Su" : "Frontend."}</h2>
+        <p>
+          {isHovered
+            ? "Exploring My Journey"
+            : "Growth, Like a Forest by Ji Su Moon."}
+        </p>
+      </Overlay>
+
+      <MainContent>
         {!animationComplete && (
           <ScrollIndicator
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, y: -10 }}
-            exit={{ opacity: 0, y: 10 }}
-            transition={{ duration: 1, ease: "easeInOut", delay: 3 }}
-            style={{ display: isMobile ? "none" : "flex" }}
+            $initial={{ opacity: 0 }}
+            $animate={{ opacity: 1, y: -10 }}
+            $exit={{ opacity: 0, y: 10 }}
+            $transition={{ duration: 1, ease: "easeInOut", delay: 1 }}
           ></ScrollIndicator>
         )}
         <AnimatedBox
@@ -412,16 +387,14 @@ const MainScroll = () => {
 
         {animationComplete && (
           <motion.img
-            src={isHovered ? "/img/profile.png" : "/img/seed.jpg"}
-            alt={isHovered ? "profile" : "seed"}
+            src={"/img/seed.jpg"}
+            alt={"seed"}
             draggable={false}
-            initial={{ y: 50, opacity: 0 }}
+            initial={{ opacity: 0 }}
             animate={{
-              y: 0,
               opacity: 1,
               transition: { duration: 1.5, delay: 0.5 },
             }}
-            whileHover={!isMobile ? { transition: { duration: 0.3 } } : {}}
             transition={{
               duration: isHovered ? 0.8 : 2,
               delay: 1,
@@ -431,25 +404,25 @@ const MainScroll = () => {
         )}
       </MainContent>
       <SidebarRight
-        initial={{ opacity: 0 }}
-        animate={animationComplete ? { opacity: 1 } : {}}
-        transition={{ duration: 1.5, delay: 3 }}
+        $initial={{ opacity: 0 }}
+        $animate={animationComplete ? { opacity: 1 } : {}}
+        $transition={{ duration: 1.5, delay: 2 }}
       >
         <ul>
           <li>
-            <Btn onClick={goToPortfolio}>
+            <Btn aria-label="Explore Projects" onClick={goToPortfolio}>
               <span>Explore Projects</span>
             </Btn>
             <p>작업한 프로젝트들을 한눈에 확인할 수 있는 공간입니다.</p>
           </li>
           <li>
-            <Btn>
+            <Btn aria-label="Notion">
               <span onClick={goToNotion}>Notion</span>
             </Btn>
             <p>기술과 아이디어를 정리한 공간입니다.</p>
           </li>
           <li>
-            <Btn>
+            <Btn aria-label="About me">
               <span>About Me</span>
             </Btn>
             <p>인터뷰 형식으로 저를 소개합니다.</p>
@@ -459,5 +432,4 @@ const MainScroll = () => {
     </Container>
   );
 };
-
 export default MainScroll;

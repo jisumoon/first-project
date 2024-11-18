@@ -11,10 +11,12 @@ const PortfolioBoxWrapper = styled.div`
   border-radius: 4px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 14px;
   padding-bottom: 20px;
   cursor: pointer;
-  border: 1px solid #f00;
+  height: 100%;
+  background: ${(props) => props.theme.colors.mainbackgtound};
 
   @media (max-width: 1280px) {
     gap: 12px;
@@ -29,9 +31,12 @@ const PortfolioBoxWrapper = styled.div`
 `;
 
 const PortfolioImg = styled.img`
+  border: 1px solid #f00;
   height: 200px;
   margin-bottom: 10px;
   border-radius: 4px 4px 0 0;
+  object-fit: cover;
+  width: 100%;
 
   @media (max-width: 1280px) {
     height: 180px;
@@ -47,19 +52,22 @@ const PortfolioImg = styled.img`
 `;
 
 const PortfolioInfoSection = styled.div`
+  flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 10px;
-  padding: 0 20px;
-
+  padding: 20px;
+  text-align: center;
   @media (max-width: 768px) {
     gap: 8px;
-    padding: 0 16px;
+    padding: 16px;
   }
 
   @media (max-width: 390px) {
     gap: 6px;
-    padding: 0 12px;
+    padding: 12px;
   }
 `;
 
@@ -82,13 +90,7 @@ const PortFolioTitle = styled.h3`
 `;
 
 const PortfolioInfo = styled.h4`
-  width: 280px;
-  padding-right: 10px;
   font-size: 14px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
   line-height: 1.2;
 
   @media (max-width: 1280px) {
@@ -106,8 +108,10 @@ const PortfolioInfo = styled.h4`
 
 const PortfolioTag = styled.ul`
   display: flex;
+  justify-content: center;
   gap: 10px;
   margin-top: 10px;
+  margin-bottom: 10px;
 
   @media (max-width: 768px) {
     gap: 8px;
@@ -121,7 +125,7 @@ const PortfolioTag = styled.ul`
 const PortFolioTagInfo = styled.li`
   font-size: 14px;
   border-radius: 10px;
-
+  color: ${(props) => props.theme.colors.primary};
   @media (max-width: 1280px) {
     font-size: 13px;
   }
@@ -136,6 +140,7 @@ const PortFolioTagInfo = styled.li`
 `;
 
 const PortfolioBtn = styled.button`
+  width: 100%;
   border-radius: 4px;
   padding: 10px 0;
   cursor: pointer;

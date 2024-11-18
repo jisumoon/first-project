@@ -8,51 +8,51 @@ const AboutMeWrapper = styled(motion.div)`
   position: relative;
   width: 100%;
   display: flex;
-  justify-content: space-between;
+
   align-items: center;
   gap: 40px;
-  margin-top: 140px;
   padding-left: 100px;
-  height: 60vh;
+  margin-top: 100px;
+  height: auto;
+  min-height: 70vh;
 
   @media (max-width: 1280px) {
-    width: 100%;
-  }
-
-  @media (max-width: 1240px) {
-    width: 100%;
     padding-left: 40px;
-    margin-top: 100px;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
   }
 
   @media (max-width: 860px) {
     flex-direction: column;
-    width: 100%;
   }
 
-  @media (max-width: 768px) {
-  }
   @media (max-width: 400px) {
-    padding-left: 10px;
+    margin-top: 40px;
+    gap: 20px;
   }
 `;
 
 const Img = styled.img`
   flex: 3;
-  height: 100%;
-  border-radius: 300px 0 0 300px;
+  width: 100%;
+  height: auto;
+  max-height: 400px;
   object-fit: cover;
+  border-radius: 300px 0 0 300px;
+  transition: transform 0.3s ease, height 0.3s ease;
 
   @media (max-width: 1280px) {
-    flex: 1;
-  }
-
-  @media (max-width: 1240px) {
-    flex: 1;
+    padding-left: 40px;
+    max-height: 300px;
   }
 
   @media (max-width: 768px) {
-    width: 100%;
+    max-height: 250px;
+  }
+
+  @media (max-width: 400px) {
+    max-height: 200px;
   }
 `;
 
@@ -60,19 +60,19 @@ const InfoSection = styled.div`
   flex: 3;
   display: flex;
   flex-direction: column;
+  gap: 20px;
   justify-content: center;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
 
   @media (max-width: 1280px) {
   }
 
-  @media (max-width: 1240px) {
-    flex: 2;
+  @media (max-width: 860px) {
+    align-items: flex-end;
   }
 
-  @media (max-width: 768px) {
-    width: 100%;
+  @media (max-width: 400px) {
+    align-items: right;
     padding-right: 10px;
   }
 `;
@@ -81,7 +81,7 @@ const InfoTitle = styled.h2`
   font-size: 36px;
   font-weight: bold;
   line-height: 1.4;
-  padding-bottom: 10px;
+  margin-bottom: 10px;
   span {
     &:nth-child(1) {
       color: ${(props) => props.theme.colors.primary};
@@ -90,35 +90,39 @@ const InfoTitle = styled.h2`
       color: ${(props) => props.theme.colors.secondary};
     }
   }
-  @media (max-width: 1280px) {
-  }
 
   @media (max-width: 1240px) {
-    font-size: 20px;
+    font-size: 28px;
+  }
+
+  @media (max-width: 860px) {
+    padding: 10px;
   }
 
   @media (max-width: 768px) {
-    width: 100%;
+    text-align: right;
+    font-size: 24px;
+  }
+
+  @media (max-width: 400px) {
+    font-size: 20px;
   }
 `;
 
 const Info = styled.h3`
   font-size: 20px;
   font-weight: 400;
-  line-height: 1.4;
+  line-height: 1.6;
   color: ${(props) => props.theme.colors.info};
-  @media (max-width: 1280px) {
-    font-size: 17px;
-    line-height: 1.4;
-  }
 
-  @media (max-width: 1240px) {
-    width: 100%;
-    font-size: 14px;
+  @media (max-width: 1280px) {
+    font-size: 18px;
   }
 
   @media (max-width: 768px) {
-    width: 100%;
+    font-size: 16px;
+    line-height: 1.4;
+    text-align: right;
   }
 
   @media (max-width: 400px) {
@@ -128,18 +132,11 @@ const Info = styled.h3`
 `;
 
 const AboutMeSection = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    // AboutMe 섹션이 로드될 때 현재 섹션을 설정
-    dispatch(setCurrentSection("aboutMeSection"));
-  }, [dispatch]);
-
   return (
     <AboutMeWrapper
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 1 }}
+      transition={{ duration: 0.8 }}
     >
       <InfoSection>
         <InfoTitle>
@@ -150,7 +147,8 @@ const AboutMeSection = () => {
           치료사로서 환자의 제약을 이해하고 해결책을 찾던 경험이,
           <br />
           사용자 중심의 웹 환경을 설계하는 데 큰 밑거름이 되었습니다.
-          <br /> 다양한 요구와 문제를 파악하여, 더 나은 사용자 경험을 만들어가고
+          <br />
+          다양한 요구와 문제를 파악하여, 더 나은 사용자 경험을 만들어가고
           싶습니다.
         </Info>
       </InfoSection>

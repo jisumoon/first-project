@@ -9,16 +9,13 @@ const CareerWrapper = styled.section`
   margin-top: 100px;
 
   @media (max-width: 1280px) {
+    padding: 0 40px;
+    margin-top: 80px;
   }
 
   @media (max-width: 768px) {
     padding: 0 20px;
-    margin-top: 80px;
-  }
-
-  @media (max-width: 400px) {
-    width: 100%;
-    padding-right: 40px;
+    margin-top: 60px;
   }
 `;
 
@@ -34,6 +31,7 @@ const CareerSectionText = styled.h1`
 
   @media (max-width: 768px) {
     font-size: 32px;
+    text-align: right;
   }
 
   @media (max-width: 390px) {
@@ -48,38 +46,28 @@ const CareerContainer = styled.div`
   align-items: flex-end;
 
   @media (max-width: 1240px) {
-    justify-content: center;
     align-items: center;
   }
 
   @media (max-width: 768px) {
-  }
-
-  @media (max-width: 400px) {
-    width: 100%;
+    padding-top: 40px;
   }
 `;
 
 const CareerSectionContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 70px;
   margin-top: 40px;
-  flex-wrap: wrap;
+  justify-content: flex-end;
 
   @media (max-width: 1280px) {
     gap: 50px;
   }
 
-  @media (max-width: 1240px) {
-    justify-content: space-around;
-    align-items: center;
-  }
-
   @media (max-width: 768px) {
-    width: 100%;
-    justify-content: end;
-    gap: 30px;
-    text-align: right;
+    gap: 70px;
+    padding-right: 40px;
   }
 `;
 
@@ -90,19 +78,20 @@ const CareerBox = styled.div`
   gap: 10px;
   color: ${(props) => (props.$isHovered ? "#333" : "rgba(102, 102, 102, 0.6)")};
   transform-origin: top;
-  transform: ${(props) => (props.$isHovered ? "scaleY(1.05)" : "scaleY(1)")};
+  transform: ${(props) => (props.$isHovered ? "scale(1.05)" : "scale(1)")};
   cursor: pointer;
-  transition: color 0.3s ease, transform 0.3s ease;
+  transition: color 0.3s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
   @media (max-width: 1280px) {
     width: 240px;
   }
 
   @media (max-width: 768px) {
-    width: 240px;
+    width: 220px;
   }
 
-  @media (max-width: 400px) {
+  @media (max-width: 390px) {
+    width: 200px;
   }
 `;
 
@@ -137,6 +126,7 @@ const CareerImg = styled.img`
   width: 260px;
   height: ${(props) => (props.$isHovered ? "260px" : "240px")};
   object-fit: cover;
+  border-radius: 8px;
   transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
   @media (max-width: 1280px) {
@@ -145,13 +135,12 @@ const CareerImg = styled.img`
   }
 
   @media (max-width: 768px) {
-    width: 200px;
-    height: ${(props) => (props.$isHovered ? "200px" : "180px")};
+    width: 220px;
+    height: ${(props) => (props.$isHovered ? "220px" : "200px")};
   }
 
-  @media (max-width: 400px) {
-    width: 100%;
-
+  @media (max-width: 390px) {
+    width: 200px;
     height: ${(props) => (props.$isHovered ? "200px" : "180px")};
   }
 `;
@@ -162,9 +151,9 @@ const CareerInfo = styled.p`
   color: rgba(102, 102, 102, 1);
   display: ${(props) => (props.$isHovered ? "block" : "none")};
   opacity: ${(props) => (props.$isHovered ? "1" : "0")};
-  transition: opacity 0.3s ease 0.2s, transform 0.3s ease 0.2s;
-  pointer-events: none;
-  height: auto;
+  transform: ${(props) =>
+    props.$isHovered ? "translateY(0)" : "translateY(-10px)"};
+  transition: opacity 0.3s ease, transform 0.3s ease;
 
   @media (max-width: 768px) {
     font-size: 12px;

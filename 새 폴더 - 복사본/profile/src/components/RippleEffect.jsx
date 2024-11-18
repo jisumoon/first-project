@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styled, { keyframes } from "styled-components";
 
 const rippleAnimation = keyframes`
@@ -29,10 +29,19 @@ const Ripple = styled.span`
   top: ${({ y }) => `${y}px`};
 `;
 
+const MemoizedRipple = memo(({ x, y, size }) => (
+  <Ripple x={x} y={y} size={size} />
+));
+
 const RippleEffect = ({ ripples }) => (
   <>
     {ripples.map((ripple) => (
-      <Ripple key={ripple.id} x={ripple.x} y={ripple.y} size={ripple.size} />
+      <MemoizedRipple
+        key={ripple.id}
+        x={ripple.x}
+        y={ripple.y}
+        size={ripple.size}
+      />
     ))}
   </>
 );

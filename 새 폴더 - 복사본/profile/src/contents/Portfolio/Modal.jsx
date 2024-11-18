@@ -28,7 +28,7 @@ const ModalOverlay = styled(motion.div)`
 
 const ModalBox = styled(motion.div)`
   width: 60vw;
-  max-height: 900px;
+  max-height: 90vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,6 +37,22 @@ const ModalBox = styled(motion.div)`
   z-index: 1001;
   overflow-y: auto;
   background: ${(props) => props.theme.colors.background};
+
+  @media (max-width: 1024px) {
+    width: 80vw;
+  }
+
+  @media (max-width: 768px) {
+    width: 90vw;
+    max-height: 85vh;
+    padding: 20px;
+  }
+
+  @media (max-width: 390px) {
+    width: 100%;
+    max-height: 80vh;
+    padding: 10px;
+  }
 `;
 
 const ModalSection = styled.section`
@@ -49,6 +65,14 @@ const ModalSection = styled.section`
     gap: 10px;
     padding-bottom: 20px;
     text-align: center;
+
+    @media (max-width: 768px) {
+      gap: 8px;
+    }
+
+    @media (max-width: 390px) {
+      padding-bottom: 10px;
+    }
   }
 
   &.bottom {
@@ -62,12 +86,33 @@ const ModalContainer = styled.section`
   padding: 40px 140px;
   width: 100%;
   height: 630px;
+
+  @media (max-width: 1024px) {
+    padding: 20px 80px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 15px 30px;
+    height: auto;
+  }
+
+  @media (max-width: 390px) {
+    padding: 10px 20px;
+  }
 `;
 
 const ModalTitle = styled.h2`
   font-size: 26px;
   font-weight: bold;
   padding-bottom: 4px;
+
+  @media (max-width: 768px) {
+    font-size: 22px;
+  }
+
+  @media (max-width: 390px) {
+    font-size: 18px;
+  }
 `;
 
 const ModalTitleInfo = styled.h3`
@@ -80,12 +125,30 @@ const ModalTitleInfo = styled.h3`
   overflow: hidden;
   line-height: 1.4;
   text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+    width: 300px;
+  }
+
+  @media (max-width: 390px) {
+    font-size: 10px;
+    width: 250px;
+  }
 `;
 
 const Modalimg = styled(motion.div)`
   width: 100%;
   height: 300px;
   position: relative;
+
+  @media (max-width: 768px) {
+    height: 200px;
+  }
+
+  @media (max-width: 390px) {
+    height: 180px;
+  }
 `;
 
 const ImgContant = styled.div`
@@ -109,6 +172,14 @@ const HoverButtons = styled.div`
   &:hover {
     opacity: 1;
   }
+
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
+
+  @media (max-width: 390px) {
+    font-size: 20px;
+  }
 `;
 
 const Pager = styled.div`
@@ -118,17 +189,28 @@ const Pager = styled.div`
   align-items: center;
   gap: 10px;
   bottom: 3%;
-  left: 40%;
+  left: 50%;
+  transform: translateX(-50%);
 `;
 
 const Dot = styled.div`
   width: ${(props) => (props.active ? "20px" : "8px")};
   height: 8px;
   background-color: ${(props) =>
-    props.active ? "rgba(47, 79, 79,0.6)" : "#ddd"};
+    props.active ? "rgba(47, 79, 79, 0.6)" : "#ddd"};
   border-radius: ${(props) => (props.active ? "15px" : "50%")};
   transition: all 0.3s ease;
   cursor: pointer;
+
+  @media (max-width: 768px) {
+    width: ${(props) => (props.active ? "15px" : "6px")};
+    height: 6px;
+  }
+
+  @media (max-width: 390px) {
+    width: ${(props) => (props.active ? "10px" : "4px")};
+    height: 4px;
+  }
 `;
 
 const BtnUl = styled.ul`
@@ -138,8 +220,25 @@ const BtnUl = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 14px;
-`;
 
+  @media (max-width: 1200px) {
+    right: 3%;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: row;
+    justify-content: center;
+    top: 2%;
+    right: 50%;
+    transform: translateX(50%);
+    gap: 10px;
+  }
+
+  @media (max-width: 390px) {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+`;
 const Btnli = styled.li`
   position: relative;
   width: 46px;
@@ -178,17 +277,38 @@ const Tooltip = styled.span`
   transform: translateX(-124%);
   transition: opacity 0.4s ease, transform 0.4s ease;
   z-index: 10;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const ModalHashtag = styled.ul`
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    gap: 8px;
+  }
+
+  @media (max-width: 390px) {
+    gap: 6px;
+  }
 `;
 
 const Hashtag = styled.li`
   font-size: 14px;
   color: ${(props) => props.theme.colors.primary};
   font-weight: bold;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
+
+  @media (max-width: 390px) {
+    font-size: 10px;
+  }
 `;
 
 const Modal = ({ slides = [], closeModal, currentIndex, modalData }) => {

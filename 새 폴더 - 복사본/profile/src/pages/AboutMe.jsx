@@ -9,6 +9,7 @@ import CareerSection from "../contents/Aboutme/CareerSection";
 
 const Contain = styled.div`
   width: 100%;
+
   background: ${(props) => props.theme.colors.mainbackgtound};
   @media (max-width: 1280px) {
     width: 100%;
@@ -39,7 +40,7 @@ const Title = styled.h1`
   }
 
   @media (max-width: 400px) {
-    font-size: 18px;
+    font-size: 14px;
   }
 `;
 

@@ -1,116 +1,90 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
-import Home from "./pages/Home";
+import MainScroll from "./pages/MainScroll";
 import AboutMe from "./pages/AboutMe";
 import Portfolio from "./pages/Portfolio";
 import Contact from "./pages/Contact";
-import { throttle } from "lodash";
-import MainScroll from "./pages/MainScroll";
-import { useSelector, useDispatch } from "react-redux";
-import { setCurrentSection } from "./store/sectionReducer";
 
 const Wrapper = styled.div`
   position: relative;
   width: 100%;
+  overflow: visible;
 `;
 
-const SectionContainer = styled.div`
+const SectionContainer = styled.div.attrs((props) => ({
+  style: {
+    zIndex: props.$isAbove ? 10 : 0,
+  },
+}))`
   position: ${(props) => (props.$isSticky ? "sticky" : "relative")};
   top: 0;
   left: 0;
   width: 100%;
-  z-index: ${(props) => (props.$isAbove ? 10 : 0)};
   transition: z-index 0.3s ease;
 `;
 
 const Mainpage = () => {
-  const [isAboutMeAbove, setIsAboutMeAbove] = useState(false);
-  const [isPortfolioAbove, setIsPortfolioAbove] = useState(false);
-  const [isContactAbove, setIsContactAbove] = useState(false);
-
-  const homeRef = useRef(null);
-  const aboutMeRef = useRef(null);
-  const portfolioRef = useRef(null);
-
-  const currentSection = useSelector((state) => state.section.currentSection);
-  const dispatch = useDispatch();
-
-  const handleScroll = useCallback(
-    throttle(() => {
-      const homeBottom = homeRef.current?.getBoundingClientRect().bottom || 0;
-      const aboutMeBottom =
-        aboutMeRef.current?.getBoundingClientRect().bottom || 0;
-      const portfolioBottom =
-        portfolioRef.current?.getBoundingClientRect().bottom || 0;
-
-      // 상태 업데이트 조건 추가
-      if (homeBottom <= 0 && !isAboutMeAbove) {
-        setIsAboutMeAbove(true);
-      } else if (homeBottom > 0 && isAboutMeAbove) {
-        setIsAboutMeAbove(false);
-      }
-
-      if (aboutMeBottom <= 0 && !isPortfolioAbove) {
-        setIsPortfolioAbove(true);
-      } else if (aboutMeBottom > 0 && isPortfolioAbove) {
-        setIsPortfolioAbove(false);
-      }
-
-      if (portfolioBottom <= 0 && !isContactAbove) {
-        setIsContactAbove(true);
-      } else if (portfolioBottom > 0 && isContactAbove) {
-        setIsContactAbove(false);
-      }
-    }, 200),
-    [isAboutMeAbove, isPortfolioAbove, isContactAbove]
-  );
-
-  // 스크롤 이벤트 등록
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
-
-  // 섹션 이동
-  useEffect(() => {
-    if (currentSection === "portfolio" && portfolioRef.current) {
-      portfolioRef.current.scrollIntoView({ behavior: "smooth" });
-    } else if (currentSection === "home" && homeRef.current) {
-      homeRef.current.scrollIntoView({ behavior: "smooth" });
-    } else if (currentSection === "aboutMe" && aboutMeRef.current) {
-      aboutMeRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [currentSection]);
+  const [visibleSection, setVisibleSection] = useState("home");
+  const sectionsRef = useRef({
+    home: null,
+    aboutMe: null,
+    portfolio: null,
+    contact: null,
+  });
 
   useEffect(() => {
-    if (currentSection) {
-      dispatch(setCurrentSection("home"));
-    }
-  }, [dispatch, currentSection]);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntry = entries.find((entry) => entry.isIntersecting);
+        if (visibleEntry) {
+          setVisibleSection(visibleEntry.target.id);
+        }
+      },
+      { threshold: 0.5 } // 50% 이상 보일 때만 감지
+    );
+
+    Object.values(sectionsRef.current).forEach((section) => {
+      if (section) observer.observe(section);
+    });
+
+    return () => {
+      Object.values(sectionsRef.current).forEach((section) => {
+        if (section) observer.unobserve(section);
+      });
+    };
+  }, []);
 
   return (
     <Wrapper>
-      <SectionContainer ref={homeRef} $isSticky={!isAboutMeAbove}>
+      <SectionContainer
+        ref={(el) => (sectionsRef.current.home = el)}
+        id="home"
+        $isSticky={visibleSection === "home"}
+      >
         <MainScroll />
       </SectionContainer>
 
       <SectionContainer
-        ref={aboutMeRef}
-        $isSticky={isAboutMeAbove && !isPortfolioAbove}
-        $isAbove={isAboutMeAbove}
+        ref={(el) => (sectionsRef.current.aboutMe = el)}
+        id="aboutMe"
+        $isSticky={visibleSection === "aboutMe"}
       >
         <AboutMe />
       </SectionContainer>
 
       <SectionContainer
-        ref={portfolioRef}
-        $isSticky={isPortfolioAbove && !isContactAbove}
-        $isAbove={isPortfolioAbove}
+        ref={(el) => (sectionsRef.current.portfolio = el)}
+        id="portfolio"
+        $isSticky={visibleSection === "portfolio"}
       >
-        <Portfolio id="portfolio-section-id" />
+        <Portfolio />
       </SectionContainer>
 
-      <SectionContainer $isSticky={isContactAbove} $isAbove={isContactAbove}>
+      <SectionContainer
+        ref={(el) => (sectionsRef.current.contact = el)}
+        id="contact"
+        $isSticky={visibleSection === "contact"}
+      >
         <Contact />
       </SectionContainer>
     </Wrapper>
@@ -118,3 +92,108 @@ const Mainpage = () => {
 };
 
 export default Mainpage;
+
+// import React, { useRef, useState, useEffect } from "react";
+// import styled from "styled-components";
+// import MainScroll from "./pages/MainScroll";
+// import AboutMe from "./pages/AboutMe";
+// import Portfolio from "./pages/Portfolio";
+// import Contact from "./pages/Contact";
+
+// const Wrapper = styled.div`
+//   position: relative;
+//   width: 100%;
+//   overflow: visible; /* sticky 동작을 방해하지 않도록 설정 */
+// `;
+
+// const SectionContainer = styled.div.attrs((props) => ({
+//   style: {
+//     zIndex: props.$isSticky ? 10 : 0,
+//   },
+// }))`
+//   position: ${(props) => (props.$isSticky ? "sticky" : "relative")};
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: auto;
+//   background: ${(props) => props.background || "transparent"};
+//   transition: z-index 0.3s ease;
+// `;
+
+// const Mainpage = () => {
+//   const [visibleSection, setVisibleSection] = useState("home");
+//   const sectionsRef = useRef({
+//     home: null,
+//     aboutMe: null,
+//     portfolio: null,
+//     contact: null,
+//   });
+
+//   useEffect(() => {
+//     const observer = new IntersectionObserver(
+//       (entries) => {
+//         entries.forEach((entry) => {
+//           if (entry.isIntersecting) {
+//             console.log("Visible Section:", entry.target.id); // 디버깅용 로그
+//             setVisibleSection(entry.target.id);
+//           }
+//         });
+//       },
+//       { threshold: 0.5 } // threshold 조정 가능
+//     );
+
+//     Object.values(sectionsRef.current).forEach((section) => {
+//       if (section) observer.observe(section);
+//     });
+
+//     return () => {
+//       observer.disconnect();
+//     };
+//   }, []);
+
+//   return (
+//     <Wrapper>
+//       {/* MainScroll: 일반 스크롤 */}
+//       <SectionContainer
+//         ref={(el) => (sectionsRef.current.home = el)}
+//         id="home"
+//         $isSticky={false}
+//         background="lightblue"
+//       >
+//         <MainScroll />
+//       </SectionContainer>
+
+//       {/* AboutMe: sticky 적용 */}
+//       <SectionContainer
+//         ref={(el) => (sectionsRef.current.aboutMe = el)}
+//         id="aboutMe"
+//         $isSticky={visibleSection === "aboutMe"}
+//         background="lightgreen"
+//       >
+//         <AboutMe />
+//       </SectionContainer>
+
+//       {/* Portfolio: 일반 스크롤 */}
+//       <SectionContainer
+//         ref={(el) => (sectionsRef.current.portfolio = el)}
+//         id="portfolio"
+//         $isSticky={false}
+//         background="lightcoral"
+//       >
+//         <Portfolio />
+//       </SectionContainer>
+
+//       {/* Contact: 일반 스크롤 */}
+//       <SectionContainer
+//         ref={(el) => (sectionsRef.current.contact = el)}
+//         id="contact"
+//         $isSticky={false}
+//         background="lightyellow"
+//       >
+//         <Contact />
+//       </SectionContainer>
+//     </Wrapper>
+//   );
+// };
+
+// export default Mainpage;

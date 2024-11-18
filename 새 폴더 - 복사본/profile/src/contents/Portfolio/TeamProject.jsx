@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { useSwipeable } from "react-swipeable";
 
 const Wrapper = styled.div`
   width: 100%;
-  padding-top: 300px;
+  padding-top: 200px;
+  overflow: hidden;
 
   @media (max-width: 1280px) {
     padding-top: 100px;
@@ -24,25 +26,20 @@ const Wrapper = styled.div`
   }
 `;
 
-const TeamProjectSectionTite = styled.h1`
-  padding-left: 40px;
+const TeamProjectSectionTitle = styled.h1`
   font-size: 46px;
   font-weight: bold;
   line-height: 1.3;
   color: #444;
-
-  @media (max-width: 1280px) {
-    font-size: 40px;
-    padding-left: 30px;
-  }
+  padding-left: 40px;
+  margin-bottom: 40px;
 
   @media (max-width: 768px) {
     font-size: 32px;
-    text-align: center;
-    padding-left: 0;
   }
 
   @media (max-width: 400px) {
+    padding-left: 10px;
     font-size: 24px;
   }
 `;
@@ -59,7 +56,7 @@ const ButtonGroup = styled.div`
   transition: opacity 0.3s ease;
 
   @media (max-width: 768px) {
-    bottom: 30%;
+    display: none;
   }
 `;
 
@@ -92,74 +89,74 @@ const ArrowButton = styled.button`
 const Container = styled.div`
   width: 100%;
   height: 600px;
-  margin-top: 60px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  overflow: hidden;
+  justify-content: space-between;
   position: relative;
+  overflow: hidden;
+  cursor: pointer;
 
-  @media (max-width: 1280px) {
-    height: 500px;
-    margin-top: 40px;
+  @media (max-width: 1024px) {
+    width: 100%;
   }
 
   @media (max-width: 768px) {
     flex-direction: column;
-    height: auto;
+    justify-content: center;
+  }
+
+  @media (max-width: 400px) {
+    padding-top: 50px;
+    justify-content: start;
   }
 `;
 
 const TextWrapper = styled.div`
   flex: 1;
   max-width: 300px;
-  position: absolute;
-  left: 20%;
+  max-height: 300px;
   z-index: 2;
-  border: 1px solid #f00;
+  position: absolute;
+  left: 18%;
 
-  @media (max-width: 1280px) {
-    left: 34%;
+  @media (max-width: 1024px) {
+    width: 200px;
+    left: 22%;
   }
 
   @media (max-width: 768px) {
-    position: relative;
-    left: 0;
-    margin-bottom: 20px;
+    position: static;
     text-align: center;
+    margin-bottom: 20px;
+    display: none;
   }
 `;
 
 const Title = styled.h1`
-  font-size: 46px;
+  font-size: 36px;
   font-weight: bold;
-  color: #222;
+  margin-bottom: 10px;
 
-  @media (max-width: 1280px) {
-    font-size: 40px;
+  @media (max-width: 1024px) {
+    font-size: 26px;
   }
 
   @media (max-width: 768px) {
-    font-size: 32px;
-  }
-
-  @media (max-width: 400px) {
-    font-size: 24px;
+    font-size: 28px;
   }
 `;
 
 const Description = styled.p`
   font-size: 16px;
-  color: #666;
-  margin-top: 16px;
-  line-height: 1.5;
+  margin-top: 10px;
+  margin-bottom: 20px;
 
-  @media (max-width: 1280px) {
-    font-size: 14px;
+  @media (max-width: 1024px) {
+    font-size: 16px;
   }
 
   @media (max-width: 768px) {
-    font-size: 12px;
+    font-size: 14px;
   }
 `;
 
@@ -168,164 +165,270 @@ const Button = styled.button`
   padding: 10px 20px;
   font-size: 16px;
   font-weight: bold;
-  color: #fff;
   background: ${(props) => props.theme.colors.primary};
-  border: none;
   border-radius: 4px;
+  color: white;
+  border: none;
   cursor: pointer;
-  transition: color 0.3s background 0.3s;
+  transition: backgroud 0.5s color 0.5;
 
   &:hover {
-    color: ${(props) => props.theme.colors.primary};
     background: #fff;
+    color: ${(props) => props.theme.colors.primary};
+    transform: translateY(-2px);
+    transition: all 0.3s ease-in-out;
   }
 
   @media (max-width: 768px) {
-    padding: 8px 16px;
-    font-size: 14px;
+    margin: 10px auto;
   }
 `;
 
-const SlideImg = styled(motion.div)`
+const SlideImg = styled.img`
+  border: 1px solid #f00;
   width: 400px;
   height: 500px;
+  object-fit: cover;
   border-radius: 4px;
-  border: 1px solid #f00;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 120px;
-  color: #333;
   position: absolute;
-  transition: transform 0.5s ease, opacity 0.5s ease;
-  transform: ${({ $isActive }) => ($isActive ? "scale(1.05)" : "scale(1)")};
-  opacity: ${({ $isActive }) => ($isActive ? 1 : 0.5)};
+  transition: transform 0.4s ease-in-out;
 
-  &:hover {
-    transform: ${({ $isActive }) => ($isActive ? "scale(1.1)" : "scale(1)")};
+  &.left {
+    left: -15%;
+    transform: translateX(0);
   }
 
-  /* 각 슬라이드 위치 */
-  &:nth-child(1) {
-    left: -10%;
+  &.center {
+    left: 60%;
+    transform: translateX(-50%);
   }
 
-  &:nth-child(2) {
-    right: 20%;
+  &.right {
+    right: -8%;
+    transform: translateX(0);
   }
 
-  &:nth-child(3) {
-    right: -10%;
-  }
+  @media (max-width: 1024px) {
+    width: 300px;
+    height: 400px;
+    border-radius: 6px;
 
-  /* 반응형 스타일 */
-  @media (max-width: 1280px) {
-    width: 360px;
-    height: 450px;
-    font-size: 100px;
-
-    &:nth-child(1) {
-      left: -15%;
+    &.left {
+      left: -10%;
     }
 
-    &:nth-child(2) {
-      right: 15%;
+    &.right {
+      right: -5%;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    width: 280px;
+    border-radius: 6px;
+
+    &.left {
+      left: -10%;
     }
 
-    &:nth-child(3) {
-      right: -15%;
+    &.right {
+      right: -5%;
+    }
+  }
+
+  @media (max-width: 940px) {
+    width: 260px;
+    border-radius: 6px;
+
+    &.left {
+      left: -10%;
+    }
+
+    &.right {
+      right: -5%;
+    }
+  }
+
+  @media (max-width: 860px) {
+    width: 240px;
+    border-radius: 6px;
+
+    &.left {
+      left: -10%;
+    }
+
+    &.right {
+      right: -5%;
     }
   }
 
   @media (max-width: 768px) {
-    width: 300px;
-    height: 400px;
-    font-size: 80px;
+    width: 400px;
 
-    &:nth-child(1) {
-      left: -30%;
+    &.left {
+      left: -40%;
+      transform: translateX(0);
     }
 
-    &:nth-child(2) {
-      right: -20%;
+    &.center {
+      left: 50%;
     }
 
-    &:nth-child(3) {
-      right: -30%;
+    &.right {
+      right: -40%;
+      transform: translateX(0);
     }
   }
 
   @media (max-width: 480px) {
     width: 240px;
-    height: 300px;
-    font-size: 60px;
 
-    &:nth-child(1) {
+    &.left {
       left: -40%;
+      transform: translateX(0);
     }
 
-    &:nth-child(2) {
-      right: -10%;
+    &.center {
+      left: 50%;
     }
 
-    &:nth-child(3) {
+    &.right {
       right: -40%;
+      transform: translateX(0);
     }
   }
+  @media (max-width: 400px) {
+    width: 220px;
 
-  @media (max-width: 360px) {
-    width: 200px;
-    height: 260px;
-    font-size: 50px;
-
-    &:nth-child(1) {
-      left: -50%;
+    &.left {
+      left: -40%;
+      transform: translateX(0);
     }
 
-    &:nth-child(2) {
-      right: 0;
+    &.center {
+      left: 50%;
     }
 
-    &:nth-child(3) {
-      right: -50%;
+    &.right {
+      right: -40%;
+      transform: translateX(0);
     }
   }
 `;
 
-const TeamProject = ({ openModalHandler }) => {
+const MotionWrapper = styled.div`
+  border: 1px solid #f00;
+`;
+
+const TeamProject = ({ item = [], onClick }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const slides = [
-    { title: "Brand Story", description: "Description 1", label: "1" },
-    { title: "Our Mission", description: "Description 2", label: "2" },
-    { title: "Our Vision", description: "Description 3", label: "3" },
-  ];
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
+    setCurrentSlide((prev) => (prev + 1) % item.length);
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+    setCurrentSlide((prev) => (prev - 1 + item.length) % item.length);
+  };
+
+  // 스와이프 핸들러
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: () => {
+      console.log("Swiped Left");
+      nextSlide();
+    },
+    onSwipedRight: () => {
+      console.log("Swiped Right");
+      prevSlide();
+    },
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true,
+  });
+  const clipAnimation = {
+    initial: {
+      clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)", // 아래로 가려짐
+      opacity: 0,
+    },
+    animate: {
+      clipPath: "polygon(0 0%, 100% 0%, 100% 100%, 0 100%)", // 완전히 나타남
+      opacity: 1,
+    },
+    exit: {
+      clipPath: "polygon(0 0%, 100% 0%, 100% 0%, 0 0%)", // 위로 사라짐
+      opacity: 0,
+    },
+    transition: {
+      duration: 0.6,
+      ease: "easeInOut",
+    },
   };
 
   return (
     <Wrapper>
-      <TeamProjectSectionTite>
-        <span>Roots</span> and <span>Branches</span>: <br />
+      <TeamProjectSectionTitle>
+        Roots and Branches: <br />
         Growing Through Life's Forest
-      </TeamProjectSectionTite>
-      <Container>
+      </TeamProjectSectionTitle>
+      <Container {...swipeHandlers}>
+        {/* Left Image */}
+        <SlideImg
+          className="left"
+          src={item[(currentSlide + item.length - 1) % item.length]?.img}
+          alt="Left Image"
+        />
+        <AnimatePresence>
+          <SlideImg
+            className="center"
+            key={item[currentSlide]?.id}
+            src={item[currentSlide]?.img}
+            alt="Center Image"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.5 }}
+          />
+        </AnimatePresence>
         <TextWrapper>
-          <Title>{slides[currentSlide].title}</Title>
-          <Description>{slides[currentSlide].description}</Description>
-          <Button>자세히 보기</Button>
-        </TextWrapper>
-        {slides.map((slide, index) => (
-          <SlideImg key={index} $isActive={index === currentSlide}>
-            {slide.label}
-          </SlideImg>
-        ))}
+          {/* 타이틀 애니메이션 */}
+          <motion.div
+            key={item[currentSlide]?.title_kr}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            variants={clipAnimation}
+          >
+            <Title>{item[currentSlide]?.title_kr}</Title>
+          </motion.div>
 
+          <motion.div
+            key={item[currentSlide]?.description}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            variants={clipAnimation}
+          >
+            <Description>{item[currentSlide]?.description}</Description>
+          </motion.div>
+
+          <motion.div
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            variants={clipAnimation}
+          >
+            <Button
+              onClick={() => {
+                onClick(item[currentSlide]);
+              }}
+            >
+              자세히 보기
+            </Button>
+          </motion.div>
+        </TextWrapper>
+        <SlideImg
+          className="right"
+          src={item[(currentSlide + 1) % item.length]?.img}
+          alt="Right Image"
+        />
         <ButtonGroup>
           <ArrowButton onClick={prevSlide}>
             <FontAwesomeIcon icon={faAngleLeft} />

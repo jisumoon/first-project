@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useSwipeable } from "react-swipeable";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import PortfolioBox from "../Portfolio/PortfolioBox";
 
 const Contain = styled.div`
   width: 100%;
-  display: flex;
+  padding: 40px 20px;
   background-image: url("img/tree1.jpg");
   background-size: cover;
   position: relative;
@@ -21,234 +22,144 @@ const Contain = styled.div`
     background-color: rgba(29, 83, 62, 0.78);
     z-index: 1;
   }
-
-  @media (max-width: 1280px) {
-    &::before {
-      width: 100%;
-    }
-  }
-
-  @media (max-width: 768px) {
-    width: 100%;
-  }
-  @media (max-width: 390px) {
-  }
 `;
 
 const Section = styled.section`
-  display: flex;
-  justify-content: space-between;
-  padding-top: 80px;
-  padding-left: 40px;
-  gap: 20px;
-  overflow: hidden;
+  position: relative;
   z-index: 2;
-  @media (max-width: 1280px) {
-    flex-direction: column;
-  }
-
-  @media (max-width: 1240px) {
-    width: 100%;
-  }
-
-  @media (max-width: 768px) {
-    width: 100%;
-    font-size: 32px;
-    padding-left: 20px;
-  }
-
-  @media (max-width: 390px) {
-    font-size: 20px;
-    flex-direction: column;
-    padding-left: 0;
-    border: 1px solid #f00;
-  }
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Article = styled.article`
-  min-width: 1200px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 20px;
-  padding: 0 10px;
-  @media (max-width: 1280px) {
-  }
-
-  @media (max-width: 1240px) {
-    width: 100%;
-  }
-
-  @media (max-width: 768px) {
-    width: 100%;
-  }
-
-  @media (max-width: 390px) {
-  }
+  width: 100%;
+  max-width: 1200px;
 `;
 
 const SectionTitle = styled.h1`
-  font-size: 64px;
-  font-weight: 900;
+  font-size: 48px;
+  font-weight: bold;
   color: #fff;
-`;
+  margin-top: 40px;
+  margin-bottom: 20px;
 
-const BtnGroup = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
   @media (max-width: 768px) {
-    gap: 20px;
+    font-size: 32px;
   }
 `;
 
-const TopSection = styled.div`
+const Controls = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-
-  @media (max-width: 860px) {
-    width: 100%;
-  }
-`;
-
-const BottomSection = styled.div`
-  overflow: hidden;
-  margin-top: 40px;
-  padding: 40px;
-  display: flex;
-  background: ${(props) => props.theme.colors.mainbackgtound};
-  position: relative;
-  pointer-events: auto;
-
-  @media (max-width: 1280px) {
-    padding: 20px;
-    margin-top: 30px;
-  }
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
 
   @media (max-width: 768px) {
     flex-direction: column;
-    padding: 10px;
-    height: auto;
-    width: 100%;
-    touch-action: pan-y;
+    align-items: center;
   }
 `;
 
-const SlideWrapper = styled.div`
+const ButtonGroup = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: ${({ isMobile }) => (isMobile ? "20px" : "90px")};
-  transition: transform 0.5s ease;
-  transform: translateX(${(props) => props.translate}px);
-
-  @media (max-width: 1280px) {
-    gap: 80px;
-  }
+  gap: 20px;
 
   @media (max-width: 768px) {
-    gap: 20px;
-    touch-action: pan-y;
+    justify-content: center;
+    gap: 10px;
   }
-`;
-
-const ArrowButton = styled.button`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.5);
-  color: #fff;
-  font-size: 16px;
-  cursor: pointer;
-  z-index: 10;
-
-  &:hover {
-    background-color: ${(props) => props.theme.colors.highlight};
-  }
-
-  &:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-  }
-
-  @media (max-width: 768px) {
-    display: none;
-  }
-`;
-
-const LeftArrow = styled(ArrowButton)`
-  left: 10px;
-`;
-
-const RightArrow = styled(ArrowButton)`
-  right: 10px;
 `;
 
 const Btn = styled.button`
-  width: 100px;
-  padding: 10px 0;
+  padding: 10px 30px;
   border: none;
   border-radius: 4px;
-  background: ${(props) => props.theme.colors.background};
-  font-size: 16px;
-  color: ${(props) => props.theme.colors.secondary};
+  background: ${(props) => props.theme.colors.highlight};
+  color: white;
   font-weight: bold;
   cursor: pointer;
-  transition: color 0.6s, background 0.6s;
+  transition: background 0.3s, transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
-    color: #fff;
-    background: ${(props) => props.theme.colors.highlight};
+    background: ${(props) => props.theme.colors.secondary};
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: none;
+  }
+`;
+
+const SearchBarWrapper = styled.div`
+  position: relative;
+  width: 300px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: 300px;
   }
 `;
 
 const SearchBar = styled.input`
-  width: 300px;
-  padding: 10px 0;
-  padding-left: 20px;
+  padding: 10px 40px 10px 16px;
   border: none;
   border-radius: 4px;
-  background: ${(props) => props.theme.colors.background};
-  font-size: 16px;
+  width: 100%;
+
   @media (max-width: 768px) {
-    display: none;
+    width: 100%;
+  }
+`;
+
+const SearchIcon = styled(FontAwesomeIcon)`
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  color: ${(props) => props.theme.colors.secondary};
+`;
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  width: 100%;
+  min-height: 400px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 `;
 
 const NoResultsMessage = styled.div`
-  width: 100%;
-  text-align: center;
-  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-column: 1 / -1;
   font-size: 18px;
-  color: ${(props) => props.theme.colors.secondary};
+  color: white;
 `;
 
 const PortfolioSection = ({ projects, onOpenModal }) => {
   const [filter, setFilter] = useState("ALL");
   const [searchQuery, setSearchQuery] = useState("");
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const projectWidth = window.innerWidth <= 768 ? 150 : 200; // 반응형
-  const gapWidth = window.innerWidth <= 768 ? 20 : 120;
 
   const handleFilterChange = (category) => {
     setFilter(category);
-    setCurrentIndex(0); // 필터 변경 시 슬라이드 초기화
   };
 
   const handleSearch = (e) => {
-    const query = e.target.value.toLowerCase();
-    setSearchQuery(query);
-    setCurrentIndex(0); // 검색 시 슬라이드 초기화
+    setSearchQuery(e.target.value.toLowerCase());
   };
 
   const filteredProjects = projects.filter(
@@ -258,100 +169,39 @@ const PortfolioSection = ({ projects, onOpenModal }) => {
         project.description.toLowerCase().includes(searchQuery))
   );
 
-  const projectsPerSlide = 3; // 한 슬라이드에 표시될 프로젝트 개수
-  const maxIndex = Math.ceil(projects.length / projectsPerSlide) - 1;
-
-  const translate =
-    -currentIndex *
-    (projectsPerSlide * projectWidth + (projectsPerSlide - 1) * gapWidth);
-
-  const handleNext = () => {
-    if (currentIndex < maxIndex) {
-      setCurrentIndex((prev) => prev + 1);
-    }
-  };
-
-  const handlePrev = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex((prev) => prev - 1);
-    }
-  };
-
-  // const handleSwipe = (direction) => {
-  //   if (direction === "left" && currentIndex < maxIndex) {
-  //     setCurrentIndex((prev) => prev + 1);
-  //   } else if (direction === "right" && currentIndex > 0) {
-  //     setCurrentIndex((prev) => prev - 1);
-  //   }
-  // };
-
-  // const handleSwipe = (direction) => {
-  //   console.log(`Swiped: ${direction}`); // 로그 출력
-  //   if (direction === "left" && currentIndex < maxIndex) {
-  //     setCurrentIndex((prev) => prev + 1);
-  //   } else if (direction === "right" && currentIndex > 0) {
-  //     setCurrentIndex((prev) => prev - 1);
-  //   }
-  // };
-
-  const swipeHandlers = useSwipeable({
-    onSwiped: (eventData) => {
-      console.log("Swiped Event: ", eventData); // 디버깅용
-    },
-    onSwipedLeft: () => {
-      console.log("Swiped Left");
-      handleSwipe("left");
-    },
-    onSwipedRight: () => {
-      console.log("Swiped Right");
-      handleSwipe("right");
-    },
-    preventDefaultTouchmoveEvent: false, // 기본 이벤트 방지 해제
-    trackTouch: true,
-    trackMouse: false,
-  });
-
   return (
     <Contain>
       <Section>
         <SectionTitle>Portfolio</SectionTitle>
         <Article>
-          <TopSection>
-            <BtnGroup>
+          <Controls>
+            <ButtonGroup>
               <Btn onClick={() => handleFilterChange("ALL")}>ALL</Btn>
               <Btn onClick={() => handleFilterChange("Team")}>Team</Btn>
               <Btn onClick={() => handleFilterChange("Single")}>Single</Btn>
-            </BtnGroup>
-            <SearchBar
-              type="text"
-              placeholder="검색어를 입력해주세요"
-              onChange={handleSearch}
-            />
-          </TopSection>
-          {filteredProjects.length > 0 ? (
-            <BottomSection {...swipeHandlers}>
-              <LeftArrow onClick={handlePrev} disabled={currentIndex === 0}>
-                ◀
-              </LeftArrow>
-              <SlideWrapper translate={translate}>
-                {filteredProjects.map((item) => (
-                  <PortfolioBox
-                    key={item.id}
-                    item={item}
-                    onClick={() => onOpenModal(item)}
-                  />
-                ))}
-              </SlideWrapper>
-              <RightArrow
-                onClick={handleNext}
-                disabled={currentIndex === maxIndex}
-              >
-                ▶
-              </RightArrow>
-            </BottomSection>
-          ) : (
-            <NoResultsMessage>🌳검색 결과가 없습니다🌳</NoResultsMessage>
-          )}
+            </ButtonGroup>
+            <SearchBarWrapper>
+              <SearchBar
+                type="text"
+                placeholder="검색어를 입력해주세요"
+                onChange={handleSearch}
+              />
+              <SearchIcon icon={faSearch} />
+            </SearchBarWrapper>
+          </Controls>
+          <Grid>
+            {filteredProjects.length > 0 ? (
+              filteredProjects.map((item) => (
+                <PortfolioBox
+                  key={item.id}
+                  item={item}
+                  onClick={() => onOpenModal(item)}
+                />
+              ))
+            ) : (
+              <NoResultsMessage>🌳 검색 결과가 없습니다 🌳</NoResultsMessage>
+            )}
+          </Grid>
         </Article>
       </Section>
     </Contain>

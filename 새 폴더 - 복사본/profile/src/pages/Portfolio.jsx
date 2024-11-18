@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { openModal, closeModal } from "../store/modalReducer";
 import Modal from "../contents/Portfolio/Modal";
 import PortfolioSection from "../contents/Portfolio/Portfoliosection";
-import InterviewSection from "../contents/Portfolio/TeamProject";
+import TeamProject from "../contents/Portfolio/TeamProject";
 
 const Contain = styled.div`
   background: ${(props) => props.theme.colors.mainbackgtound};
@@ -72,6 +72,10 @@ const Portfolio = ({ id }) => {
         project.description.toLowerCase().includes(searchQuery))
   );
 
+  const teamProjects = projects.filter(
+    (project) => project.category === "Team"
+  );
+
   const handleFilterChange = (category) => {
     setFilter(category);
   };
@@ -84,7 +88,7 @@ const Portfolio = ({ id }) => {
   return (
     <Contain id={id}>
       <Section>
-        <InterviewSection openModalHandler={openModalHandler} />
+        <TeamProject item={teamProjects} onClick={openModalHandler} />
         <PortfolioSection
           projects={filteredProjects}
           onOpenModal={openModalHandler}

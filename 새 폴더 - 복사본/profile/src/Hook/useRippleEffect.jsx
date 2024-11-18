@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 const useRippleEffect = () => {
   const [ripples, setRipples] = useState([]);
   const containerRef = useRef(null);
   const rippleTimeouts = useRef([]);
 
-  const updateRipplePosition = () => {
+  const updateRipplePosition = useCallback(() => {
     const containerWidth =
       containerRef.current?.offsetWidth || window.innerWidth;
     const containerHeight = window.innerHeight;
@@ -14,7 +14,7 @@ const useRippleEffect = () => {
     const randomY = Math.random() * (containerHeight - 40);
 
     return { x: randomX, y: randomY };
-  };
+  }, []);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -28,7 +28,10 @@ const useRippleEffect = () => {
         size: randomSize,
       };
 
-      setRipples((prev) => [...prev, newRipple]);
+      setRipples((prev) => {
+        if (prev.length > 10) return [...prev.slice(1), newRipple];
+        return [...prev, newRipple];
+      });
 
       const timeout = setTimeout(() => {
         setRipples((prev) =>
@@ -37,13 +40,14 @@ const useRippleEffect = () => {
       }, 4000);
 
       rippleTimeouts.current.push(timeout);
-    }, 800); // 리플 생성 간격 (800ms)
+    }, 800);
 
     return () => {
-      clearInterval(intervalId); // 리플 생성 중단
-      rippleTimeouts.current.forEach(clearTimeout); // 기존 타임아웃 제거
+      clearInterval(intervalId);
+      rippleTimeouts.current.forEach((timeout) => clearTimeout(timeout));
+      rippleTimeouts.current = [];
     };
-  }, []);
+  }, [updateRipplePosition]);
 
   return { ripples, containerRef };
 };
