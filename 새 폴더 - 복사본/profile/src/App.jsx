@@ -6,6 +6,10 @@ import Modal from "./contents/Portfolio/Modal";
 import HomeView from "./HomeView";
 import { Provider } from "react-redux";
 import store from "./store";
+import Home from "./pages/Home";
+import AboutMe from "./pages/AboutMe";
+import Portfolio from "./pages/Portfolio";
+import Contact from "./pages/Contact";
 
 // QueryClient 설정
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -15,7 +19,14 @@ const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomeView />,
+    element: (
+      <>
+        <Home />
+        <AboutMe />
+        <Portfolio />
+        <Contact />,
+      </>
+    ),
   },
   {
     path: "/PortfolioDetail/:id",

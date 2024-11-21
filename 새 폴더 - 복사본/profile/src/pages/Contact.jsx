@@ -1,185 +1,214 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faPhone, faLink } from "@fortawesome/free-solid-svg-icons";
-import { faGithub, faBlogger } from "@fortawesome/free-brands-svg-icons";
+import Matter from "matter-js";
 
-const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 50px 100px;
-  background: ${(props) => props.theme.colors.mainbackgtound || "#faf8ef"};
-  width: 100%;
-  margin: 0 auto;
-  gap: 140px;
+// Styled Components
+const Main = styled.main`
+  margin: 0;
+  padding: 0;
+  color: transparent;
   height: 100vh;
-
-  @media (max-width: 1024px) {
-    gap: 40px;
-  }
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 20px;
-    text-align: center;
-  }
+  overflow: hidden;
+  position: relative;
 `;
 
-const TextContainer = styled.div`
-  flex: 2;
-  max-width: 40%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  gap: 20px;
-  height: 100%;
-
-  @media (max-width: 768px) {
-    max-width: 100%;
-  }
+const StyledLink = styled.a`
+  text-decoration: none;
+  color: black;
+  display: block;
+  padding: 1rem;
 `;
 
-const Title = styled.h1`
-  font-size: 36px;
-  font-weight: bold;
-  color: ${(props) => props.theme.colors.primary || "#333"};
-
-  @media (max-width: 768px) {
-    font-size: 30px;
-  }
+const Word = styled.span`
+  position: absolute;
+  cursor: grab;
+  font-size: 30px;
+  color: ${(props) =>
+    props.$highlighted ? "black" : "#ffeb3b"}; /* $로 변경 */
+  font-weight: ${(props) =>
+    props.$highlighted ? "bold" : "normal"}; /* $로 변경 */
 `;
 
-const Description = styled.div`
-  font-size: 16px;
-  color: ${(props) => props.theme.colors.info || "#666"};
-  line-height: 1.6;
-  font-family: ${(props) => props.theme.fonts.secondary};
+const Contact = () => {
+  const [words, setWords] = useState([]); // 단어를 상태로 관리
+  const containerRef = useRef(null); // 렌더링 컨테이너 Ref
+  const observerRef = useRef(null); // Intersection Observer 감지용 Ref
 
-  .thanks {
-    margin-bottom: 20px;
-    font-size: 18px;
-  }
+  useEffect(() => {
+    // Split words into spans
+    const splitWords = () => {
+      const text =
+        "software developer with over 9 years of experience, I have developed a strong foundation in crafting innovative and efficient technology solutions. My passion for technology and entrepreneurship led me to co-found Mythrill, where I currently serve as the CTO. I am proud to be recognized as one of the '30under30' Armenians in Tech and am constantly driven to push boundaries and make a positive impact in the industry. When I'm not coding, I enjoy exploring my creative side through art, music, and nature.";
+      const wordsArray = text.split(" ").map((word, index) => ({
+        text: word,
+        highlighted:
+          word.startsWith("30under30") ||
+          word.startsWith("CTO") ||
+          word.startsWith("Mythrill"),
+        key: index,
+      }));
+      setWords(wordsArray);
+    };
 
-  .contact-info {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    // Matter.js rendering
+    const renderCanvas = () => {
+      const Engine = Matter.Engine;
+      const Render = Matter.Render;
+      const World = Matter.World;
+      const Bodies = Matter.Bodies;
+      const Runner = Matter.Runner;
+      const Mouse = Matter.Mouse;
+      const MouseConstraint = Matter.MouseConstraint;
 
-    p {
-      margin: 0;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      const canvasSize = {
+        width: window.innerWidth,
+        height: window.innerHeight,
+      };
+
+      const engine = Engine.create({});
+      const render = Render.create({
+        element: containerRef.current, // 렌더링할 DOM 요소 설정
+        engine: engine,
+        options: {
+          width: canvasSize.width,
+          height: canvasSize.height,
+          background: "transparent",
+          wireframes: false,
+        },
+      });
+
+      const params = {
+        isStatic: true,
+        render: { fillStyle: "transparent" },
+      };
+
+      const floor = Bodies.rectangle(
+        canvasSize.width / 2,
+        canvasSize.height,
+        canvasSize.width,
+        50,
+        params
+      );
+      const wall1 = Bodies.rectangle(
+        0,
+        canvasSize.height / 2,
+        50,
+        canvasSize.height,
+        params
+      );
+      const wall2 = Bodies.rectangle(
+        canvasSize.width,
+        canvasSize.height / 2,
+        50,
+        canvasSize.height,
+        params
+      );
+      const top = Bodies.rectangle(
+        canvasSize.width / 2,
+        0,
+        canvasSize.width,
+        50,
+        params
+      );
+
+      const wordElements = document.querySelectorAll(".word");
+      const wordBodies = [...wordElements].map((elemRef, index) => {
+        const width = elemRef.offsetWidth;
+        const height = elemRef.offsetHeight;
+
+        return {
+          body: Bodies.rectangle(canvasSize.width / 2, 0, width, height, {
+            render: { fillStyle: "transparent" },
+          }),
+          elem: elemRef,
+          render() {
+            const { x, y } = this.body.position;
+            elemRef.style.top = `${y - 20}px`;
+            elemRef.style.left = `${x - width / 2}px`;
+            elemRef.style.transform = `rotate(${this.body.angle}rad)`;
+          },
+        };
+      });
+
+      const mouse = Mouse.create(containerRef.current); // 마우스 이벤트
+      const mouseConstraint = MouseConstraint.create(engine, {
+        mouse,
+        constraint: {
+          stiffness: 0.2,
+          render: { visible: false },
+        },
+      });
+
+      World.add(engine.world, [
+        floor,
+        wall1,
+        wall2,
+        top,
+        ...wordBodies.map((box) => box.body),
+        mouseConstraint,
+      ]);
+      render.mouse = mouse;
+
+      Runner.run(engine);
+      Render.run(render);
+
+      (function rerender() {
+        wordBodies.forEach((element) => {
+          element.render();
+        });
+        Matter.Engine.update(engine);
+        requestAnimationFrame(rerender);
+      })();
+    };
+
+    // Intersection Observer 설정
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // 뷰포인트에 들어올 때 렌더링
+          splitWords();
+          renderCanvas();
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, {
+      root: null, // 뷰포인트 기준: 브라우저 전체
+      threshold: 0.5, // 50%가 보일 때 작동
+    });
+
+    if (observerRef.current) {
+      observer.observe(observerRef.current); // 대상 요소 관찰 시작
     }
 
-    a {
-      text-decoration: none;
+    return () => {
+      observer.disconnect(); // 컴포넌트 언마운트 시 Observer 해제
+    };
+  }, []);
 
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-
-    svg {
-      color: ${(props) => props.theme.colors.primary || "#333"};
-      font-size: 18px;
-    }
-  }
-
-  @media (max-width: 768px) {
-    font-size: 14px;
-
-    .thanks {
-      font-size: 16px;
-    }
-  }
-`;
-
-const ImageContainer = styled.div`
-  height: 80%;
-  flex: 1;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-
-  @media (max-width: 1024px) {
-    justify-content: center;
-    gap: 15px;
-  }
-
-  @media (max-width: 768px) {
-    justify-content: center;
-    gap: 10px;
-  }
-`;
-
-const ImageItem = styled.div`
-  border-radius: 4px;
-  border-bottom: 4px solid ${(props) => props.theme.colors.primary};
-  background-image: url(${(props) => props.image});
-  background-size: cover;
-  background-position: center;
-
-  width: ${(props) => (props.large ? "60%" : "38%")}; /* 큰 이미지는 더 넓게 */
-
-  @media (max-width: 1024px) {
-    width: ${(props) => (props.large ? "100%" : "48%")}; /* 태블릿 크기 */
-  }
-
-  @media (max-width: 768px) {
-    width: 100%;
-  }
-`;
-
-const GallerySection = () => {
   return (
-    <Wrapper>
-      <TextContainer>
-        <Title>Contact</Title>
-        <Description>
-          <p className="thanks">
-            코드 한 줄 한 줄이 숲이 되어가는 여정을 기록합니다.
-          </p>
-
-          <div className="contact-info">
-            <p>
-              <FontAwesomeIcon icon={faEnvelope} />
-
-              <a href="mailto:example@example.com">jjisu97@naver.com</a>
-            </p>
-            <p>
-              <FontAwesomeIcon icon={faPhone} />
-              010.2862.4628
-            </p>
-            <p>
-              <FontAwesomeIcon icon={faGithub} />
-
-              <a href="https://github.com/example">github.com/example</a>
-            </p>
-            <p>
-              <FontAwesomeIcon icon={faBlogger} />
-              <a href="https://exampleblog.com">exampleblog.com</a>
-            </p>
-          </div>
-        </Description>
-      </TextContainer>
-
-      <ImageContainer>
-        <ImageItem
-          large={true}
-          image="https://via.placeholder.com/300x450?text=Image+1"
-        />
-        <ImageItem image="https://via.placeholder.com/150x150?text=Image+2" />
-        <ImageItem image="https://via.placeholder.com/150x150?text=Image+3" />
-        <ImageItem
-          large={true}
-          image="https://via.placeholder.com/300x450?text=Image+4"
-        />
-      </ImageContainer>
-    </Wrapper>
+    <Main ref={observerRef}>
+      <StyledLink href="https://gayane.dev/" target="_blank" rel="noreferrer">
+        From My Personal Website
+      </StyledLink>
+      <div ref={containerRef}>
+        {words.map((word) => (
+          <Word
+            key={word.key}
+            className="word"
+            $highlighted={word.highlighted} /* $ 접두사 사용 */
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: `${Math.random() * 100}%`,
+            }}
+          >
+            {word.text}
+          </Word>
+        ))}
+      </div>
+    </Main>
   );
 };
 
-export default GallerySection;
+export default Contact;
