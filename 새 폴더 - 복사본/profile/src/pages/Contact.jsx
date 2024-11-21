@@ -168,13 +168,13 @@ const GallerySection = () => {
 
       <ImageContainer>
         <ImageItem
-          large
+          large={true}
           image="https://via.placeholder.com/300x450?text=Image+1"
         />
         <ImageItem image="https://via.placeholder.com/150x150?text=Image+2" />
         <ImageItem image="https://via.placeholder.com/150x150?text=Image+3" />
         <ImageItem
-          large
+          large={true}
           image="https://via.placeholder.com/300x450?text=Image+4"
         />
       </ImageContainer>

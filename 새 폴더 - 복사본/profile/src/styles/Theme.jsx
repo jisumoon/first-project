@@ -50,12 +50,10 @@ const GlobalStyles = createGlobalStyle`
   }
   
   body {
-    width: 100%;
-    height: 100vh;
- 
-
-
-  
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: ${(props) => props.theme.colors.mainbackgtound};
 
  font-family: ${(props) => props.theme.fonts.primary};   
     color : #333;

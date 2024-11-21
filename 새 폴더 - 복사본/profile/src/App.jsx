@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { theme, GlobalStyles } from "./styles/Theme";
 import Modal from "./contents/Portfolio/Modal";
-import Mainpage from "./Mainpage";
-import LoadingScreen from "./LoadingScreen";
+import HomeView from "./HomeView";
 import { Provider } from "react-redux";
 import store from "./store";
 
@@ -17,7 +15,7 @@ const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Mainpage />,
+    element: <HomeView />,
   },
   {
     path: "/PortfolioDetail/:id",
@@ -39,7 +37,7 @@ const App = () => {
         <ThemeProvider theme={theme}>
           <GlobalStyles />
           {/* {loading ? <LoadingScreen /> : <RouterProvider router={router} />} */}
-          <RouterProvider router={router}></RouterProvider>
+          <RouterProvider router={router} />
         </ThemeProvider>
       </QueryClientProvider>
     </Provider>

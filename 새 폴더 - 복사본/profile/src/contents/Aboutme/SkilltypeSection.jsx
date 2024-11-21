@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import skillsData from "../../../public/data/skill.json";
 
+// 컨테이너 스타일
 const Container = styled.div`
   padding: 60px;
   margin-top: 120px;
@@ -16,6 +17,7 @@ const Container = styled.div`
   }
 `;
 
+// 타이틀 스타일
 const SkillSectionTitle = styled.h1`
   font-size: 46px;
   font-weight: bold;
@@ -32,6 +34,7 @@ const SkillSectionTitle = styled.h1`
   }
 `;
 
+// 카드 래퍼 스타일
 const SkillWrapper = styled.section`
   display: flex;
   flex-wrap: wrap;
@@ -42,6 +45,7 @@ const SkillWrapper = styled.section`
   }
 `;
 
+// 카드 스타일
 const CardSection = styled.div`
   max-width: 280px;
   width: 100%;
@@ -49,6 +53,14 @@ const CardSection = styled.div`
   padding: 20px;
   display: flex;
   flex-direction: column;
+  position: relative;
+  border: 1px solid ${(props) => props.theme.colors.primary};
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  }
 
   @media (max-width: 768px) {
     max-width: 240px;
@@ -61,6 +73,24 @@ const CardSection = styled.div`
   }
 `;
 
+// 나뭇잎 스타일
+const LeafIcon = styled.div`
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  background: url("/img/homebg.png") no-repeat center;
+  background-size: contain;
+  transition: transform 0.3s ease;
+
+  ${CardSection}:hover & {
+    transform: translateX(-50%) scale(1.2) rotate(-15deg);
+  }
+`;
+
+// 기타 컴포넌트 스타일
 const SkillTitle = styled.h3`
   font-size: 20px;
   font-weight: bold;
@@ -146,12 +176,14 @@ const SkillInfo = styled.div`
   }
 `;
 
+// 실제 섹션 컴포넌트
 const SkilltypeSection = () => (
   <Container>
     <SkillSectionTitle>Forest of Skills</SkillSectionTitle>
     <SkillWrapper>
       {skillsData.skills.map((category) => (
         <CardSection key={category.category}>
+          <LeafIcon /> {/* 나뭇잎 추가 */}
           <SkillTitle>{category.category}</SkillTitle>
           <Line />
           <SkillItem>

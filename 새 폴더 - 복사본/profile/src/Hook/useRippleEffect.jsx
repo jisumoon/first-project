@@ -8,29 +8,35 @@ const useRippleEffect = () => {
   const updateRipplePosition = useCallback(() => {
     const containerWidth =
       containerRef.current?.offsetWidth || window.innerWidth;
-    const containerHeight = window.innerHeight;
+    const containerHeight =
+      containerRef.current?.offsetHeight || window.innerHeight;
 
-    const randomX = Math.random() * (containerWidth - 100);
-    const randomY = Math.random() * (containerHeight - 40);
+    const randomSize = Math.random() * 50 + 30;
+    const maxX = containerWidth - randomSize;
+    const maxY = containerHeight - randomSize;
 
-    return { x: randomX, y: randomY };
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    return { x: randomX, y: randomY, size: randomSize };
   }, []);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      const { x, y } = updateRipplePosition();
-      const randomSize = Math.random() * 50 + 30;
+      const { x, y, size } = updateRipplePosition();
 
       const newRipple = {
         id: Date.now(),
         x,
         y,
-        size: randomSize,
+        size,
       };
 
+      // 배열 크기를 미리 제한하여 메모리 최적화
       setRipples((prev) => {
-        if (prev.length > 10) return [...prev.slice(1), newRipple];
-        return [...prev, newRipple];
+        const nextRipples = [...prev, newRipple];
+        if (nextRipples.length > 10) nextRipples.shift(); // 배열 길이 제한
+        return nextRipples;
       });
 
       const timeout = setTimeout(() => {

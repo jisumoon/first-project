@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import modalReducer from "./modalReducer";
-import sectionReducer from "./sectionReducer";
 import animationSliceReducer from "./animationSlics";
+import sectionReducer from "./sectionSliceReducer";
 
 const store = configureStore({
   reducer: {
     modal: modalReducer,
-    section: sectionReducer,
     animation: animationSliceReducer,
+    section: sectionReducer,
   },
 });
 
