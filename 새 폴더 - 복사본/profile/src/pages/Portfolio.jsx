@@ -6,11 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { openModal, closeModal } from "../store/modalReducer";
 import Modal from "../contents/Portfolio/Modal";
 import PortfolioSection from "../contents/Portfolio/Portfoliosection";
-// import TeamProject from "../contents/Portfolio/TeamProject";
+import TeamProject from "../contents/Portfolio/TeamProject";
+import Main from "../contents/Portfolio/Main";
 
-const Contain = styled.div`
-  background: ${(props) => props.theme.colors.mainbackgtound};
-`;
+const Contain = styled.div``;
 
 const Section = styled.section``;
 
@@ -88,7 +87,7 @@ const Portfolio = ({ id }) => {
   return (
     <Contain id={id}>
       <Section>
-        {/* <TeamProject item={teamProjects} onClick={openModalHandler} /> */}
+        <Main item={teamProjects} onClick={openModalHandler} />
         <PortfolioSection
           projects={filteredProjects}
           onOpenModal={openModalHandler}

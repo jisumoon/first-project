@@ -62,6 +62,16 @@ const InfoTitle = styled.h2`
       color: ${(props) => props.theme.colors.secondary};
     }
   }
+
+  @media (max-width: 860px) {
+    font-size: 24px;
+  }
+
+  @media (max-width: 400px) {
+    width: 100%;
+    font-size: 18px;
+    text-align: right;
+  }
 `;
 
 const Info = styled.h3`
@@ -69,6 +79,16 @@ const Info = styled.h3`
   font-weight: 400;
   line-height: 1.6;
   color: ${(props) => props.theme.colors.info};
+
+  @media (max-width: 860px) {
+    font-size: 17px;
+    text-align: right;
+    padding-right: 5px;
+  }
+
+  @media (max-width: 400px) {
+    font-size: 14px;
+  }
 `;
 
 const Img = styled(motion.img)`

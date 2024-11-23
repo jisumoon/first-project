@@ -1,11 +1,15 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
+import useIsMobile from "../../Hook/useIsMobile";
 import Button from "../../components/Button";
 
 const SiteSection = styled.main``;
 
 const SiteSectionInner = styled.article`
   padding: 0 16px;
+  padding-top: 40px;
+  position: relative;
+  z-index: 2;
 
   @media (max-width: 768px) {
     padding: 0 8px;
@@ -13,62 +17,57 @@ const SiteSectionInner = styled.article`
 `;
 
 const SiteTitle = styled.h1`
-  position: sticky;
+  position: ${({ isMobile }) => (isMobile ? "relative" : "sticky")};
   top: 70px;
-  left: 0;
   font-size: 40px;
   font-weight: bold;
   line-height: 1.3;
-  color: #444;
-  padding-left: 40px;
+
+  padding-left: 80px;
 
   @media (max-width: 768px) {
     font-size: 24px;
     padding-left: 10px;
+    text-align: center;
+    margin-bottom: 60px;
+    padding-top: 40px;
   }
 `;
 
-const SiteSectionWrap = styled.div``;
+const SiteSectionWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  @media (max-width: 768px) {
+    gap: 20px;
+  }
+`;
 
 const SiteItem = styled.div`
-  margin-top: 40px;
   width: 100%;
-  height: 80vh;
+  height: ${({ isMobile }) => (isMobile ? "auto" : "70vh")};
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  position: sticky;
+  position: ${({ isMobile }) => (isMobile ? "relative" : "sticky")};
   left: 0;
-  border-radius: 80px 80px 0 0;
-
-  &:nth-child(1) {
-    top: 180px;
-  }
-  &:nth-child(2) {
-    top: 200px;
-  }
-  &:nth-child(3) {
-    top: 220px;
-  }
-  &:nth-child(4) {
-    top: 240px;
-  }
+  top: ${({ isMobile, index }) =>
+    isMobile ? "auto" : `calc(180px + ${index * 20}px)`};
+  margin-bottom: ${({ isMobile }) => (isMobile ? "20px" : "0")};
 
   @media (max-width: 768px) {
-    height: auto;
-    top: 100px;
-    margin-bottom: 20px;
+    position: relative;
   }
 `;
 
-const SiteItemNum = styled.h4``;
-
 const ItemWrapper = styled.div`
-  width: 100%;
+  width: 90%;
   height: 100%;
   display: flex;
   justify-content: center;
+  align-items: stretch;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -77,66 +76,78 @@ const ItemWrapper = styled.div`
 `;
 
 const SiteImg = styled.div`
+  flex: 2;
   min-height: 300px;
   background: #ddd;
-  border-radius: 80px 0 0 0;
-  flex: 1;
+  background-size: cover;
+  background-position: center;
 
   @media (max-width: 768px) {
     border-radius: 20px;
     min-height: 200px;
     width: 90%;
+    margin-bottom: 40px;
   }
 `;
 
 const ItemSection = styled.div`
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: left;
+  align-items: flex-start;
   padding: 0 40px;
-  gap: 40px;
-  flex: 1;
-  border-radius: 0 80px 0 0;
-
-  /* 랜덤 배경색 적용 */
-  ${({ bgColor }) => css`
-    background: ${bgColor};
-  `}
+  gap: 16px;
+  background: #fff;
 
   @media (max-width: 768px) {
     border-radius: 20px;
     width: 90%;
     padding: 16px;
+    align-items: center;
+    text-align: center;
   }
 `;
 
 const SiteItemTitle = styled.h2`
-  font-size: 36px;
+  position: absolute;
+  bottom: 14%;
+  right: 40%;
+  font-size: 48px;
   font-weight: bold;
-  color: #2b2b2b;
+  color: #fff;
+
+  @media (max-width: 1200px) {
+    right: 50%;
+    font-size: 36px;
+  }
 
   @media (max-width: 768px) {
-    font-size: 22px;
+    display: none;
   }
 `;
+
 const SiteItemInfo = styled.h3`
   font-size: 18px;
-  line-height: 1.2;
+  line-height: 1.5;
+  color: #444;
+
   @media (max-width: 768px) {
     font-size: 16px;
+    text-align: center;
   }
 `;
 
 const SiteItemBtn = styled.div`
   margin-top: 20px;
+
+  @media (max-width: 768px) {
+    margin-top: 10px;
+  }
 `;
 
 const TeamProject = ({ item, onClick }) => {
-  const getRandomColor = () => {
-    const colors = ["#F5F5F5", "#F2E8CF", "#E8E4D9"];
-    return colors[Math.floor(Math.random() * colors.length)];
-  };
+  const isMobile = useIsMobile(); // 모바일 여부 판단
 
   return (
     <SiteSection>
@@ -147,17 +158,15 @@ const TeamProject = ({ item, onClick }) => {
         </SiteTitle>
         <SiteSectionWrap>
           {item.map((project, index) => (
-            <SiteItem key={project.id}>
+            <SiteItem key={project.id} index={index} isMobile={isMobile}>
               <ItemWrapper>
                 <SiteImg
                   style={{
                     backgroundImage: `url(${project.img})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
                   }}
                 />
-                <ItemSection bgColor={getRandomColor()}>
-                  <SiteItemTitle>{project.title_kr}</SiteItemTitle>
+                <SiteItemTitle>{project.title_kr}</SiteItemTitle>
+                <ItemSection>
                   <SiteItemInfo>{project.description}</SiteItemInfo>
                   <SiteItemBtn>
                     <Button onClick={() => onClick(project)} />

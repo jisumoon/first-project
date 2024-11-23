@@ -6,7 +6,7 @@ const CareerWrapper = styled.section`
   position: relative;
   width: 100%;
   padding: 0 80px;
-  margin-top: 100px;
+  margin-top: 80px;
 
   @media (max-width: 1280px) {
     padding: 0 40px;
@@ -16,6 +16,13 @@ const CareerWrapper = styled.section`
   @media (max-width: 768px) {
     padding: 0 20px;
     margin-top: 60px;
+    margin-bottom: 60px;
+  }
+
+  @media (max-width: 400px) {
+    padding: 0 20px;
+    margin-top: 60px;
+    margin-bottom: 20px;
   }
 `;
 

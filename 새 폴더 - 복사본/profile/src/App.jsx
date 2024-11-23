@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
+
 import { theme, GlobalStyles } from "./styles/Theme";
 import Modal from "./contents/Portfolio/Modal";
-import HomeView from "./HomeView";
 import { Provider } from "react-redux";
 import store from "./store";
 import Home from "./pages/Home";
@@ -15,7 +15,7 @@ import Contact from "./pages/Contact";
 import { QueryClient, QueryClientProvider } from "react-query";
 const queryClient = new QueryClient();
 
-// 라우터 설정
+// 라우터 설정`
 const router = createBrowserRouter([
   {
     path: "/",
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
         <Home />
         <AboutMe />
         <Portfolio />
-        <Contact />,
+        {/* <Contact />, */}
       </>
     ),
   },

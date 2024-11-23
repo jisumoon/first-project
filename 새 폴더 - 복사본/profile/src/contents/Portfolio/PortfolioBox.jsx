@@ -85,10 +85,7 @@ const Card = styled.div`
       gap: 10px;
 
       li {
-        background: ${(props) => props.theme.colors.highlight};
-        padding: 6px 10px;
         border-radius: 3px;
-        color: #fff;
         font-size: 13px;
       }
     }
@@ -115,7 +112,7 @@ const PortfolioBox = ({ item, onClick }) => {
         <p>{item.description}</p>
         <ul>
           {item.skill &&
-            item.skill.map((skill, index) => <li key={index}>{skill}</li>)}
+            item.skill.map((skill, index) => <li key={index}>#{skill}</li>)}
         </ul>
       </div>
     </Card>

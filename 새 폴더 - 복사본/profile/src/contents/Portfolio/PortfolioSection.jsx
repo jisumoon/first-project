@@ -1,203 +1,3 @@
-// import React, { useState } from "react";
-// import styled from "styled-components";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faSearch } from "@fortawesome/free-solid-svg-icons";
-// import PortfolioBox from "../Portfolio/PortfolioBox";
-
-// const Contain = styled.div`
-//   width: 100%;
-//   margin-top: 30vh;
-//   overflow: hidden;
-// `;
-
-// const Section = styled.section`
-//   padding: 16px;
-//   border: 1px solid #f00;
-//   position: relative;
-//   z-index: 2;
-//   padding: 20px;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-// `;
-
-// const Article = styled.article`
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   width: 100%;
-//   max-width: 1200px;
-// `;
-
-// const SectionTitle = styled.h1`
-//   font-size: 48px;
-//   font-weight: bold;
-
-//   margin-top: 40px;
-//   margin-bottom: 20px;
-
-//   @media (max-width: 768px) {
-//     font-size: 32px;
-//   }
-// `;
-
-// const Controls = styled.div`
-//   width: 100%;
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-//   gap: 20px;
-//   margin-bottom: 20px;
-//   flex-wrap: wrap;
-
-//   @media (max-width: 768px) {
-//     flex-direction: column;
-//     align-items: center;
-//   }
-// `;
-
-// const ButtonGroup = styled.div`
-//   display: flex;
-//   gap: 20px;
-
-//   @media (max-width: 768px) {
-//     justify-content: center;
-//     gap: 10px;
-//   }
-// `;
-
-// const Btn = styled.button`
-//   padding: 10px 30px;
-//   border: none;
-//   border-radius: 4px;
-//   background: ${(props) => props.theme.colors.highlight};
-//   color: white;
-//   font-weight: bold;
-//   cursor: pointer;
-//   transition: background 0.3s, transform 0.3s ease, box-shadow 0.3s ease;
-
-//   &:hover {
-//     background: ${(props) => props.theme.colors.secondary};
-//     transform: translateY(-2px);
-//     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-//   }
-
-//   &:active {
-//     transform: translateY(0);
-//     box-shadow: none;
-//   }
-// `;
-
-// const SearchBarWrapper = styled.div`
-//   position: relative;
-//   width: 300px;
-
-//   @media (max-width: 768px) {
-//     width: 100%;
-//     max-width: 300px;
-//   }
-// `;
-
-// const SearchBar = styled.input`
-//   padding: 10px 40px 10px 16px;
-//   border: none;
-//   border-radius: 4px;
-//   width: 100%;
-
-//   @media (max-width: 768px) {
-//     width: 100%;
-//   }
-// `;
-
-// const SearchIcon = styled(FontAwesomeIcon)`
-//   position: absolute;
-//   top: 50%;
-//   right: 12px;
-//   transform: translateY(-50%);
-//   color: ${(props) => props.theme.colors.secondary};
-// `;
-
-// const Grid = styled.div`
-//   display: grid;
-//   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-//   gap: 20px;
-//   width: 100%;
-//   min-height: 400px;
-
-//   @media (max-width: 768px) {
-//     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-//   }
-// `;
-
-// const NoResultsMessage = styled.div`
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   grid-column: 1 / -1;
-//   font-size: 18px;
-//   color: white;
-// `;
-
-// const PortfolioSection = ({ projects, onOpenModal }) => {
-//   const [filter, setFilter] = useState("ALL");
-//   const [searchQuery, setSearchQuery] = useState("");
-
-//   const handleFilterChange = (category) => {
-//     setFilter(category);
-//   };
-
-//   const handleSearch = (e) => {
-//     setSearchQuery(e.target.value.toLowerCase());
-//   };
-
-//   const filteredProjects = projects.filter(
-//     (project) =>
-//       (filter === "ALL" || project.category === filter) &&
-//       (project.title_kr.toLowerCase().includes(searchQuery) ||
-//         project.description.toLowerCase().includes(searchQuery))
-//   );
-
-//   return (
-//     <Contain>
-//       <Section>
-//         <SectionTitle>Portfolio</SectionTitle>
-//         <Article>
-//           <Controls>
-//             <ButtonGroup>
-//               <Btn onClick={() => handleFilterChange("ALL")}>ALL</Btn>
-//               <Btn onClick={() => handleFilterChange("Team")}>Team</Btn>
-//               <Btn onClick={() => handleFilterChange("Single")}>Single</Btn>
-//             </ButtonGroup>
-//             <SearchBarWrapper>
-//               <SearchBar
-//                 type="text"
-//                 placeholder="검색어를 입력해주세요"
-//                 onChange={handleSearch}
-//               />
-//               <SearchIcon icon={faSearch} />
-//             </SearchBarWrapper>
-//           </Controls>
-//           <Grid>
-//             {filteredProjects.length > 0 ? (
-//               filteredProjects.map((item) => (
-//                 <PortfolioBox
-//                   key={item.id}
-//                   item={item}
-//                   onClick={() => onOpenModal(item)}
-//                 />
-//               ))
-//             ) : (
-//               <NoResultsMessage>🌳 검색 결과가 없습니다 🌳</NoResultsMessage>
-//             )}
-//           </Grid>
-//         </Article>
-//       </Section>
-//     </Contain>
-//   );
-// };
-
-// export default PortfolioSection;
-
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -208,11 +8,37 @@ import PortfolioBox from "../Portfolio/PortfolioBox";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Styled Components
 const PortSection = styled.section`
-  border: 1px solid #f00;
   width: 100%;
   height: 100vh;
   overflow: hidden;
+  position: relative;
+`;
+
+const MouseFollower = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+  transition: background-color 0.3s ease;
+  z-index: 9999;
+
+  &.click-effect {
+    background: ${(props) => props.theme.colors.highlight};
+    transform: translate(-50%, -50%) scale(3);
+  }
+
+  &.hover-effect {
+    background: ${(props) => props.theme.colors.highlight};
+    transform: translate(-50%, -50%) scale(1.5);
+  }
 `;
 
 const PortInner = styled.div`
@@ -221,22 +47,14 @@ const PortInner = styled.div`
 
 const PortTitle = styled.div`
   padding-left: 40px;
-  padding-bottom: 10px;
-  width: 100%;
-  height: 5vw;
-  font-size: 4vw;
+  font-size: 50px;
   font-weight: 900;
   line-height: 1.6;
 
-  text-transform: uppercase;
-
-  margin-bottom: 16px;
-  text-indent: -0.26vw;
-
-  em {
-    font-size: 1.25rem;
-    font-weight: 400;
-    line-height: 2;
+  @media (max-width: 768px) {
+    text-align: center;
+    font-size: 40px;
+    padding-left: 0;
   }
 `;
 
@@ -246,7 +64,7 @@ const Controls = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-  margin-top: 40px;
+  margin-top: 20px;
   margin-bottom: 20px;
   padding: 0 40px;
   flex-wrap: wrap;
@@ -271,14 +89,13 @@ const Btn = styled.button`
   padding: 10px 30px;
   border: none;
   border-radius: 4px;
-  background: ${(props) => props.theme.colors.highlight};
-  color: white;
+  color: ${(props) => props.theme.colors.primary};
+  background: #fff;
   font-weight: bold;
   cursor: pointer;
   transition: background 0.3s, transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
-    background: ${(props) => props.theme.colors.secondary};
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   }
@@ -304,7 +121,13 @@ const SearchBar = styled.input`
   border: none;
   border-radius: 4px;
   width: 100%;
+  &:focus {
+    outline: none;
+  }
 
+  &:focus::placeholder {
+    opacity: 0;
+  }
   @media (max-width: 768px) {
     width: 100%;
   }
@@ -321,6 +144,24 @@ const PortWrap = styled.div`
   display: flex;
   flex-wrap: nowrap;
   width: max-content;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 20px;
+
+  ${({ isEmpty }) =>
+    isEmpty &&
+    `display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  `}
+
+  @media (max-width: 768px) {
+    padding: 10px 16px;
+    scroll-behavior: smooth;
+  }
 `;
 
 const PortItem = styled.article`
@@ -329,27 +170,42 @@ const PortItem = styled.article`
   align-items: center;
   width: 400px;
   height: 70vh;
-
   padding: 2.5rem;
   margin-right: 20px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+
+  @media (max-width: 768px) {
+    width: 280px;
+    height: 50vh;
+  }
+
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  &:hover {
+    transform: scale(1.1) translateY(-10px);
+  }
 `;
 
 const NoResultsMessage = styled.div`
+  width: 100%;
   font-size: 18px;
+  text-align: center;
+  min-height: 150px;
+  margin-top: 40px;
 `;
 
+// Portfolio Section Component
 const PortfolioSection = ({ projects, onOpenModal }) => {
   const [filter, setFilter] = useState("ALL");
   const [searchQuery, setSearchQuery] = useState("");
   const sectionRef = useRef(null);
+  const portWrapRef = useRef(null);
+  const followerRef = useRef(null);
+  const mousePosition = useRef({ x: 0, y: 0 });
 
-  const handleFilterChange = (category) => {
-    setFilter(category);
-  };
+  const handleFilterChange = (category) => setFilter(category);
 
-  const handleSearch = (e) => {
-    setSearchQuery(e.target.value.toLowerCase());
-  };
+  const handleSearch = (e) => setSearchQuery(e.target.value.toLowerCase());
 
   const filteredProjects = projects.filter(
     (project) =>
@@ -358,7 +214,34 @@ const PortfolioSection = ({ projects, onOpenModal }) => {
         project.description.toLowerCase().includes(searchQuery))
   );
 
+  const handleMouseMove = (e) => {
+    mousePosition.current = { x: e.clientX, y: e.clientY };
+  };
+
+  const handleMouseClick = () => {
+    followerRef.current.classList.add("click-effect");
+    setTimeout(() => {
+      followerRef.current.classList.remove("click-effect");
+    }, 300);
+  };
+
+  const handleMouseOver = () => {
+    followerRef.current.classList.add("hover-effect");
+  };
+
+  const handleMouseOut = () => {
+    followerRef.current.classList.remove("hover-effect");
+  };
+
   useEffect(() => {
+    const moveFollower = () => {
+      const { x, y } = mousePosition.current;
+      followerRef.current.style.transform = `translate(${x}px, ${y}px)`;
+      requestAnimationFrame(moveFollower);
+    };
+
+    requestAnimationFrame(moveFollower);
+
     const horSection = gsap.utils.toArray(".port__item");
 
     if (!horSection || horSection.length === 0) {
@@ -366,30 +249,60 @@ const PortfolioSection = ({ projects, onOpenModal }) => {
       return;
     }
 
-    const sectionWidth = horSection.length * 400; // 각 아이템 크기 * 갯수
+    const sectionWidth = horSection.length * 400;
+
     gsap.to(horSection, {
       xPercent: -100 * (horSection.length - 1),
       ease: "none",
       scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top top",
-        end: `+=${sectionWidth}`, // 동적으로 계산된 길이
-        pin: true,
+        trigger: sectionRef.current, // PortfolioSection 시작점
+        start: "top top", // 화면 상단과 PortfolioSection 상단이 만나는 시점
+        end: `+=${sectionWidth}`, // 섹션의 길이에 따라 끝나는 지점
+        pin: true, // 필요할 경우 고정
         scrub: 1,
-        markers: false,
+        markers: false, // 디버깅용 마커 비활성화
       },
     });
+
+    return () => cancelAnimationFrame(moveFollower);
   }, [projects]);
 
   return (
-    <PortSection id="port" ref={sectionRef}>
+    <PortSection
+      id="port"
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      onClick={handleMouseClick}
+    >
+      <MouseFollower ref={followerRef} />
       <PortInner>
-        <PortTitle>portfolio</PortTitle>
+        <PortTitle>PORTFOLIO</PortTitle>
         <Controls>
-          <ButtonGroup>
-            <Btn onClick={() => handleFilterChange("ALL")}>ALL</Btn>
-            <Btn onClick={() => handleFilterChange("Team")}>Team</Btn>
-            <Btn onClick={() => handleFilterChange("Single")}>Single</Btn>
+          <ButtonGroup
+            onMouseOver={handleMouseOver}
+            onMouseOut={handleMouseOut}
+          >
+            <Btn
+              onMouseOver={handleMouseOver}
+              onMouseOut={handleMouseOut}
+              onClick={() => handleFilterChange("ALL")}
+            >
+              ALL
+            </Btn>
+            <Btn
+              onMouseOver={handleMouseOver}
+              onMouseOut={handleMouseOut}
+              onClick={() => handleFilterChange("Team")}
+            >
+              Team
+            </Btn>
+            <Btn
+              onMouseOver={handleMouseOver}
+              onMouseOut={handleMouseOut}
+              onClick={() => handleFilterChange("Single")}
+            >
+              Single
+            </Btn>
           </ButtonGroup>
           <SearchBarWrapper>
             <SearchBar
@@ -400,17 +313,20 @@ const PortfolioSection = ({ projects, onOpenModal }) => {
             <SearchIcon icon={faSearch} />
           </SearchBarWrapper>
         </Controls>
-        <PortWrap>
+        <PortWrap ref={portWrapRef} isEmpty={filteredProjects.length === 0}>
           {filteredProjects.length > 0 ? (
             filteredProjects.map((item) => (
-              <PortItem key={item.id} className="port__item">
+              <PortItem
+                key={item.id}
+                className="port__item"
+                onMouseOver={handleMouseOver}
+                onMouseOut={handleMouseOut}
+              >
                 <PortfolioBox item={item} onClick={() => onOpenModal(item)} />
               </PortItem>
             ))
           ) : (
-            <PortItem>
-              <NoResultsMessage>🌳 검색 결과가 없습니다 🌳</NoResultsMessage>
-            </PortItem>
+            <NoResultsMessage>🌳 검색 결과가 없습니다 🌳</NoResultsMessage>
           )}
         </PortWrap>
       </PortInner>

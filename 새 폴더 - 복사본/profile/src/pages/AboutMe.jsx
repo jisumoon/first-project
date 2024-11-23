@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { positionActions } from "../store/positionSliceReducer";
 import AboutMeSection from "../contents/Aboutme/AboutmeSection";
+import CareerSecton from "../contents/Aboutme/CareerSection";
 import SkilltypeSection from "../contents/Aboutme/SkilltypeSection";
-import CareerSection from "../contents/Aboutme/CareerSection";
 
-const Contain = styled.div`
+const Contain = styled(motion.div)`
   width: 100%;
-  background: ${(props) => props.theme.colors.mainbackgtound};
+  background: ${(props) => props.theme.colors.mainbackground};
   padding-bottom: 100px;
 `;
 
@@ -28,7 +30,7 @@ const Title = styled(motion.h1)`
   }
 `;
 
-const SectionWrapper = styled.div`
+const SectionWrapper = styled(motion.div)`
   margin-top: 50px;
 
   @media (max-width: 768px) {
@@ -37,26 +39,51 @@ const SectionWrapper = styled.div`
 `;
 
 const AboutMe = () => {
+  // 애니메이션 variants
+  const fadeInUpVariants = {
+    hidden: { opacity: 0, y: 50 }, // 초기 상태
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeInOut" },
+    },
+  };
+
   return (
-    <Contain>
+    <Contain id="aboutMe">
       <Title
-        initial={{ opacity: 0, y: 50 }}
+        initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: "easeInOut" }}
       >
         Here's a brief introduction about who I am
       </Title>
 
-      <SectionWrapper>
+      <SectionWrapper
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }} // 뷰포트에 20% 이상 들어오면 트리거
+        variants={fadeInUpVariants}
+      >
         <AboutMeSection />
       </SectionWrapper>
 
-      <SectionWrapper>
+      <SectionWrapper
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={fadeInUpVariants}
+      >
         <SkilltypeSection />
       </SectionWrapper>
 
-      <SectionWrapper>
-        <CareerSection />
+      <SectionWrapper
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={fadeInUpVariants}
+      >
+        <CareerSecton />
       </SectionWrapper>
     </Contain>
   );

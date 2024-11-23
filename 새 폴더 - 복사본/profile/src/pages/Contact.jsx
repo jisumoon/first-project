@@ -188,9 +188,6 @@ const Contact = () => {
 
   return (
     <Main ref={observerRef}>
-      <StyledLink href="https://gayane.dev/" target="_blank" rel="noreferrer">
-        From My Personal Website
-      </StyledLink>
       <div ref={containerRef}>
         {words.map((word) => (
           <Word

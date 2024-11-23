@@ -54,13 +54,8 @@ const CardSection = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  border: 1px solid ${(props) => props.theme.colors.primary};
-  transition: transform 0.2s ease;
 
-  &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  }
+  transition: transform 0.2s ease;
 
   @media (max-width: 768px) {
     max-width: 240px;
@@ -70,23 +65,6 @@ const CardSection = styled.div`
   @media (max-width: 400px) {
     max-width: 200px;
     padding: 10px;
-  }
-`;
-
-// 나뭇잎 스타일
-const LeafIcon = styled.div`
-  position: absolute;
-  top: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 40px;
-  height: 40px;
-  background: url("/img/homebg.png") no-repeat center;
-  background-size: contain;
-  transition: transform 0.3s ease;
-
-  ${CardSection}:hover & {
-    transform: translateX(-50%) scale(1.2) rotate(-15deg);
   }
 `;
 
@@ -183,7 +161,6 @@ const SkilltypeSection = () => (
     <SkillWrapper>
       {skillsData.skills.map((category) => (
         <CardSection key={category.category}>
-          <LeafIcon /> {/* 나뭇잎 추가 */}
           <SkillTitle>{category.category}</SkillTitle>
           <Line />
           <SkillItem>
