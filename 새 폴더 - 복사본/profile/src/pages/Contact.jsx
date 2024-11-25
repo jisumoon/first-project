@@ -1,210 +1,167 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import Matter from "matter-js";
+import { faBlogger, faGithub } from "@fortawesome/free-brands-svg-icons";
+import {
+  faCircle,
+  faEnvelope,
+  faPhone,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import RotatingLink from "../components/RotatingLink";
 
-// Styled Components
-const Main = styled.main`
-  margin: 0;
-  padding: 0;
-  color: transparent;
-  height: 100vh;
-  overflow: hidden;
+const ContactContainer = styled.div`
   position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: ${(props) => props.theme.colors.primary};
 `;
 
-const StyledLink = styled.a`
-  text-decoration: none;
-  color: black;
-  display: block;
-  padding: 1rem;
+const Contain = styled.div`
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 20px;
+  }
 `;
 
-const Word = styled.span`
-  position: absolute;
-  cursor: grab;
-  font-size: 30px;
-  color: ${(props) =>
-    props.$highlighted ? "black" : "#ffeb3b"}; /* $로 변경 */
-  font-weight: ${(props) =>
-    props.$highlighted ? "bold" : "normal"}; /* $로 변경 */
+const LeftSection = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
 `;
 
-const Contact = () => {
-  const [words, setWords] = useState([]); // 단어를 상태로 관리
-  const containerRef = useRef(null); // 렌더링 컨테이너 Ref
-  const observerRef = useRef(null); // Intersection Observer 감지용 Ref
+const Img = styled.div`
+  width: 340px;
+  height: 500px;
+  border: 4px solid ${(props) => props.theme.colors.mainbackgtound};
+  overflow: hidden;
 
-  useEffect(() => {
-    // Split words into spans
-    const splitWords = () => {
-      const text =
-        "software developer with over 9 years of experience, I have developed a strong foundation in crafting innovative and efficient technology solutions. My passion for technology and entrepreneurship led me to co-found Mythrill, where I currently serve as the CTO. I am proud to be recognized as one of the '30under30' Armenians in Tech and am constantly driven to push boundaries and make a positive impact in the industry. When I'm not coding, I enjoy exploring my creative side through art, music, and nature.";
-      const wordsArray = text.split(" ").map((word, index) => ({
-        text: word,
-        highlighted:
-          word.startsWith("30under30") ||
-          word.startsWith("CTO") ||
-          word.startsWith("Mythrill"),
-        key: index,
-      }));
-      setWords(wordsArray);
-    };
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+`;
 
-    // Matter.js rendering
-    const renderCanvas = () => {
-      const Engine = Matter.Engine;
-      const Render = Matter.Render;
-      const World = Matter.World;
-      const Bodies = Matter.Bodies;
-      const Runner = Matter.Runner;
-      const Mouse = Matter.Mouse;
-      const MouseConstraint = Matter.MouseConstraint;
+const RightSection = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
-      const canvasSize = {
-        width: window.innerWidth,
-        height: window.innerHeight,
-      };
+  gap: 20px;
+  padding-left: 40px;
 
-      const engine = Engine.create({});
-      const render = Render.create({
-        element: containerRef.current, // 렌더링할 DOM 요소 설정
-        engine: engine,
-        options: {
-          width: canvasSize.width,
-          height: canvasSize.height,
-          background: "transparent",
-          wireframes: false,
-        },
-      });
+  hr {
+    width: 20%;
+    height: 60%;
+    background: ${(props) => props.theme.colors.secondary};
+  }
+`;
 
-      const params = {
-        isStatic: true,
-        render: { fillStyle: "transparent" },
-      };
+const RightInfo = styled.p`
+  font-size: 36px;
+  line-height: 1.6;
+  color: #fff;
+  font-family: ${(props) => props.theme.fonts.four};
+`;
 
-      const floor = Bodies.rectangle(
-        canvasSize.width / 2,
-        canvasSize.height,
-        canvasSize.width,
-        50,
-        params
-      );
-      const wall1 = Bodies.rectangle(
-        0,
-        canvasSize.height / 2,
-        50,
-        canvasSize.height,
-        params
-      );
-      const wall2 = Bodies.rectangle(
-        canvasSize.width,
-        canvasSize.height / 2,
-        50,
-        canvasSize.height,
-        params
-      );
-      const top = Bodies.rectangle(
-        canvasSize.width / 2,
-        0,
-        canvasSize.width,
-        50,
-        params
-      );
+const RightDownSection = styled.ul`
+  display: flex;
+  gap: 40px;
+  margin-top: 10px;
 
-      const wordElements = document.querySelectorAll(".word");
-      const wordBodies = [...wordElements].map((elemRef, index) => {
-        const width = elemRef.offsetWidth;
-        const height = elemRef.offsetHeight;
+  li {
+    font-size: 26px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    color: #fff;
 
-        return {
-          body: Bodies.rectangle(canvasSize.width / 2, 0, width, height, {
-            render: { fillStyle: "transparent" },
-          }),
-          elem: elemRef,
-          render() {
-            const { x, y } = this.body.position;
-            elemRef.style.top = `${y - 20}px`;
-            elemRef.style.left = `${x - width / 2}px`;
-            elemRef.style.transform = `rotate(${this.body.angle}rad)`;
-          },
-        };
-      });
-
-      const mouse = Mouse.create(containerRef.current); // 마우스 이벤트
-      const mouseConstraint = MouseConstraint.create(engine, {
-        mouse,
-        constraint: {
-          stiffness: 0.2,
-          render: { visible: false },
-        },
-      });
-
-      World.add(engine.world, [
-        floor,
-        wall1,
-        wall2,
-        top,
-        ...wordBodies.map((box) => box.body),
-        mouseConstraint,
-      ]);
-      render.mouse = mouse;
-
-      Runner.run(engine);
-      Render.run(render);
-
-      (function rerender() {
-        wordBodies.forEach((element) => {
-          element.render();
-        });
-        Matter.Engine.update(engine);
-        requestAnimationFrame(rerender);
-      })();
-    };
-
-    // Intersection Observer 설정
-    const observerCallback = (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          // 뷰포인트에 들어올 때 렌더링
-          splitWords();
-          renderCanvas();
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(observerCallback, {
-      root: null, // 뷰포인트 기준: 브라우저 전체
-      threshold: 0.5, // 50%가 보일 때 작동
-    });
-
-    if (observerRef.current) {
-      observer.observe(observerRef.current); // 대상 요소 관찰 시작
+    &:hover {
+      transform: translateY(-5px);
     }
+  }
+`;
 
-    return () => {
-      observer.disconnect(); // 컴포넌트 언마운트 시 Observer 해제
-    };
-  }, []);
+const Btn = styled.div`
+  position: absolute;
+  right: 14%;
+  bottom: 10%;
+  transform: rotate(-45deg);
+`;
 
+// 전화번호 복사
+const copyToClipboard = (text) => {
+  navigator.clipboard.writeText(text);
+  alert(`전화번호 ${text}가 복사되었습니다!`);
+};
+
+// React 컴포넌트
+const Contact = () => {
   return (
-    <Main ref={observerRef}>
-      <div ref={containerRef}>
-        {words.map((word) => (
-          <Word
-            key={word.key}
-            className="word"
-            $highlighted={word.highlighted} /* $ 접두사 사용 */
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: `${Math.random() * 100}%`,
-            }}
-          >
-            {word.text}
-          </Word>
-        ))}
-      </div>
-    </Main>
+    <ContactContainer>
+      <Contain>
+        <RightSection>
+          <hr />
+          <RightInfo>
+            "작은 씨앗이 자라 울창한 숲을 이루듯, <br /> 오늘도 배우고 성장하며
+            더 나은 경험을 <br /> 만들어가겠습니다."
+          </RightInfo>
+
+          <RightDownSection>
+            {/* 전화번호 */}
+            <li onClick={() => copyToClipboard("010-2862-4628")}>
+              <FontAwesomeIcon icon={faPhone} />
+            </li>
+            {/* 이메일 */}
+            <li>
+              <a href="mailto:jjisu97@naver.com" style={{ color: "inherit" }}>
+                <FontAwesomeIcon icon={faEnvelope} />
+              </a>
+            </li>
+            {/* 깃허브 */}
+            <li>
+              <a
+                href="https://github.com/your-github-username"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "inherit" }}
+              >
+                <FontAwesomeIcon icon={faGithub} />
+              </a>
+            </li>
+            {/* 블로그 */}
+            <li>
+              <a
+                href="https://your-blog-url.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "inherit" }}
+              >
+                <FontAwesomeIcon icon={faBlogger} />
+              </a>
+            </li>
+          </RightDownSection>
+        </RightSection>
+        <LeftSection>
+          <Img>
+            <img src="/img/contact.jpg" alt="Contact" />
+          </Img>
+        </LeftSection>
+        <Btn>
+          <RotatingLink />
+        </Btn>
+      </Contain>
+    </ContactContainer>
   );
 };
 

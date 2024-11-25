@@ -7,7 +7,7 @@ const AboutMeWrapper = styled(motion.div)`
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 60px;
   padding-left: 100px;
   margin-top: 100px;
   height: auto;
@@ -75,6 +75,7 @@ const InfoTitle = styled.h2`
 `;
 
 const Info = styled.h3`
+  max-width: 560px;
   font-size: 20px;
   font-weight: 400;
   line-height: 1.6;
@@ -125,12 +126,11 @@ const AboutMeSection = () => {
           숲을 가꾸는 <span>프론트엔드</span>
         </InfoTitle>
         <Info>
-          치료사로서 환자의 제약을 이해하고 해결책을 찾던 경험이,
-          <br />
-          사용자 중심의 웹 환경을 설계하는 데 큰 밑거름이 되었습니다.
-          <br />
-          다양한 요구와 문제를 파악하여, 더 나은 사용자 경험을 만들어가고
-          싶습니다.
+          4년간의 치료사 경험을 통해 사람들의 제약과 문제를 이해하고,
+          <br /> 해결책을 설계하는 능력을 길렀습니다. <br />
+          블로그를 통해 학습한 내용을 정리하고 공유하며, 10+의 포트폴리오를
+          제작했습니다. 또한, 팀 스터디 활동을 통해 사용자 중심의 웹 환경 구축에
+          대한 경험과 이해를 쌓아가고 있습니다.
         </Info>
       </InfoSection>
 

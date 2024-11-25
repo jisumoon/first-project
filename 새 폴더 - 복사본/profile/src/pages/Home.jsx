@@ -4,11 +4,14 @@ import gsap from "gsap";
 import useRippleEffect from "../Hook/useRippleEffect";
 import RippleContainer from "../components/RippleContainer";
 import { useDispatch, useSelector } from "react-redux";
-import { positionActions } from "../store/positionSliceReducer";
-import { useScrollToTarget } from "../Hook/useScrollToTarget";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDoubleDown } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAngleDoubleDown,
+  faSeedling,
+} from "@fortawesome/free-solid-svg-icons";
 import useScrollAnimation from "../Hook/useScrollAnimation";
+import { faPagelines } from "@fortawesome/free-brands-svg-icons/faPagelines";
+import Header from "../components/Header";
 
 const floatingAnimation = keyframes`
   0%, 100% {
@@ -21,7 +24,7 @@ const floatingAnimation = keyframes`
 
 const ScrollDownIcon = styled.div`
   position: absolute;
-  bottom: 5%;
+  bottom: 18%;
   left: 35%;
   width: 30%;
   display: flex;
@@ -89,298 +92,213 @@ const IntroSection = styled.section`
 `;
 
 const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 2fr 2fr;
-  grid-gap: 100px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   height: 100vh;
-  padding: 30px 20px;
-  background: ${(props) => props.theme.colors.primary};
-
-  @media (max-width: 1280px) {
-    width: 100%;
-    grid-gap: 50px;
-    padding: 50px 30px;
-  }
-
-  @media (max-width: 1024px) {
-    width: 100%;
-    grid-gap: 30px;
-    padding: 40px 10px;
-  }
-
-  @media (max-width: 768px) {
-    width: 100%;
-    grid-template-columns: 1fr;
-    grid-gap: 0;
-    padding: 0;
-  }
-
-  @media (max-width: 400px) {
-    width: 100%;
-  }
 `;
 
-const Overlay = styled.div`
-  position: absolute;
-  top: 20%;
-  left: 20%;
-  z-index: 4;
-  color: #fff;
-  letter-spacing: 1.4px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-
-  @media (max-width: 1280px) {
-    top: 20%;
-    left: 6%;
-  }
-
-  @media (max-width: 1024px) {
-    top: 20%;
-    left: 10%;
-  }
-
-  @media (max-width: 768px) {
-    top: 62%;
-    left: 4%;
-  }
-
-  h2 {
-    font-size: ${(props) => (props.$isHovered ? "70px" : "80px")};
-    font-weight: bold;
-    margin-bottom: 20px;
-    transition: font-size 0.5s ease;
-
-    @media (max-width: 1024px) {
-      font-size: ${(props) => (props.$isHovered ? "50px" : "60px")};
-    }
-
-    @media (max-width: 768px) {
-      font-size: ${(props) => (props.$isHovered ? "40px" : "40px")};
-    }
-  }
-
-  p {
-    font-size: 18px;
-
-    @media (max-width: 1024px) {
-      font-size: 16px;
-    }
-
-    @media (max-width: 768px) {
-      font-size: 14px;
-    }
-  }
+const MainTitle = styled.p`
+  font-size: 220px;
+  color: ${(props) => props.theme.colors.mainbackgtound};
+  font-family: ${(props) => props.theme.fonts.third};
 `;
+
+const Overlay = styled.div``;
 
 const HeroSection = styled.section`
-  position: relative;
-  display: flex;
-  overflow: hidden;
-  @media (max-width: 768px) {
-    height: 440px;
-  }
-  @media (max-width: 390px) {
-    width: 390px;
-    overflow: hidden;
-  }
+  position: absolute;
+  z-index: 1;
+  top: 28%;
+  left: 38%;
+  opacity: 0.6;
   img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 2;
-    transition: transform 0.5s ease, filter 0.5s ease, opacity 0.5s ease-in-out;
-    cursor: pointer;
-    @media (max-width: 768px) {
-      width: 100%;
-    }
-    @media (max-width: 400px) {
-      width: 100%;
-    }
-
-    @media (max-width: 390px) {
-      width: 390px;
-    }
+    width: 360px;
+    height: 400px;
   }
 `;
 
-const SidebarLeft = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 20px;
-  color: rgba(244, 241, 222, 0.4);
+const BottomSection = styled.div`
+  margin-top: 400px;
 
-  h1 {
-    font-size: 16px;
-    margin-bottom: 10px;
-
-    @media (max-width: 1024px) {
-      font-size: 14px;
-    }
-
-    @media (max-width: 768px) {
-      font-size: 14px;
-    }
-  }
+  text-align: center;
 
   p {
-    font-size: 14px;
-    line-height: 1.5;
-
-    @media (max-width: 1024px) {
-      font-size: 14px;
-    }
-
-    @media (max-width: 768px) {
-      font-size: 12px;
-    }
-    @media (max-width: 400px) {
-      width: 100%;
-    }
+    width: 600px;
+    font-size: 16px;
+    line-height: 1.4;
+    color: ${(props) => props.theme.colors.mainbackgtound};
   }
 `;
 
-const SidebarRight = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: #fff;
+// const SidebarLeft = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: flex-end;
+//   padding: 20px;
+//   color: rgba(244, 241, 222, 0.4);
 
-  @media (max-width: 400px) {
-    justify-content: center;
-    align-items: center;
-  }
-  @media (max-width: 390px) {
-    width: 100%;
-  }
+//   h1 {
+//     font-size: 16px;
+//     margin-bottom: 10px;
 
-  ul {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+//     @media (max-width: 1024px) {
+//       font-size: 14px;
+//     }
 
-    @media (max-width: 1280px) {
-    }
+//     @media (max-width: 768px) {
+//       font-size: 14px;
+//     }
+//   }
 
-    @media (max-width: 1240px) {
-    }
+//   p {
+//     font-size: 14px;
+//     line-height: 1.5;
 
-    @media (max-width: 768px) {
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 40px;
-    }
+//     @media (max-width: 1024px) {
+//       font-size: 14px;
+//     }
 
-    @media (max-width: 400px) {
-      width: 100%;
-      padding: 0 10px;
-      gap: 10px;
-    }
-  }
+//     @media (max-width: 768px) {
+//       font-size: 12px;
+//     }
+//     @media (max-width: 400px) {
+//       width: 100%;
+//     }
+//   }
+// `;
 
-  li {
-    p {
-      color: #ddd;
-      font-size: 14px;
-      font-weight: 300;
+// const SidebarRight = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   color: #fff;
 
-      @media (max-width: 1024px) {
-        font-size: 12px;
-      }
+//   @media (max-width: 400px) {
+//     justify-content: center;
+//     align-items: center;
+//   }
+//   @media (max-width: 390px) {
+//     width: 100%;
+//   }
 
-      @media (max-width: 768px) {
-        display: none;
-      }
-    }
-  }
-`;
+//   ul {
+//     display: flex;
+//     flex-direction: column;
+//     gap: 20px;
 
-const Btn = styled.button`
-  width: 200px;
-  border: none;
-  margin-bottom: 6px;
-  background: none;
-  color: #fff;
-  font-size: 22px;
-  font-weight: 400;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  text-align: left;
+//     @media (max-width: 1280px) {
+//     }
 
-  span {
-    position: relative;
-    display: inline-block;
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    background: linear-gradient(90deg, #e9dd8f 50%, #fff 50%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    background-size: 200% 100%;
-    background-position: 100% 0;
-    transition: background-position 0.4s ease;
-  }
+//     @media (max-width: 1240px) {
+//     }
 
-  &:hover span {
-    background-position: 0 0;
-  }
+//     @media (max-width: 768px) {
+//       flex-direction: row;
+//       justify-content: center;
+//       align-items: center;
+//       margin-bottom: 40px;
+//     }
 
-  @media (max-width: 1024px) {
-    font-size: 18px;
-    width: 180px;
+//     @media (max-width: 400px) {
+//       width: 100%;
+//       padding: 0 10px;
+//       gap: 10px;
+//     }
+//   }
 
-    span {
-      font-size: 18px;
-    }
-  }
-  @media (max-width: 390px) {
-    width: 160px;
-  }
+//   li {
+//     p {
+//       color: #ddd;
+//       font-size: 14px;
+//       font-weight: 300;
 
-  @media (max-width: 768px) {
-    width: 140px;
-    text-align: center;
-    span {
-      font-size: 16px;
-    }
-  }
-  @media (max-width: 400px) {
-    width: 120px;
-    text-align: center;
-    span {
-      font-size: 14px;
-    }
-  }
-`;
+//       @media (max-width: 1024px) {
+//         font-size: 12px;
+//       }
+
+//       @media (max-width: 768px) {
+//         display: none;
+//       }
+//     }
+//   }
+// `;
+
+// const Btn = styled.button`
+//   width: 200px;
+//   border: none;
+//   margin-bottom: 6px;
+//   background: none;
+//   color: #fff;
+//   font-size: 22px;
+//   font-weight: 400;
+//   cursor: pointer;
+//   position: relative;
+//   overflow: hidden;
+//   text-align: left;
+
+//   span {
+//     position: relative;
+//     display: inline-block;
+//     font-size: 20px;
+//     font-weight: bold;
+//     cursor: pointer;
+//     background: linear-gradient(90deg, #e9dd8f 50%, #fff 50%);
+//     background-clip: text;
+//     -webkit-background-clip: text;
+//     color: transparent;
+//     background-size: 200% 100%;
+//     background-position: 100% 0;
+//     transition: background-position 0.4s ease;
+//   }
+
+//   &:hover span {
+//     background-position: 0 0;
+//   }
+
+//   @media (max-width: 1024px) {
+//     font-size: 18px;
+//     width: 180px;
+
+//     span {
+//       font-size: 18px;
+//     }
+//   }
+//   @media (max-width: 390px) {
+//     width: 160px;
+//   }
+
+//   @media (max-width: 768px) {
+//     width: 140px;
+//     text-align: center;
+//     span {
+//       font-size: 16px;
+//     }
+//   }
+//   @media (max-width: 400px) {
+//     width: 120px;
+//     text-align: center;
+//     span {
+//       font-size: 14px;
+//     }
+//   }
+// `;
 
 const Home = () => {
   const { ripples, containerRef } = useRippleEffect();
   const [animationComplete, setAnimationComplete] = useState(false);
   const [disableScroll, setDisableScroll] = useState(true); // 초기 스크롤 비활성화
-  const canvasRef = useRef(null);
+  const introSeen = useSelector((state) => state.section.introSeen);
+  const currentSection = useSelector((state) => state.section.currentSection);
   const imgRef = useRef(null);
   const dispatch = useDispatch();
-  const { scrollRef, scrollEl } = useScrollAnimation();
-  const position = useSelector((state) => state.position.isPosition);
 
   useEffect(() => {
     const timer = setTimeout(() => setDisableScroll(false), 5000);
     return () => clearTimeout(timer);
   }, []);
-
-  useEffect(() => {
-    console.log("scrollEl:", scrollEl);
-    dispatch(positionActions.PositionStyle(scrollEl ? "sticky" : "relative"));
-  }, [scrollEl, dispatch]);
-
-  const isPosition = useSelector((state) => state.position.isPosition);
-  useEffect(() => {
-    console.log("Redux state isPosition:", isPosition);
-  }, [isPosition]);
 
   useEffect(() => {
     document.body.style.overflow = disableScroll ? "hidden" : "auto";
@@ -450,14 +368,10 @@ const Home = () => {
   }, []);
 
   return (
-    <AppWrapper
-      $position={position}
-      $disableScroll={disableScroll}
-      ref={scrollRef}
-    >
+    <AppWrapper $disableScroll={disableScroll}>
       <IntroSection className="intro">
         <h2 className="intro__title">
-          Planting My First Code in the Forest of Frontend.
+          Planting My First Code <FontAwesomeIcon icon={faPagelines} />
         </h2>
         <div className="intro__background intro__background--left"></div>
         <div className="intro__background intro__background--right"></div>
@@ -465,28 +379,30 @@ const Home = () => {
       <RippleContainer ref={containerRef} ripples={ripples} />
 
       <Wrapper>
-        <SidebarLeft className="SidebarLeft">
-          <h1>Planting My First Code in the Forest of Frontend.</h1>
-          <p>
-            Like a seed growing into a forest, my frontend journey is rooted in
-            passion and nurtured with continuous learning.
-          </p>
-        </SidebarLeft>
-
-        <Overlay className="Main_title">
-          <h2>Moon Ji Su</h2>
-          <p>Growth, Like a Forest</p>
-        </Overlay>
-
+        <Header />
+        <MainTitle>PORTOFOLIO</MainTitle>
         <HeroSection>
           <img
-            className="seed_img"
+            className="home_img"
             src="/img/seed.jpg"
             alt="seed"
             style={{ opacity: 1 }}
           />
         </HeroSection>
+        <BottomSection>
+          <p>
+            Like a seed sprouting into a mighty tree, my passion for coding
+            grows deeper with every line I write, nurtured by challenges,
+            curiosity, and endless possibilities.
+          </p>
+        </BottomSection>
 
+        {/* <Overlay className="Main_title">
+          <h2>PORTFOLIO</h2>
+          <p>Growth, Like a Forest by ji su Moon</p>
+        </Overlay> */}
+
+        {/* 
         <SidebarRight className="SidebarRight">
           <ul>
             <li>
@@ -508,7 +424,7 @@ const Home = () => {
               <p>디자인과 기획을 정리한 공간입니다.</p>
             </li>
           </ul>
-        </SidebarRight>
+        </SidebarRight> */}
       </Wrapper>
       {animationComplete && (
         <ScrollDownIcon>

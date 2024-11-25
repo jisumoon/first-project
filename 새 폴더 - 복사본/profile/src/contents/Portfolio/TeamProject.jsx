@@ -1,183 +1,252 @@
-import React from "react";
+import { faPagelines } from "@fortawesome/free-brands-svg-icons/faPagelines";
+import { faClover } from "@fortawesome/free-solid-svg-icons/faClover";
+import { faTree } from "@fortawesome/free-solid-svg-icons/faTree";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import useIsMobile from "../../Hook/useIsMobile";
-import Button from "../../components/Button";
 
-const SiteSection = styled.main``;
+const MainContainer = styled.div`
+  font-style: normal;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  margin-top: 100px;
+  @media (max-width: 860px) {
+    margin-top: 0px;
+  }
+`;
 
-const SiteSectionInner = styled.article`
-  padding: 0 16px;
-  padding-top: 40px;
+const HeroSection = styled.section`
   position: relative;
-  z-index: 2;
-
-  @media (max-width: 768px) {
-    padding: 0 8px;
-  }
-`;
-
-const SiteTitle = styled.h1`
-  position: ${({ isMobile }) => (isMobile ? "relative" : "sticky")};
-  top: 70px;
-  font-size: 40px;
-  font-weight: bold;
-  line-height: 1.3;
-
-  padding-left: 80px;
-
-  @media (max-width: 768px) {
-    font-size: 24px;
-    padding-left: 10px;
-    text-align: center;
-    margin-bottom: 60px;
-    padding-top: 40px;
-  }
-`;
-
-const SiteSectionWrap = styled.div`
+  overflow: hidden;
   display: flex;
-  flex-direction: column;
-  gap: 40px;
+  align-items: center;
+  justify-content: center;
+  min-height: 30vh;
+`;
 
-  @media (max-width: 768px) {
-    gap: 20px;
+const LoopContainer = styled.div`
+  display: flex;
+  white-space: nowrap;
+  font-size: 58px;
+  color: ${(props) => props.theme.colors.primary};
+  padding: 30px 0;
+  letter-spacing: 2px;
+  position: relative;
+  gap: 5px;
+  @media (max-width: 860px) {
+    font-size: 50px;
   }
 `;
 
-const SiteItem = styled.div`
-  width: 100%;
-  height: ${({ isMobile }) => (isMobile ? "auto" : "70vh")};
+const LoopItem = styled.div`
+  display: inline-block;
+  padding-right: 10px;
+`;
+
+const ImageSection = styled.section`
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  min-height: 75vh;
+`;
+
+const ImagesWrapper = styled.div`
+  display: flex;
+  gap: 2rem;
+  width: 200%;
+  position: absolute;
+`;
+
+const ImageContainer = styled.div`
+  border: 1px solid #f00;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  position: ${({ isMobile }) => (isMobile ? "relative" : "sticky")};
-  left: 0;
-  top: ${({ isMobile, index }) =>
-    isMobile ? "auto" : `calc(180px + ${index * 20}px)`};
-  margin-bottom: ${({ isMobile }) => (isMobile ? "20px" : "0")};
-
-  @media (max-width: 768px) {
-    position: relative;
-  }
-`;
-
-const ItemWrapper = styled.div`
-  width: 90%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-  }
-`;
-
-const SiteImg = styled.div`
-  flex: 2;
+  overflow: hidden;
+  width: 300px;
+  min-width: 240px;
+  height: 440px;
   min-height: 300px;
-  background: #ddd;
-  background-size: cover;
-  background-position: center;
+  @media (max-width: 860px) {
+  }
 
-  @media (max-width: 768px) {
-    border-radius: 20px;
-    min-height: 200px;
-    width: 90%;
-    margin-bottom: 40px;
+  img {
+    border: 1px solid #f00;
+    object-fit: cover;
+    min-width: 100%;
+    min-height: 100%;
+    transition: transform 0.5s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.1);
   }
 `;
 
-const ItemSection = styled.div`
-  flex: 1;
+const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0 20px;
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
-  padding: 0 40px;
-  gap: 16px;
-  background: #fff;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 
-  @media (max-width: 768px) {
-    border-radius: 20px;
-    width: 90%;
-    padding: 16px;
-    align-items: center;
-    text-align: center;
+  &:hover {
+    opacity: 1;
   }
 `;
 
-const SiteItemTitle = styled.h2`
-  position: absolute;
-  bottom: 14%;
-  right: 40%;
-  font-size: 48px;
-  font-weight: bold;
+const OverlayTitle = styled.h3`
+  color: white;
+  font-size: 24px;
+  margin-bottom: 1rem;
+`;
+
+const OverlayInfo = styled.p`
+  color: white;
+  font-size: 14px;
+  text-align: center;
+  line-height: 1.4;
+  margin-bottom: 15px;
+`;
+
+const OverlayButton = styled.button`
+  padding: 10px 30px;
+  border: none;
+  background: ${(props) => props.theme.colors.primary};
   color: #fff;
-
-  @media (max-width: 1200px) {
-    right: 50%;
-    font-size: 36px;
-  }
-
-  @media (max-width: 768px) {
-    display: none;
-  }
-`;
-
-const SiteItemInfo = styled.h3`
-  font-size: 18px;
-  line-height: 1.5;
-  color: #444;
-
-  @media (max-width: 768px) {
-    font-size: 16px;
-    text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.5s color 0.5s;
+  &:hover {
+    background: #fff;
+    color: ${(props) => props.theme.colors.primary};
   }
 `;
 
-const SiteItemBtn = styled.div`
-  margin-top: 20px;
+// LoopingElement class
+class LoopingElement {
+  constructor(element, initialTranslation, speed) {
+    this.element = element;
+    this.currentTranslation = initialTranslation;
+    this.speed = speed;
+    this.direction = true;
+    this.metric = 100;
 
-  @media (max-width: 768px) {
-    margin-top: 10px;
+    this.lerp = {
+      current: this.currentTranslation,
+      target: this.currentTranslation,
+      ease: 0.2,
+    };
+
+    this.init();
   }
-`;
 
-const TeamProject = ({ item, onClick }) => {
-  const isMobile = useIsMobile(); // 모바일 여부 판단
+  init() {
+    window.addEventListener("scroll", () => this.handleScroll());
+    this.animate();
+  }
+
+  handleScroll() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+    if (scrollTop > this.scrollTop) {
+      this.direction = true;
+      this.lerp.target += this.speed * 5;
+    } else {
+      this.direction = false;
+      this.lerp.target -= this.speed * 5;
+    }
+
+    this.scrollTop = scrollTop <= 0 ? 0 : scrollTop;
+  }
+
+  lerpFunc(current, target, ease) {
+    return current * (1 - ease) + target * ease;
+  }
+
+  animate() {
+    if (this.direction) {
+      this.lerp.target += this.speed;
+      if (this.lerp.target > this.metric) {
+        this.lerp.current -= this.metric * 2;
+        this.lerp.target -= this.metric * 2;
+      }
+    } else {
+      this.lerp.target -= this.speed;
+      if (this.lerp.target < -this.metric) {
+        this.lerp.current += this.metric * 2;
+        this.lerp.target += this.metric * 2;
+      }
+    }
+
+    this.lerp.current = this.lerpFunc(
+      this.lerp.current,
+      this.lerp.target,
+      this.lerp.ease
+    );
+    this.element.style.transform = `translateX(${this.lerp.current}%)`;
+
+    requestAnimationFrame(() => this.animate());
+  }
+}
+
+// Main component
+const TeamProject = ({ item, onOpenModal = () => {} }) => {
+  useEffect(() => {
+    const loopItems = document.querySelectorAll(".loop-item");
+    const imageWrappers = document.querySelectorAll(".images-wrapper");
+
+    // Initialize LoopingElement for text items
+    new LoopingElement(loopItems[0], 0, 0.1);
+    new LoopingElement(loopItems[1], -200, 0.1);
+
+    // Initialize LoopingElement for image wrapper
+    new LoopingElement(imageWrappers[0], 0, 0.1);
+  }, []);
 
   return (
-    <SiteSection>
-      <SiteSectionInner>
-        <SiteTitle>
-          Roots and Branches: <br />
-          Growing Through Life's Forest
-        </SiteTitle>
-        <SiteSectionWrap>
-          {item.map((project, index) => (
-            <SiteItem key={project.id} index={index} isMobile={isMobile}>
-              <ItemWrapper>
-                <SiteImg
-                  style={{
-                    backgroundImage: `url(${project.img})`,
-                  }}
-                />
-                <SiteItemTitle>{project.title_kr}</SiteItemTitle>
-                <ItemSection>
-                  <SiteItemInfo>{project.description}</SiteItemInfo>
-                  <SiteItemBtn>
-                    <Button onClick={() => onClick(project)} />
-                  </SiteItemBtn>
-                </ItemSection>
-              </ItemWrapper>
-            </SiteItem>
+    <MainContainer>
+      <HeroSection>
+        <LoopContainer>
+          <LoopItem className="loop-item">
+            <FontAwesomeIcon icon={faPagelines} /> Roots and Branches: Growing
+            Through Life's Forest <FontAwesomeIcon icon={faPagelines} />
+          </LoopItem>
+          <LoopItem className="loop-item">
+            Roots and Branches: Growing Through Life's Forest{" "}
+            <FontAwesomeIcon icon={faPagelines} />
+          </LoopItem>
+        </LoopContainer>
+      </HeroSection>
+      <ImageSection>
+        <ImagesWrapper className="images-wrapper">
+          {[...item, ...item].map((project, index) => (
+            <ImageContainer key={index}>
+              <img src={project.img} alt={`Project ${index}`} />
+              <Overlay>
+                <OverlayTitle>{project.title_kr}</OverlayTitle>
+                <OverlayInfo>{project.description}</OverlayInfo>
+                <OverlayButton onClick={() => onOpenModal(project)}>
+                  VIEW
+                </OverlayButton>
+              </Overlay>
+            </ImageContainer>
           ))}
-        </SiteSectionWrap>
-      </SiteSectionInner>
-    </SiteSection>
+        </ImagesWrapper>
+      </ImageSection>
+    </MainContainer>
   );
 };
 

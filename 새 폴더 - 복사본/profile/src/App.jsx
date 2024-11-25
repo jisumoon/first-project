@@ -6,7 +6,7 @@ import { theme, GlobalStyles } from "./styles/Theme";
 import Modal from "./contents/Portfolio/Modal";
 import { Provider } from "react-redux";
 import store from "./store";
-import Home from "./pages/Home";
+// import Home from "./pages/Home";
 import AboutMe from "./pages/AboutMe";
 import Portfolio from "./pages/Portfolio";
 import Contact from "./pages/Contact";
@@ -21,10 +21,10 @@ const router = createBrowserRouter([
     path: "/",
     element: (
       <>
-        <Home />
+        {/* <Home /> */}
         <AboutMe />
         <Portfolio />
-        {/* <Contact />, */}
+        <Contact />
       </>
     ),
   },

@@ -4,19 +4,27 @@ import React from "react";
 import styled from "styled-components";
 
 const Card = styled.div`
+  @media (max-width: 768px) {
+    width: 200px;
+    height: 380px;
+  }
   .card-inner {
     position: relative;
     width: 300px;
     height: 260px;
-    border-radius: 14px;
-    border-bottom-right-radius: 0;
+
     overflow: hidden;
+
+    @media (max-width: 768px) {
+      width: 200px;
+      height: 200px;
+    }
 
     .box {
       border: 1px solid #f00;
       width: 100%;
       height: 100%;
-      border-radius: 20px;
+
       overflow: hidden;
 
       .imgBox {

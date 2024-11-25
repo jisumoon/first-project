@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 import styled from "styled-components";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
-import { positionActions } from "../store/positionSliceReducer";
 import AboutMeSection from "../contents/Aboutme/AboutmeSection";
 import CareerSecton from "../contents/Aboutme/CareerSection";
 import SkilltypeSection from "../contents/Aboutme/SkilltypeSection";

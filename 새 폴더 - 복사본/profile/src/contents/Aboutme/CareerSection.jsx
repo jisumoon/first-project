@@ -133,7 +133,6 @@ const CareerImg = styled.img`
   width: 260px;
   height: ${(props) => (props.$isHovered ? "260px" : "240px")};
   object-fit: cover;
-  border-radius: 8px;
   transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
   @media (max-width: 1280px) {

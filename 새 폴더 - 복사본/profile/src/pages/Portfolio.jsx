@@ -7,7 +7,6 @@ import { openModal, closeModal } from "../store/modalReducer";
 import Modal from "../contents/Portfolio/Modal";
 import PortfolioSection from "../contents/Portfolio/Portfoliosection";
 import TeamProject from "../contents/Portfolio/TeamProject";
-import Main from "../contents/Portfolio/Main";
 
 const Contain = styled.div``;
 
@@ -87,7 +86,7 @@ const Portfolio = ({ id }) => {
   return (
     <Contain id={id}>
       <Section>
-        <Main item={teamProjects} onClick={openModalHandler} />
+        <TeamProject item={teamProjects} onOpenModal={openModalHandler} />
         <PortfolioSection
           projects={filteredProjects}
           onOpenModal={openModalHandler}
