@@ -1,7 +1,7 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import styled from "styled-components";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useDispatch, useSelector } from "react-redux";
+import { motion } from "framer-motion";
+import { setPage } from "../store/sectionSliceReducer";
 import AboutMeSection from "../contents/Aboutme/AboutmeSection";
 import CareerSecton from "../contents/Aboutme/CareerSection";
 import SkilltypeSection from "../contents/Aboutme/SkilltypeSection";
@@ -9,7 +9,7 @@ import SkilltypeSection from "../contents/Aboutme/SkilltypeSection";
 const Contain = styled(motion.div)`
   width: 100%;
   background: ${(props) => props.theme.colors.mainbackground};
-  padding-bottom: 100px;
+  padding-bottom: 40px;
 `;
 
 const Title = styled(motion.h1)`
@@ -57,7 +57,6 @@ const AboutMe = () => {
       >
         Here's a brief introduction about who I am
       </Title>
-
       <SectionWrapper
         initial="hidden"
         whileInView="visible"
@@ -66,7 +65,6 @@ const AboutMe = () => {
       >
         <AboutMeSection />
       </SectionWrapper>
-
       <SectionWrapper
         initial="hidden"
         whileInView="visible"
@@ -75,7 +73,6 @@ const AboutMe = () => {
       >
         <SkilltypeSection />
       </SectionWrapper>
-
       <SectionWrapper
         initial="hidden"
         whileInView="visible"

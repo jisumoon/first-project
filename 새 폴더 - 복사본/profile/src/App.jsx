@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
-
 import { theme, GlobalStyles } from "./styles/Theme";
 import Modal from "./contents/Portfolio/Modal";
 import { Provider } from "react-redux";
 import store from "./store";
-// import Home from "./pages/Home";
+import Home from "./pages/Home";
 import AboutMe from "./pages/AboutMe";
 import Portfolio from "./pages/Portfolio";
 import Contact from "./pages/Contact";
+import Loading from "./components/Loading";
 
 // QueryClient 설정
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
     path: "/",
     element: (
       <>
-        {/* <Home /> */}
+        <Home />
         <AboutMe />
         <Portfolio />
         <Contact />
@@ -38,7 +38,7 @@ const App = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 7000); // 7초 후 로딩 화면 종료
+    const timer = setTimeout(() => setLoading(false), 5000); // 7초 후 로딩 화면 종료
     return () => clearTimeout(timer);
   }, []);
 
@@ -47,8 +47,8 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
           <GlobalStyles />
-          {/* {loading ? <LoadingScreen /> : <RouterProvider router={router} />} */}
-          <RouterProvider router={router} />
+          {loading ? <Loading /> : <RouterProvider router={router} />}
+          {/* <RouterProvider router={router} /> */}
         </ThemeProvider>
       </QueryClientProvider>
     </Provider>

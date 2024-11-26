@@ -1,43 +1,20 @@
 import React, { useEffect, useState, useRef } from "react";
 import styled, { keyframes } from "styled-components";
-import gsap from "gsap";
 import useRippleEffect from "../Hook/useRippleEffect";
 import RippleContainer from "../components/RippleContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faAngleDoubleDown,
-  faSeedling,
-} from "@fortawesome/free-solid-svg-icons";
-import useScrollAnimation from "../Hook/useScrollAnimation";
-import { faPagelines } from "@fortawesome/free-brands-svg-icons/faPagelines";
+import { faAngleDoubleDown } from "@fortawesome/free-solid-svg-icons";
 import Header from "../components/Header";
+import { setPage } from "../store/sectionSliceReducer";
 
+//Ani
 const floatingAnimation = keyframes`
   0%, 100% {
     transform: translateY(0);
   }
   50% {
     transform: translateY(-10px);
-  }
-`;
-
-const ScrollDownIcon = styled.div`
-  position: absolute;
-  bottom: 18%;
-  left: 35%;
-  width: 30%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  padding: 10px 2px;
-  font-size: 24px;
-  z-index: 100;
-  animation: ${floatingAnimation} 2s ease-in-out infinite;
-
-  @media (max-width: 768px) {
-    display: none;
   }
 `;
 
@@ -48,383 +25,250 @@ const AppWrapper = styled.div`
   background: ${(props) => props.theme.colors.primary};
 `;
 
-const IntroSection = styled.section`
-  position: fixed;
-  display: grid;
-  place-items: center;
-  height: 100vh;
-  width: 100%;
-  background: ${(props) => props.theme.colors.primary};
-  z-index: 5;
+const ScrollDownIcon = styled.div`
+  position: absolute;
+  bottom: 12%;
+  left: 45%;
+  width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  padding: 10px 2px;
+  font-size: 24px;
+  z-index: 100;
+  animation: ${floatingAnimation} 2s ease-in-out infinite;
 
-  .intro__title {
-    color: white;
-
-    font-size: 24px;
-    font-weight: bold;
-    letter-spacing: 1.2px;
-    text-align: center;
-    mix-blend-mode: difference;
-    z-index: 2;
-    transform: translateY(40px);
-    opacity: 0;
-    visibility: hidden;
-  }
-
-  .intro__background {
-    position: absolute;
-    top: 0;
-    background: white;
-    width: 50%;
-    height: 100%;
-    transform: scaleX(0);
-
-    &--left {
-      left: 0;
-      transform-origin: left center;
-    }
-
-    &--right {
-      left: 50%;
-      transform-origin: right center;
-    }
+  @media (max-width: 768px) {
+    display: none; /* 작은 화면에서는 숨기기 */
   }
 `;
 
 const Wrapper = styled.div`
+  width: 100%;
+  height: 100vh;
   position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+`;
+
+const TopSection = styled.div`
+  flex: 9;
+  display: flex;
   width: 100%;
-  height: 100vh;
+  align-items: center;
+  padding-left: 100px;
+  border-bottom: 1px solid ${(props) => props.theme.colors.mainbackgtound};
+
+  @media (max-width: 900px) {
+    padding-left: 30px;
+    gap: 50px;
+  }
+
+  @media (max-width: 768px) {
+    padding-left: 20px; /* 작은 화면에서는 왼쪽 패딩 줄이기 */
+    flex-direction: column; /* 세로로 배치 */
+  }
+
+  @media (max-width: 390px) {
+    padding-left: 0;
+  }
+
+  @media (max-width: 400px) {
+    padding-right: 10px;
+    gap: 20px;
+  }
 `;
 
-const MainTitle = styled.p`
-  font-size: 220px;
+const MainTitle = styled.div`
+  height: 100%;
+  flex: 1;
+  padding-top: 40px;
+  font-family: ${(props) => props.theme.fonts.four};
   color: ${(props) => props.theme.colors.mainbackgtound};
-  font-family: ${(props) => props.theme.fonts.third};
-`;
+  font-size: 70px;
+  font-weight: bold;
+  line-height: 1.2;
 
-const Overlay = styled.div``;
+  @media (max-width: 890px) {
+    font-size: 36px;
+  }
+
+  @media (max-width: 768px) {
+    text-align: center;
+    font-size: 40px;
+    padding-top: 20px;
+  }
+
+  @media (max-width: 400px) {
+    padding-top: 40px;
+  }
+
+  p {
+    padding-top: 10px;
+    font-size: 15px;
+    font-weight: lighter;
+    line-height: 1.6;
+    opacity: 0.8;
+
+    @media (max-width: 400px) {
+      font-size: 12px;
+    }
+  }
+`;
 
 const HeroSection = styled.section`
-  position: absolute;
-  z-index: 1;
-  top: 28%;
-  left: 38%;
-  opacity: 0.6;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Img = styled.div`
+  width: 520px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  @media (max-width: 900px) {
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    margin-bottom: 40px;
+  }
+
+  @media (max-width: 400px) {
+    flex: 2;
+  }
+
   img {
-    width: 360px;
-    height: 400px;
+    border: 4px solid ${(props) => props.theme.colors.mainbackgtound};
+    width: 70%;
+    height: auto;
+  }
+
+  @media (max-width: 860px) {
+    width: 100%;
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    width: 60%;
+    justify-content: center;
+  }
+
+  @media (max-width: 400px) {
+    width: 60%;
   }
 `;
 
 const BottomSection = styled.div`
-  margin-top: 400px;
-
+  width: 100%;
   text-align: center;
+  flex: 1;
+  display: flex;
+  padding: 0 80px;
 
-  p {
-    width: 600px;
-    font-size: 16px;
-    line-height: 1.4;
-    color: ${(props) => props.theme.colors.mainbackgtound};
+  @media (max-width: 900px) {
+    padding: 0;
   }
 `;
 
-// const SidebarLeft = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: flex-end;
-//   padding: 20px;
-//   color: rgba(244, 241, 222, 0.4);
+const Menu = styled.ul`
+  flex: 1;
+  border-left: 1px solid ${(props) => props.theme.colors.mainbackgtound};
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 16px;
+  gap: 20px;
 
-//   h1 {
-//     font-size: 16px;
-//     margin-bottom: 10px;
+  @media (max-width: 900px) {
+    font-size: 14px;
+  }
 
-//     @media (max-width: 1024px) {
-//       font-size: 14px;
-//     }
+  li {
+    cursor: pointer;
+    font-weight: bold;
+    letter-spacing: 4px;
+  }
 
-//     @media (max-width: 768px) {
-//       font-size: 14px;
-//     }
-//   }
+  @media (max-width: 768px) {
+    flex-direction: column; /* 작은 화면에서는 세로로 배치 */
+    border-left: none;
+    gap: 10px;
+    font-size: 14px;
+  }
 
-//   p {
-//     font-size: 14px;
-//     line-height: 1.5;
+  @media (max-width: 600px) {
+    display: none;
+  }
+`;
 
-//     @media (max-width: 1024px) {
-//       font-size: 14px;
-//     }
+const Info = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 16px;
+  letter-spacing: 2px;
 
-//     @media (max-width: 768px) {
-//       font-size: 12px;
-//     }
-//     @media (max-width: 400px) {
-//       width: 100%;
-//     }
-//   }
-// `;
-
-// const SidebarRight = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   color: #fff;
-
-//   @media (max-width: 400px) {
-//     justify-content: center;
-//     align-items: center;
-//   }
-//   @media (max-width: 390px) {
-//     width: 100%;
-//   }
-
-//   ul {
-//     display: flex;
-//     flex-direction: column;
-//     gap: 20px;
-
-//     @media (max-width: 1280px) {
-//     }
-
-//     @media (max-width: 1240px) {
-//     }
-
-//     @media (max-width: 768px) {
-//       flex-direction: row;
-//       justify-content: center;
-//       align-items: center;
-//       margin-bottom: 40px;
-//     }
-
-//     @media (max-width: 400px) {
-//       width: 100%;
-//       padding: 0 10px;
-//       gap: 10px;
-//     }
-//   }
-
-//   li {
-//     p {
-//       color: #ddd;
-//       font-size: 14px;
-//       font-weight: 300;
-
-//       @media (max-width: 1024px) {
-//         font-size: 12px;
-//       }
-
-//       @media (max-width: 768px) {
-//         display: none;
-//       }
-//     }
-//   }
-// `;
-
-// const Btn = styled.button`
-//   width: 200px;
-//   border: none;
-//   margin-bottom: 6px;
-//   background: none;
-//   color: #fff;
-//   font-size: 22px;
-//   font-weight: 400;
-//   cursor: pointer;
-//   position: relative;
-//   overflow: hidden;
-//   text-align: left;
-
-//   span {
-//     position: relative;
-//     display: inline-block;
-//     font-size: 20px;
-//     font-weight: bold;
-//     cursor: pointer;
-//     background: linear-gradient(90deg, #e9dd8f 50%, #fff 50%);
-//     background-clip: text;
-//     -webkit-background-clip: text;
-//     color: transparent;
-//     background-size: 200% 100%;
-//     background-position: 100% 0;
-//     transition: background-position 0.4s ease;
-//   }
-
-//   &:hover span {
-//     background-position: 0 0;
-//   }
-
-//   @media (max-width: 1024px) {
-//     font-size: 18px;
-//     width: 180px;
-
-//     span {
-//       font-size: 18px;
-//     }
-//   }
-//   @media (max-width: 390px) {
-//     width: 160px;
-//   }
-
-//   @media (max-width: 768px) {
-//     width: 140px;
-//     text-align: center;
-//     span {
-//       font-size: 16px;
-//     }
-//   }
-//   @media (max-width: 400px) {
-//     width: 120px;
-//     text-align: center;
-//     span {
-//       font-size: 14px;
-//     }
-//   }
-// `;
+  @media (max-width: 900px) {
+    font-size: 14px;
+    justify-content: center;
+  }
+`;
 
 const Home = () => {
   const { ripples, containerRef } = useRippleEffect();
   const [animationComplete, setAnimationComplete] = useState(false);
-  const [disableScroll, setDisableScroll] = useState(true); // 초기 스크롤 비활성화
-  const introSeen = useSelector((state) => state.section.introSeen);
-  const currentSection = useSelector((state) => state.section.currentSection);
-  const imgRef = useRef(null);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const timer = setTimeout(() => setDisableScroll(false), 5000);
-    return () => clearTimeout(timer);
-  }, []);
+  // 포트폴리오로 이동
+  const scrollToPortfolio = () => {
+    dispatch(setPage(3));
+  };
 
-  useEffect(() => {
-    document.body.style.overflow = disableScroll ? "hidden" : "auto";
-    document.body.style.overflowX = "hidden"; // X 스크롤 항상 숨김
-    return () => {
-      document.body.style.overflow = "auto"; // Y 스크롤 활성화
-      document.body.style.overflowX = "hidden"; // X 스크롤은 유지
-    };
-  }, [disableScroll]);
-
-  const scrollToPortfolio = () => dispatch(setPage(2)); // Redux  페이지 이동 처리
-
+  // Notion으로 이동
   const goToNotion = () => {
     window.open("https://www.notion.so/13336341b0a7800e9a55d63360689f79?pvs=4");
   };
 
-  useEffect(() => {
-    const isMobile = window.innerWidth <= 768;
-    const animationOptions = { ease: "expo.inOut" };
-
-    const introAnimation = () => {
-      const tl = gsap.timeline({
-        defaults: { ease: animationOptions.ease, duration: 1 },
-      });
-
-      tl.to(".intro__title", { duration: 1.5, y: 0, autoAlpha: 1, delay: 0.5 })
-        .to(".intro__background--left, .intro__background--right", {
-          scaleX: 1,
-        })
-        .to(".intro__background--left, .intro__background--right", {
-          scaleY: 0,
-          transformOrigin: "top center",
-        })
-        .to(
-          ".intro__title",
-          { duration: 1.5, y: isMobile ? -30 : -60, autoAlpha: 0 },
-          "-=0.6"
-        )
-        .to(".intro", { y: "-100%" }, "-=0.5");
-
-      return tl;
-    };
-
-    const mainAnimation = () => {
-      const tl = gsap.timeline({
-        defaults: { duration: 1, ease: "power3.out" },
-      });
-
-      tl.from(".SidebarLeft", { x: isMobile ? -100 : -200, opacity: 0 }, 0)
-        .from(".SidebarRight", { x: isMobile ? 100 : 200, opacity: 0 }, 0)
-        .from(
-          [".seed_img", ".Main_title"],
-          { opacity: 0, duration: 1 },
-          "-=0.5"
-        );
-
-      return tl;
-    };
-
-    const master = gsap.timeline({
-      paused: false,
-      delay: 0.2,
-      onComplete: () => setAnimationComplete(true),
-    });
-
-    master.add(introAnimation()).add(mainAnimation(), "-=0.5");
-  }, []);
-
   return (
-    <AppWrapper $disableScroll={disableScroll}>
-      <IntroSection className="intro">
-        <h2 className="intro__title">
-          Planting My First Code <FontAwesomeIcon icon={faPagelines} />
-        </h2>
-        <div className="intro__background intro__background--left"></div>
-        <div className="intro__background intro__background--right"></div>
-      </IntroSection>
+    <AppWrapper>
       <RippleContainer ref={containerRef} ripples={ripples} />
-
       <Wrapper>
         <Header />
-        <MainTitle>PORTOFOLIO</MainTitle>
-        <HeroSection>
-          <img
-            className="home_img"
-            src="/img/seed.jpg"
-            alt="seed"
-            style={{ opacity: 1 }}
-          />
-        </HeroSection>
+        <TopSection>
+          <MainTitle>
+            FRONTEND
+            <br /> DEVELOPER
+            <p>
+              Starting my journey as a frontend developer, I’m planting <br />
+              lines of code like seeds in a forest, nurturing them to grow into
+              <br />
+              impactful solutions.
+            </p>
+          </MainTitle>
+          <HeroSection>
+            <Img>
+              <img className="contact_img" src="/img/contact.jpg" alt="main" />
+            </Img>
+          </HeroSection>
+        </TopSection>
         <BottomSection>
-          <p>
-            Like a seed sprouting into a mighty tree, my passion for coding
-            grows deeper with every line I write, nurtured by challenges,
-            curiosity, and endless possibilities.
-          </p>
+          <Info>&copy; 2024 Moon Ji Su Portfolio. </Info>
+          <Menu>
+            <li onClick={scrollToPortfolio}>PROJECT</li>
+            <li onClick={goToNotion}>NOTION</li>
+            <li>FIGMA</li>
+          </Menu>
         </BottomSection>
-
-        {/* <Overlay className="Main_title">
-          <h2>PORTFOLIO</h2>
-          <p>Growth, Like a Forest by ji su Moon</p>
-        </Overlay> */}
-
-        {/* 
-        <SidebarRight className="SidebarRight">
-          <ul>
-            <li>
-              <Btn onClick={scrollToPortfolio}>
-                <span>Explore Projects</span>
-              </Btn>
-              <p>작업한 프로젝트들을 한눈에 확인할 수 있는 공간입니다.</p>
-            </li>
-            <li>
-              <Btn onClick={goToNotion}>
-                <span>Notion</span>
-              </Btn>
-              <p>기술과 아이디어를 정리한 공간입니다.</p>
-            </li>
-            <li>
-              <Btn>
-                <span>Figma</span>
-              </Btn>
-              <p>디자인과 기획을 정리한 공간입니다.</p>
-            </li>
-          </ul>
-        </SidebarRight> */}
       </Wrapper>
       {animationComplete && (
         <ScrollDownIcon>

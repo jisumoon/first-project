@@ -32,9 +32,13 @@ const LoopContainer = styled.div`
   font-size: 58px;
   color: ${(props) => props.theme.colors.primary};
   padding: 30px 0;
+  font-family: ${(props) => props.theme.fonts.four};
+
   letter-spacing: 2px;
   position: relative;
   gap: 5px;
+  border-top: 4px solid ${(props) => props.theme.colors.primary};
+  border-bottom: 4px solid ${(props) => props.theme.colors.primary};
   @media (max-width: 860px) {
     font-size: 50px;
   }
@@ -50,6 +54,7 @@ const ImageSection = styled.section`
   overflow: hidden;
   display: flex;
   min-height: 75vh;
+  margin-top: 60px;
 `;
 
 const ImagesWrapper = styled.div`
@@ -66,7 +71,7 @@ const ImageContainer = styled.div`
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  width: 300px;
+  width: 340px;
   min-width: 240px;
   height: 440px;
   min-height: 300px;
@@ -135,48 +140,51 @@ const OverlayButton = styled.button`
   }
 `;
 
-// LoopingElement class
+// LoopingElement 클래스: 반복 애니메이션 구현
 class LoopingElement {
   constructor(element, initialTranslation, speed) {
-    this.element = element;
-    this.currentTranslation = initialTranslation;
-    this.speed = speed;
-    this.direction = true;
-    this.metric = 100;
+    this.element = element; // 대상 요소
+    this.currentTranslation = initialTranslation; // 현재 위치
+    this.speed = speed; // 속도
+    this.direction = true; // 스크롤 방향 // 아래로
+    this.metric = 104; // 이동 기준값 // 반복기준 //기준값
 
     this.lerp = {
-      current: this.currentTranslation,
-      target: this.currentTranslation,
+      current: this.currentTranslation, //현재 위치
+      target: this.currentTranslation, // 목표 위치
       ease: 0.2,
     };
 
-    this.init();
+    this.init(); // 초기화 실행 // 스크롤 방향에 따라서 lerpltarget 업데이트
   }
 
   init() {
-    window.addEventListener("scroll", () => this.handleScroll());
-    this.animate();
+    window.addEventListener("scroll", () => this.handleScroll()); // 스크롤 이벤트 추가
+    this.animate(); // 애니메이션 실행
   }
 
   handleScroll() {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
-
     if (scrollTop > this.scrollTop) {
       this.direction = true;
-      this.lerp.target += this.speed * 5;
+      this.lerp.target += this.speed * 5; // 아래로 스크롤 시 이동
     } else {
       this.direction = false;
-      this.lerp.target -= this.speed * 5;
+      this.lerp.target -= this.speed * 5; // 위로 스크롤 시 이동
     }
-
-    this.scrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    this.scrollTop = scrollTop <= 0 ? 0 : scrollTop; // 스크롤 위치 업데이트
   }
-
+  // 부드러운 이동 계산
+  //두 값 사이의 중간 값을 계산하여 부드럽게 전환
   lerpFunc(current, target, ease) {
     return current * (1 - ease) + target * ease;
   }
 
   animate() {
+    // 애니메이션 반복
+    // 방향에 따라 lerp.target 값을 증가 또는 감소
+    // 이동이 metric 값 초과하면 반복 되도록
+    //lerf : 현재 위치(lerp.current) & 목표위치(lerp.target) 차이 계산
     if (this.direction) {
       this.lerp.target += this.speed;
       if (this.lerp.target > this.metric) {
@@ -186,7 +194,7 @@ class LoopingElement {
     } else {
       this.lerp.target -= this.speed;
       if (this.lerp.target < -this.metric) {
-        this.lerp.current += this.metric * 2;
+        this.lerp.current += this.metric * 2; //루프반복
         this.lerp.target += this.metric * 2;
       }
     }
@@ -196,23 +204,19 @@ class LoopingElement {
       this.lerp.target,
       this.lerp.ease
     );
-    this.element.style.transform = `translateX(${this.lerp.current}%)`;
+    this.element.style.transform = `translateX(${this.lerp.current}%)`; // 위치 이동
 
-    requestAnimationFrame(() => this.animate());
+    requestAnimationFrame(() => this.animate()); // 다음 프레임 호출
   }
 }
 
-// Main component
 const TeamProject = ({ item, onOpenModal = () => {} }) => {
   useEffect(() => {
     const loopItems = document.querySelectorAll(".loop-item");
     const imageWrappers = document.querySelectorAll(".images-wrapper");
 
-    // Initialize LoopingElement for text items
     new LoopingElement(loopItems[0], 0, 0.1);
     new LoopingElement(loopItems[1], -200, 0.1);
-
-    // Initialize LoopingElement for image wrapper
     new LoopingElement(imageWrappers[0], 0, 0.1);
   }, []);
 

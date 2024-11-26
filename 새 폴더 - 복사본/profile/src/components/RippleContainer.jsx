@@ -1,26 +1,13 @@
-import React from "react";
-import useRippleEffect from "../Hook/useRippleEffect";
-import RippleEffect from "./RippleEffect";
+import React, { forwardRef } from "react";
 
-const RippleContainer = () => {
-  const { ripples, containerRef } = useRippleEffect();
-
+const RippleEffect = forwardRef(({ ripples }, ref) => {
   return (
-    <div
-      ref={containerRef}
-      style={{
-        position: "absolute", // 포지셔닝 조정
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        overflow: "hidden", // 스크롤 방지
-        pointerEvents: "none", // 사용자 이벤트 무시
-      }}
-    >
-      <RippleEffect ripples={ripples} />
+    <div ref={ref}>
+      {ripples.map((ripple, index) => (
+        <div key={index} style={{ ...ripple.style }}></div>
+      ))}
     </div>
   );
-};
+});
 
-export default RippleContainer;
+export default RippleEffect;

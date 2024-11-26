@@ -1,4 +1,6 @@
+import { faPagelines } from "@fortawesome/free-brands-svg-icons";
 import { faBorderAll } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import styled from "styled-components";
 
@@ -9,7 +11,7 @@ const HeaderSection = styled.div`
 
   ul {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     font-size: 18px;
   }
 `;
@@ -17,7 +19,6 @@ const Header = () => {
   return (
     <HeaderSection>
       <ul>
-        <li>X PORTOFOLIO</li>
         <li>MOON JI SU</li>
       </ul>
     </HeaderSection>

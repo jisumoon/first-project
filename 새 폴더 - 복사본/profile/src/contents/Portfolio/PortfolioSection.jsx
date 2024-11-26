@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -67,9 +67,9 @@ const Btn = styled.button`
   padding: 10px 30px;
   border: none;
   font-size: 15px;
-  color: ${(props) => (props.isActive ? "#fff" : props.theme.colors.primary)};
+  color: ${(props) => (props.$isActive ? "#fff" : props.theme.colors.primary)};
   background: ${(props) =>
-    props.isActive ? props.theme.colors.primary : "#fff"};
+    props.$isActive ? props.theme.colors.primary : "#fff"};
   font-weight: bold;
   cursor: pointer;
   transition: background 0.3s, transform 0.3s ease, box-shadow 0.3s ease;
@@ -134,7 +134,7 @@ const PortWrap = styled.div`
   @media (max-width: 768px) {
     padding-top: 20px;
     gap: 10px;
-    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
     overflow-x: auto;
     overflow-y: hidden;
   }
@@ -157,12 +157,18 @@ const PortItem = styled.article`
 `;
 
 const NoResultsMessage = styled.div`
-  border: 1px solid #f00;
-  width: 100%;
-  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  font-size: 18px;
   min-height: 150px;
-  margin-top: 40px;
+  position: absolute; // 부모 요소 기준으로 고정
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); // 화면 중앙에 위치
+  width: 100%;
+  height: auto;
 `;
 
 // Portfolio Section Component
@@ -175,37 +181,51 @@ const PortfolioSection = ({ projects, onOpenModal }) => {
 
   const handleFilterChange = (category) => {
     setFilter(category);
-    setActiveFilter(category); // 활성화 상태 업데이트
+    setActiveFilter(category);
+    setSearchQuery(""); // 필터 변경 시 검색어 초기화
   };
 
   const handleSearch = (e) => setSearchQuery(e.target.value.toLowerCase());
 
-  const filteredProjects = projects.filter(
-    (project) =>
-      (filter === "ALL" || project.category === filter) &&
-      (project.title_kr.toLowerCase().includes(searchQuery) ||
-        project.description.toLowerCase().includes(searchQuery))
-  );
+  //재계방지
+  const filteredProjects = useMemo(() => {
+    return projects.filter(
+      (project) =>
+        (filter === "ALL" || project.category === filter) &&
+        (project.title_kr?.toLowerCase().includes(searchQuery) ||
+          project.description?.toLowerCase().includes(searchQuery))
+    );
+  }, [projects, filter, searchQuery]);
 
   useEffect(() => {
     const isMobile = window.innerWidth <= 768;
 
-    if (!isMobile) {
+    if (!isMobile && portWrapRef.current) {
       const horSection = portWrapRef.current;
 
       const sectionWidth = horSection.scrollWidth - window.innerWidth;
+      // 섹션의 전체 가로 길이에서 화면 너비를 짼 값
+      // 섹션의 수평 스크롤 길이
 
-      gsap.to(horSection, {
-        x: -sectionWidth,
+      const animation = gsap.to(horSection, {
+        x: -sectionWidth, // 왼쪽 이동
         ease: "none",
         scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: () => `+=${sectionWidth}`,
-          scrub: 1,
-          pin: true,
+          trigger: sectionRef.current, //스크롤 트리거
+          start: "top top", // 스크롤 시작, 섹션 상단과 화면 상단
+          end: () => `+=${sectionWidth}`, //스크롤 종료
+          scrub: 0.5, // 더 부드럽게 동작
+          pin: true, // 섹션 화면에 고정
+          anticipatePin: 1,
         },
       });
+
+      return () => {
+        if (animation.scrollTrigger) {
+          animation.scrollTrigger.kill();
+        }
+        animation.kill(); // 애니메이션 제거
+      };
     }
   }, [projects]);
 
@@ -216,19 +236,19 @@ const PortfolioSection = ({ projects, onOpenModal }) => {
         <Controls>
           <ButtonGroup>
             <Btn
-              isActive={activeFilter === "ALL"}
+              $isActive={activeFilter === "ALL"}
               onClick={() => handleFilterChange("ALL")}
             >
               ALL
             </Btn>
             <Btn
-              isActive={activeFilter === "Team"}
+              $isActive={activeFilter === "Team"}
               onClick={() => handleFilterChange("Team")}
             >
               TEAM
             </Btn>
             <Btn
-              isActive={activeFilter === "Single"}
+              $isActive={activeFilter === "Single"}
               onClick={() => handleFilterChange("Single")}
             >
               SINGLE
@@ -239,21 +259,27 @@ const PortfolioSection = ({ projects, onOpenModal }) => {
               type="text"
               placeholder="검색어를 입력해주세요"
               onChange={handleSearch}
+              value={searchQuery}
             />
             <SearchIcon icon={faSearch} />
           </SearchBarWrapper>
         </Controls>
-        <PortWrap ref={portWrapRef} isEmpty={filteredProjects.length === 0}>
-          {filteredProjects.length > 0 ? (
-            filteredProjects.map((item) => (
-              <PortItem key={item.id} className="port__item">
-                <PortfolioBox item={item} onClick={() => onOpenModal(item)} />
-              </PortItem>
-            ))
-          ) : (
+        <>
+          <PortWrap ref={portWrapRef}>
+            {filteredProjects.length > 0 ? (
+              filteredProjects.map((item) => (
+                <PortItem key={item.id} className="port__item">
+                  <PortfolioBox item={item} onClick={() => onOpenModal(item)} />
+                </PortItem>
+              ))
+            ) : (
+              <div /> // 비어 있어도 렌더링 유지
+            )}
+          </PortWrap>
+          {filteredProjects.length === 0 && (
             <NoResultsMessage>🌳 검색 결과가 없습니다 🌳</NoResultsMessage>
           )}
-        </PortWrap>
+        </>
       </PortInner>
     </PortSection>
   );

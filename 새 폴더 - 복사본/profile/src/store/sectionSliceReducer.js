@@ -1,23 +1,19 @@
-// sectionSlice.js
+// store/sectionSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  currentSection: "home",
-  introSeen: false,
+  currentPage: 1,
 };
 
 const sectionSlice = createSlice({
   name: "section",
   initialState,
   reducers: {
-    setCurrentSection: (state, action) => {
-      state.currentSection = action.payload;
-    },
-    markIntroSeen: (state) => {
-      state.introSeen = true;
+    setPage: (state, action) => {
+      state.currentPage = action.payload;
     },
   },
 });
 
-export const { setCurrentSection, markIntroSeen } = sectionSlice.actions;
+export const { setPage } = sectionSlice.actions;
 export default sectionSlice.reducer;

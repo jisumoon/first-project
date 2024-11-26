@@ -118,7 +118,6 @@ const SkillItem = styled.div`
 const SkillImg = styled.img`
   width: 50px;
   height: 50px;
-  border-radius: 8px;
   padding: 8px;
   transition: transform 0.2s ease;
 

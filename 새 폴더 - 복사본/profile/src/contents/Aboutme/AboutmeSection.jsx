@@ -76,7 +76,7 @@ const InfoTitle = styled.h2`
 
 const Info = styled.h3`
   max-width: 560px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1.6;
   color: ${(props) => props.theme.colors.info};
@@ -126,11 +126,11 @@ const AboutMeSection = () => {
           숲을 가꾸는 <span>프론트엔드</span>
         </InfoTitle>
         <Info>
-          4년간의 치료사 경험을 통해 사람들의 제약과 문제를 이해하고,
-          <br /> 해결책을 설계하는 능력을 길렀습니다. <br />
-          블로그를 통해 학습한 내용을 정리하고 공유하며, 10+의 포트폴리오를
-          제작했습니다. 또한, 팀 스터디 활동을 통해 사용자 중심의 웹 환경 구축에
-          대한 경험과 이해를 쌓아가고 있습니다.
+          4년간 치료사로 활동하며 문제 해결과 사용자 중심 사고를 키웠고,
+          <br /> 이를 바탕으로 프론트엔드 개발에 도전했습니다. <br /> 블로그를
+          통해 학습 내용을 정리하며 포트폴리오를 제작했고, 팀 스터디를 통해 협업
+          경험과 사용자 중심 웹 환경 구축에 대한 이해를 쌓았습니다. 새로운
+          분야에서도 꾸준히 성장하며 실력을 다져가고 있습니다.
         </Info>
       </InfoSection>
 

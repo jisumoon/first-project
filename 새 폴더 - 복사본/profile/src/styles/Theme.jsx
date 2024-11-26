@@ -13,8 +13,8 @@ const theme = {
   fonts: {
     primary: "Pretendard-Regular, serif",
     secondary: "Dovemayo_gothic, sans-serif",
-    third: "Bebas Neue, sans-serif",
-    four: "iceJaram-Rg",
+    third: "iceJaram-Rg",
+    four: "NEXEN_TIRE_Bold",
   },
 };
 
@@ -36,7 +36,7 @@ const GlobalStyles = createGlobalStyle`
     font-style: normal;
   }
 
-  @import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Bebas+Neue&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans+KR:wght@100..900&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Parkinsans:wght@300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+ 
   
 
   @font-face {
@@ -44,6 +44,14 @@ const GlobalStyles = createGlobalStyle`
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/iceJaram-Rg.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
+
+
+    @font-face {
+    font-family: 'NEXEN_TIRE_Bold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/NEXEN_TIRE_Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 }
   
   * {
