@@ -1,12 +1,11 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import styled, { keyframes } from "styled-components";
 import useRippleEffect from "../Hook/useRippleEffect";
-import RippleContainer from "../components/RippleContainer";
-import { useDispatch, useSelector } from "react-redux";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDoubleDown } from "@fortawesome/free-solid-svg-icons";
+import RippleEffectComponent from "../components/RippleEffectContainer";
+import { useDispatch } from "react-redux";
 import Header from "../components/Header";
 import { setPage } from "../store/sectionSliceReducer";
+import { motion } from "framer-motion";
 
 //Ani
 const floatingAnimation = keyframes`
@@ -18,11 +17,20 @@ const floatingAnimation = keyframes`
   }
 `;
 
+const fracture = keyframes`
+  0%{
+   trnasform : translate(0,-2px);
+  }
+  50%{
+    transform : translate(-20px,-2px);
+  }
+`;
+
 const AppWrapper = styled.div`
   width: 100%;
-  text-rendering: optimizeLegibility;
   color: white;
   background: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.mainbackgtound};
 `;
 
 const ScrollDownIcon = styled.div`
@@ -52,6 +60,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 2;
 `;
 
 const TopSection = styled.div`
@@ -68,8 +77,8 @@ const TopSection = styled.div`
   }
 
   @media (max-width: 768px) {
-    padding-left: 20px; /* 작은 화면에서는 왼쪽 패딩 줄이기 */
-    flex-direction: column; /* 세로로 배치 */
+    padding-left: 20px;
+    flex-direction: column;
   }
 
   @media (max-width: 390px) {
@@ -82,7 +91,9 @@ const TopSection = styled.div`
   }
 `;
 
-const MainTitle = styled.div`
+const MainTitle = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
   height: 100%;
   flex: 1;
   padding-top: 40px;
@@ -107,11 +118,12 @@ const MainTitle = styled.div`
   }
 
   p {
-    padding-top: 10px;
+    padding-top: 14px;
     font-size: 15px;
     font-weight: lighter;
     line-height: 1.6;
     opacity: 0.8;
+    color: #faf4e6;
 
     @media (max-width: 400px) {
       font-size: 12px;
@@ -128,22 +140,21 @@ const HeroSection = styled.section`
   align-items: center;
 `;
 
-const Img = styled.div`
-  width: 520px;
+const Img = styled(motion.div)`
+  width: 540px;
+  min-width: 400px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  z-index: 2;
 
   @media (max-width: 900px) {
-    justify-content: center;
   }
 
   @media (max-width: 768px) {
-    margin-bottom: 40px;
   }
 
   @media (max-width: 400px) {
-    flex: 2;
   }
 
   img {
@@ -187,19 +198,34 @@ const Menu = styled.ul`
   align-items: center;
   font-size: 16px;
   gap: 20px;
+  cursor: pointer;
 
   @media (max-width: 900px) {
     font-size: 14px;
   }
 
   li {
-    cursor: pointer;
+    position: relative;
     font-weight: bold;
     letter-spacing: 4px;
+    cursor: pointer;
+
+    &:after {
+      content: "→";
+      position: absolute;
+      right: 0;
+      opacity: 0;
+      transition: opacity 0.3s ease, right 0.3s ease; /* 부드럽게 나타나도록 전환 효과 */
+    }
+
+    &:hover:after {
+      opacity: 1;
+      right: -24%;
+    }
   }
 
   @media (max-width: 768px) {
-    flex-direction: column; /* 작은 화면에서는 세로로 배치 */
+    flex-direction: column;
     border-left: none;
     gap: 10px;
     font-size: 14px;
@@ -207,6 +233,36 @@ const Menu = styled.ul`
 
   @media (max-width: 600px) {
     display: none;
+  }
+`;
+
+const Preview = styled.div`
+  position: absolute;
+  width: 200px;
+  height: 120px;
+
+  background: #000;
+  z-index: 10;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+  bottom: ${({ bottom }) => bottom || "auto"};
+  top: ${({ top }) => top || "auto"};
+  left: ${({ left }) => left || "auto"};
+  right: ${({ right }) => right || "auto"};
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  img {
+    border: 4px solid #fff;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 `;
 
@@ -224,15 +280,26 @@ const Info = styled.div`
   }
 `;
 
+//variants
+
+const textVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.8, ease: "easeInOut" } },
+};
+
+const imgVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { duration: 0.8, delay: 0.5, ease: "easeInOut" },
+  },
+};
+
 const Home = () => {
-  const { ripples, containerRef } = useRippleEffect();
+  const containerRef = useRef(null);
   const [animationComplete, setAnimationComplete] = useState(false);
   const dispatch = useDispatch();
-
-  // 포트폴리오로 이동
-  const scrollToPortfolio = () => {
-    dispatch(setPage(3));
-  };
+  const [activePreview, setActivePreview] = useState(null); //preview
 
   // Notion으로 이동
   const goToNotion = () => {
@@ -241,13 +308,13 @@ const Home = () => {
 
   return (
     <AppWrapper>
-      <RippleContainer ref={containerRef} ripples={ripples} />
+      <RippleEffectComponent ref={containerRef} />
       <Wrapper>
         <Header />
         <TopSection>
-          <MainTitle>
-            FRONTEND
-            <br /> DEVELOPER
+          <MainTitle initial="hidden" animate="visible" variants={textVariants}>
+            <span>FRONTEND</span>
+            <span>DEVELOPER</span>
             <p>
               Starting my journey as a frontend developer, I’m planting <br />
               lines of code like seeds in a forest, nurturing them to grow into
@@ -256,7 +323,7 @@ const Home = () => {
             </p>
           </MainTitle>
           <HeroSection>
-            <Img>
+            <Img initial="hidden" animate="visible" variants={imgVariants}>
               <img className="contact_img" src="/img/contact.jpg" alt="main" />
             </Img>
           </HeroSection>
@@ -264,9 +331,52 @@ const Home = () => {
         <BottomSection>
           <Info>&copy; 2024 Moon Ji Su Portfolio. </Info>
           <Menu>
-            <li onClick={scrollToPortfolio}>PROJECT</li>
-            <li onClick={goToNotion}>NOTION</li>
-            <li>FIGMA</li>
+            <li
+              onMouseEnter={() => setActivePreview("github")}
+              onMouseLeave={() => setActivePreview(null)}
+            >
+              GITHUB
+              <Preview
+                className={`preview ${
+                  activePreview === "github" ? "visible" : ""
+                }`}
+                bottom="140%"
+                left="-70%"
+              >
+                <img src="/img/github.gif" alt="GitHub Preview" />
+              </Preview>
+            </li>
+            <li
+              onMouseEnter={() => setActivePreview("notion")}
+              onMouseLeave={() => setActivePreview(null)}
+              onClick={goToNotion}
+            >
+              NOTION
+              <Preview
+                className={`preview ${
+                  activePreview === "notion" ? "visible" : ""
+                }`}
+                bottom="140%"
+                left="-70%"
+              >
+                <img src="/img/notion.gif" alt="Notion Preview" />
+              </Preview>
+            </li>
+            <li
+              onMouseEnter={() => setActivePreview("figma")}
+              onMouseLeave={() => setActivePreview(null)}
+            >
+              FIGMA
+              <Preview
+                className={`preview ${
+                  activePreview === "figma" ? "visible" : ""
+                }`}
+                bottom="140%"
+                left="-90%"
+              >
+                <img src="/img/figma.gif" alt="Figma Preview" />
+              </Preview>
+            </li>
           </Menu>
         </BottomSection>
       </Wrapper>

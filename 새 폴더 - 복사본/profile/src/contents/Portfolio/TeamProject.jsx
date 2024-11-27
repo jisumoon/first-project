@@ -33,7 +33,6 @@ const LoopContainer = styled.div`
   color: ${(props) => props.theme.colors.primary};
   padding: 30px 0;
   font-family: ${(props) => props.theme.fonts.four};
-
   letter-spacing: 2px;
   position: relative;
   gap: 5px;
@@ -194,7 +193,7 @@ class LoopingElement {
     } else {
       this.lerp.target -= this.speed;
       if (this.lerp.target < -this.metric) {
-        this.lerp.current += this.metric * 2; //루프반복
+        this.lerp.current += this.metric * 2;
         this.lerp.target += this.metric * 2;
       }
     }
@@ -229,7 +228,7 @@ const TeamProject = ({ item, onOpenModal = () => {} }) => {
             Through Life's Forest <FontAwesomeIcon icon={faPagelines} />
           </LoopItem>
           <LoopItem className="loop-item">
-            Roots and Branches: Growing Through Life's Forest{" "}
+            Roots and Branches: Growing Through Life's Forest
             <FontAwesomeIcon icon={faPagelines} />
           </LoopItem>
         </LoopContainer>

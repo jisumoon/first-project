@@ -1,61 +1,35 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useState, useEffect } from "react";
 
-const useRippleEffect = () => {
+const useRippleEffect = (containerRef) => {
   const [ripples, setRipples] = useState([]);
-  const containerRef = useRef(null);
-  const rippleTimeouts = useRef([]);
-
-  const updateRipplePosition = useCallback(() => {
-    const containerWidth =
-      containerRef.current?.offsetWidth || window.innerWidth;
-    const containerHeight =
-      containerRef.current?.offsetHeight || window.innerHeight;
-
-    const randomSize = Math.random() * 50 + 30;
-    const maxX = containerWidth - randomSize;
-    const maxY = containerHeight - randomSize;
-
-    const randomX = Math.random() * maxX;
-    const randomY = Math.random() * maxY;
-
-    return { x: randomX, y: randomY, size: randomSize };
-  }, []);
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      const { x, y, size } = updateRipplePosition();
+    if (!containerRef || !containerRef.current) return;
 
-      const newRipple = {
-        id: Date.now(),
-        x,
-        y,
-        size,
-      };
+    const generateRipple = () => {
+      const rect = containerRef.current.getBoundingClientRect();
+      const size = Math.random() * (100 - 30) + 30;
+      const x = Math.random() * rect.width - size / 2; // 랜덤 위치
+      const y = Math.random() * rect.height - size / 2; // 랜덤 위치
 
-      // 배열 크기를 미리 제한하여 메모리 최적화
-      setRipples((prev) => {
-        const nextRipples = [...prev, newRipple];
-        if (nextRipples.length > 10) nextRipples.shift(); // 배열 길이 제한
-        return nextRipples;
-      });
+      const id = Date.now();
+      setRipples((prev) => [...prev, { id, x, y, size }]);
 
-      const timeout = setTimeout(() => {
-        setRipples((prev) =>
-          prev.filter((ripple) => ripple.id !== newRipple.id)
-        );
-      }, 4000);
+      // 일정 시간 후 리플 제거
+      setTimeout(() => {
+        setRipples((prev) => prev.filter((ripple) => ripple.id !== id));
+      }, 1200);
+    };
 
-      rippleTimeouts.current.push(timeout);
-    }, 800);
+    // 일정 간격으로 리플 생성
+    const intervalId = setInterval(generateRipple, 500); // 0.5초마다 생성
 
     return () => {
       clearInterval(intervalId);
-      rippleTimeouts.current.forEach((timeout) => clearTimeout(timeout));
-      rippleTimeouts.current = [];
     };
-  }, [updateRipplePosition]);
+  }, [containerRef]);
 
-  return { ripples, containerRef };
+  return { ripples };
 };
 
 export default useRippleEffect;

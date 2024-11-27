@@ -6,13 +6,12 @@ import styled from "styled-components";
 
 const HeaderSection = styled.div`
   width: 100%;
-  padding: 20px 40px;
-  padding-bottom: 0;
+  padding: 20px;
 
   ul {
     display: flex;
     justify-content: flex-end;
-    font-size: 18px;
+    font-size: 16px;
   }
 `;
 const Header = () => {

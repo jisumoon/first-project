@@ -196,8 +196,7 @@ const Pager = styled.div`
 const Dot = styled.div`
   width: ${(props) => (props.active ? "20px" : "8px")};
   height: 8px;
-  background-color: ${(props) =>
-    props.active ? "rgba(47, 79, 79, 0.6)" : "#ddd"};
+  background-color: ${(props) => (props.active ? "rgb(29, 83, 62)" : "#ddd")};
   border-radius: ${(props) => (props.active ? "15px" : "50%")};
   transition: all 0.3s ease;
   cursor: pointer;

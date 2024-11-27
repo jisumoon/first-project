@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import useRippleEffect from "../Hook/useRippleEffect";
+import RippleEffectComponent from "../components/RippleEffectContainer";
 import { faBlogger, faGithub } from "@fortawesome/free-brands-svg-icons";
-import {
-  faCircle,
-  faEnvelope,
-  faPhone,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import RotatingLink from "../components/RotatingLink";
 import { ToastContainer, toast } from "react-toastify";
@@ -19,10 +17,11 @@ const ContactContainer = styled.div`
   justify-content: center;
   align-items: center;
   background: ${(props) => props.theme.colors.primary};
+  font-family: ${(props) => props.theme.fonts.third};
 `;
 
 const Contain = styled.div`
-  width: 80%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,31 +32,10 @@ const Contain = styled.div`
   }
 `;
 
-const LeftSection = styled.div`
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 40px;
-`;
-
-const Img = styled.div`
-  width: 340px;
-  height: 500px;
-  border: 4px solid ${(props) => props.theme.colors.mainbackgtound};
-  overflow: hidden;
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-`;
-
 const RightSection = styled.div`
-  flex: 1;
-  display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   gap: 20px;
   padding-left: 40px;
   hr {
@@ -71,15 +49,15 @@ const RightInfo = styled.p`
   font-size: 36px;
   line-height: 1.6;
   color: #fff;
-  font-family: ${(props) => props.theme.fonts.four};
 `;
 
 const RightDownSection = styled.ul`
   display: flex;
   gap: 40px;
   margin-top: 10px;
+  font-family: ${(props) => props.theme.fonts.four};
   li {
-    font-size: 26px;
+    font-size: 22px;
     cursor: pointer;
     transition: transform 0.3s ease;
     color: #fff;
@@ -102,21 +80,23 @@ const copyToClipboard = (text, theme) => {
 };
 
 const Contact = () => {
+  const { ripples, containerRef } = useRippleEffect();
+
   return (
     <ContactContainer>
+      <RippleEffectComponent ref={containerRef} ripples={ripples} />
       <Contain>
         <RightSection>
+          <span>감사합니다</span>
           <RightInfo>
             "작은 씨앗이 자라 울창한 숲을 이루듯, <br /> 오늘도 배우고 성장하며
             더 나은 경험을 <br /> 만들어가겠습니다."
           </RightInfo>
           <RightDownSection>
-            <li onClick={() => copyToClipboard("010-2862-4628")}>
-              <FontAwesomeIcon icon={faPhone} />
-            </li>
+            <li onClick={() => copyToClipboard("010-2862-4628")}>PHONE</li>
             <li>
               <a href="mailto:jjisu97@naver.com" style={{ color: "inherit" }}>
-                <FontAwesomeIcon icon={faEnvelope} />
+                EMAIL
               </a>
             </li>
             <li>
@@ -126,7 +106,7 @@ const Contact = () => {
                 rel="noopener noreferrer"
                 style={{ color: "inherit" }}
               >
-                <FontAwesomeIcon icon={faGithub} />
+                GITHUB
               </a>
             </li>
             <li>
@@ -136,14 +116,11 @@ const Contact = () => {
                 rel="noopener noreferrer"
                 style={{ color: "inherit" }}
               >
-                <FontAwesomeIcon icon={faBlogger} />
+                BLOG
               </a>
             </li>
           </RightDownSection>
         </RightSection>
-        <Btn>
-          <RotatingLink />
-        </Btn>
       </Contain>
       <ToastContainer />
     </ContactContainer>
