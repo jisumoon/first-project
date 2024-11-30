@@ -21,18 +21,29 @@ const PortSection = styled.section`
 
 const PortInner = styled.div`
   padding: 16px;
+
+  @media (max-width: 768px) {
+    text-align: left;
+    padding-left: 5px;
+  }
 `;
 
 const PortTitle = styled.div`
   padding-left: 40px;
-  font-size: 50px;
+  font-size: 70px;
   font-weight: 900;
   line-height: 1.6;
 
   @media (max-width: 768px) {
     text-align: center;
     font-size: 40px;
-    padding-left: 0;
+    padding-left: 20px;
+  }
+
+  @media (max-width: 400px) {
+    text-align: left;
+    font-size: 40px;
+    padding-left: 20px;
   }
 `;
 
@@ -49,7 +60,7 @@ const Controls = styled.div`
 
   @media (max-width: 768px) {
     flex-direction: column;
-    align-items: center;
+    padding: 0;
   }
 `;
 
@@ -93,7 +104,6 @@ const SearchBarWrapper = styled.div`
 const SearchBar = styled.input`
   padding: 10px 40px 10px 16px;
   border: none;
-
   width: 100%;
   &:focus {
     outline: none;
@@ -163,15 +173,14 @@ const NoResultsMessage = styled.div`
   text-align: center;
   font-size: 18px;
   min-height: 150px;
-  position: absolute; // 부모 요소 기준으로 고정
+  position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); // 화면 중앙에 위치
+  transform: translate(-50%, -50%);
   width: 100%;
   height: auto;
 `;
 
-// Portfolio Section Component
 const PortfolioSection = ({ projects, onOpenModal }) => {
   const [filter, setFilter] = useState("ALL");
   const [activeFilter, setActiveFilter] = useState("ALL");
@@ -182,19 +191,42 @@ const PortfolioSection = ({ projects, onOpenModal }) => {
   const handleFilterChange = (category) => {
     setFilter(category);
     setActiveFilter(category);
-    setSearchQuery(""); // 필터 변경 시 검색어 초기화
+    setSearchQuery("");
   };
 
   const handleSearch = (e) => setSearchQuery(e.target.value.toLowerCase());
 
-  //재계방지
   const filteredProjects = useMemo(() => {
-    return projects.filter(
-      (project) =>
-        (filter === "ALL" || project.category === filter) &&
-        (project.title_kr?.toLowerCase().includes(searchQuery) ||
-          project.description?.toLowerCase().includes(searchQuery))
-    );
+    return projects.filter((project) => {
+      // 버튼 필터링
+      const matchesFilter = filter === "ALL" || project.category === filter;
+
+      // 검색 필터링 (모든 필드 포함)
+      const searchFields = [
+        project.title_kr,
+        project.title_en,
+        project.description,
+        project.type,
+        project.features,
+        project.contribution,
+        project.problem_solving,
+        project.achievement,
+        ...(project.key_features || []),
+        ...(project.development_outcomes || []),
+        project.code_analysis?.problem,
+        project.code_analysis?.solution,
+        project.github,
+        project.blog,
+        project.deployment,
+      ];
+
+      const matchesSearchQuery = searchFields.some(
+        (field) => field && field.toLowerCase().includes(searchQuery)
+      );
+
+      // 두 조건을 모두 만족해야 함
+      return matchesFilter && matchesSearchQuery;
+    });
   }, [projects, filter, searchQuery]);
 
   useEffect(() => {
@@ -273,7 +305,7 @@ const PortfolioSection = ({ projects, onOpenModal }) => {
                 </PortItem>
               ))
             ) : (
-              <div /> // 비어 있어도 렌더링 유지
+              <div />
             )}
           </PortWrap>
           {filteredProjects.length === 0 && (

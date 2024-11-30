@@ -1,6 +1,4 @@
 import { faPagelines } from "@fortawesome/free-brands-svg-icons/faPagelines";
-import { faClover } from "@fortawesome/free-solid-svg-icons/faClover";
-import { faTree } from "@fortawesome/free-solid-svg-icons/faTree";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
@@ -74,9 +72,6 @@ const ImageContainer = styled.div`
   min-width: 240px;
   height: 440px;
   min-height: 300px;
-  @media (max-width: 860px) {
-  }
-
   img {
     border: 1px solid #f00;
     object-fit: cover;
@@ -84,7 +79,6 @@ const ImageContainer = styled.div`
     min-height: 100%;
     transition: transform 0.5s ease;
   }
-
   &:hover img {
     transform: scale(1.1);
   }
@@ -104,7 +98,6 @@ const Overlay = styled.div`
   align-items: center;
   opacity: 0;
   transition: opacity 0.3s ease;
-
   &:hover {
     opacity: 1;
   }
@@ -132,58 +125,52 @@ const OverlayButton = styled.button`
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.5s color 0.5s;
+  transition: background 0.5s, color 0.5s;
   &:hover {
     background: #fff;
     color: ${(props) => props.theme.colors.primary};
   }
 `;
 
-// LoopingElement 클래스: 반복 애니메이션 구현
 class LoopingElement {
   constructor(element, initialTranslation, speed) {
-    this.element = element; // 대상 요소
-    this.currentTranslation = initialTranslation; // 현재 위치
-    this.speed = speed; // 속도
-    this.direction = true; // 스크롤 방향 // 아래로
-    this.metric = 104; // 이동 기준값 // 반복기준 //기준값
+    this.element = element;
+    this.currentTranslation = initialTranslation;
+    this.speed = speed;
+    this.direction = true;
+    this.metric = 104;
 
     this.lerp = {
-      current: this.currentTranslation, //현재 위치
-      target: this.currentTranslation, // 목표 위치
+      current: this.currentTranslation,
+      target: this.currentTranslation,
       ease: 0.2,
     };
 
-    this.init(); // 초기화 실행 // 스크롤 방향에 따라서 lerpltarget 업데이트
+    this.init();
   }
 
   init() {
-    window.addEventListener("scroll", () => this.handleScroll()); // 스크롤 이벤트 추가
-    this.animate(); // 애니메이션 실행
+    window.addEventListener("scroll", () => this.handleScroll());
+    this.animate();
   }
 
   handleScroll() {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     if (scrollTop > this.scrollTop) {
       this.direction = true;
-      this.lerp.target += this.speed * 5; // 아래로 스크롤 시 이동
+      this.lerp.target += this.speed * 5;
     } else {
       this.direction = false;
-      this.lerp.target -= this.speed * 5; // 위로 스크롤 시 이동
+      this.lerp.target -= this.speed * 5;
     }
-    this.scrollTop = scrollTop <= 0 ? 0 : scrollTop; // 스크롤 위치 업데이트
+    this.scrollTop = scrollTop <= 0 ? 0 : scrollTop;
   }
-  // 부드러운 이동 계산
-  //두 값 사이의 중간 값을 계산하여 부드럽게 전환
+
   lerpFunc(current, target, ease) {
     return current * (1 - ease) + target * ease;
   }
 
   animate() {
-    // 애니메이션 반복
-    // 방향에 따라 lerp.target 값을 증가 또는 감소
-    // 이동이 metric 값 초과하면 반복 되도록
-    //lerf : 현재 위치(lerp.current) & 목표위치(lerp.target) 차이 계산
     if (this.direction) {
       this.lerp.target += this.speed;
       if (this.lerp.target > this.metric) {
@@ -203,38 +190,45 @@ class LoopingElement {
       this.lerp.target,
       this.lerp.ease
     );
-    this.element.style.transform = `translateX(${this.lerp.current}%)`; // 위치 이동
+    this.element.style.transform = `translateX(${this.lerp.current}%)`;
 
-    requestAnimationFrame(() => this.animate()); // 다음 프레임 호출
+    requestAnimationFrame(() => this.animate());
   }
 }
 
 const TeamProject = ({ item, onOpenModal = () => {} }) => {
-  useEffect(() => {
-    const loopItems = document.querySelectorAll(".loop-item");
-    const imageWrappers = document.querySelectorAll(".images-wrapper");
+  const loopRef = useRef([]);
+  const wrapperRef = useRef();
 
-    new LoopingElement(loopItems[0], 0, 0.1);
-    new LoopingElement(loopItems[1], -200, 0.1);
-    new LoopingElement(imageWrappers[0], 0, 0.1);
+  useEffect(() => {
+    loopRef.current.forEach((ref, index) => {
+      new LoopingElement(ref, index === 0 ? 0 : -200, 0.1);
+    });
+    new LoopingElement(wrapperRef.current, 0, 0.1);
   }, []);
 
   return (
     <MainContainer>
       <HeroSection>
         <LoopContainer>
-          <LoopItem className="loop-item">
+          <LoopItem
+            ref={(el) => (loopRef.current[0] = el)}
+            className="loop-item"
+          >
             <FontAwesomeIcon icon={faPagelines} /> Roots and Branches: Growing
             Through Life's Forest <FontAwesomeIcon icon={faPagelines} />
           </LoopItem>
-          <LoopItem className="loop-item">
+          <LoopItem
+            ref={(el) => (loopRef.current[1] = el)}
+            className="loop-item"
+          >
             Roots and Branches: Growing Through Life's Forest
             <FontAwesomeIcon icon={faPagelines} />
           </LoopItem>
         </LoopContainer>
       </HeroSection>
       <ImageSection>
-        <ImagesWrapper className="images-wrapper">
+        <ImagesWrapper ref={wrapperRef} className="images-wrapper">
           {[...item, ...item].map((project, index) => (
             <ImageContainer key={index}>
               <img src={project.img} alt={`Project ${index}`} />

@@ -13,7 +13,12 @@ const HeaderSection = styled.div`
     justify-content: flex-end;
     font-size: 16px;
   }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
+
 const Header = () => {
   return (
     <HeaderSection>

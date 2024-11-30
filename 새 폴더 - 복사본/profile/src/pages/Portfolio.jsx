@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useMatch } from "react-router-dom";
+import { useMatch, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useQuery } from "react-query";
-import { useDispatch, useSelector } from "react-redux";
 import { openModal, closeModal } from "../store/modalReducer";
 import Modal from "../contents/Portfolio/Modal";
 import PortfolioSection from "../contents/Portfolio/Portfoliosection";
@@ -15,10 +15,11 @@ const Section = styled.section``;
 const Portfolio = ({ id }) => {
   const dispatch = useDispatch();
   const isModalOpen = useSelector((state) => state.modal.isModalOpen);
-  const projectMatch = useMatch(`/PortfolioDetail/:itemId`);
+  const projectMatch = useMatch(`/portfoliodetail/:itemId`);
   const [modalData, setModalData] = useState(null);
   const [filter, setFilter] = useState("ALL");
   const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
   // React Query를 사용하여 포트폴리오 데이터 가져오기
   const {
@@ -29,31 +30,33 @@ const Portfolio = ({ id }) => {
     const response = await fetch(
       "https://jisumoon.github.io/PortfolioServer/db.json"
     );
-    if (!response.ok) {
-      throw new Error("데이터를 가져오는 데 실패했습니다.");
-    }
+    if (!response.ok) throw new Error("데이터를 가져오는 데 실패했습니다.");
     const result = await response.json();
     return result.projects;
   });
 
+  // URL 매칭 시 모달 데이터 설정
   useEffect(() => {
-    if (projectMatch && projects.length > 0) {
+    if (!isLoading && projectMatch) {
       const itemId = projectMatch.params.itemId;
       const matchedItem = projects.find(
         (project) => project.id.toString() === itemId
       );
+
       if (matchedItem) {
-        dispatch(openModal());
         setModalData(matchedItem);
+      } else {
+        // 데이터가 없으면 3초 후 홈으로 리다이렉션
+        setTimeout(() => navigate("/"), 3000);
       }
     }
-  }, [projectMatch, projects, dispatch]);
+  }, [projectMatch, projects, isLoading, navigate]);
 
   // Modal 열기/닫기 핸들러
   const openModalHandler = (item) => {
     setModalData(item);
     dispatch(openModal());
-    window.history.pushState(null, "", `/PortfolioDetail/${item.id}`); // URL 업데이트
+    window.history.pushState(null, "", `/portfoliodetail/${item.id}`); // URL 업데이트
   };
 
   const closeModalHandler = () => {

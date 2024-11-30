@@ -29,7 +29,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/PortfolioDetail/:id",
+    path: "/portfoliodetail/:id",
     element: <Modal />,
   },
 ]);

@@ -11,6 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import Accordion from "./Accordion";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const ModalOverlay = styled(motion.div)`
   position: fixed;
@@ -18,7 +19,7 @@ const ModalOverlay = styled(motion.div)`
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(34, 49, 34, 0.9);
+  background: rgb(29, 83, 62);
   backdrop-filter: blur(10px);
   display: flex;
   justify-content: center;
@@ -194,10 +195,10 @@ const Pager = styled.div`
 `;
 
 const Dot = styled.div`
-  width: ${(props) => (props.active ? "20px" : "8px")};
+  width: ${({ $active }) => ($active ? "20px" : "8px")};
   height: 8px;
-  background-color: ${(props) => (props.active ? "rgb(29, 83, 62)" : "#ddd")};
-  border-radius: ${(props) => (props.active ? "15px" : "50%")};
+  background-color: ${({ $active }) => ($active ? "rgb(29, 83, 62)" : "#ddd")};
+  border-radius: ${({ $active }) => ($active ? "15px" : "50%")};
   transition: all 0.3s ease;
   cursor: pointer;
 
@@ -253,8 +254,9 @@ const Btnli = styled.li`
   transition: background 0.3s, color 0.3s;
 
   &:hover {
-    background: ${(props) => props.theme.colors.secondary};
+    background: ${(props) => props.theme.colors.primary};
     color: #fff;
+    border: 2px solid ${(props) => props.theme.colors.mainkbackground};
   }
 
   &:hover .tooltip {
@@ -321,20 +323,19 @@ const Modal = ({ slides = [], closeModal, currentIndex, modalData }) => {
     setCurrentIndex(index);
   };
 
+  // 스크롤 잠금
   useEffect(() => {
-    if (modalData) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [modalData]);
+    const scrollY = window.scrollY; // 현재 스크롤 위치 저장
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
 
-  if (!modalData) {
-    return <p>🌳데이터를 불러오는 중입니다🌳</p>;
-  }
+    return () => {
+      const savedScrollY = parseInt(document.body.style.top || "0", 10) * -1;
+      document.body.style.position = "";
+      document.body.style.top = "";
+      window.scrollTo(0, savedScrollY);
+    };
+  }, []);
 
   return (
     <ModalOverlay
@@ -416,7 +417,7 @@ const Modal = ({ slides = [], closeModal, currentIndex, modalData }) => {
                       <Dot
                         key={index}
                         active={index === currentSlideIndex}
-                        onClick={() => handleDotClick(index)} // 클릭 이벤트 추가
+                        onClick={() => handleDotClick(index)}
                       />
                     ))}
                 </Pager>

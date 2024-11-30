@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { setPage } from "../store/sectionSliceReducer";
 import AboutMeSection from "../contents/Aboutme/AboutmeSection";
 import CareerSecton from "../contents/Aboutme/CareerSection";
 import SkilltypeSection from "../contents/Aboutme/SkilltypeSection";
@@ -31,6 +30,9 @@ const Title = styled(motion.h1)`
 
 const SectionWrapper = styled(motion.div)`
   margin-top: 50px;
+  &:not(:last-child) {
+    margin-bottom: 100px;
+  }
 
   @media (max-width: 768px) {
     margin-top: 30px;
@@ -38,18 +40,22 @@ const SectionWrapper = styled(motion.div)`
 `;
 
 const AboutMe = () => {
-  // 애니메이션 variants
   const fadeInUpVariants = {
-    hidden: { opacity: 0, y: 50 }, // 초기 상태
+    hidden: { opacity: 0, y: 50 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: "easeInOut" },
+      transition: {
+        duration: 0.8,
+        ease: "easeInOut",
+        staggerChildren: 0.3,
+        delayChildren: 0.2,
+      },
     },
   };
 
   return (
-    <Contain id="aboutMe">
+    <Contain>
       <Title
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -60,8 +66,9 @@ const AboutMe = () => {
       <SectionWrapper
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }} // 뷰포트에 20% 이상 들어오면 트리거
+        viewport={{ once: true, amount: 0.3 }}
         variants={fadeInUpVariants}
+        transition={{ duration: 1, delay: 0 }}
       >
         <AboutMeSection />
       </SectionWrapper>
@@ -70,14 +77,16 @@ const AboutMe = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         variants={fadeInUpVariants}
+        transition={{ duration: 1, delay: 0.2 }}
       >
         <SkilltypeSection />
       </SectionWrapper>
       <SectionWrapper
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.4 }}
         variants={fadeInUpVariants}
+        transition={{ duration: 1, delay: 0.4 }}
       >
         <CareerSecton />
       </SectionWrapper>
