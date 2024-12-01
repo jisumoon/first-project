@@ -1,11 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
-import styled, { keyframes } from "styled-components";
-import useRippleEffect from "../Hook/useRippleEffect";
+import React, { useState, useRef } from "react";
+import styled from "styled-components";
 import RippleEffectComponent from "../components/RippleEffectContainer";
-import { useDispatch } from "react-redux";
 import Header from "../components/Header";
-import { setPage } from "../store/sectionSliceReducer";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AppWrapper = styled.div`
   width: 100%;
@@ -32,7 +31,7 @@ const TopSection = styled.div`
   align-items: center;
   padding-left: 100px;
   border-bottom: 1px solid ${(props) => props.theme.colors.mainbackgtound};
-  transition: all 0.3s ease; /* 부드러운 전환 추가 */
+  transition: all 0.3s ease;
 
   @media (max-width: 900px) {
     padding-left: 30px;
@@ -40,7 +39,7 @@ const TopSection = styled.div`
   }
 
   @media (max-width: 834px) {
-    flex-direction: column; /* 834px 이하에서 레이아웃 변경 */
+    flex-direction: column;
     padding: 20px;
     gap: 0;
   }
@@ -71,7 +70,7 @@ const MainTitle = styled(motion.div)`
   font-size: 70px;
   font-weight: bold;
   line-height: 1.2;
-  transition: font-size 0.3s ease; /* 부드러운 폰트 크기 변경 */
+  transition: font-size 0.3s ease;
 
   @media (max-width: 890px) {
     font-size: 36px;
@@ -100,7 +99,7 @@ const MainTitle = styled(motion.div)`
     line-height: 1.6;
     opacity: 0.8;
     color: rgba(255, 255, 255, 0.7);
-    transition: font-size 0.3s ease; /* 부드러운 전환 */
+    transition: font-size 0.3s ease;
 
     @media (max-width: 834px) {
       font-size: 14px;
@@ -124,7 +123,7 @@ const HeroSection = styled.section`
 const Img = styled(motion.div)`
   width: 540px;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   z-index: 2;
 
@@ -170,7 +169,7 @@ const Menu = styled.ul`
   font-size: 16px;
   gap: 20px;
   cursor: pointer;
-  transition: all 0.3s ease; /* 부드러운 전환 추가 */
+  transition: all 0.3s ease;
 
   @media (max-width: 900px) {
     font-size: 14px;
@@ -197,7 +196,7 @@ const Menu = styled.ul`
       position: absolute;
       right: 0;
       opacity: 0;
-      transition: opacity 0.3s ease, right 0.3s ease; /* 부드럽게 나타나도록 전환 효과 */
+      transition: opacity 0.3s ease, right 0.3s ease;
     }
 
     &:hover:after {
@@ -270,17 +269,44 @@ const imgVariants = {
   },
 };
 
+const showToastAndRedirect = (message, url) => {
+  toast.info(message, {
+    style: { backgroundColor: "#FBF7E3", color: "#333", fontSize: "14px" },
+    position: "top-center",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    onClose: () => {
+      window.open(url, "_blank");
+    },
+  });
+};
+
+const goToGithub = () => {
+  showToastAndRedirect("🔗 GitHub로 이동합니다", "https://github.com/jisumoon");
+};
+
+const goToNotion = () => {
+  showToastAndRedirect(
+    "🔗 Notion으로 이동합니다",
+    "https://www.notion.so/13336341b0a7800e9a55d63360689f79?pvs=4"
+  );
+};
+
+const goToFigma = () => {
+  showToastAndRedirect(
+    "🔗 Figma로 이동합니다",
+    "https://www.figma.com/design/Ne7UE4XYXadXbxAABvHMJr/Project_List?node-id=0-1&t=0MyrgPEXpJDWZfsY-1"
+  );
+};
+
 const Home = () => {
   const containerRef = useRef(null);
   const [animationComplete, setAnimationComplete] = useState(false);
-  const dispatch = useDispatch();
   const [activePreview, setActivePreview] = useState(null); //preview
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  // Notion으로 이동
-  const goToNotion = () => {
-    window.open("https://www.notion.so/13336341b0a7800e9a55d63360689f79?pvs=4");
-  };
 
   const handleMouseMove = (e) => {
     setMousePosition({ x: e.clientX, y: e.clientY });
@@ -330,6 +356,7 @@ const Home = () => {
             <li
               onMouseEnter={() => setActivePreview("github")}
               onMouseLeave={() => setActivePreview(null)}
+              onClick={goToGithub}
             >
               GITHUB
               <Preview
@@ -361,6 +388,7 @@ const Home = () => {
             <li
               onMouseEnter={() => setActivePreview("figma")}
               onMouseLeave={() => setActivePreview(null)}
+              onClick={goToFigma}
             >
               FIGMA
               <Preview

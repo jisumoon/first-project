@@ -181,12 +181,13 @@ const NoResultsMessage = styled.div`
   height: auto;
 `;
 
-const PortfolioSection = ({ projects, onOpenModal }) => {
+const PortfolioSection = ({ projects, onOpenModal = () => {} }) => {
   const [filter, setFilter] = useState("ALL");
   const [activeFilter, setActiveFilter] = useState("ALL");
   const [searchQuery, setSearchQuery] = useState("");
   const sectionRef = useRef(null);
   const portWrapRef = useRef(null);
+  const isMobile = window.innerWidth <= 768;
 
   const handleFilterChange = (category) => {
     setFilter(category);
@@ -198,10 +199,8 @@ const PortfolioSection = ({ projects, onOpenModal }) => {
 
   const filteredProjects = useMemo(() => {
     return projects.filter((project) => {
-      // 버튼 필터링
       const matchesFilter = filter === "ALL" || project.category === filter;
 
-      // 검색 필터링 (모든 필드 포함)
       const searchFields = [
         project.title_kr,
         project.title_en,
@@ -221,33 +220,28 @@ const PortfolioSection = ({ projects, onOpenModal }) => {
       ];
 
       const matchesSearchQuery = searchFields.some(
-        (field) => field && field.toLowerCase().includes(searchQuery)
+        (field) =>
+          typeof field === "string" && field.toLowerCase().includes(searchQuery)
       );
 
-      // 두 조건을 모두 만족해야 함
       return matchesFilter && matchesSearchQuery;
     });
   }, [projects, filter, searchQuery]);
 
   useEffect(() => {
-    const isMobile = window.innerWidth <= 768;
-
     if (!isMobile && portWrapRef.current) {
       const horSection = portWrapRef.current;
-
       const sectionWidth = horSection.scrollWidth - window.innerWidth;
-      // 섹션의 전체 가로 길이에서 화면 너비를 짼 값
-      // 섹션의 수평 스크롤 길이
 
       const animation = gsap.to(horSection, {
-        x: -sectionWidth, // 왼쪽 이동
+        x: -sectionWidth,
         ease: "none",
         scrollTrigger: {
-          trigger: sectionRef.current, //스크롤 트리거
-          start: "top top", // 스크롤 시작, 섹션 상단과 화면 상단
-          end: () => `+=${sectionWidth}`, //스크롤 종료
-          scrub: 0.5, // 더 부드럽게 동작
-          pin: true, // 섹션 화면에 고정
+          trigger: sectionRef.current,
+          start: "top top",
+          end: () => `+=${sectionWidth}`,
+          scrub: 0.5,
+          pin: true,
           anticipatePin: 1,
         },
       });
@@ -256,10 +250,18 @@ const PortfolioSection = ({ projects, onOpenModal }) => {
         if (animation.scrollTrigger) {
           animation.scrollTrigger.kill();
         }
-        animation.kill(); // 애니메이션 제거
+        animation.kill();
       };
     }
   }, [projects]);
+
+  const handleButtonClick = (project) => {
+    if (isMobile) {
+      window.location.href = project.deployment;
+    } else {
+      onOpenModal(project);
+    }
+  };
 
   return (
     <PortSection id="port" ref={sectionRef}>
@@ -296,22 +298,20 @@ const PortfolioSection = ({ projects, onOpenModal }) => {
             <SearchIcon icon={faSearch} />
           </SearchBarWrapper>
         </Controls>
-        <>
-          <PortWrap ref={portWrapRef}>
-            {filteredProjects.length > 0 ? (
-              filteredProjects.map((item) => (
-                <PortItem key={item.id} className="port__item">
-                  <PortfolioBox item={item} onClick={() => onOpenModal(item)} />
-                </PortItem>
-              ))
-            ) : (
-              <div />
-            )}
-          </PortWrap>
-          {filteredProjects.length === 0 && (
+        <PortWrap ref={portWrapRef}>
+          {filteredProjects.length > 0 ? (
+            filteredProjects.map((item) => (
+              <PortItem key={item.id} className="port__item">
+                <PortfolioBox
+                  item={item}
+                  onClick={() => handleButtonClick(item)}
+                />
+              </PortItem>
+            ))
+          ) : (
             <NoResultsMessage>🌳 검색 결과가 없습니다 🌳</NoResultsMessage>
           )}
-        </>
+        </PortWrap>
       </PortInner>
     </PortSection>
   );

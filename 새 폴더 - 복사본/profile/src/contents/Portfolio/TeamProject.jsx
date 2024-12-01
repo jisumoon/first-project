@@ -200,6 +200,18 @@ const TeamProject = ({ item, onOpenModal = () => {} }) => {
   const loopRef = useRef([]);
   const wrapperRef = useRef();
 
+  const isMobile = window.innerWidth <= 768;
+
+  const handleButtonClick = (project) => {
+    if (isMobile) {
+      // 모바일 환경: URL로 이동
+      window.location.href = project.deployment;
+    } else {
+      // 데스크톱 환경: 모달 열기
+      onOpenModal(project);
+    }
+  };
+
   useEffect(() => {
     loopRef.current.forEach((ref, index) => {
       new LoopingElement(ref, index === 0 ? 0 : -200, 0.1);
@@ -235,7 +247,7 @@ const TeamProject = ({ item, onOpenModal = () => {} }) => {
               <Overlay>
                 <OverlayTitle>{project.title_kr}</OverlayTitle>
                 <OverlayInfo>{project.description}</OverlayInfo>
-                <OverlayButton onClick={() => onOpenModal(project)}>
+                <OverlayButton onClick={() => handleButtonClick(project)}>
                   VIEW
                 </OverlayButton>
               </Overlay>
