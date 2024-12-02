@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState, useMemo } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faCloud,
   faCode,
   faFolderOpen,
   faSearch,
@@ -30,7 +31,7 @@ const PortInner = styled.div`
 
 const PortTitle = styled.div`
   padding-left: 40px;
-  font-size: 70px;
+  font-size: 60px;
   font-weight: 900;
   line-height: 1.6;
 
@@ -159,6 +160,11 @@ const PortItem = styled.article`
   padding: 2.5rem;
   flex-shrink: 0;
   scroll-snap-align: start;
+
+  @media (max-width: 860px) {
+    width: 400px;
+    height: 60vh;
+  }
 
   @media (max-width: 768px) {
     width: 280px;

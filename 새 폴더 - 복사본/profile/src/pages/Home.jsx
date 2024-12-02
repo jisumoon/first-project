@@ -131,6 +131,12 @@ const Img = styled(motion.div)`
     border: 4px solid ${(props) => props.theme.colors.mainbackgtound};
     width: 70%;
     height: auto;
+
+    @media (max-width: 900px) {
+      width: 300px;
+      height: 400px;
+      justify-content: center;
+    }
   }
 
   @media (max-width: 860px) {

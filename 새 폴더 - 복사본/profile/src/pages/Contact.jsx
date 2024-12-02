@@ -21,10 +21,17 @@ const Contain = styled.div`
   @media (max-width: 1280px) {
     padding: 40px 20px;
   }
-
+  @media (max-width: 1000px) {
+    padding: 0;
+  }
   @media (max-width: 768px) {
     flex-direction: column;
     gap: 20px;
+  }
+
+  @media (max-width: 400px) {
+    padding: 20px;
+    padding-top: 20px;
   }
 `;
 
@@ -44,11 +51,19 @@ const MainTitle = styled(motion.div)`
     font-size: 100px;
   }
 
+  @media (max-width: 1000px) {
+    margin-top: 0;
+  }
+
   @media (max-width: 768px) {
     font-size: 70px;
     flex-direction: column;
     align-items: center;
     text-align: center;
+  }
+
+  @media (max-width: 400px) {
+    font-size: 40px;
   }
 `;
 
@@ -110,6 +125,13 @@ const Img = styled(motion.div)`
       width: 440px;
       height: 520px;
     }
+
+    &::before {
+      width: 150%;
+      height: 90%;
+      left: -75%;
+      transition: left 0.4s ease;
+    }
   }
 
   @media (max-width: 768px) {
@@ -124,6 +146,10 @@ const Img = styled(motion.div)`
       height: 380px;
       margin: 0 auto;
     }
+
+    &::before {
+      display: none;
+    }
   }
 `;
 
@@ -137,6 +163,10 @@ const BottomSection = styled.div`
 
   @media (max-width: 1290px) {
     margin-top: 500px;
+  }
+
+  @media (max-width: 1000px) {
+    margin-top: 510px;
   }
 
   @media (max-width: 768px) {
@@ -181,6 +211,11 @@ const RightDownSection = styled(motion.ul)`
       li {
         font-size: 18px;
       }
+    }
+
+    @media (max-width: 400px) {
+      margin-top: 20px;
+      font-size: 15px;
     }
   }
 `;

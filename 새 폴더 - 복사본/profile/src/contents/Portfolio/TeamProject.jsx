@@ -59,6 +59,7 @@ const ImagesWrapper = styled.div`
   gap: 2rem;
   width: 200%;
   position: absolute;
+  transform: translateX(0%);
 `;
 
 const ImageContainer = styled.div`
@@ -135,11 +136,11 @@ const OverlayButton = styled.button`
 class LoopingElement {
   constructor(element, initialTranslation, speed) {
     this.element = element;
-    this.currentTranslation = initialTranslation;
+    this.currentTranslation = initialTranslation || 0;
     this.speed = speed;
     this.direction = true;
     this.metric = 104;
-
+    this.scrollTop = 0;
     this.lerp = {
       current: this.currentTranslation,
       target: this.currentTranslation,
@@ -199,7 +200,6 @@ class LoopingElement {
 const TeamProject = ({ item, onOpenModal = () => {} }) => {
   const loopRef = useRef([]);
   const wrapperRef = useRef();
-
   const isMobile = window.innerWidth <= 768;
 
   const handleButtonClick = (project) => {
@@ -216,7 +216,10 @@ const TeamProject = ({ item, onOpenModal = () => {} }) => {
     loopRef.current.forEach((ref, index) => {
       new LoopingElement(ref, index === 0 ? 0 : -200, 0.1);
     });
-    new LoopingElement(wrapperRef.current, 0, 0.1);
+
+    if (wrapperRef.current) {
+      new LoopingElement(wrapperRef.current, 0, 0.1);
+    }
   }, []);
 
   return (
