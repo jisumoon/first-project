@@ -122,6 +122,7 @@ const HeroSection = styled.section`
 
 const Img = styled(motion.div)`
   width: 540px;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -129,9 +130,8 @@ const Img = styled(motion.div)`
 
   img {
     border: 4px solid ${(props) => props.theme.colors.mainbackgtound};
-    width: 70%;
+    width: 64%;
     height: auto;
-
     @media (max-width: 900px) {
       width: 300px;
       height: 400px;

@@ -173,6 +173,7 @@ const PortItem = styled.article`
 `;
 
 const NoResultsMessage = styled.div`
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -304,20 +305,19 @@ const PortfolioSection = ({ projects, onOpenModal = () => {} }) => {
             <SearchIcon icon={faSearch} />
           </SearchBarWrapper>
         </Controls>
-        <PortWrap ref={portWrapRef}>
-          {filteredProjects.length > 0 ? (
-            filteredProjects.map((item) => (
-              <PortItem key={item.id} className="port__item">
-                <PortfolioBox
-                  item={item}
-                  onClick={() => handleButtonClick(item)}
-                />
-              </PortItem>
-            ))
-          ) : (
-            <NoResultsMessage>🌳 검색 결과가 없습니다 🌳</NoResultsMessage>
-          )}
+        <PortWrap ref={portWrapRef} isEmpty={filteredProjects.length === 0}>
+          {filteredProjects.map((item) => (
+            <PortItem key={item.id} className="port__item">
+              <PortfolioBox
+                item={item}
+                onClick={() => handleButtonClick(item)}
+              />
+            </PortItem>
+          ))}
         </PortWrap>
+        {filteredProjects.length === 0 && (
+          <NoResultsMessage>🌳 검색 결과가 없습니다 🌳</NoResultsMessage>
+        )}
       </PortInner>
     </PortSection>
   );

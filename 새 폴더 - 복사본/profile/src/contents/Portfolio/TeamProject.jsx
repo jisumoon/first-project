@@ -244,7 +244,7 @@ const TeamProject = ({ item, onOpenModal = () => {} }) => {
       </HeroSection>
       <ImageSection>
         <ImagesWrapper ref={wrapperRef} className="images-wrapper">
-          {[...item, ...item].map((project, index) => (
+          {[...item, , ...item].map((project, index) => (
             <ImageContainer key={index}>
               <img src={project.img} alt={`Project ${index}`} />
               <Overlay>
