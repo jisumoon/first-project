@@ -43,7 +43,7 @@ const LoopContainer = styled.div`
 
 const LoopItem = styled.div`
   display: inline-block;
-  padding-right: 10px;
+  padding-right: 50px;
 `;
 
 const ImageSection = styled.section`
@@ -56,25 +56,24 @@ const ImageSection = styled.section`
 
 const ImagesWrapper = styled.div`
   display: flex;
-  gap: 2rem;
+  gap: 60px;
   width: 200%;
   position: absolute;
   transform: translateX(0%);
 `;
 
 const ImageContainer = styled.div`
-  border: 1px solid #f00;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  width: 340px;
+  width: 400px;
   min-width: 240px;
   height: 440px;
   min-height: 300px;
   img {
-    border: 1px solid #f00;
+    background: #eee;
     object-fit: cover;
     min-width: 100%;
     min-height: 100%;
@@ -92,13 +91,15 @@ const Overlay = styled.div`
   width: 100%;
   height: 100%;
   padding: 0 20px;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   opacity: 0;
   transition: opacity 0.3s ease;
+  cursor: pointer;
   &:hover {
     opacity: 1;
   }
@@ -139,7 +140,7 @@ class LoopingElement {
     this.currentTranslation = initialTranslation || 0;
     this.speed = speed;
     this.direction = true;
-    this.metric = 104;
+    this.metric = 80;
     this.scrollTop = 0;
     this.lerp = {
       current: this.currentTranslation,
@@ -204,10 +205,8 @@ const TeamProject = ({ item, onOpenModal = () => {} }) => {
 
   const handleButtonClick = (project) => {
     if (isMobile) {
-      // 모바일 환경: URL로 이동
       window.location.href = project.deployment;
     } else {
-      // 데스크톱 환경: 모달 열기
       onOpenModal(project);
     }
   };
@@ -226,33 +225,27 @@ const TeamProject = ({ item, onOpenModal = () => {} }) => {
     <MainContainer>
       <HeroSection>
         <LoopContainer>
-          <LoopItem
-            ref={(el) => (loopRef.current[0] = el)}
-            className="loop-item"
-          >
-            <FontAwesomeIcon icon={faPagelines} /> Roots and Branches: Growing
-            Through Life's Forest <FontAwesomeIcon icon={faPagelines} />
-          </LoopItem>
-          <LoopItem
-            ref={(el) => (loopRef.current[1] = el)}
-            className="loop-item"
-          >
-            Roots and Branches: Growing Through Life's Forest
-            <FontAwesomeIcon icon={faPagelines} />
-          </LoopItem>
+          {[...Array(6)].map((_, index) => (
+            <LoopItem
+              ref={(el) => (loopRef.current[index] = el)}
+              key={index}
+              className="loop-item"
+            >
+              Roots and Branches: Growing Through Life's Forest
+              <FontAwesomeIcon icon={faPagelines} />
+            </LoopItem>
+          ))}
         </LoopContainer>
       </HeroSection>
       <ImageSection>
         <ImagesWrapper ref={wrapperRef} className="images-wrapper">
           {[...item, , ...item].map((project, index) => (
             <ImageContainer key={index}>
-              <img src={project.img} alt={`Project ${index}`} />
-              <Overlay>
+              <img src={project.mainImg} alt={`Project ${index}`} />
+              <Overlay onClick={() => handleButtonClick(project)}>
                 <OverlayTitle>{project.title_kr}</OverlayTitle>
                 <OverlayInfo>{project.description}</OverlayInfo>
-                <OverlayButton onClick={() => handleButtonClick(project)}>
-                  VIEW
-                </OverlayButton>
+                <OverlayButton>VIEW</OverlayButton>
               </Overlay>
             </ImageContainer>
           ))}

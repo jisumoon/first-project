@@ -133,8 +133,14 @@ const Img = styled(motion.div)`
     width: 64%;
     height: auto;
     @media (max-width: 900px) {
-      width: 300px;
-      height: 400px;
+      width: 260px;
+      height: 350px;
+      justify-content: center;
+    }
+
+    @media (max-width: 400px) {
+      width: 200px;
+      height: 300px;
       justify-content: center;
     }
   }
@@ -297,7 +303,7 @@ const goToGithub = () => {
 const goToNotion = () => {
   showToastAndRedirect(
     "🔗 Notion으로 이동합니다",
-    "https://www.notion.so/13336341b0a7800e9a55d63360689f79?pvs=4"
+    "https://www.notion.so/14a36341b0a7806dba62f00ca0dd8724?pvs=4"
   );
 };
 

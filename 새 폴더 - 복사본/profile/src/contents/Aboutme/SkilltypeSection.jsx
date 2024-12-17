@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import skillsData from "../../../public/data/skill.json";
 
-// 컨테이너 스타일
 const Container = styled.div`
   padding: 60px;
-  margin-top: 120px;
+  margin: 200px 0;
 
   @media (max-width: 1280px) {
     margin-top: 80px;
@@ -14,15 +13,15 @@ const Container = styled.div`
 
   @media (max-width: 768px) {
     margin-top: 60px;
+    margin-bottom: 0;
   }
 `;
 
-// 타이틀 스타일
 const SkillSectionTitle = styled.h1`
   font-size: 46px;
   font-weight: bold;
   line-height: 1.2;
-  margin-bottom: 40px;
+  margin-bottom: 80px;
 
   @media (max-width: 768px) {
     font-size: 36px;
@@ -34,27 +33,29 @@ const SkillSectionTitle = styled.h1`
   }
 `;
 
-// 카드 래퍼 스타일
 const SkillWrapper = styled.section`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 40px;
+  flex: 1.5;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 15px;
 
   @media (max-width: 768px) {
-    justify-content: flex-start;
+    grid-template-rows: auto;
   }
 `;
 
-// 카드 스타일
+const SkillContainer = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
 const CardSection = styled.div`
   max-width: 280px;
   width: 100%;
-  border-radius: 16px;
-  padding: 20px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
-  position: relative;
-
   transition: transform 0.2s ease;
 
   @media (max-width: 768px) {
@@ -68,7 +69,6 @@ const CardSection = styled.div`
   }
 `;
 
-// 기타 컴포넌트 스타일
 const SkillTitle = styled.h3`
   font-size: 20px;
   font-weight: bold;
@@ -120,14 +120,14 @@ const SkillImg = styled.img`
   height: 50px;
   padding: 8px;
   transition: transform 0.2s ease;
-
+  cursor: pointer;
   &:hover {
     transform: scale(1.1);
   }
 
   @media (max-width: 768px) {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
   }
 
   @media (max-width: 400px) {
@@ -136,42 +136,101 @@ const SkillImg = styled.img`
   }
 `;
 
-const SkillInfo = styled.div`
-  margin-top: 15px;
-  font-size: 14px;
-  color: ${(props) => props.theme.colors.textSecondary};
-  line-height: 1.6;
+const InfoWrapper = styled.div`
+  flex: 0.5;
+  border: 4px solid ${(props) => props.theme.colors.primary};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  gap: 10px;
+  transition: all 0.5s;
+
+  p {
+    text-align: center;
+    line-height: 1.4;
+    font-size: 16px;
+  }
 
   @media (max-width: 768px) {
-    font-size: 14px;
-    line-height: 1.4;
-  }
-
-  @media (max-width: 400px) {
-    font-size: 14px;
-    line-height: 1.3;
+    display: none;
   }
 `;
 
-// 실제 섹션 컴포넌트
-const SkilltypeSection = () => (
-  <Container>
-    <SkillSectionTitle>Forest of Skills</SkillSectionTitle>
-    <SkillWrapper>
-      {skillsData.skills.map((category) => (
-        <CardSection key={category.category}>
-          <SkillTitle>{category.category}</SkillTitle>
-          <Line />
-          <SkillItem>
-            {category.items.map((item) => (
-              <SkillImg key={item.name} src={item.svg} alt={item.name} />
-            ))}
-          </SkillItem>
-          <SkillInfo>{category.info}</SkillInfo>
-        </CardSection>
-      ))}
-    </SkillWrapper>
-  </Container>
-);
+const InfoImage = styled.img`
+  width: 60px;
+  height: 60px;
+  margin-bottom: 10px;
+`;
+
+const InfoTitle = styled.h4`
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+`;
+
+const InfoList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  line-height: 1.2;
+  font-size: 16px;
+`;
+
+const SkilltypeSection = () => {
+  const [hoveredInfo, setHoveredInfo] = useState([]);
+  const [hoveredTitle, setHoveredTitle] = useState("");
+  const [hoveredImage, setHoveredImage] = useState("");
+
+  return (
+    <Container>
+      <SkillSectionTitle>Forest of Skills</SkillSectionTitle>
+      <SkillContainer>
+        <SkillWrapper>
+          {skillsData.skills.map((category) => (
+            <CardSection key={category.category}>
+              <SkillTitle>{category.category}</SkillTitle>
+              <Line />
+              <SkillItem>
+                {category.items.map((item) => (
+                  <SkillImg
+                    key={item.name}
+                    src={item.svg}
+                    alt={item.name}
+                    onMouseEnter={() => {
+                      setHoveredInfo(item.info);
+                      setHoveredTitle(item.name);
+                      setHoveredImage(item.svg);
+                    }}
+                  />
+                ))}
+              </SkillItem>
+            </CardSection>
+          ))}
+        </SkillWrapper>
+
+        <InfoWrapper>
+          {hoveredInfo.length > 0 ? (
+            <>
+              <InfoImage src={hoveredImage} alt={hoveredTitle} />
+              <InfoTitle>{hoveredTitle}</InfoTitle>
+              <InfoList>
+                {hoveredInfo.map((info, index) => (
+                  <li key={index}>· {info}</li>
+                ))}
+              </InfoList>
+            </>
+          ) : (
+            <p>
+              각 기술 스택 아이콘에 마우스를 올리면 해당 기술을 <br />
+              어떻게 활용할 수 있는지 확인할 수 있습니다.
+            </p>
+          )}
+        </InfoWrapper>
+      </SkillContainer>
+    </Container>
+  );
+};
 
 export default SkilltypeSection;

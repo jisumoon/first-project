@@ -4,15 +4,16 @@ import React from "react";
 import styled from "styled-components";
 
 const Card = styled.div`
+  width: 400px;
+  height: 420px;
   @media (max-width: 768px) {
     width: 200px;
     height: 380px;
   }
   .card-inner {
     position: relative;
-    width: 300px;
+    width: 100%;
     height: 260px;
-
     overflow: hidden;
 
     @media (max-width: 768px) {
@@ -21,15 +22,15 @@ const Card = styled.div`
     }
 
     .box {
-      border: 1px solid #f00;
       width: 100%;
       height: 100%;
-
       overflow: hidden;
 
       .imgBox {
+        border: 1px solid #f00;
         position: absolute;
-        inset: 0;
+        width: 100%;
+        height: 100%;
 
         img {
           width: 100%;
@@ -40,12 +41,11 @@ const Card = styled.div`
 
       .icon {
         position: absolute;
-        bottom: -6px;
-        right: -6px;
+        bottom: -4px;
+        right: -3px;
         width: 96px;
         height: 96px;
         border-top-left-radius: 50%;
-        background: ${(props) => props.theme.colors.mainbackgtound};
 
         &:hover .iconBox {
           transform: scale(1.1);
@@ -73,8 +73,7 @@ const Card = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 15px 10px;
-
+    padding: 20px 0;
     h3 {
       font-size: 20px;
       font-weight: bold;
@@ -82,7 +81,7 @@ const Card = styled.div`
 
     p {
       font-size: 14px;
-      line-height: 1.2;
+      line-height: 1.4;
       color: #565656;
     }
 
@@ -93,7 +92,7 @@ const Card = styled.div`
       gap: 10px;
 
       li {
-        border-radius: 3px;
+        color: rgba(44, 95, 45, 0.8);
         font-size: 13px;
       }
     }
@@ -106,7 +105,7 @@ const PortfolioBox = ({ item, onClick }) => {
       <div className="card-inner">
         <div className="box">
           <div className="imgBox">
-            <img src={item.img} alt={item.title_kr} />
+            <img src={item.screen} alt={item.title_kr} />
           </div>
           <div className="icon">
             <button className="iconBox" onClick={() => onClick(item)}>

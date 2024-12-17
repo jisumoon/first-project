@@ -11,7 +11,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import Accordion from "./Accordion";
-import { useLocation, useNavigate } from "react-router-dom";
 
 const ModalOverlay = styled(motion.div)`
   position: fixed;
@@ -117,13 +116,9 @@ const ModalTitle = styled.h2`
 `;
 
 const ModalTitleInfo = styled.h3`
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 100;
-  width: 400px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  width: 540px;
   line-height: 1.4;
   text-align: center;
 
@@ -142,6 +137,12 @@ const Modalimg = styled(motion.div)`
   width: 100%;
   height: 300px;
   position: relative;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
 
   @media (max-width: 768px) {
     height: 200px;
@@ -155,7 +156,6 @@ const Modalimg = styled(motion.div)`
 const ImgContant = styled.div`
   width: 100%;
   height: 100%;
-  border: 1px solid #f00;
 `;
 
 const HoverButtons = styled.div`
@@ -301,7 +301,6 @@ const ModalHashtag = styled.ul`
 const Hashtag = styled.li`
   font-size: 14px;
   color: ${(props) => props.theme.colors.primary};
-  font-weight: bold;
 
   @media (max-width: 768px) {
     font-size: 12px;
@@ -315,10 +314,16 @@ const Hashtag = styled.li`
 const Modal = ({ slides = [], closeModal, currentIndex, modalData }) => {
   const [currentSlideIndex, setCurrentIndex] = useState(currentIndex);
 
-  const handleNext = () =>
-    setCurrentIndex((prev) => (prev + 1) % slides.length);
-  const handlePrevious = () =>
-    setCurrentIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % modalData.img.length);
+  };
+
+  const handlePrevious = () => {
+    setCurrentIndex((prev) =>
+      prev === 0 ? modalData.img.length - 1 : prev - 1
+    );
+  };
+
   const handleDotClick = (index) => {
     setCurrentIndex(index);
   };
@@ -379,26 +384,33 @@ const Modal = ({ slides = [], closeModal, currentIndex, modalData }) => {
         <ModalContainer>
           <ModalSection className="top">
             <ModalTitle>{modalData.title_kr || "제목 없음"}</ModalTitle>
-            <ModalTitleInfo>
-              {modalData.description || "설명 없음"}
-            </ModalTitleInfo>
             <ModalHashtag>
               <Hashtag>#{modalData.type}</Hashtag>
-              {Array.isArray(modalData.skill) &&
-                modalData.skill.map((skill, index) => (
-                  <Hashtag key={index}>#{skill}</Hashtag>
+              {Array.isArray(modalData.feature) &&
+                modalData.feature.map((feature, index) => (
+                  <Hashtag key={index}>#{feature}</Hashtag>
                 ))}
               <Hashtag>#{modalData.category}</Hashtag>
             </ModalHashtag>
+            <ModalTitleInfo>
+              {modalData.contribution || "설명 없음"}
+            </ModalTitleInfo>
           </ModalSection>
           <ModalSection className="bottom">
             <Modalimg>
               <ImgContant>
-                <img
-                  src={modalData.img || "/default-image.png"}
-                  alt={modalData.title_kr || "이미지 없음"}
-                  style={{ width: "100%" }}
-                />
+                {modalData.img.map((img, index) => (
+                  <img
+                    loading="lazy"
+                    key={index}
+                    src={img}
+                    alt={modalData.title_kr || "이미지 없음"}
+                    style={{
+                      width: "100%",
+                      display: index === currentSlideIndex ? "block" : "none",
+                    }}
+                  />
+                ))}
                 <HoverButtons>
                   <FontAwesomeIcon
                     icon={faAngleLeft}
@@ -412,21 +424,20 @@ const Modal = ({ slides = [], closeModal, currentIndex, modalData }) => {
                   />
                 </HoverButtons>
                 <Pager>
-                  {Array.isArray(slides) &&
-                    slides.map((_, index) => (
-                      <Dot
-                        key={index}
-                        active={index === currentSlideIndex}
-                        onClick={() => handleDotClick(index)}
-                      />
-                    ))}
+                  {modalData.img.map((_, index) => (
+                    <Dot
+                      key={index}
+                      $active={index === currentSlideIndex}
+                      onClick={() => handleDotClick(index)}
+                    />
+                  ))}
                 </Pager>
               </ImgContant>
             </Modalimg>
 
             <Accordion
               id="key_features"
-              title="🔍 주요기능 및 특징"
+              title="⚒️ 기술 스택"
               data={modalData.key_features}
             />
             <Accordion
@@ -436,9 +447,11 @@ const Modal = ({ slides = [], closeModal, currentIndex, modalData }) => {
             />
             <Accordion
               id="code_analysis"
-              title="🚨 코드 오류 발생 및 수정"
+              title="🚨 코드 오류 및 수정"
               data={[
-                `코드 오류: ${modalData.code_analysis?.problem || "정보 없음"}`,
+                `코드 오류 및 분석: ${
+                  modalData.code_analysis?.problem || "정보 없음"
+                }`,
                 `코드 수정: ${
                   modalData.code_analysis?.solution || "정보 없음"
                 }`,

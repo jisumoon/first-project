@@ -36,8 +36,9 @@ const List = styled.ul`
 `;
 
 const ListItem = styled.li`
-  font-size: 14px;
+  font-size: 15px;
   padding: 5px 0;
+  line-height: 1.2;
   border-bottom: 1px solid #eee;
   &:last-child {
     border-bottom: none;
@@ -68,7 +69,7 @@ const Accordion = ({ id, title, data }) => {
           {Array.isArray(data) &&
             data.map((item, index) => (
               <ListItem key={index}>
-                ▪️ {typeof item === "object" ? JSON.stringify(item) : item}
+                • {typeof item === "object" ? JSON.stringify(item) : item}
               </ListItem>
             ))}
         </List>

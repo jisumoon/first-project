@@ -1,12 +1,7 @@
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCloud,
-  faCode,
-  faFolderOpen,
-  faSearch,
-} from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import PortfolioBox from "../Portfolio/PortfolioBox";
@@ -158,7 +153,6 @@ const PortItem = styled.article`
   width: 400px;
   height: 70vh;
   padding: 2.5rem;
-  flex-shrink: 0;
   scroll-snap-align: start;
 
   @media (max-width: 860px) {
