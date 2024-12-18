@@ -8,7 +8,9 @@ import Modal from "../contents/Portfolio/Modal";
 import PortfolioSection from "../contents/Portfolio/Portfoliosection";
 import TeamProject from "../contents/Portfolio/TeamProject";
 
-const Contain = styled.div``;
+const Contain = styled.div`
+  margin-bottom: 100px;
+`;
 
 const Section = styled.section``;
 

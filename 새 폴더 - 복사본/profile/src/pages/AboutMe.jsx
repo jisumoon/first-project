@@ -41,15 +41,18 @@ const SectionWrapper = styled(motion.div)`
 
 const AboutMe = () => {
   const fadeInUpVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: {
+      opacity: 0,
+      y: 20,
+    },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.8,
-        ease: "easeInOut",
-        staggerChildren: 0.3,
-        delayChildren: 0.2,
+        duration: 1.2,
+        ease: "easeOut",
+        staggerChildren: 0.4,
+        delayChildren: 0.3,
       },
     },
   };

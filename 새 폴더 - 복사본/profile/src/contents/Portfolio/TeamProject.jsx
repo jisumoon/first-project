@@ -1,7 +1,7 @@
-import { faPagelines } from "@fortawesome/free-brands-svg-icons/faPagelines";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
+import { faPagelines } from "@fortawesome/free-brands-svg-icons/faPagelines";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const MainContainer = styled.div`
   font-style: normal;
@@ -9,7 +9,7 @@ const MainContainer = styled.div`
   margin: 0;
   padding: 0;
   overflow: hidden;
-  margin-top: 100px;
+  margin-top: 200px;
   @media (max-width: 860px) {
     margin-top: 0px;
   }

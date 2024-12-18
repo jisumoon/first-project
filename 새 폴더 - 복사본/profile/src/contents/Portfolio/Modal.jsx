@@ -401,7 +401,6 @@ const Modal = ({ slides = [], closeModal, currentIndex, modalData }) => {
               <ImgContant>
                 {modalData.img.map((img, index) => (
                   <img
-                    loading="lazy"
                     key={index}
                     src={img}
                     alt={modalData.title_kr || "이미지 없음"}
@@ -438,23 +437,33 @@ const Modal = ({ slides = [], closeModal, currentIndex, modalData }) => {
             <Accordion
               id="key_features"
               title="⚒️ 기술 스택"
-              data={modalData.key_features}
+              data={modalData.key_features.map((feature) => ({
+                technology: feature,
+              }))}
             />
+
             <Accordion
               id="development_outcomes"
               title="👏 개발 성과 및 결과"
-              data={modalData.development_outcomes}
+              data={modalData.development_outcomes.map((outcome) => ({
+                achievement: outcome,
+              }))}
             />
+
+            <Accordion
+              id="limitations"
+              title="⚡ 기술적 도전과 해결 방안"
+              data={modalData.limitations_and_improvements}
+            />
+
             <Accordion
               id="code_analysis"
               title="🚨 코드 오류 및 수정"
               data={[
-                `코드 오류 및 분석: ${
-                  modalData.code_analysis?.problem || "정보 없음"
-                }`,
-                `코드 수정: ${
-                  modalData.code_analysis?.solution || "정보 없음"
-                }`,
+                {
+                  problem: modalData.code_analysis?.problem || "정보 없음",
+                  solution: modalData.code_analysis?.solution || "정보 없음",
+                },
               ]}
             />
           </ModalSection>

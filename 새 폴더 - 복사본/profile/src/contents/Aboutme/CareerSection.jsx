@@ -104,6 +104,7 @@ const CareerBox = styled.div`
 const CareerInfoTitle = styled.h5`
   font-size: 16px;
   font-weight: bold;
+  margin-bottom: 10px;
 
   @media (max-width: 768px) {
     font-size: 14px;

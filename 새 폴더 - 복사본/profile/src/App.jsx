@@ -10,6 +10,7 @@ import AboutMe from "./pages/AboutMe";
 import Portfolio from "./pages/Portfolio";
 import Contact from "./pages/Contact";
 import Loading from "./components/Loading";
+import ScrollToTop from "./Hook/ScrollToTop";
 
 // QueryClient 설정
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
     path: "/",
     element: (
       <>
+        <ScrollToTop />
         <Home />
         <AboutMe />
         <Portfolio />
@@ -47,6 +49,7 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
           <GlobalStyles />
+
           {loading ? <Loading /> : <RouterProvider router={router} />}
           {/* <RouterProvider router={router} /> */}
         </ThemeProvider>

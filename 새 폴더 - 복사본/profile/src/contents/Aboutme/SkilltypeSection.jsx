@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import skillsData from "../../../public/data/skill.json";
+import { faMouse } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Container = styled.div`
   padding: 60px;
@@ -22,7 +24,6 @@ const SkillSectionTitle = styled.h1`
   font-weight: bold;
   line-height: 1.2;
   margin-bottom: 80px;
-
   @media (max-width: 768px) {
     font-size: 36px;
     text-align: left;
@@ -174,7 +175,7 @@ const InfoList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  line-height: 1.2;
+  line-height: 1.4;
   font-size: 16px;
 `;
 
@@ -222,10 +223,16 @@ const SkilltypeSection = () => {
               </InfoList>
             </>
           ) : (
-            <p>
-              각 기술 스택 아이콘에 마우스를 올리면 해당 기술을 <br />
-              어떻게 활용할 수 있는지 확인할 수 있습니다.
-            </p>
+            <>
+              <FontAwesomeIcon
+                icon={faMouse}
+                style={{ fontSize: "30px", marginBottom: "20px" }}
+              />
+              <p>
+                각 기술 스택 아이콘에 마우스를 올리면 해당 기술을 <br />
+                어떻게 활용할 수 있는지 확인할 수 있습니다.
+              </p>
+            </>
           )}
         </InfoWrapper>
       </SkillContainer>

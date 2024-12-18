@@ -26,22 +26,13 @@ const AccordionContent = styled(motion.div)`
   padding: 10px 20px;
 `;
 
-const List = styled.ul`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-`;
+const Section = styled.div`
+  margin-bottom: 20px;
 
-const ListItem = styled.li`
-  font-size: 15px;
-  padding: 5px 0;
-  line-height: 1.2;
-  border-bottom: 1px solid #eee;
-  &:last-child {
-    border-bottom: none;
+  p {
+    font-size: 14px;
+    margin-bottom: 10px;
+    line-height: 1.6;
   }
 `;
 
@@ -63,16 +54,18 @@ const Accordion = ({ id, title, data }) => {
         initial={false}
         animate={isOpen ? "open" : "closed"}
         variants={variants}
-        defaultOpen
       >
-        <List>
-          {Array.isArray(data) &&
-            data.map((item, index) => (
-              <ListItem key={index}>
-                • {typeof item === "object" ? JSON.stringify(item) : item}
-              </ListItem>
-            ))}
-        </List>
+        {Array.isArray(data) &&
+          data.map((item, index) => (
+            <Section key={index}>
+              {item.technology && <p>• {item.technology}</p>}
+              {item.achievement && <p>• {item.achievement}</p>}
+              {item.limitation && <p>⸰ 제한점: {item.limitation}</p>}
+              {item.improvement && <p>⸰ 해결방안: {item.improvement}</p>}
+              {item.problem && <p>• 코드 오류: {item.problem}</p>}
+              {item.solution && <p>• 코드 수정: {item.solution}</p>}
+            </Section>
+          ))}
       </AccordionContent>
     </AccordionContainer>
   );
