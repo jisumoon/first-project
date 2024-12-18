@@ -11,14 +11,13 @@ gsap.registerPlugin(ScrollTrigger);
 const PortSection = styled.section`
   width: 100%;
   height: 100vh;
-
   overflow: hidden;
   position: relative;
 `;
 
 const PortInner = styled.div`
   padding: 16px;
-  margin-top: 40px;
+  padding-top: 40px;
   @media (max-width: 768px) {
     text-align: left;
     padding-left: 5px;
@@ -29,7 +28,7 @@ const PortTitle = styled.div`
   padding-left: 40px;
   font-size: 60px;
   font-weight: 900;
-  line-height: 1.6;
+  line-height: 1.6;`
 
   @media (max-width: 768px) {
     text-align: center;
