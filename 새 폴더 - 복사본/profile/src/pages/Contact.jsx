@@ -10,6 +10,11 @@ const ContactContainer = styled(motion.div)`
   width: 100%;
   height: 100vh;
   background: ${(props) => props.theme.colors.primary};
+  padding: 0 20px;
+
+  @media (max-width: 1000px) {
+    text-align: center;
+  }
 `;
 
 const Contain = styled.div`
@@ -40,6 +45,7 @@ const MainTitle = styled(motion.div)`
   width: 100%;
   display: flex;
   justify-content: space-between;
+
   color: ${(props) => props.theme.colors.mainbackgtound};
   font-size: 120px;
   font-weight: bold;
@@ -65,6 +71,9 @@ const MainTitle = styled(motion.div)`
   @media (max-width: 400px) {
     font-size: 40px;
   }
+  @media (max-width: 400px) {
+    margin-top: 20px;
+  }
 `;
 
 const BottomTItle = styled(motion.p)`
@@ -80,44 +89,15 @@ const BottomTItle = styled(motion.p)`
 `;
 
 const Img = styled(motion.div)`
-  z-index: 1;
-  position: absolute;
-  top: 14%;
-  left: 10%;
-  margin-left: 40px;
-  overflow: hidden;
-  cursor: pointer;
-
   img {
-    width: 440px;
-    height: 520px;
-    opacity: 0.8;
-    transition: transform 0.3s ease;
-  }
+    z-index: 3;
+    margin-bottom: 40px;
+    width: 400px;
+    height: 440px;
 
-  &:hover img {
-    transform: scale(1.05);
-  }
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 200%;
-    height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.3),
-      transparent
-    );
-    transform: skewX(-30deg);
-    transition: left 0.5s ease;
-  }
-
-  &:hover::before {
-    left: 100%;
+    &:hover img {
+      transform: scale(1.05);
+    }
   }
 
   @media (max-width: 1290px) {
@@ -125,44 +105,26 @@ const Img = styled(motion.div)`
       width: 440px;
       height: 520px;
     }
-
-    &::before {
-      width: 150%;
-      height: 90%;
-      left: -75%;
-      transition: left 0.4s ease;
-    }
   }
 
   @media (max-width: 768px) {
-    position: relative;
-    margin-left: 0;
-    top: 0;
-    left: 0;
-    text-align: center;
-
     img {
       width: 300px;
       height: 380px;
       margin: 0 auto;
     }
-
-    &::before {
-      display: none;
-    }
   }
 `;
 
 const BottomSection = styled.div`
-  margin-top: 490px;
   display: flex;
   justify-content: space-between;
-  padding: 0 10px;
+
   padding-right: 20px;
   color: ${(props) => props.theme.colors.mainbackgtound};
 
   @media (max-width: 1290px) {
-    margin-top: 500px;
+    margin-top: 540px;
   }
 
   @media (max-width: 1000px) {
@@ -183,6 +145,10 @@ const RightInfo = styled(motion.p)`
 
   @media (max-width: 768px) {
     font-size: 15px;
+  }
+
+  @media (max-width: 400px) {
+    font-size: 14px;
   }
 `;
 
@@ -215,7 +181,7 @@ const RightDownSection = styled(motion.ul)`
 
     @media (max-width: 400px) {
       margin-top: 20px;
-      font-size: 15px;
+      font-size: 16px;
     }
   }
 `;
@@ -255,7 +221,7 @@ const goToGithub = () => {
 const goToNotion = () => {
   showToastAndRedirect(
     "🔗 Notion으로 이동합니다",
-    "https://www.notion.so/13336341b0a7800e9a55d63360689f79?pvs=4"
+    "https://www.notion.so/13336341b0a781f39a6cc6964f762ec9?v=13336341b0a7814a9a18000cd4f71d3c"
   );
 };
 

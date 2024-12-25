@@ -27,7 +27,6 @@ const Card = styled.div`
       overflow: hidden;
 
       .imgBox {
-        border: 1px solid #f00;
         position: absolute;
         width: 100%;
         height: 100%;
@@ -36,6 +35,7 @@ const Card = styled.div`
           width: 100%;
           height: 100%;
           object-fit: cover;
+          object-position: top;
         }
       }
 

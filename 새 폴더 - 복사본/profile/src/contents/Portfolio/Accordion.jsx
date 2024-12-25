@@ -27,7 +27,7 @@ const AccordionContent = styled(motion.div)`
 `;
 
 const Section = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 
   p {
     font-size: 14px;

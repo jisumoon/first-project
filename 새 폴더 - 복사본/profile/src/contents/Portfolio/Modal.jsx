@@ -299,6 +299,9 @@ const ModalHashtag = styled.ul`
 `;
 
 const Hashtag = styled.li`
+  padding: 2px 6px;
+  border-radius: 20px;
+  background: ${(props) => props.theme.colors.mainbackgtound};
   font-size: 14px;
   color: ${(props) => props.theme.colors.primary};
 

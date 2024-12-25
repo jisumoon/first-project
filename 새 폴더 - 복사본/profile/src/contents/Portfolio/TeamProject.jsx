@@ -39,6 +39,12 @@ const LoopContainer = styled.div`
   @media (max-width: 860px) {
     font-size: 50px;
   }
+
+  @media (max-width: 400px) {
+    font-size: 30px;
+    border-top: 2px solid ${(props) => props.theme.colors.primary};
+    border-bottom: 2px solid ${(props) => props.theme.colors.primary};
+  }
 `;
 
 const LoopItem = styled.div`

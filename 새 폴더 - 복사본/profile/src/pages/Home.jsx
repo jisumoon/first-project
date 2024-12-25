@@ -321,7 +321,7 @@ const goToGithub = () => {
 const goToNotion = () => {
   showToastAndRedirect(
     "🔗 Notion으로 이동합니다",
-    "https://www.notion.so/14a36341b0a7806dba62f00ca0dd8724?pvs=4"
+    "https://www.notion.so/13336341b0a781f39a6cc6964f762ec9?v=13336341b0a7814a9a18000cd4f71d3c"
   );
 };
 
@@ -355,7 +355,6 @@ const Home = () => {
             <p>
               Starting my journey as a frontend developer, I’m planting <br />
               lines of code like seeds in a forest, nurturing them to grow into
-              <br />
               impactful solutions.
             </p>
           </MainTitle>
@@ -381,7 +380,7 @@ const Home = () => {
           </HeroSection>
         </TopSection>
         <BottomSection>
-          <Info>&copy; 2024 Moon Ji Su Portfolio. </Info>
+          <Info>&copy; 2025 Moon Ji Su Portfolio. </Info>
           <Menu>
             <li
               onMouseEnter={() => setActivePreview("github")}

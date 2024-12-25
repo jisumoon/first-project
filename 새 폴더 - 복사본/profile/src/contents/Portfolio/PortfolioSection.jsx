@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const PortSection = styled.section`
   width: 100%;
-  height: 100vh;
+
   overflow: hidden;
   position: relative;
 `;
@@ -28,7 +28,7 @@ const PortTitle = styled.div`
   padding-left: 40px;
   font-size: 60px;
   font-weight: 900;
-  line-height: 1.6;`
+  line-height: 1.6;
 
   @media (max-width: 768px) {
     text-align: center;
@@ -127,6 +127,19 @@ const PortWrap = styled.div`
   width: max-content;
   gap: 20px;
 
+  ::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.colors.secondary};
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: ${(props) => props.theme.colors.background};
+  }
+
   ${({ isEmpty }) =>
     isEmpty &&
     `display: flex;
@@ -188,7 +201,15 @@ const PortfolioSection = ({ projects, onOpenModal = () => {} }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const sectionRef = useRef(null);
   const portWrapRef = useRef(null);
-  const isMobile = window.innerWidth <= 768;
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  const debounce = (func, delay) => {
+    let timeout;
+    return (...args) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func(...args), delay);
+    };
+  };
 
   const handleFilterChange = (category) => {
     setFilter(category);
@@ -196,41 +217,32 @@ const PortfolioSection = ({ projects, onOpenModal = () => {} }) => {
     setSearchQuery("");
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    const debouncedResize = debounce(handleResize, 200);
+    window.addEventListener("resize", debouncedResize);
+
+    return () => window.removeEventListener("resize", debouncedResize);
+  }, []);
+
   const handleSearch = (e) => setSearchQuery(e.target.value.toLowerCase());
 
   const filteredProjects = useMemo(() => {
     return projects.filter((project) => {
       const matchesFilter = filter === "ALL" || project.category === filter;
-
-      const searchFields = [
-        project.title_kr,
-        project.title_en,
-        project.description,
-        project.type,
-        project.features,
-        project.contribution,
-        project.problem_solving,
-        project.achievement,
-        ...(project.key_features || []),
-        ...(project.development_outcomes || []),
-        project.code_analysis?.problem,
-        project.code_analysis?.solution,
-        project.github,
-        project.blog,
-        project.deployment,
-      ];
-
-      const matchesSearchQuery = searchFields.some(
+      const matchesSearchQuery = Object.values(project).some(
         (field) =>
           typeof field === "string" && field.toLowerCase().includes(searchQuery)
       );
-
       return matchesFilter && matchesSearchQuery;
     });
   }, [projects, filter, searchQuery]);
 
   useEffect(() => {
-    if (!isMobile && portWrapRef.current) {
+    if (!isMobile && portWrapRef.current && projects.length > 0) {
       const horSection = portWrapRef.current;
       const sectionWidth = horSection.scrollWidth - window.innerWidth;
 
@@ -248,13 +260,11 @@ const PortfolioSection = ({ projects, onOpenModal = () => {} }) => {
       });
 
       return () => {
-        if (animation.scrollTrigger) {
-          animation.scrollTrigger.kill();
-        }
+        animation.scrollTrigger?.kill();
         animation.kill();
       };
     }
-  }, [projects]);
+  }, [projects, isMobile]);
 
   const handleButtonClick = (project) => {
     if (isMobile) {

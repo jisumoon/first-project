@@ -49,7 +49,7 @@ const AboutMe = () => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 1.2,
+        duration: 1,
         ease: "easeOut",
         staggerChildren: 0.4,
         delayChildren: 0.3,
