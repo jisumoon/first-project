@@ -1,0 +1,56 @@
+@font-face {
+  font-family: "HakgyoansimNadeuriTTF-B";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimNadeuriTTF-B.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
+:global(.react-calendar__month-view__weekdays) {
+  font-family: "HakgyoansimNadeuriTTF-B";
+  font-size: 18px;
+  font-weight: bold;
+  color: #555;
+  text-align: center;
+  padding-bottom: 5px;
+}
+
+:global(.react-calendar__month-view__weekdays__weekday) {
+  text-align: center;
+}
+
+.react-calendar {
+  padding: 10px;
+  font-family: "HakgyoansimNadeuriTTF-B";
+  border: none;
+}
+
+.react-calendar__tile {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.react-calendar__tile:hover {
+  background-color: #f0f8ff;
+}
+
+.react-calendar__tile--saturday {
+  font-size: 15px;
+  color: steelblue;
+}
+
+.react-calendar__tile--sunday {
+  font-size: 15px;
+  color: crimson;
+}
+
+.react-calendar__tile--holiday {
+  font-size: 15px;
+  color: crimson;
+  font-weight: bold;
+}
