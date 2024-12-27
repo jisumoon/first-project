@@ -1,13 +1,18 @@
 import React from "react";
-import MyCalendar from "../components/MyCalendar";
 import styled from "styled-components";
+import DiaryList from "../components/DiaryList";
 
-const Container = styled.div``;
+const Container = styled.div`
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+`;
 
 const Home: React.FC = () => {
   return (
     <Container>
-      <MyCalendar />
+      <DiaryList />
     </Container>
   );
 };

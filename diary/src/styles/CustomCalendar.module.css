@@ -23,6 +23,8 @@
   padding: 10px;
   font-family: "HakgyoansimNadeuriTTF-B";
   border: none;
+  border-radius: 8px;
+  margin-bottom: 20px;
 }
 
 .react-calendar__tile {
