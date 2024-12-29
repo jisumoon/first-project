@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const Card = styled.div`
@@ -14,9 +14,8 @@ const Card = styled.div`
 
 const Question = styled.h2`
   margin: 10px 0;
-  font-size: 24px;
+  font-size: 20px;
   text-align: center;
-  font-weight: bold;
   letter-spacing: 1.5px;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
   font-family: "HakgyoansimNadeuriTTF-B", sans-serif;
@@ -60,15 +59,73 @@ const AnswerItem = styled.li`
   }
 `;
 
+const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const InputField = styled.textarea`
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  border: 1px solid ${({ theme }) => theme.secondary};
+  border-radius: 10px;
+  resize: none;
+  font-family: "Ownglyph_ParkDaHyun";
+  &:hover {
+    outline: none;
+  }
+`;
+
+const SaveButton = styled.button`
+  padding: 10px 20px;
+  font-size: 20px;
+  font-family: "Ownglyph_ParkDaHyun";
+  color: #fff;
+  background-color: ${({ theme }) => theme.primary};
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.secondary};
+    transform: translateY(-2px);
+  }
+`;
+
 interface QAProps {
   question: string;
   answers: { date: string; answer: string }[];
+  onSave: (newAnswer: { date: string; answer: string }) => void;
 }
 
-const DiaryForm: React.FC<QAProps> = ({ question, answers }) => {
+const DiaryForm: React.FC<QAProps> = ({ question, answers, onSave }) => {
+  const [newAnswer, setNewAnswer] = useState("");
+
+  const handleSave = () => {
+    if (newAnswer.trim() === "") {
+      alert("답변을 적어주세요");
+      return;
+    }
+
+    const currentDate = new Date().toLocaleDateString("ko-KR", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+
+    // 새 답변 저장
+    onSave({ date: currentDate, answer: newAnswer });
+
+    // 입력란 초기화
+    setNewAnswer("");
+  };
+
   return (
     <Card>
-      <Question>Q: {question}</Question>
+      <Question>Q {question}</Question>
       <AnswerList>
         {answers.length > 0 ? (
           answers.map((item, index) => (
@@ -78,9 +135,15 @@ const DiaryForm: React.FC<QAProps> = ({ question, answers }) => {
             </AnswerItem>
           ))
         ) : (
-          <p style={{ textAlign: "center", fontSize: "20px" }}>
-            답변이 없습니다.
-          </p>
+          <InputContainer>
+            <InputField
+              rows={4}
+              placeholder="답변을 적어주세요"
+              value={newAnswer}
+              onChange={(e) => setNewAnswer(e.target.value)}
+            />
+            <SaveButton onClick={handleSave}>저장</SaveButton>
+          </InputContainer>
         )}
       </AnswerList>
     </Card>
