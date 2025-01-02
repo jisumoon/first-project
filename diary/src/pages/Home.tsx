@@ -7,6 +7,7 @@ const Container = styled.div`
   gap: 20px;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 `;
 
 const Home: React.FC = () => {

@@ -27,16 +27,16 @@ const App: React.FC = () => {
     <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
       <GlobalStyles />
       <Router>
-        {isLoading ? (
+        {/* {isLoading ? (
           <Loading />
         ) : (
           <>
             <div style={{ textAlign: "center", margin: "20px" }}>
               <ToggleButton isDarkMode={isDarkMode} onToggle={toggleTheme} />
-            </div>
-            <AppRouter />
-          </>
-        )}
+            </div> */}
+        <AppRouter />
+
+        {/* )} */}
       </Router>
     </ThemeProvider>
   );
