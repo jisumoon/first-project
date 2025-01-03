@@ -158,7 +158,7 @@ const Login = () => {
         <Subtitle>
           {resetMode
             ? "비밀번호를 재설정할 이메일을 입력해주세요."
-            : "지금, 당신의 5년을 시작해 보세요."}
+            : "지금, 당신의 이야기를 시작해 보세요."}
         </Subtitle>
 
         <InputWrapper>

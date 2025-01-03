@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import styled from "styled-components";
@@ -14,6 +14,11 @@ interface LunarHoliday {
   lunarMonth: number;
   lunarDay: number;
   name: string;
+  isLeapMonth?: boolean;
+}
+
+interface CalendarProps {
+  onDateClick: (date: Date) => void;
 }
 
 const Container = styled.div`
@@ -38,13 +43,13 @@ const lunarHolidays: LunarHoliday[] = [
   { lunarMonth: 1, lunarDay: 1, name: "설날" },
   { lunarMonth: 1, lunarDay: 2, name: "설날" },
   { lunarMonth: 1, lunarDay: 3, name: "설날" },
-  { lunarMonth: 8, lunarDay: 15, name: "추석" },
-  { lunarMonth: 8, lunarDay: 16, name: "추석" },
-  { lunarMonth: 8, lunarDay: 17, name: "추석" },
+  { lunarMonth: 8, lunarDay: 15, name: "추석", isLeapMonth: false },
+  { lunarMonth: 8, lunarDay: 16, name: "추석", isLeapMonth: false },
+  { lunarMonth: 8, lunarDay: 17, name: "추석", isLeapMonth: false },
 ];
 
 const formatDate = (date: Date): string => {
-  return date
+  const formatted = date
     .toLocaleDateString("ko-KR", {
       year: "numeric",
       month: "2-digit",
@@ -52,6 +57,8 @@ const formatDate = (date: Date): string => {
     })
     .replace(/\. /g, "-")
     .replace(/\.$/, "");
+
+  return formatted;
 };
 
 const getKoreanHolidays = (year: number): Holiday[] => {
@@ -61,45 +68,54 @@ const getKoreanHolidays = (year: number): Holiday[] => {
   }));
 
   lunarHolidays.forEach((lunarHoliday) => {
+    const isLeapMonth = lunarHoliday.isLeapMonth || false;
+
+    if (
+      lunarHoliday.lunarMonth < 1 ||
+      lunarHoliday.lunarMonth > 12 ||
+      lunarHoliday.lunarDay < 1 ||
+      lunarHoliday.lunarDay > 30
+    ) {
+      console.error(
+        `Invalid Lunar Date: Month=${lunarHoliday.lunarMonth}, Day=${lunarHoliday.lunarDay}`
+      );
+      return;
+    }
+
     const solarDate = solarlunar.lunar2solar(
       year,
       lunarHoliday.lunarMonth,
       lunarHoliday.lunarDay,
-      false
+      isLeapMonth
     );
 
-    // 변환된 날짜를 Date 객체로 생성
-    const solarDateObj = new Date(
-      solarDate.solarYear,
-      solarDate.solarMonth - 1,
-      solarDate.solarDay
-    );
+    if (solarDate) {
+      const formattedDate = `${solarDate.solarYear}-${String(
+        solarDate.solarMonth
+      ).padStart(2, "0")}-${String(solarDate.solarDay).padStart(2, "0")}`;
 
-    const correctedDate = new Date(solarDateObj.getTime() + 9 * 60 * 60 * 1000);
-
-    holidays.push({
-      date: `${correctedDate.getFullYear()}-${String(
-        correctedDate.getMonth() + 1
-      ).padStart(2, "0")}-${String(correctedDate.getDate()).padStart(2, "0")}`,
-      name: lunarHoliday.name,
-    });
+      holidays.push({
+        date: formattedDate,
+        name: lunarHoliday.name,
+      });
+    } else {
+    }
   });
 
   return holidays;
 };
-
-interface CalendarProps {
-  onDateClick: (date: Date) => void;
-}
 
 const MyCalendar: React.FC<CalendarProps> = ({ onDateClick }) => {
   const [activeYear, setActiveYear] = useState<number>(
     new Date().getFullYear()
   );
   const koreanHolidays = getKoreanHolidays(activeYear);
+  const [activeStartDate, setActiveStartDate] = useState<Date | null>(null);
 
   const findHoliday = (formattedDate: string): Holiday | undefined => {
-    return koreanHolidays.find((holiday) => holiday.date === formattedDate);
+    return koreanHolidays.find(
+      (holiday) => holiday.date.trim() === formattedDate.trim()
+    );
   };
 
   return (
@@ -107,28 +123,51 @@ const MyCalendar: React.FC<CalendarProps> = ({ onDateClick }) => {
       <Calendar
         locale="ko-KR"
         onClickDay={onDateClick}
-        onActiveStartDateChange={({ activeStartDate }) => {
-          const newYear = activeStartDate?.getFullYear();
-          if (newYear && newYear !== activeYear) {
-            setActiveYear(newYear);
+        onActiveStartDateChange={({ activeStartDate: startDate }) => {
+          if (startDate) {
+            setActiveStartDate(startDate);
+            const newYear = startDate.getFullYear();
+            if (newYear !== activeYear) {
+              setActiveYear(newYear);
+            }
           }
         }}
-        tileClassName={({ date, view }) => {
+        tileClassName={({ date, view }: { date: Date; view: string }) => {
           if (view === "month") {
+            const activeMonth = activeStartDate
+              ? activeStartDate.getMonth()
+              : new Date().getMonth();
+            const tileMonth = date.getMonth();
+
+            if (tileMonth !== activeMonth) {
+              return "";
+            }
+
             const formattedDate = formatDate(date);
             if (findHoliday(formattedDate)) {
               return styles["react-calendar__tile--holiday"];
             }
+
             const day = date.getDay();
             if (day === 0) return styles["react-calendar__tile--sunday"];
             if (day === 6) return styles["react-calendar__tile--saturday"];
           }
           return "";
         }}
-        tileContent={({ date, view }) => {
+        tileContent={({ date, view }: { date: Date; view: string }) => {
           if (view === "month") {
+            const activeMonth = activeStartDate
+              ? activeStartDate.getMonth()
+              : new Date().getMonth();
+            const tileMonth = date.getMonth();
+
+            if (tileMonth !== activeMonth) {
+              return null;
+            }
+
             const formattedDate = formatDate(date);
             const holiday = findHoliday(formattedDate);
+
             if (holiday) {
               return (
                 <div style={{ color: "crimson", fontSize: "10px" }}>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
@@ -72,7 +72,7 @@ const Loading: React.FC = () => {
         style={{ fontSize: "20px", marginRight: "10px" }}
       />
 
-      <Tagline>나의 지난 5년간의 이야기가 펼쳐집니다.</Tagline>
+      <Tagline>나의 지난 이야기가 펼쳐집니다.</Tagline>
       <Footer>
         &copy; 2025 Memory Lane. 당신의 소중한 순간들을 함께합니다.
       </Footer>

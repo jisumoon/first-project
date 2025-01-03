@@ -1,5 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
+import { createPost, updatePost, deletePost } from "../utils/postUtils";
+
+interface QAProps {
+  question: string;
+  answers: { postId: string; date: string; answer: string }[];
+  onSave: (newAnswer: { postId: string; date: string; answer: string }) => void;
+  onDelete: (postId: string) => void;
+  onEdit: (postId: string, updatedAnswer: string) => void;
+  userId: string;
+}
 
 const Card = styled.div`
   display: flex;
@@ -63,6 +73,25 @@ const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  position: relative;
+`;
+
+const CharCounter = styled.div`
+  position: absolute;
+  bottom: 50px;
+  right: 10px;
+  font-size: 12px;
+  color: ${({ theme }) => theme.text || "#333"};
+  opacity: 0.7;
+`;
+
+const EditCharCounter = styled.div`
+  position: absolute;
+  bottom: -20px;
+  right: 10px;
+  font-size: 12px;
+  color: ${({ theme }) => theme.text || "#333"};
+  opacity: 0.7;
 `;
 
 const InputField = styled.textarea`
@@ -79,32 +108,75 @@ const InputField = styled.textarea`
 `;
 
 const SaveButton = styled.button`
-  padding: 10px 20px;
-  font-size: 20px;
+  padding: 5px 10px;
+  font-size: 16px;
   font-family: "Ownglyph_ParkDaHyun";
   color: #fff;
-  background-color: ${({ theme }) => theme.primary};
+  background: ${({ theme }) => theme.primary};
   border: none;
-  border-radius: 10px;
+  border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s;
 
   &:hover {
-    background-color: ${({ theme }) => theme.secondary};
     transform: translateY(-2px);
   }
 `;
 
-interface QAProps {
-  question: string;
-  answers: { date: string; answer: string }[];
-  onSave: (newAnswer: { date: string; answer: string }) => void;
-}
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+`;
 
-const DiaryForm: React.FC<QAProps> = ({ question, answers, onSave }) => {
+const EditButton = styled.button`
+  padding: 5px 10px;
+  font-size: 14px;
+  background: ${({ theme }) => theme.primary};
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Ownglyph_ParkDaHyun";
+
+  &:hover {
+    background-color: #45a049;
+  }
+`;
+
+const DeleteButton = styled.button`
+  padding: 5px 10px;
+  font-size: 14px;
+  background: ${({ theme }) => theme.primary};
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Ownglyph_ParkDaHyun";
+  &:hover {
+    background-color: #d32f2f;
+  }
+`;
+
+const DiaryForm: React.FC<QAProps> = ({
+  question,
+  answers,
+  onSave,
+  onDelete,
+  onEdit,
+  userId,
+}) => {
   const [newAnswer, setNewAnswer] = useState("");
+  const [editingDate, setEditingDate] = useState<string | null>(null);
+  const [editingText, setEditingText] = useState<string>("");
 
-  const handleSave = () => {
+  //저장
+  const handleSave = async () => {
+    if (!userId) {
+      alert("로그인이 필요합니다. 로그인 후 이용해주세요.");
+      return;
+    }
+
     if (newAnswer.trim() === "") {
       alert("답변을 적어주세요");
       return;
@@ -116,11 +188,57 @@ const DiaryForm: React.FC<QAProps> = ({ question, answers, onSave }) => {
       day: "2-digit",
     });
 
-    // 새 답변 저장
-    onSave({ date: currentDate, answer: newAnswer });
+    try {
+      const postId = await createPost(userId, `질문: ${question}`, newAnswer); // Firestore의 문서 ID 사용
+      if (postId) {
+        onSave({ postId, date: currentDate, answer: newAnswer }); // Firestore의 ID를 상태에 저장
+        setNewAnswer("");
+      }
+    } catch (error) {
+      console.error("Error saving post:", error);
+    }
+  };
 
-    // 입력란 초기화
-    setNewAnswer("");
+  //수정
+  const handleEdit = (postId: string) => {
+    setEditingDate(postId); // 수정할 항목의 postId 설정
+    const answerToEdit = answers.find((item) => item.postId === postId);
+    setEditingText(answerToEdit?.answer || "");
+  };
+
+  //수정 후 저장
+  const handleEditSave = async () => {
+    if (!editingDate || editingText.trim() === "") {
+      alert("수정할 내용을 적어주세요.");
+      return;
+    }
+
+    if (editingText.length > 25) {
+      alert("수정 내용은 25자 이내로 작성해주세요.");
+      return;
+    }
+
+    try {
+      const success = await updatePost(userId, editingDate, editingText);
+      if (success) {
+        console.log("Edit successful:", { editingDate, editingText });
+        onEdit(editingDate, editingText);
+        setEditingDate(null);
+        setEditingText("");
+      }
+    } catch (error) {
+      console.error("Error updating post:", error);
+    }
+  };
+
+  //삭제
+  const handleDelete = async (postId: string) => {
+    try {
+      const success = await deletePost(userId, postId); // Firestore 문서 ID 사용
+      if (success) onDelete(postId);
+    } catch (error) {
+      console.error("Error deleting post:", error);
+    }
   };
 
   return (
@@ -128,21 +246,54 @@ const DiaryForm: React.FC<QAProps> = ({ question, answers, onSave }) => {
       <Question>Q {question}</Question>
       <AnswerList>
         {answers.length > 0 ? (
-          answers.map((item, index) => (
-            <AnswerItem key={index}>
+          answers.map((item) => (
+            <AnswerItem key={item.postId}>
               <p>⭐ {item.date}</p>
-              <p>{item.answer}</p>
+              {editingDate === item.postId ? (
+                <>
+                  <InputContainer>
+                    <InputField
+                      rows={4}
+                      maxLength={25}
+                      placeholder="답변을 적어주세요"
+                      value={editingText}
+                      onChange={(e) => setEditingText(e.target.value)}
+                    />
+                    <EditCharCounter>{editingText.length}/25</EditCharCounter>
+                  </InputContainer>
+                  <ButtonContainer>
+                    <SaveButton onClick={handleEditSave}>저장</SaveButton>
+                    <SaveButton onClick={() => setEditingDate(null)}>
+                      취소
+                    </SaveButton>
+                  </ButtonContainer>
+                </>
+              ) : (
+                <>
+                  <p>{item.answer}</p>
+                  <ButtonContainer>
+                    <EditButton onClick={() => handleEdit(item.postId)}>
+                      수정
+                    </EditButton>
+                    <DeleteButton onClick={() => handleDelete(item.postId)}>
+                      삭제
+                    </DeleteButton>
+                  </ButtonContainer>
+                </>
+              )}
             </AnswerItem>
           ))
         ) : (
           <InputContainer>
             <InputField
               rows={4}
+              maxLength={25}
               placeholder="답변을 적어주세요"
               value={newAnswer}
               onChange={(e) => setNewAnswer(e.target.value)}
-            />
+            ></InputField>
             <SaveButton onClick={handleSave}>저장</SaveButton>
+            <CharCounter>{newAnswer.length}/25</CharCounter>
           </InputContainer>
         )}
       </AnswerList>

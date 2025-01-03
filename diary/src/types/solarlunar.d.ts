@@ -1,27 +1,29 @@
 declare module "solarlunar" {
-  interface SolarDate {
-    solarYear: number;
-    solarMonth: number;
-    solarDay: number;
-  }
-
-  interface LunarDate {
-    lunarYear: number;
-    lunarMonth: number;
-    lunarDay: number;
-    isLeapMonth: boolean;
-  }
-
-  function lunar2solar(
+  export function lunar2solar(
     lunarYear: number,
     lunarMonth: number,
     lunarDay: number,
     isLeapMonth: boolean
-  ): SolarDate;
+  ): {
+    solarYear: number;
+    solarMonth: number;
+    solarDay: number;
+  };
 
-  function solarToLunar(
+  export function solarToLunar(
     solarYear: number,
     solarMonth: number,
     solarDay: number
-  ): LunarDate;
+  ): {
+    lunarYear: number;
+    lunarMonth: number;
+    lunarDay: number;
+    isLeapMonth: boolean;
+  };
+
+  const solarlunar: {
+    lunar2solar: typeof lunar2solar;
+    solarToLunar: typeof solarToLunar;
+  };
+  export default solarlunar;
 }
