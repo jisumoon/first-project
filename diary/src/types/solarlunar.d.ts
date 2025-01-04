@@ -5,9 +5,13 @@ declare module "solarlunar" {
     lunarDay: number,
     isLeapMonth: boolean
   ): {
-    solarYear: number;
-    solarMonth: number;
-    solarDay: number;
+    cYear: number;
+    cMonth: number;
+    cDay: number;
+    solarYear?: number;
+    solarMonth?: number;
+    solarDay?: number;
+    [key: string]: any;
   };
 
   export function solarToLunar(
@@ -19,11 +23,13 @@ declare module "solarlunar" {
     lunarMonth: number;
     lunarDay: number;
     isLeapMonth: boolean;
+    [key: string]: any;
   };
 
   const solarlunar: {
     lunar2solar: typeof lunar2solar;
     solarToLunar: typeof solarToLunar;
   };
+
   export default solarlunar;
 }

@@ -28,6 +28,7 @@ const Container = styled.div`
   align-items: center;
 `;
 
+// 양력 공휴일
 const fixedHolidays: Holiday[] = [
   { date: "01-01", name: "신정" },
   { date: "03-01", name: "삼일절" },
@@ -39,6 +40,7 @@ const fixedHolidays: Holiday[] = [
   { date: "12-25", name: "크리스마스" },
 ];
 
+//음력 공휴일일
 const lunarHolidays: LunarHoliday[] = [
   { lunarMonth: 1, lunarDay: 1, name: "설날" },
   { lunarMonth: 1, lunarDay: 2, name: "설날" },
@@ -48,6 +50,7 @@ const lunarHolidays: LunarHoliday[] = [
   { lunarMonth: 8, lunarDay: 17, name: "추석", isLeapMonth: false },
 ];
 
+//날짜 우리 나라에 맞추어서
 const formatDate = (date: Date): string => {
   const formatted = date
     .toLocaleDateString("ko-KR", {
@@ -61,6 +64,7 @@ const formatDate = (date: Date): string => {
   return formatted;
 };
 
+//음력 날짜 -> 양력 날짜 변환
 const getKoreanHolidays = (year: number): Holiday[] => {
   const holidays = fixedHolidays.map((holiday) => ({
     date: `${year}-${holiday.date}`,
@@ -70,18 +74,6 @@ const getKoreanHolidays = (year: number): Holiday[] => {
   lunarHolidays.forEach((lunarHoliday) => {
     const isLeapMonth = lunarHoliday.isLeapMonth || false;
 
-    if (
-      lunarHoliday.lunarMonth < 1 ||
-      lunarHoliday.lunarMonth > 12 ||
-      lunarHoliday.lunarDay < 1 ||
-      lunarHoliday.lunarDay > 30
-    ) {
-      console.error(
-        `Invalid Lunar Date: Month=${lunarHoliday.lunarMonth}, Day=${lunarHoliday.lunarDay}`
-      );
-      return;
-    }
-
     const solarDate = solarlunar.lunar2solar(
       year,
       lunarHoliday.lunarMonth,
@@ -89,16 +81,17 @@ const getKoreanHolidays = (year: number): Holiday[] => {
       isLeapMonth
     );
 
-    if (solarDate) {
-      const formattedDate = `${solarDate.solarYear}-${String(
-        solarDate.solarMonth
-      ).padStart(2, "0")}-${String(solarDate.solarDay).padStart(2, "0")}`;
+    if (solarDate && solarDate.cYear && solarDate.cMonth && solarDate.cDay) {
+      const formattedDate = `${solarDate.cYear}-${String(
+        solarDate.cMonth
+      ).padStart(2, "0")}-${String(solarDate.cDay).padStart(2, "0")}`;
 
       holidays.push({
         date: formattedDate,
         name: lunarHoliday.name,
       });
     } else {
+      console.error(`Failed to convert Lunar Date: ${lunarHoliday.name}`);
     }
   });
 
