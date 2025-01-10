@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useMatch, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useQuery } from "react-query";
-import { openModal, closeModal } from "../store/modalReducer";
 import Modal from "../contents/Portfolio/Modal";
 import PortfolioSection from "../contents/Portfolio/Portfoliosection";
 import TeamProject from "../contents/Portfolio/TeamProject";
+import { useModal } from "../Context/ModalContext";
 
 const Contain = styled.div`
   margin-bottom: 100px;
@@ -15,8 +14,7 @@ const Contain = styled.div`
 const Section = styled.section``;
 
 const Portfolio = ({ id }) => {
-  const dispatch = useDispatch();
-  const isModalOpen = useSelector((state) => state.modal.isModalOpen);
+  const { isModalOpen, openModal, closeModal } = useModal();
   const projectMatch = useMatch(`/portfoliodetail/:itemId`);
   const [modalData, setModalData] = useState(null);
   const [filter, setFilter] = useState("ALL");
@@ -57,12 +55,12 @@ const Portfolio = ({ id }) => {
   // Modal 열기/닫기 핸들러
   const openModalHandler = (item) => {
     setModalData(item);
-    dispatch(openModal());
+    openModal(); // Context로 처리
     window.history.pushState(null, "", `/portfoliodetail/${item.id}`); // URL 업데이트
   };
 
   const closeModalHandler = () => {
-    dispatch(closeModal());
+    closeModal(); // Context로 처리
     setModalData(null);
     window.history.back();
   };

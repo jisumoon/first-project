@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Container = styled.div`
   padding: 60px;
-  margin: 200px 0;
+  margin: 100px 0;
 
   @media (max-width: 1280px) {
     margin-top: 80px;

@@ -78,6 +78,7 @@ const ImageContainer = styled.div`
   min-width: 240px;
   height: 440px;
   min-height: 300px;
+
   img {
     background: #eee;
     object-fit: cover;

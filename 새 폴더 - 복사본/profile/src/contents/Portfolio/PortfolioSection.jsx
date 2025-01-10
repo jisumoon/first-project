@@ -2,15 +2,10 @@ import React, { useEffect, useRef, useState, useMemo } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
 import PortfolioBox from "../Portfolio/PortfolioBox";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const PortSection = styled.section`
   width: 100%;
-
   overflow: hidden;
   position: relative;
 `;
@@ -19,8 +14,7 @@ const PortInner = styled.div`
   padding: 16px;
   padding-top: 40px;
   @media (max-width: 768px) {
-    text-align: left;
-    padding-left: 5px;
+    padding: 10px;
   }
 `;
 
@@ -30,16 +24,19 @@ const PortTitle = styled.div`
   font-weight: 900;
   line-height: 1.6;
 
+  @media (max-width: 1024px) {
+    font-size: 50px;
+    padding-left: 30px;
+  }
+
   @media (max-width: 768px) {
     text-align: center;
     font-size: 40px;
-    padding-left: 20px;
+    padding-left: 0;
   }
 
-  @media (max-width: 400px) {
-    text-align: left;
-    font-size: 40px;
-    padding-left: 20px;
+  @media (max-width: 480px) {
+    font-size: 32px;
   }
 `;
 
@@ -53,6 +50,10 @@ const Controls = styled.div`
   margin-bottom: 20px;
   padding: 0 40px;
   flex-wrap: wrap;
+
+  @media (max-width: 1024px) {
+    padding: 0 20px;
+  }
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -85,15 +86,24 @@ const Btn = styled.button`
     background: ${(props) => props.theme.colors.highlight};
     color: #fff;
   }
+
+  @media (max-width: 480px) {
+    font-size: 14px;
+    padding: 8px 20px;
+  }
 `;
 
 const SearchBarWrapper = styled.div`
   position: relative;
   width: 300px;
 
+  @media (max-width: 1024px) {
+    width: 250px;
+  }
+
   @media (max-width: 768px) {
     width: 100%;
-    max-width: 327px;
+    max-width: 340px;
   }
 `;
 
@@ -108,37 +118,32 @@ const SearchBar = styled.input`
   &:focus::placeholder {
     opacity: 0;
   }
-  @media (max-width: 768px) {
-    width: 100%;
+
+  @media (max-width: 480px) {
+    padding: 8px 30px 8px 12px;
   }
 `;
 
 const SearchIcon = styled(FontAwesomeIcon)`
   position: absolute;
   top: 30%;
-  right: 14px;
+  right: px;
   color: ${(props) => props.theme.colors.secondary};
+
+  @media (max-width: 768px) {
+    right: 10px;
+  }
+
+  @media (max-width: 480px) {
+    right: 10px;
+  }
 `;
 
 const PortWrap = styled.div`
   margin-top: 20px;
-  display: flex;
-  flex-wrap: nowrap;
-  width: max-content;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 20px;
-
-  ::-webkit-scrollbar {
-    height: 8px;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background-color: ${(props) => props.theme.colors.secondary};
-    border-radius: 10px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background-color: ${(props) => props.theme.colors.background};
-  }
 
   ${({ isEmpty }) =>
     isEmpty &&
@@ -150,12 +155,17 @@ const PortWrap = styled.div`
     overflow: hidden;
   `}
 
+  @media (max-width: 1280px) {
+    gap: 16px;
+  }
+
   @media (max-width: 768px) {
-    padding-top: 20px;
-    gap: 10px;
-    scroll-snap-type: x mandatory;
-    overflow-x: auto;
-    overflow-y: hidden;
+    gap: 0px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 `;
 
@@ -163,19 +173,27 @@ const PortItem = styled.article`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 400px;
-  height: 70vh;
+  width: 480px;
+  height: 65vh;
   padding: 2.5rem;
-  scroll-snap-align: start;
 
-  @media (max-width: 860px) {
+  @media (max-width: 1280px) {
+    width: 600px;
+  }
+
+  @media (max-width: 1024px) {
     width: 400px;
     height: 60vh;
   }
 
   @media (max-width: 768px) {
-    width: 280px;
-    height: 50vh;
+    width: 100%;
+    height: 67vh;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    height: 65vh;
   }
 `;
 
@@ -187,12 +205,10 @@ const NoResultsMessage = styled.div`
   text-align: center;
   font-size: 18px;
   min-height: 150px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  height: auto;
+
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
 `;
 
 const PortfolioSection = ({ projects, onOpenModal = () => {} }) => {
@@ -240,31 +256,6 @@ const PortfolioSection = ({ projects, onOpenModal = () => {} }) => {
       return matchesFilter && matchesSearchQuery;
     });
   }, [projects, filter, searchQuery]);
-
-  useEffect(() => {
-    if (!isMobile && portWrapRef.current && projects.length > 0) {
-      const horSection = portWrapRef.current;
-      const sectionWidth = horSection.scrollWidth - window.innerWidth;
-
-      const animation = gsap.to(horSection, {
-        x: -sectionWidth,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: () => `+=${sectionWidth}`,
-          scrub: 0.5,
-          pin: true,
-          anticipatePin: 1,
-        },
-      });
-
-      return () => {
-        animation.scrollTrigger?.kill();
-        animation.kill();
-      };
-    }
-  }, [projects, isMobile]);
 
   const handleButtonClick = (project) => {
     if (isMobile) {

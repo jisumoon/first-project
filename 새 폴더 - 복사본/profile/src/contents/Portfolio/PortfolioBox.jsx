@@ -7,7 +7,12 @@ const Card = styled.div`
   width: 400px;
   height: 420px;
   @media (max-width: 768px) {
-    width: 200px;
+    width: 400px;
+    height: 380px;
+  }
+
+  @media (max-width: 480px) {
+    width: 300px;
     height: 380px;
   }
   .card-inner {
@@ -17,8 +22,13 @@ const Card = styled.div`
     overflow: hidden;
 
     @media (max-width: 768px) {
-      width: 200px;
-      height: 200px;
+      width: 400px;
+      height: 250px;
+    }
+
+    @media (max-width: 480px) {
+      width: 290px;
+      height: 250px;
     }
 
     .box {
@@ -26,16 +36,28 @@ const Card = styled.div`
       height: 100%;
       overflow: hidden;
 
+      @media (max-width: 480px) {
+        width: 100%;
+      }
+
       .imgBox {
         position: absolute;
         width: 100%;
         height: 100%;
+
+        @media (max-width: 480px) {
+          width: 100%;
+        }
 
         img {
           width: 100%;
           height: 100%;
           object-fit: cover;
           object-position: top;
+
+          @media (max-width: 480px) {
+            width: 100%;
+          }
         }
       }
 

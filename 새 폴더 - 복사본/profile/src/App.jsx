@@ -3,19 +3,17 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { theme, GlobalStyles } from "./styles/Theme";
 import Modal from "./contents/Portfolio/Modal";
-import { Provider } from "react-redux";
-import store from "./store";
 import Home from "./pages/Home";
 import AboutMe from "./pages/AboutMe";
 import Portfolio from "./pages/Portfolio";
 import Contact from "./pages/Contact";
 import Loading from "./components/Loading";
+import { ModalProvider } from "./Context/ModalContext";
 
-// QueryClient 설정
+// React Query 설정
 import { QueryClient, QueryClientProvider } from "react-query";
 const queryClient = new QueryClient();
 
-// 라우터 설정`
 const router = createBrowserRouter([
   {
     path: "/",
@@ -43,15 +41,14 @@ const App = () => {
   }, []);
 
   return (
-    <Provider store={store}>
+    <ModalProvider>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
           <GlobalStyles />
-
           {loading ? <Loading /> : <RouterProvider router={router} />}
         </ThemeProvider>
       </QueryClientProvider>
-    </Provider>
+    </ModalProvider>
   );
 };
 

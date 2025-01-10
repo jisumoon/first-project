@@ -345,6 +345,21 @@ const Modal = ({ slides = [], closeModal, currentIndex, modalData }) => {
     };
   }, []);
 
+  // 이미지 미리 로드
+  useEffect(() => {
+    const preloadImages = modalData.img.map((src) => {
+      const img = new Image();
+      img.src = src;
+      return img;
+    });
+
+    return () => {
+      preloadImages.forEach((img) => {
+        img.onload = null;
+      });
+    };
+  }, [modalData.img]);
+
   return (
     <ModalOverlay
       onClick={closeModal}
@@ -419,6 +434,7 @@ const Modal = ({ slides = [], closeModal, currentIndex, modalData }) => {
                     style={{ cursor: "pointer" }}
                     onClick={handlePrevious}
                   />
+
                   <FontAwesomeIcon
                     icon={faAngleRight}
                     style={{ cursor: "pointer" }}

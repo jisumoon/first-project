@@ -49,10 +49,10 @@ const AboutMe = () => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 1,
+        duration: 0.5,
         ease: "easeOut",
-        staggerChildren: 0.4,
-        delayChildren: 0.3,
+        staggerChildren: 0.3,
+        delayChildren: 0.2,
       },
     },
   };
@@ -80,7 +80,7 @@ const AboutMe = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         variants={fadeInUpVariants}
-        transition={{ duration: 1, delay: 0.2 }}
+        transition={{ duration: 1, delay: 0.1 }}
       >
         <SkilltypeSection />
       </SectionWrapper>
@@ -89,7 +89,7 @@ const AboutMe = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.4 }}
         variants={fadeInUpVariants}
-        transition={{ duration: 1, delay: 0.4 }}
+        transition={{ duration: 1, delay: 0.2 }}
       >
         <CareerSecton />
       </SectionWrapper>

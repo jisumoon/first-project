@@ -24,7 +24,6 @@ const Contain = styled.div`
   padding: 0 20px;
 
   @media (max-width: 1280px) {
-    padding: 40px 20px;
   }
   @media (max-width: 1000px) {
     padding: 0;
@@ -119,20 +118,10 @@ const Img = styled(motion.div)`
 const BottomSection = styled.div`
   display: flex;
   justify-content: space-between;
-
   padding-right: 20px;
   color: ${(props) => props.theme.colors.mainbackgtound};
 
-  @media (max-width: 1290px) {
-    margin-top: 540px;
-  }
-
-  @media (max-width: 1000px) {
-    margin-top: 510px;
-  }
-
   @media (max-width: 768px) {
-    margin-top: 0px;
     flex-direction: column;
     align-items: center;
     text-align: center;
