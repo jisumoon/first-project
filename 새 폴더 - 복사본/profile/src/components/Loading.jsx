@@ -58,7 +58,6 @@ const Loading = () => {
   useEffect(() => {
     const isMobile = window.innerWidth <= 768;
 
-    // GSAP 애니메이션 실행
     const introAnimation = () => {
       const tl = gsap.timeline({
         defaults: { ease: "expo.inOut", duration: 1 },
@@ -86,7 +85,7 @@ const Loading = () => {
       return tl;
     };
 
-    // 마스터 타임라인 실행
+    // 타임라인 실행
     const master = gsap.timeline({
       paused: false, // 자동 실행
       delay: 0.2, //0.2초대기

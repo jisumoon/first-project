@@ -1,36 +1,5 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-
-# node_modules 디렉토리 제외
 node_modules/
-
-# public 디렉토리 내 특정 파일 및 디렉토리 제외
 public/data/
 public/img/
 public/skill/
-
-# 이미 Git에 추가된 파일을 무시하도록 강제하려면 아래 주석을 참고
-

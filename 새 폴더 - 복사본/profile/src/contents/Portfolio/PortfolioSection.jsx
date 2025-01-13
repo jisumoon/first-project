@@ -95,15 +95,14 @@ const Btn = styled.button`
 
 const SearchBarWrapper = styled.div`
   position: relative;
-  width: 300px;
+  min-width: 300px;
 
   @media (max-width: 1024px) {
-    width: 250px;
+    min-width: 250px;
   }
 
   @media (max-width: 768px) {
-    width: 100%;
-    max-width: 340px;
+    min-width: 330px;
   }
 `;
 
@@ -127,7 +126,7 @@ const SearchBar = styled.input`
 const SearchIcon = styled(FontAwesomeIcon)`
   position: absolute;
   top: 30%;
-  right: px;
+  right: 4%;
   color: ${(props) => props.theme.colors.secondary};
 
   @media (max-width: 768px) {
