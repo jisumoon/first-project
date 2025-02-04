@@ -350,10 +350,10 @@ const Home = () => {
         <Header />
         <TopSection>
           <MainTitle initial="hidden" animate="visible" variants={textVariants}>
-            <span>FRONTEND</span>
-            <span>DEVELOPER</span>
+            <span>WEB</span>
+            <span>PUBLISHER</span>
             <p>
-              Starting my journey as a frontend developer, I’m planting <br />
+              Starting my journey as a web publisher, I’m planting <br />
               lines of code like seeds in a forest, nurturing them to grow into
               impactful solutions.
             </p>
